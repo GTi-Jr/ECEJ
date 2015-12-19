@@ -1,39 +1,28 @@
 class Crew::AdminsController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_crew_admin!
 
   def dashboard
+    respond_to do |format|
+      format.html
+      format.json { render json: current_admin }
+    end
   end
 
   def index
     @admins = Crew::Admin.all
-  end
 
-  # O devise faz isso abaixo ########################################################
-
-  def new
-    @admin = Crew::Admin.new
-  end
-
-  def create
-    if @admin.save
-      redirect_to :dashboard
-    else
-      render :new
+    respond_to do |format|
+      format.html
+      format.json { render json: @admins }
     end
   end
 
-  def edit
-  end
+  def users
+    @users = User.all
 
-  def update
-    if current_admin.update
-      redirect_to root_path, notice: "Alterações realizadas com sucesso."
-    else
-      render :edit
+    respond_to do |format|
+      format.html
+      format.json { render json: @users }
     end
-  end
-
-  def destroy
-    @admin = Crew::Admin.where(email: params[:email])
   end
 end
