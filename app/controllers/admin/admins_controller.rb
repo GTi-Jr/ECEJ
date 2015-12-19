@@ -1,4 +1,4 @@
-class Admin::AdminController < ApplicationController
+class Admin::AdminsController < ApplicationController
   before_action :authenticate_admin!
 
   def dashboard
