@@ -6,6 +6,6 @@ class User < ActiveRecord::Base
 
   private
   def user_is_completed
-    
+    return true
   end
 end
