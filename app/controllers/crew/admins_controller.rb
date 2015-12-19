@@ -5,13 +5,13 @@ class Crew::AdminsController < ApplicationController
   end
 
   def index
-    @admins = Admin.all
+    @admins = Crew::Admin.all
   end
 
   # O devise faz isso abaixo ########################################################
 
   def new
-    @admin = Admin.new
+    @admin = Crew::Admin.new
   end
 
   def create
@@ -34,6 +34,6 @@ class Crew::AdminsController < ApplicationController
   end
 
   def destroy
-    @admin = Admin.where(email: params[:email])
+    @admin = Crew::Admin.where(email: params[:email])
   end
 end
