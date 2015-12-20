@@ -1,0 +1,15 @@
+<%= form_for @admin, url: {action: "create_admin"}, method: :post do |f| %>
+  <%= f.label :name, "Nome", class: "text-center" %><br />
+  <%= f.text_field :name, autofocus: true, class: "form-control" %>
+
+  <%= f.label :email, "Email", class: "text-center" %><br />
+  <%= f.email_field :email, class: "form-control" %>
+
+  <%= f.label :password, "Senha", class: "text-center" %><br />
+  <%= f.password_field :password, class: "form-control" %>
+
+  <%= f.label :password_confirmation, "Confirmação de senha", class: "text-center" %><br />
+  <%= f.password_field :password_confirmation, class: "form-control" %>
+
+  <%= f.submit "Criar", class: "btn btn-lg btn-success btn-block" %>
+<% end %>
