@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # root :to => "main#dashboard", :as => "authenticated_root"
   end
   unauthenticated do
-    root 'pages#index'
+    root 'home#index'
   end
 
   namespace :crew do
@@ -24,7 +24,9 @@ Rails.application.routes.draw do
     devise_for :admins, class_name: "Crew::Admin"
   end
 
-  devise_for :users, :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
+  #devise_for :users
+  devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}, path: "/", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

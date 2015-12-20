@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219213320) do
+ActiveRecord::Schema.define(version: 20151220200505) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "city"
+    t.string   "street"
+    t.string   "postal_code"
+    t.string   "complement"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -37,6 +49,16 @@ ActiveRecord::Schema.define(version: 20151219213320) do
   add_index "crew_admins", ["email"], name: "index_crew_admins_on_email", unique: true
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
 
+  create_table "special_needs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "special_needs", ["user_id"], name: "index_special_needs_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -50,6 +72,21 @@ ActiveRecord::Schema.define(version: 20151219213320) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "name"
+    t.string   "general_register"
+    t.string   "cpf"
+    t.date     "nasc_date"
+    t.string   "gender"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "telephone"
+    t.string   "federation"
+    t.string   "junior_enteprise"
+    t.string   "enterprise_office"
+    t.string   "university"
+    t.boolean  "special_needs"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
