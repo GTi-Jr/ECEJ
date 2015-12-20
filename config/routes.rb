@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
-  root 'crew/admins#dashboard'
-  
+
+  authenticated :admin do
+    root 'crew/admins#dashboard',  as: :admin_root
+    # Rails 4 users must specify the 'as' option to give it a unique name
+    # root :to => "main#dashboard", :as => "authenticated_root"
+  end
+  authenticated :user do
+    root 'user_dashboard#index',  as: :user_root
+    # Rails 4 users must specify the 'as' option to give it a unique name
+    # root :to => "main#dashboard", :as => "authenticated_root"
+  end
+  unauthenticated do
+    root 'pages#index'
+  end
+
   namespace :crew do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
@@ -11,7 +24,7 @@ Rails.application.routes.draw do
     devise_for :admins, class_name: "Crew::Admin"
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
