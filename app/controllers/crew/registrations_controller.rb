@@ -3,30 +3,33 @@ class Crew::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_account_update_params, only: [:update]
   before_action :authenticate_crew_admin!
   
+
+  # Para cadastrar novos administradores, utilizar crew/admin#new_admin
+  
   # GET /resource/sign_up
   def new
-    super
+    redirect_to root_path
   end
 
   # POST /resource
   def create
-    super
+    redirect_to root_path
   end
 
   # GET /resource/edit
-  def edit
-    super
-  end
+  # def edit
+  #   super
+  # end
 
   # PUT /resource
-  def update
-    super
-  end
+  # def update
+  #   super
+  # end
 
   # DELETE /resource
-  def destroy
-    super
-  end
+  # def destroy
+  #   super
+  # end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
