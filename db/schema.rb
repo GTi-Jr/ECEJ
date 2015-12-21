@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221203046) do
+ActiveRecord::Schema.define(version: 20151221205404) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -49,16 +49,6 @@ ActiveRecord::Schema.define(version: 20151221203046) do
   add_index "crew_admins", ["email"], name: "index_crew_admins_on_email", unique: true
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
 
-  create_table "special_needs", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "special_needs", ["user_id"], name: "index_special_needs_on_user_id"
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -90,6 +80,7 @@ ActiveRecord::Schema.define(version: 20151221203046) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "completed"
+    t.text     "special_needs"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
