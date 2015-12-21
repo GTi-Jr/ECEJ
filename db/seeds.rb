@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+admin = Crew::Admin.new do |admin|
+  admin.name = "ECEJ"
+  admin.email = "ecej@ecej2016.com"
+  admin.confirmed_at = Time.now
+  admin.confirmation_sent_at = Time.now
+  admin.password = ENV["ADMIN_PW"]
+  admin.password_confirmation = ENV["ADMIN_PW"]
+end
+
+admin.save!
