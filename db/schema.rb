@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20151221205404) do
   add_index "crew_admins", ["email"], name: "index_crew_admins_on_email", unique: true
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
 
+  create_table "rooms", force: :cascade do |t|
+    t.string   "hotel"
+    t.integer  "number"
+    t.integer  "capacity"
+    t.text     "extra_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
