@@ -16,15 +16,16 @@ class User < ActiveRecord::Base
   end
 
   # checks if the user has confirmed within 15 days.
-  def has_passed_15_days_since_creation?(user)
-    (Time.now - user.created_at) > 15.days
+  def has_passed_15_days_since_creation?
+    (Time.now - self.created_at) > 15.days
   end
 
   # Scheduled task to inactivate users
   def self.delete_inactive_users!
     User.all.each do |user|
       unless user.is_completed? && user.has_paid?
-        user.update_attribute(:active, false) if has_passed_15_days_since_creation?(user)
+        user.update_attribute(:active, false) if user.has_passed_15_days_since_creation?
+        Rails.logger.info "--- RETIRADO POR INATIVIDADE: #{user.name}" unless user.active
       end
     end
   end
