@@ -1,0 +1,8 @@
+<h2>Endereço </h2>
+<%= form_for(@user.address, :url => wizard_path, :method => :put) do |f| %>
+  <%= f.text_field :postal_code, :placeholder => 'Código Postal' %>
+  <%= f.text_field :city, :placeholder => 'Cidade' %>
+  <%= f.text_field :street, :placeholder => 'Endereço' %>
+  <%= f.text_field :complement, :placeholder => 'Complementoe' %>
+  <%= f.submit 'Finish', :class => 'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,58 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: 'col s12') do |f| %>
+  <div class="row">
+        <div class="section">
+          <%= devise_error_messages! %>
+        </div>
+    <div class="row">
+      <%= resource.email %>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+          <%= f.file_field :avatar, id: 'avatar', class: 'input-field col s12' %>
+          <label for="name">Avatar</label>
+      </div>
+      <%= image_tag @user.avatar.url(:medium) %>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :name, id: 'name', class: 'input-field col s12' %>
+          <label for="name">Nome Completo</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :general_register, id: 'rg' ,class: 'input-field col s12' %>
+          <label for="rg">Documento de identidade</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :cpf, id: 'cpf' ,class: 'input-field col s12' %>
+        <label for="rg">Cadastro de Pessoa Física</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :nasc_date, id: 'nasc_date' ,class: 'input-field col s12'%>
+          <label for="nasc_date">Data de nascimento</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.password_field :current_password, id: 'current_password' ,class: 'input-field col s12'%>
+          <label for="current_password">Senha atual</label>
+      </div>
+    </div>
+      <div class="form-actions">
+        <%= f.button 'Confirmar', class: 'btn waves-effect waves-light' %>
+      </div>
+  </div>
+  <% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", root_path  %>
