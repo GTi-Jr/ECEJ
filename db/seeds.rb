@@ -11,8 +11,8 @@ admin = Crew::Admin.new do |admin|
   admin.email = "ecej@ecej2016.com"
   admin.confirmed_at = Time.now
   admin.confirmation_sent_at = Time.now
-  admin.password = "caiocaio"#ENV["ADMIN_PW"]
-  admin.password_confirmation = "caiocaio"#ENV["ADMIN_PW"]
+  admin.password = ENV["ADMIN_PW"]
+  admin.password_confirmation = ENV["ADMIN_PW"]
 end
 
 admin.save!
