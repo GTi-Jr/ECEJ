@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221232608) do
+ActiveRecord::Schema.define(version: 20151222041903) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20151221232608) do
     t.boolean  "completed"
     t.text     "special_needs"
     t.boolean  "active"
+    t.integer  "lot"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
