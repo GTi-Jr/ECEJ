@@ -1,9 +1,9 @@
 <h2>Dados pessoais </h2>
 <%= form_for(@user, :url => wizard_path, :method => :put) do |f| %>
   <%= f.file_field :avatar, id: 'avatar', class: 'input-field col s12' %>
-  <%= f.text_field :name, :placeholder => 'name' %>
-  <%= f.text_field :general_register, :placeholder => 'general_register' %>
-  <%= f.text_field :cpf, :placeholder => 'cpf' %>
-  <%= f.date_field :nasc_date, :placeholder => 'Data de Nascimento' %>
+  <%= f.text_field :name, :placeholder => 'Nome Completo' %>
+  <%= f.text_field :general_register, :placeholder => 'Doc. de Identidade' %>
+  <%= f.text_field :cpf, :placeholder => 'CPF' %>
+  <%= f.date_field :birthday, :placeholder => 'Data de Nascimento' %>
   <%= f.submit 'Next', :class => 'btn btn-primary' %>
 <% end %>
