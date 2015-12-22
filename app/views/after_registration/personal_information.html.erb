@@ -1,9 +1,19 @@
 <h2>Dados pessoais </h2>
-<%= form_for(@user, :url => wizard_path, :method => :put) do |f| %>
-  <%= f.file_field :avatar, id: 'avatar', class: 'input-field col s12' %>
-  <%= f.text_field :name, :placeholder => 'Nome Completo' %>
-  <%= f.text_field :general_register, :placeholder => 'Doc. de Identidade' %>
-  <%= f.text_field :cpf, :placeholder => 'CPF' %>
-  <%= f.date_field :birthday, :placeholder => 'Data de Nascimento' %>
+<%= simple_form_for(@user, :url => wizard_path, :method => :put) do |f| %>
+  <% if @user.errors.any? %>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= f.input :avatar, as: :file %>
+  <%= f.input :name,  as: :string, :placeholder => 'Nome Completo' %>
+  <%= f.input :general_register, :placeholder => 'Doc. de Identidade' %>
+  <%= f.input :cpf, :placeholder => 'CPF', input_html: {:"data-mask" => "999-999-9999"}%>
+  <%= f.input :phone, as: :tel, :placeholder => 'Telefone'%>
+  <%= f.input :birthday, as: :date, :placeholder => 'Data de Nascimento' %>
+  <%= f.input :gender, collection: [:male, :female] %>
+  <%= f.input :special_needs, as: :text, :placeholder => 'Data de Nascimento' %>
   <%= f.submit 'Next', :class => 'btn btn-primary' %>
 <% end %>
