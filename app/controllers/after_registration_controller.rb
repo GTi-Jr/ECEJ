@@ -43,7 +43,7 @@ class AfterRegistrationController < ApplicationController
   private
   def personal_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender, :avatar, :phone)
+    params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender, :avatar, :phone, :special_needs)
   end
   def mej_params
     # NOTE: Using `strong_parameters` gem

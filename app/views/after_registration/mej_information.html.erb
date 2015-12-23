@@ -1,8 +1,10 @@
 <h2>Dados da sua EJ </h2>
 <%= form_for(@user, :url => wizard_path, :method => :put) do |f| %>
   <%= f.text_field :federation, :placeholder => 'Federação' %>
-  <%= f.text_field :junior_enteprise, :placeholder => 'Empresa Jr' %>
-  <%= f.text_field :enterprise_office, :placeholder => 'Cargo' %>
+  <%= f.text_field :junior_enterprise, :placeholder => 'Empresa Jr' %>
+  <%= f.text_field :job, :placeholder => 'Cargo' %>
   <%= f.text_field :university, :placeholder => 'Universidade' %>
   <%= f.submit 'Next', :class => 'btn btn-primary' %>
 <% end %>
+
+<%= link_to 'Anterior', previous_wizard_path %>
