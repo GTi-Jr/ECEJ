@@ -17,52 +17,34 @@ class User < ActiveRecord::Base
     true
   end
 
-  # Lots distributions
-  #  ________________________________________________
-  # |   Lot -1    |  Lot 0  |  Lot 1 | Lot 2 | Lot 3 |
-  # |disqualified | Waiting |   50   |  150  |  100  |
-  # |_____________|_________|________|_______|_______|
-  def self.first_lot
-    User.where(lot: 1).order("created_at")
-  end
-  def self.second_lot
-    User.where(lot: 2).order("created_at")
-  end
-  def self.third_lot
-    User.where(lot: 3).order("created_at")
-  end
-  def self.waiting_list 
-    User.where(lot: 0).order("created_at")
-  end
+  # Lists
   def self.disqualified_list
-    User.where(lot: -1).order("created_at")
+    User.where(active: false)    
+  end
+  def self.waiting_list
+    User.where(lot_id: nil, active: nil)
   end
 
-  # Insert users into lots
+  # Insert users into groups
   def insert_into_disqualified_list!
-    self.update_attribute(:lot, -1)
+    self.update_attribute(:active, false)
   end
   def insert_into_waiting_list!
-    self.update_attribute(:lot, 0)
+    self.update_attribute(:lot_id, nil)
   end
-  def insert_into_first_lot!
-    self.update_attribute(:lot, 1)
-  end
-  def insert_into_second_lot!
-    self.update_attribute(:lot, 2)
-  end
-  def insert_into_third_lot!
-    self.update_attribute(:lot, 3)
+  def insert_into_active_lot!
+      self.update_attribute(:lot_id, Lot.active_lot)  
   end
 
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
-    current_lot = Lot.active_lot
-
-    User.delete_inactive_users!
-
     User.insert_inactive_users_into_disqualified_lot! 
+    if Lot.active_lot.users.count <= Lot.active_lot.limit
+      self.insert_into_active_lot!
+    else
+      self.insert_into_waiting_list
+    end
   end
 
   # checks if the user has confirmed within 15 days.
@@ -79,25 +61,6 @@ class User < ActiveRecord::Base
           Rails.logger.info "--- RETIRADO POR INATIVIDADE: #{user.name}"
         end
       end
-    end
-  end
-
-  # Before calling this method, you MUST call User.delete_inactive_users!
-  def self.insert_queued_users_into_first_lot!
-    User.waiting_list.each do |user|
-      user.insert_into_first_lot! unless User.first_lot.length > FIRST_LOT_SIZE
-    end
-  end
-  # Before calling this method, you MUST call User.delete_inactive_users!
-  def self.insert_queued_users_into_second_lot!
-    User.waiting_list.each do |user|
-      user.insert_into_first_lot! unless User.second_lot.length > SECOND_LOT_SIZE
-    end
-  end
-  # Before calling this method, you MUST call User.delete_inactive_users!
-  def self.insert_queued_users_into_third_lots!
-    User.waiting_list.each do |user|
-      user.insert_into_first_lot! unless User.first_lot.length > THIRD_LOT_SIZE
     end
   end
 
