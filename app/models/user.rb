@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
     
 
     User.delete_inactive_users!
-    if today < 
+
     User.insert_inactive_users_into_disqualified_lot! 
   end
 

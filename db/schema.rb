@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222041903) do
+ActiveRecord::Schema.define(version: 20151223010658) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -48,6 +48,18 @@ ActiveRecord::Schema.define(version: 20151222041903) do
   add_index "crew_admins", ["confirmation_token"], name: "index_crew_admins_on_confirmation_token", unique: true
   add_index "crew_admins", ["email"], name: "index_crew_admins_on_email", unique: true
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
+
+  create_table "lots", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "number"
+    t.integer  "limit"
+    t.float    "value_not_federated"
+    t.float    "value_federated"
+    t.datetime "start_date",          null: false
+    t.datetime "end_date",            null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.string   "hotel"
