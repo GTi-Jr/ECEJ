@@ -25,10 +25,14 @@ Rails.application.routes.draw do
   end
 
   #devise_for :users
-  devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}, path: "/", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' }
-
+  devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}, path: "/", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' }, :skip => 'registration'
+  devise_scope :user do
+    get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
+    get '/inscription/new' => 'users/registrations#new', :as => 'new_user_registration'
+    post '/inscription' => 'users/registrations#create', :as => 'user_registration'
+    delete '/inscription' => 'users/registrations#destroy'
+  end
   resources :after_registration
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

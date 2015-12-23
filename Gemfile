@@ -35,13 +35,22 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 # gem for user avatar
-gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip"
 
 gem 'aws-sdk-v1'
 
 gem 'brazilian-rails'
 
 gem 'wicked'
+
+gem 'simple_form'
+
+#gem for Windows development - comment in linux
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
+gem 'bcrypt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
