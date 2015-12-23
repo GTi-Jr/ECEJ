@@ -1,6 +1,8 @@
 class Lot < ActiveRecord::Base
   include ActiveModel::Validations
 
+  has_many :users
+
   validates :number, 
             uniqueness: true
   validates :limit, 
@@ -16,8 +18,22 @@ class Lot < ActiveRecord::Base
             presence: true
   validates :end_date, 
             presence: true
+  validate :start_date_must_be_smaller, :dates_cant_overlap,
+           :users_length_smaller_than_limit
 
-  validate :start_date_must_be_smaller, :dates_cant_overlap
+  
+
+  def self.active_lot
+    now = Time.now
+
+    Lot.all.each do |lot|
+      if now > lot.start_date && now < lot.end_date
+        return lot
+      end
+    end
+
+    nil
+  end
 
   # Validator methods
   def start_date_must_be_smaller
@@ -33,6 +49,10 @@ class Lot < ActiveRecord::Base
         errors.add(:end_date, "está entre as datas do lote nº #{lot.number}")
       end
     end
+  end
+
+  def users_length_smaller_than_limit
+    users.count
   end
 
 
