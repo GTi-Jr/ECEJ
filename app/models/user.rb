@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  belongs_to :lot
   has_one :address
   has_many :special_needs
 
@@ -57,8 +58,7 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
-    today = Date.today
-    
+    current_lot = Lot.active_lot
 
     User.delete_inactive_users!
 
