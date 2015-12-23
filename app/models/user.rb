@@ -18,11 +18,17 @@ class User < ActiveRecord::Base
   end
 
   # Lists
-  def self.disqualified_list
-    User.where(active: false)    
+  def self.disqualified
+    User.where(active: false).order(:created_at)
   end
   def self.waiting_list
-    User.where(lot_id: nil, active: nil)
+    User.where(lot_id: nil, active: nil).order(:created_at)
+  end
+  def self.eligible
+    User.where(completed: true).order(:created_at)
+  end
+  def self.allocated
+    User.all.select { |user| user.lot_id.is_a? Integer }.order(:created_at)
   end
 
   # Insert users into groups
@@ -33,17 +39,20 @@ class User < ActiveRecord::Base
     self.update_attribute(:lot_id, nil)
   end
   def insert_into_active_lot!
-      self.update_attribute(:lot_id, Lot.active_lot)  
+    self.update_attribute(:lot_id, Lot.active_lot.id) unless Lot.active_lot.nil?
   end
 
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
     User.insert_inactive_users_into_disqualified_lot! 
-    if Lot.active_lot.users.count <= Lot.active_lot.limit
-      self.insert_into_active_lot!
-    else
-      self.insert_into_waiting_list
+
+    User.eligible.each do |user|
+      if Lot.active_lot.users.count <= Lot.active_lot.limit
+        user.insert_into_active_lot!
+      else
+        user.insert_into_waiting_list
+      end
     end
   end
 
