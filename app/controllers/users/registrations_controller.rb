@@ -14,24 +14,15 @@ layout 'login', :only => [:new]
     super
   end
 
-  # #GET /user/edit
-  # def edit
-  #   super do |resource|
-  #   #Here you add what you'll do AFTER devise works
-  #   end
-  # end
-  #
-  # #PUT /user
-  # def update
-  #   @user = User.find(current_user.id)
-  #   if @user.update(user_params)
-  #     # Sign in the user by passing validation in case their password changed
-  #     sign_in @user, :bypass => true
-  #     redirect_to root_path
-  #   else
-  #     render "edit"
-  #   end
-  # end''
+  #GET /user/edit
+  def edit
+    super
+  end
+
+  #PUT /user
+  def update
+    super
+  end
 
   #DELETE /user
   def destroy
@@ -56,8 +47,9 @@ layout 'login', :only => [:new]
 
   #If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.for(user_params) << :attribute
+    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:avatar, :phone, :email,:password, :password_confirmation, :current_password) }
   end
+
 
   #The path used after sign up.
   def after_sign_up_path_for(user)
@@ -73,6 +65,6 @@ layout 'login', :only => [:new]
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:avatar, :phone, :email)
+    params.require(:user).permit(:avatar, :phone, :email,:password, :password_confirmation, :current_password)
   end
 end
