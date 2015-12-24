@@ -41,8 +41,8 @@ nav {
 //DOTHIS
 ul.side-nav {
 	&.leftside-navigation {
-		top: 64px;
-		overflow: hidden;
+		top: 0px;
+		overflow: scroll;
 		hr {
 			display: block;
 			height: 1px;
