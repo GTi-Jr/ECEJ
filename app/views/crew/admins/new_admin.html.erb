@@ -1,15 +1,50 @@
-<%= form_for @admin, url: {action: "create_admin"}, method: :post do |f| %>
-  <%= f.label :name, "Nome", class: "text-center" %><br />
-  <%= f.text_field :name, autofocus: true, class: "form-control" %>
+<div id="login-page" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @admin, url: {action: "create_admin", :class => 'login-form'}, method: :post do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de administrador</p>
+        </div>
+      </div>
+        
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-person-outline prefix"></i>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
+          <%= f.label :name, "Nome", class: "center-align" %>
+        </div>
+      </div>
 
-  <%= f.label :email, "Email", class: "text-center" %><br />
-  <%= f.email_field :email, class: "form-control" %>
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-person-outline prefix"></i>
+          <%= f.email_field :email, id: 'email' %>
+          <%= f.label :email, class: "center-align" %>
+        </div>
+      </div>
 
-  <%= f.label :password, "Senha", class: "text-center" %><br />
-  <%= f.password_field :password, class: "form-control" %>
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-lock-outline prefix"></i>
+          <%= f.password_field :password, id:'password', autocomplete: "off" %>
+          <label for="password">Senha</label>
+        </div>
+      </div>
 
-  <%= f.label :password_confirmation, "Confirmação de senha", class: "text-center" %><br />
-  <%= f.password_field :password_confirmation, class: "form-control" %>
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-lock-outline prefix"></i>
+          <%= f.password_field :password_confirmation, id:'password_confirmation', autocomplete: "off" %>
+          <label for="password_confirmation">Confirmação de senha</label>
+        </div>
+      </div>
 
-  <%= f.submit "Criar", class: "btn btn-lg btn-success btn-block" %>
-<% end %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light col s12' %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
