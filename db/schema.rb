@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223043219) do
+ActiveRecord::Schema.define(version: 20151224042040) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -61,15 +61,6 @@ ActiveRecord::Schema.define(version: 20151223043219) do
     t.datetime "updated_at",          null: false
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.string   "hotel"
-    t.integer  "number"
-    t.integer  "capacity"
-    t.text     "extra_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -88,10 +79,6 @@ ActiveRecord::Schema.define(version: 20151223043219) do
     t.string   "cpf"
     t.date     "birthday"
     t.string   "gender"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "phone"
     t.string   "federation"
     t.string   "junior_enterprise"
@@ -104,6 +91,7 @@ ActiveRecord::Schema.define(version: 20151223043219) do
     t.text     "special_needs"
     t.boolean  "active"
     t.integer  "lot_id"
+    t.string   "avatar"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

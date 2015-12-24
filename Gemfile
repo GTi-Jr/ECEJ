@@ -36,7 +36,9 @@ gem 'devise'
 
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 # gem for user avatar
-gem "paperclip"
+gem 'carrierwave'
+
+gem 'mini_magick', '3.8.0'
 
 gem 'aws-sdk-v1'
 

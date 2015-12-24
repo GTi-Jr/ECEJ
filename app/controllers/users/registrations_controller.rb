@@ -2,6 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
 
+layout 'login', :only => [:new]
+
   #GET /user/sign_up
   def new
     super
@@ -54,7 +56,7 @@ before_filter :configure_account_update_params, only: [:update]
 
   #If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update) << :attribute
+    devise_parameter_sanitizer.for(user_params) << :attribute
   end
 
   #The path used after sign up.
@@ -71,6 +73,6 @@ before_filter :configure_account_update_params, only: [:update]
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :cpf, :nasc_date, :gender, :avatar, :telephone, :federation, :junior_enterprise, :enterprise_office, :university, :special_needs)
+    params.require(:user).permit(:avatar, :phone, :email)
   end
 end

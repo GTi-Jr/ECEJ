@@ -1,6 +1,6 @@
 class RemovePaperclip < ActiveRecord::Migration
   def self.up
-    remove_attachment :avatar
+    remove_attachment :users, :avatar
   end
 
   def self.down

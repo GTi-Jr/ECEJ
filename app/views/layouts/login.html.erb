@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title><%= @title || "Login" %></title>
   <%= stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'login', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
