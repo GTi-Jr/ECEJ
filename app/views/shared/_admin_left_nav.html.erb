@@ -49,15 +49,19 @@
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-account-circle"></i> Usuários</a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to 'Cadastrar administrador', '#' %>
+              <li><%= link_to 'Novo admin', crew_new_admin_path %>
               </li>
-              <li><%= link_to 'Cadastrar', '#' %>
+              <li><%= link_to 'Novo usuário', crew_user_new_path %>
               </li>
-              <li><%= link_to 'Lista', '#' %>
+              <li><%= link_to 'Usuários', crew_users_index_path %>
               </li>
-              <li><%= link_to 'Qualificados', '#' %>
+              <li><%= link_to 'Admins', crew_index_path %>
               </li>
-              <li><%= link_to 'Desqualificados', '#' %>
+              <li><%= link_to 'Qualificados', crew_users_qualified_path %>
+              </li>
+              <li><%= link_to 'Fila de espera', crew_users_waiting_list_path %>
+              </li>
+              <li><%= link_to 'Desqualificados', crew_users_disqualified_path %>
               </li>
             </ul>
           </div>
