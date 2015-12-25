@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get '/users/disqualified' => 'users#disqualified', as: :users_disqualified
     get '/users/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
+    resources :lots
+
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin"
   end
