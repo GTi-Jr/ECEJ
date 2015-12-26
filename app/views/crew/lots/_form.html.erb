@@ -18,7 +18,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.number_field :number, id: 'number' %>
+          <%= f.number_field :number, id: 'number', autofocus: true %>
           <%= f.label :number, "Número", class: "center-align" %>
         </div>
       </div>
@@ -26,7 +26,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.number_field :limit, id: 'limit' %>
+          <%= f.number_field :limit, id: 'limit', autofocus: true %>
           <%= f.label :limit, "Limite", class: "center-align" %>
         </div>
       </div>
@@ -34,7 +34,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.number_field :value_federated, id: 'value_federated' %>
+          <%= f.number_field :value_federated, id: 'value_federated', autofocus: true %>
           <%= f.label :value_federated, "Valor para federados", class: "center-align" %>
         </div>
       </div>
@@ -42,7 +42,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.number_field :value_not_federated, id: 'value_not_federated' %>
+          <%= f.number_field :value_not_federated, id: 'value_not_federated', autofocus: true %>
           <%= f.label :value_not_federated, "Valor para não federados", class: "center-align" %>
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.label :start_date, "Data de início", class: "center-align" %><br />
+          <%= f.label :start_date, "Data de início", class: "center-align", autofocus: true %><br />
           <%= f.datetime_local_field :start_date, id: 'start_date' %>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="mdi-social-person-outline prefix"></i>
-          <%= f.label :end_date, "Data de término", class: "center-align" %><br />
+          <%= f.label :end_date, "Data de término", class: "center-align", autofocus: true %><br />
           <%= f.datetime_local_field :end_date, id: 'end_date' %>
         </div>
       </div>
