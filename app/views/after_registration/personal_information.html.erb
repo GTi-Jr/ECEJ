@@ -7,6 +7,9 @@
       <% end %>
     </ul>
   <% end %>
+  <%= image_tag(@user.avatar_url(:thumb), class:'circle responsive-img valign profile-image') if @user.avatar? %>
+  <%= f.file_field :avatar %>
+  <%= f.hidden_field :avatar_cache %>
   <%= f.text_field :name, :placeholder => 'Nome Completo' %>
   <%= f.number_field :general_register, :placeholder => 'Doc. de Identidade' %>
   <%= f.text_field :cpf, :placeholder => 'CPF', input_html: {:"data-mask" => "999-999-9999"}%>

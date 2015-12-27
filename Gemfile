@@ -33,11 +33,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 # gem for user avatar
-gem "paperclip"
+gem 'carrierwave'
 
-gem 'aws-sdk-v1'
+gem 'mini_magick', '3.8.0'
+
+gem "fog-aws"
 
 gem 'brazilian-rails'
 

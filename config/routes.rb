@@ -38,8 +38,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}, path: "/", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' }, :skip => 'registration'
   devise_scope :user do
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
+    
     get '/inscription/new' => 'users/registrations#new', :as => 'new_user_registration'
     post '/inscription' => 'users/registrations#create', :as => 'user_registration'
+    
+    get '/inscription/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
+    put '/inscription' => 'users/registrations#update'
+   
     delete '/inscription' => 'users/registrations#destroy'
   end
   resources :after_registration

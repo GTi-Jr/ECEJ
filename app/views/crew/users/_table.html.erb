@@ -1,0 +1,23 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Nome</th>
+      <th data-field="email">Email</th>
+      <th data-field="JE">EJ</th>
+      <th data-field="Edit">Editar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@users.nil? %>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.junior_enterprise %></td>
+          <td><%= link_to "Editar" %></td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

@@ -38,9 +38,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
-    aws-sdk-v1 (1.66.0)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
     bcrypt (3.1.10-x64-mingw32)
     bcrypt-ruby (3.0.1)
@@ -78,10 +75,11 @@ GEM
       activesupport (>= 3.0.0)
     builder (3.2.2)
     byebug (8.2.1)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -99,10 +97,30 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    excon (0.44.4)
     execjs (2.6.0)
+    fog-aws (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.29.0)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.0)
+      multi_json (~> 1.0)
+    fog-xml (0.1.1)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
+    formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    ipaddress (0.8.0)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -120,21 +138,19 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.99)
-    mimemagic (0.3.0)
+    mini_magick (3.8.0)
+      subexec (~> 0.2.1)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.1-x64-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
-    paperclip (4.3.2)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (= 0.3.0)
     pg (0.18.2)
     pg (0.18.2-x64-mingw32)
     rack (1.6.4)
@@ -197,6 +213,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.3.11)
     sqlite3 (1.3.11-x64-mingw32)
+    subexec (0.2.3)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -224,16 +241,17 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  aws-sdk-v1
   bcrypt
   bcrypt-ruby (~> 3.0.0)
   brazilian-rails
   byebug
+  carrierwave
   devise
+  fog-aws
   jbuilder (~> 2.0)
   jquery-rails
   letter_opener
-  paperclip
+  mini_magick (= 3.8.0)
   pg
   rails (= 4.2.4)
   rails_12factor
@@ -248,3 +266,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   wicked
+
+BUNDLED WITH
+   1.10.6

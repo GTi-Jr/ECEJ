@@ -35,7 +35,7 @@ class AfterRegistrationController < ApplicationController
   	@user = current_user
   end
   def verify_register_conclusion
-    if @user.is_completed
+    if @user.is_completed?
     	redirect_to root_path
     end
   end
@@ -47,7 +47,7 @@ class AfterRegistrationController < ApplicationController
   end
   def mej_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:federation, :junior_enteprise, :enterprise_office, :university)
+    params.require(:user).permit(:federation, :junior_enterprise, :job, :university)
   end
   def address_params
     # NOTE: Using `strong_parameters` gem

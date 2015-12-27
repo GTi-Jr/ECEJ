@@ -6,10 +6,7 @@ class User < ActiveRecord::Base
 
   belongs_to :lot
   has_one :address
-
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
+  mount_uploader :avatar, AvatarUploader
   # Returns false unless the user has updated all of his information
   def is_completed?
     return false unless self.completed
