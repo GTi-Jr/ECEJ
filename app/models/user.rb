@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     User.where(completed: true).order(:created_at)
   end
   def self.allocated
-    User.all.select { |user| user.lot_id.is_a? Integer }.order(:created_at)
+    User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
   end
 
   # Insert users into groups

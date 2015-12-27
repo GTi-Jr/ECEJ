@@ -1,0 +1,22 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Hotel</th>
+      <th data-field="number">Número</th>
+      <th data-field="limit">Capacidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@rooms.nil? %>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.hotel %></td>
+          <td><%= room.number %></td>
+          <td><%= room.capacity %></td>
+          <td><%= link_to "Editar", edit_crew_room_path(room) %></td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

@@ -41,7 +41,7 @@ nav {
 //DOTHIS
 ul.side-nav {
 	&.leftside-navigation {
-		top: 64px;
+		top: 0px;
 		overflow: hidden;
 		hr {
 			display: block;
@@ -128,8 +128,8 @@ ul.side-nav {
 }
 .sidebar-collapse {
 	position: absolute;
-	left: -170px;
-	top: -45px;
+	left: -177px;
+	top: 8px;
 }
 .user-task,
 .user-time {

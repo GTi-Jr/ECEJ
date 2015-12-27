@@ -15,11 +15,21 @@ Rails.application.routes.draw do
   end
 
   namespace :crew do
-    # Directs /admin/products/* to Admin::ProductsController
-    # (app/controllers/admin/products_controller.rb)
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
     get '/new_admin' => 'admins#new_admin'
+
+    get '/users/index' => 'users#index', as: :users_index
+    get '/users/show/:id' => 'users#show', as: :user_show
+    get '/users/new' => 'users#new', as: :user_new
+    get '/users/edit/:id' => 'users#edit', as: :user_edit
+    get '/users/qualified' => 'users#qualified', as: :users_qualified
+    get '/users/disqualified' => 'users#disqualified', as: :users_disqualified
+    get '/users/waiting_list' => 'users#waiting_list', as: :users_waiting_list
+
+    resources :lots
+    resources :rooms
+
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin"
   end

@@ -1,0 +1,74 @@
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @lot, url: {action: "create"}, html: { class: 'login-form' }, method: :post do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de lote</p>
+        </div>
+      </div>
+        
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-perm-identity prefix"></i>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
+          <%= f.label :name, "Nome", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-markunread-mailbox prefix"></i>
+          <%= f.number_field :number, id: 'number', autofocus: true %>
+          <%= f.label :number, "Número", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-domain prefix"></i>
+          <%= f.number_field :limit, id: 'limit', autofocus: true %>
+          <%= f.label :limit, "Limite", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-payment prefix"></i>
+          <%= f.number_field :value_federated, id: 'value_federated', autofocus: true %>
+          <%= f.label :value_federated, "Valor para federados", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-payment prefix"></i>
+          <%= f.number_field :value_not_federated, id: 'value_not_federated', autofocus: true %>
+          <%= f.label :value_not_federated, "Valor para não federados", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-person-outline prefix"></i>
+          <%= f.label :start_date, "Data de início", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :start_date, id: 'start_date' %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-person-outline prefix"></i>
+          <%= f.label :end_date, "Data de término", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :end_date, id: 'end_date' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light col s12' %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

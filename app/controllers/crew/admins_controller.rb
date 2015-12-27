@@ -1,4 +1,5 @@
 class Crew::AdminsController < ApplicationController
+  layout 'admin_layout'
   before_action :authenticate_crew_admin!
 
   def dashboard

@@ -1,0 +1,64 @@
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @room, url: {action: "create"}, method: :post do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de quarto</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s12 center">
+          <% if @room.errors.any? %>
+            <ul>
+              <% @room.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>            
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s3">
+          <p>
+            <%= f.label :hotel, "Hotel", class: "center-align" %>
+            <%= select_tag "room[hotel]", "<option>Jangadeiro</option><option>Donana</option>".html_safe %>
+          </p>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-perm-identity prefix"></i>
+          <%= f.number_field :number, id: 'number' %>
+          <%= f.label :number, "Número", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-perm-identity prefix"></i>
+          <%= f.number_field :capacity, id: 'capacity' %>
+          <%= f.label :capacity, "Capacidade", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-action-perm-identity prefix"></i>
+          <%= f.text_area :extra_info, id: 'extra_info' %>
+          <%= f.label :extra_info, "Informação adicional", class: "center-align" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light col s12' %>
+        </div>
+      </div>
+    <% end %>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+  </div>
+</div>

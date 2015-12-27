@@ -1,0 +1,2 @@
+module Crew::RoomsHelper
+end
