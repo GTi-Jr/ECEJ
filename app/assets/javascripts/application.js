@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize.js
 //= require plugins.js
-//= require custom-script.js
+//= require after_registration.js

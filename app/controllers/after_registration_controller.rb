@@ -23,7 +23,7 @@ class AfterRegistrationController < ApplicationController
     when :address_information
       @user.address.update_attributes(address_params)
       @user.update_attribute(:completed,'true')
-      sign_in(@user, bypass: true) # needed for devisesign_in(@user, bypass: true) # needed for devise
+      sign_in(@user, bypass: true) # needed for devise
       redirect_to root_path
     end
 
