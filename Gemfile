@@ -46,7 +46,7 @@ gem 'brazilian-rails'
 
 gem 'wicked'
 
-gem 'simple_form'
+gem "pagseguro-oficial", "~> 2.4.0"
 
 #gem for Windows development - comment in linux
 
