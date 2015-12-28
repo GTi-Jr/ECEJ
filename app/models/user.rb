@@ -57,6 +57,24 @@ class User < ActiveRecord::Base
     (Time.now - self.created_at) > 15.days
   end
 
+  # This checking is possible since paid_on's default value is nil.
+  def has_paid?
+    return self.paid_on ? true : false
+  end
+
+  # Checks if the user has paid within their respective lot deadline
+  def has_paid_in_time?
+    if self.has_paid?
+      if self.paid_on.to_date > self.lot.payment_deadline
+        return false
+      else
+        return true
+      end
+    else
+      return false
+    end
+  end
+
   # Method to inactivate users who hasn't qualified in 15 days.
   def self.insert_inactive_users_into_disqualified_lot!
     User.waiting_list.each do |user|
