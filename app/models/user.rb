@@ -41,8 +41,10 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
+    final_lot = Lot.find(3)
     # Take those user in the waiting list who hasn't completed
     User.insert_inactive_users_into_disqualified_lot! 
+    Lot.remove_overdue_users!
 
     User.eligible.each do |user|
       if Lot.active_lot.users.count <= Lot.active_lot.limit && user.has_paid_in_time?
