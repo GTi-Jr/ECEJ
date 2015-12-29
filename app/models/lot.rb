@@ -35,6 +35,16 @@ class Lot < ActiveRecord::Base
     nil
   end
 
+  def self.remove_overdue_users!
+    Lot.all.each do |lot|
+      lot.users.each do |user|
+        unless user.has_paid_in_time?
+          user.update_attributes(lot_id: nil, active: false) 
+        end
+      end
+    end
+  end
+
   # Validator methods
   def start_date_must_be_smaller
     errors.add(:start_date, "deve ser menor que a data de término") if start_date > end_date

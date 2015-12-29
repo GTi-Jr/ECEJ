@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
+    # Take those user in the waiting list who hasn't completed
     User.insert_inactive_users_into_disqualified_lot! 
 
     User.eligible.each do |user|
