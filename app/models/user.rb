@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
     User.insert_inactive_users_into_disqualified_lot! 
 
     User.eligible.each do |user|
-      if Lot.active_lot.users.count <= Lot.active_lot.limit
+      if Lot.active_lot.users.count <= Lot.active_lot.limit && user.has_paid_in_time?
         user.insert_into_active_lot!
       else
         user.insert_into_waiting_list
