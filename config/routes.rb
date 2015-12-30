@@ -50,6 +50,6 @@ Rails.application.routes.draw do
   resources :after_registration
 
   # :id = lot.id
-  # :auth = user.confirmation_token.first(9)
+  # :auth = user.confirmation_token.first(8)
   patch '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 end

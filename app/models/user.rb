@@ -81,18 +81,20 @@ class User < ActiveRecord::Base
   end
 
   # Method called in the scheduler.rb to send emails
+  # it only send the to the first lot.limit people in the eligible list
   def send_lot_2_antecipated_emails
     lot = Lot.find(2)
-    User.eligible.each do |user|
-      UsersLotMailer.send_antecipated_lot(user, lot).send_later
+    User.eligible.first(lot.limit).each do |user|
+      UsersLotMailer.send_antecipated_lot(user, lot).deliver_now
     end
   end
 
   # Method called in the scheduler.rb to send emails
+  # it only send the to the first lot.limit people in the eligible list
   def send_lot_3_antecipated_emails
     lot = Lot.find(3)
-    User.eligible.each do |user|
-      UsersLotMailer.send_antecipated_lot(user, lot).send_later
+    User.eligible.first(lot.limit).each do |user|
+      UsersLotMailer.send_antecipated_lot(user, lot).deliver_now
     end
   end
 

@@ -1,0 +1,4 @@
+<p>Olá, <%= @user.name %></p>
+<p>Devido a sua posição na fila de espera, você está recebendo este email com o link de cadastro antecipado <%= @lot.name %>!</p>
+<br />
+<p>Para entrar no <%= @lot.name %>, <a href="<%= "www.ecej2016.com/registration/#{@lot.id}/#{@user.confirmation_token.first(8)}" %>">CLIQUE AQUI</a></p>
