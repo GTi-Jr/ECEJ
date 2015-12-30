@@ -54,6 +54,9 @@ class User < ActiveRecord::Base
   def insert_into_waiting_list!
     self.update_attribute(:lot_id, nil)
   end
+  def insert_into_lot(lot)
+    self.update_attribute(:lot_id, lot.id)
+  end
   def insert_into_final_lot!
     self.update_attribute(:lot_id, 3) unless Lot.find(3).nil?
   end
@@ -72,7 +75,7 @@ class User < ActiveRecord::Base
 
     unless User.eligible.nil?
       User.eligible.each do |user|
-        if final_lot.users.count <= final_lot.limit && user.has_paid_in_time?
+        if final_lot.users.count < final_lot.limit && user.has_paid_in_time?
           user.insert_into_final_lot!
         end
       end
