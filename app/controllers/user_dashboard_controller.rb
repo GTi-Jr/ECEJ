@@ -5,16 +5,5 @@ class UserDashboardController < ApplicationController
 
   def index
   end
-
-  protected
-
-  #If you have extra params to permit, append them to the sanitizer.
-  def verify_register_conclusion
-    if !@user.is_completed?
-    	redirect_to after_registration_path(:personal_information)
-    end
-  end
-  def get_user
-  	@user = current_user
-  end
+  
 end
