@@ -75,4 +75,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def send_lot_2_antecipated_emails
+    User.eligible.each do |user|
+      
+    end
+  end
+
 end
