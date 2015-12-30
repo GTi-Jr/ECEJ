@@ -6,7 +6,7 @@ class LotsController < ApplicationController
     @lot = Lot.find(params[:id])
 
     if current_user.insert_into_lot(@lot)
-      redirect_to user_root_path, notice: "Cadastrado(a) no #{lot.name} com sucesso."
+      redirect_to user_root_path, notice: "Cadastrado(a) no #{@lot.name} com sucesso."
     else
       redirect_to user_root_path, alert: "Infelizmente, o lote já lotou."
     end
@@ -14,6 +14,6 @@ class LotsController < ApplicationController
 
   private 
     def check_eligibility
-      redirect_to user_root unless User.eligible.include?(current_user)
+      redirect_to user_root_path, alert: "Você não pode se registrar neste lote." unless User.eligible.include?(current_user)
     end
 end

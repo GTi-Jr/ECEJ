@@ -21,9 +21,7 @@ class User < ActiveRecord::Base
     User.where(lot_id: nil, active: nil).order(:created_at)
   end
   def self.eligible
-    User.where(active: true, completed: true, lot_id: nil).order(:created_at).select do |user|
-      !user.paid_on.nil?
-    end
+    User.where(active: true, completed: true, lot_id: nil).order(:created_at)
   end
   def self.allocated
     User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
