@@ -29,34 +29,6 @@ class User < ActiveRecord::Base
     User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
   end
 
-  # Insert users into groups
-  def insert_into_disqualified_list!
-    self.update_attribute(:active, false)
-  end
-  def insert_into_waiting_list!
-    self.update_attribute(:lot_id, nil)
-  end
-  def insert_into_final_lot!
-    self.update_attribute(:lot_id, 3) unless Lot.find(3).nil?
-  end
-
-  # METHODS USED IN THE SCHEDULED TASK
-  # Call this method in the scheduled task
-  def self.organize_lots!
-    final_lot = Lot.find(3) unless Lot.find(3).nil?
-    # Take those user in the waiting list who hasn't completed
-    User.insert_inactive_users_into_disqualified_lot! 
-    Lot.remove_overdue_users!
-
-    unless User.eligible.nil?
-      User.eligible.each do |user|
-        if final_lot.users.count <= final_lot.limit && user.has_paid_in_time?
-          user.insert_into_final_lot!
-        end
-      end
-    end
-  end
-
   # This checking is possible since paid_on's default value is nil.
   def has_paid?
     return self.paid_on ? true : false
@@ -75,9 +47,51 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Insert users into groups
+  def insert_into_disqualified_list!
+    self.update_attribute(:active, false)
+  end
+  def insert_into_waiting_list!
+    self.update_attribute(:lot_id, nil)
+  end
+  def insert_into_final_lot!
+    self.update_attribute(:lot_id, 3) unless Lot.find(3).nil?
+  end
+
+  # METHODS USED IN THE SCHEDULED TASK
+  # Call this method in the scheduled task
+  def self.organize_lots!
+    Lot.remove_overdue_users!
+    User.insert_eligible_users_into_third_lot    
+  end
+
+  # Take those users who are eligible and, if the third lot has free slots,
+  # insert them into it
+  def self.insert_eligible_users_into_third_lot
+    final_lot = Lot.find(3) unless Lot.find(3).nil?
+
+    unless User.eligible.nil?
+      User.eligible.each do |user|
+        if final_lot.users.count <= final_lot.limit && user.has_paid_in_time?
+          user.insert_into_final_lot!
+        end
+      end
+    end
+  end
+
+  # Method called in the scheduler.rb to send emails
   def send_lot_2_antecipated_emails
+    lot = Lot.find(2)
     User.eligible.each do |user|
-      
+      UsersLotMailer.send_antecipated_lot(user, lot).send_later
+    end
+  end
+
+  # Method called in the scheduler.rb to send emails
+  def send_lot_3_antecipated_emails
+    lot = Lot.find(3)
+    User.eligible.each do |user|
+      UsersLotMailer.send_antecipated_lot(user, lot).send_later
     end
   end
 
