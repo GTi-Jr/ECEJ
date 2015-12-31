@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     User.where(active: false).order(:created_at)
   end
   def self.waiting_list
-    User.where(lot_id: nil, active: nil).order(:created_at)
+    User.where(lot_id: nil, active: true).order(:created_at)
   end
   def self.eligible
     User.where(active: true, completed: true, lot_id: nil).order(:created_at)
@@ -82,19 +82,21 @@ class User < ActiveRecord::Base
 
   # Method called in the scheduler.rb to send emails
   # it only send the to the first lot.limit people in the eligible list
-  def send_lot_2_antecipated_emails
+  def self.send_lot_2_antecipated_emails
     lot = Lot.find(2)
     User.eligible.first(lot.limit).each do |user|
       UsersLotMailer.send_antecipated_lot(user, lot).deliver_now
+      Rails.logger.info "---- An email was sent to #{user.name}"
     end
   end
 
   # Method called in the scheduler.rb to send emails
   # it only send the to the first lot.limit people in the eligible list
-  def send_lot_3_antecipated_emails
+  def self.send_lot_3_antecipated_emails
     lot = Lot.find(3)
     User.eligible.first(lot.limit).each do |user|
       UsersLotMailer.send_antecipated_lot(user, lot).deliver_now
+      Rails.logger.info "---- An email was sent to #{user.name}"
     end
   end
 
