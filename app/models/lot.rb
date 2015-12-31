@@ -35,6 +35,23 @@ class Lot < ActiveRecord::Base
     nil
   end
 
+  def is_active?
+    self == Lot.active_lot
+  end
+
+  def self.remove_overdue_users!
+    # This event is only gonna have 3 lots
+    final_lot = Lot.find(3)
+    Lot.all.each do |lot|
+      lot.users.each do |user|
+        if !user.has_paid_in_time? && DateTime.now > lot.payment_deadline
+          user.update_attributes(lot_id: nil, active: false) #Disqualifies the user
+          final_lot.increment!(:limit) # increments the :limit by 1
+        end
+      end
+    end
+  end
+
   # Validator methods
   def start_date_must_be_smaller
     errors.add(:start_date, "deve ser menor que a data de término") if start_date > end_date
