@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
       User.eligible.each do |user|
         if final_lot.users.count < final_lot.limit && user.has_paid_in_time?
           user.insert_into_final_lot!
+          UsersLotMailer.allocated_on_third_lot(user).deliver_now
         end
       end
     end

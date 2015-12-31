@@ -35,18 +35,14 @@ class Lot < ActiveRecord::Base
     nil
   end
 
-  def increase_capacity_by_one!
-    self.update_attribute(capacity, final_lot.capacity+1)
-  end
-
   def self.remove_overdue_users!
     # This event is only gonna have 3 lots
     final_lot = Lot.find(3)
     Lot.all.each do |lot|
       lot.users.each do |user|
         unless user.has_paid_in_time?
-          user.update_attributes(lot_id: nil, active: false)
-          final_lot.increase_capacity_by_one!
+          user.update_attributes(lot_id: nil, active: false) #Disqualifies the user
+          final_lot.increment!(:limit) # increments the :limit by 1
         end
       end
     end
