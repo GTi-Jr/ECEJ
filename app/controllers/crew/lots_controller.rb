@@ -40,6 +40,7 @@ class Crew::LotsController < ApplicationController
 
   def lot_params
     params.require(:lot).permit(:name, :number, :limit, :value_federated, 
-                                :value_not_federated, :start_date, :end_date)
+                                :value_not_federated, :start_date, :end_date,
+                                :payment_deadline)
   end
 end

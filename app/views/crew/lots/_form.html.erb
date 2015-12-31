@@ -6,6 +6,12 @@
           <p class="center login-form-text">Cadastro de lote</p>
         </div>
       </div>
+
+      <% if @lot.errors.any? %>
+        <% @lot.errors.full_messages.each do |msg| %>
+          <p class="center"><%= msg %></p>
+        <% end %>
+      <% end %>
         
       <div class="row margin">
         <div class="input-field col s12">
@@ -63,9 +69,17 @@
         </div>
       </div>
 
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="mdi-social-person-outline prefix"></i>
+          <%= f.label :payment_deadline, "Prazo de pagamento", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :payment_deadline, id: 'payment_deadline' %>
+        </div>
+      </div>
+
       <div class="row">
         <div class="input-field col s12">
-          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light col s12' %>
+          <%= f.submit "Salvar", class: 'btn waves-effect waves-light col s12' %>
         </div>
       </div>
 

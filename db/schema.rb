@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20151226165543) do
+ActiveRecord::Schema.define(version: 20151228174835) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -60,6 +59,16 @@ ActiveRecord::Schema.define(version: 20151226165543) do
     t.datetime "end_date",            null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.datetime "payment_deadline"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string   "hotel"
+    t.integer  "number"
+    t.integer  "capacity"
+    t.text     "extra_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,6 +89,10 @@ ActiveRecord::Schema.define(version: 20151226165543) do
     t.string   "cpf"
     t.date     "birthday"
     t.string   "gender"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string   "phone"
     t.string   "federation"
     t.string   "junior_enterprise"
@@ -90,9 +103,10 @@ ActiveRecord::Schema.define(version: 20151226165543) do
     t.datetime "confirmation_sent_at"
     t.boolean  "completed"
     t.text     "special_needs"
-    t.boolean  "active"
+    t.boolean  "active",                 default: true
     t.integer  "lot_id"
     t.string   "avatar"
+    t.datetime "paid_on"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
