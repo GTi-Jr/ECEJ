@@ -3,7 +3,7 @@ require 'rufus-scheduler'
 singleton = Rufus::Scheduler.singleton
 scheduler = Rufus::Scheduler.new
 
-singleton.every '4h' do
+singleton.every '10s' do
   Rails.logger.info "Running user verifications on #{Time.now}"
   User.organize_lots!
 end
