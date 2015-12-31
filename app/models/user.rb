@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     User.where(active: false).order(:created_at)
   end
   def self.waiting_list
-    User.where(lot_id: nil, active: nil).order(:created_at)
+    User.where(lot_id: nil, active: nil, completed: false).order(:created_at)
   end
   def self.eligible
     User.where(completed: true).order(:created_at)

@@ -1,3 +1,8 @@
-<%= current_crew_admin['email'] %>
-<%= link_to "Criar admin", crew_new_admin_path %>
-<%= link_to "sair", destroy_crew_admin_session_path, method: :delete %>
+<p>Usuários cadastrados: <%= @users.count %></p>
+<p>Usuários elegíveis para lotes: <%= @eligible_users.count %></p>
+<p>Usuários não elegíveis: <%= @non_eligible_users.count %></p>
+<p>Usuários desqualificados: <%= @disqualified_users.count %></p>
+<p>Usuários alocados em lotes: <%= @allocated_users.count %></p>
+<p>Usuários no lote 1: <%= @first_lot.users.count %></p>
+<p>Usuários no lote 2: <%= @second_lot.users.count %></p>
+<p>Usuários no lote 3: <%= @third_lot.users.count %></p>

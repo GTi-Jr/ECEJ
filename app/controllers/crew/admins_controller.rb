@@ -3,10 +3,14 @@ class Crew::AdminsController < ApplicationController
   before_action :authenticate_crew_admin!
 
   def dashboard
-    respond_to do |format|
-      format.html
-      format.json { render json: current_admin }
-    end
+    @users = User.all
+    @eligible_users = User.eligible
+    @non_eligible_users = User.waiting_list
+    @disqualified_users = User.disqualified
+    @allocated_users = User.allocated
+    @first_lot = Lot.first
+    @second_lot = Lot.second
+    @third_lot = Lot.third
   end
 
   def index
