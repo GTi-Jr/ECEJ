@@ -20,7 +20,7 @@ class Crew::UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      redirect_to admin_root, notice: "Usuário criado com sucesso"
+      redirect_to admin_root_path, notice: "Usuário criado com sucesso."
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Crew::UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to admin_root
+      redirect_to admin_root_path, notice: "Usuário criado com sucesso."
     else
       render :new
     end
