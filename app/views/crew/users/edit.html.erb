@@ -1,2 +1,88 @@
-<h1>Crew::Users#edit</h1>
-<p>Find me in app/views/crew/users/edit.html.erb</p>
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @user, url: { action: "update" }, method: :patch do |f| %>
+      <div class="row">
+        <div class=" col s12 center">
+          <p class="center login-form-text">Edição de usuário</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class=" col s12 center">
+          <% if @user.errors.any? %>
+            <ul>
+              <% @user.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>            
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="row margin">
+        <!------------------NOME------------------- -->
+        <div class=" col s12 m6 l4">
+          <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name' %>
+        </div>
+        <!------------------EMAIL------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :email, "Email", class: "center-align" %>
+          <%= f.email_field :email, id: 'email' %>
+        </div>
+        <!------------------CPF------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :cpf, "CPF", class: "center-align" %>
+          <%= f.text_field :cpf, id: 'cpf' %>
+        </div>
+        <!------------------CPF------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :general_register, "Registro Geral", class: "center-align" %>
+          <%= f.text_field :general_register, id: 'general_register' %>
+        </div>
+        <!------------------DATA DE NASCIMENTO----- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :birthday, "Data de nascimento", class: "center-align" %>
+          <%= f.date_field :birthday, id: 'birthday' %>
+        </div>
+        <!------------------GENERO------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :birthday, "Gênero", class: "center-align" %>
+          <%= select_tag "user[gender]", "<option>Prefiro não declarar</option><option>Masculino</option><option>Feminino</option>".html_safe %>
+        </div>
+        <!------------------TELEFONE------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :phone, "Telefone", class: "center-align" %>
+          <%= f.text_field :phone, id: 'phone' %>
+        </div>
+        <!------------------FEDERAÇÃO------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :federation, "Federação", class: "center-align" %>
+          <%= f.text_field :federation, id: 'federation' %>
+        </div>
+        <!------------------EMPRESA------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :junior_enterprise, "Empresa Júnior", class: "center-align" %>
+          <%= f.text_field :junior_enterprise, id: 'junior_enterprise' %>
+        </div>
+        <!------------------CARGO------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :job, "Cargo", class: "center-align" %>
+          <%= f.text_field :job, id: 'job' %>
+        </div>
+        <!------------------UNIVERSIDADE------------------- -->
+        <div class="col s12 m6 l4">
+          <%= f.label :university, "Universidade", class: "center-align" %>
+          <%= f.text_field :university, id: 'university' %>
+        </div>
+
+        <div class="input-field col s4">
+          <%= f.submit "Editar", class: 'btn waves-effect waves-light col s12' %>
+        </div>
+      </div>
+    <% end %>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+  </div>
+</div>
+

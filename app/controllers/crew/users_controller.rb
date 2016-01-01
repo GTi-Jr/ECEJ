@@ -31,7 +31,7 @@ class Crew::UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to admin_root_path, notice: "Usuário criado com sucesso."
+      redirect_to admin_root_path, notice: "Usuário atualizado com sucesso."
     else
       render :new
     end
@@ -55,9 +55,9 @@ class Crew::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender,
+    params.require(:user).permit(:name, :email, :general_register, :cpf, :birthday, :gender,
                                  :avatar, :phone, :special_needs, :federation,
-                                 :junior_enteprise, :enterprise_office, :university,
+                                 :junior_enteprise, :job, :enterprise_office, :university,
                                  :city, :street, :postal_code, :complement)
   end
 end
