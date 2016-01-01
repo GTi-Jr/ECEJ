@@ -46,7 +46,7 @@ class Crew::UsersController < ApplicationController
   end
 
   def waiting_list
-    @users = User.waiting_list
+    @users = User.eligible
   end
 
   private

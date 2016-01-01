@@ -3,14 +3,15 @@ class Crew::AdminsController < ApplicationController
   before_action :authenticate_crew_admin!
 
   def dashboard
+    # users
     @users = User.all
-    @eligible_users = User.eligible
-    @non_eligible_users = User.waiting_list
-    @disqualified_users = User.disqualified
-    @allocated_users = User.allocated
-    @first_lot = Lot.first
-    @second_lot = Lot.second
-    @third_lot = Lot.third
+    @eligible_users = User.eligible.order(:created_at).take(10)
+    @non_eligible_users = User.waiting_list.take(10)
+    @disqualified_users = User.disqualified.take(10)
+    @allocated_users = User.allocated.take(10)
+    # lots
+    @lots = Lot.all
+    @active_lot = Lot.active_lot
   end
 
   def index

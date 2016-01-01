@@ -1,8 +1,86 @@
-<p>Usuários cadastrados: <%= @users.count %></p>
-<p>Usuários elegíveis para lotes: <%= @eligible_users.count %></p>
-<p>Usuários não elegíveis: <%= @non_eligible_users.count %></p>
-<p>Usuários desqualificados: <%= @disqualified_users.count %></p>
-<p>Usuários alocados em lotes: <%= @allocated_users.count %></p>
-<p>Usuários no lote 1: <%= @first_lot.users.count %></p>
-<p>Usuários no lote 2: <%= @second_lot.users.count %></p>
-<p>Usuários no lote 3: <%= @third_lot.users.count %></p>
+<div class="container">
+  <div class="row">            
+    <% if !@lots.nil? %>
+      <% @lots.each do |lot| %>
+        <section class="plans-container" id="plans">
+          <article class="col s12 m6 l4">
+            <div class="card z-depth-1">
+              <div class="card-image light-blue darken-1 waves-effect <%= "darken-4" if lot.is_active? %>">
+                <div class="card-title"><%= lot.name %></div>
+                <div class="price"><sup>Limite</sup><%= lot.users.count %><sub>/<%= lot.limit %><i class="mdi-social-people-outline"></i></sub></div>
+                <% if lot.is_active? %>
+                  <div class="price-desc">LOTE ATIVO</div>
+                <% end %>
+              </div>
+              <div class="card-content">
+                <ul class="collection">
+                  <li class="collection-item">Início <b><%= lot.start_date.to_date.strftime("%d/%m/%Y") %></b></li>
+                  <li class="collection-item">Fim <b><%= lot.end_date.to_date.strftime("%d/%m/%Y") %></b></li>
+                  <li class="collection-item">Para federados <%= number_to_currency(lot.value_federated, unit: "R$",precision: 2, separator: ",") %></li>
+                  <li class="collection-item">Para não federados <%= number_to_currency(lot.value_not_federated, unit: "R$",precision: 2, separator: ",") %></li>
+                  <li class="collection-item">Prazo de pagamento <b><%= lot.payment_deadline.to_date.strftime("%d/%m/%Y") %></b></li>
+                </ul>
+              </div>
+              <div class="card-action center-align">                   
+                <%= link_to edit_crew_lot_path(lot) do %>   
+                  <button class="waves-effect waves-light light-blue btn">Editar</button>
+                <% end %>
+              </div>
+            </div>
+          </article>
+        </section>
+      <% end %>
+    <% end %>
+    <div class="col s12">
+      <br><br>
+      <div class="divider"></div>
+    </div>  
+  </div>
+
+  
+
+<div id="striped-table">
+  <h4 class="header">Usuários elegíveis para os lotes</h4>
+  <div class="row">
+    <div class="col s12 m4 l3">
+      <p>Usuários que são elegíveis para serem alocados para os lotes. (Fila de espera)</p>
+      <p><%= link_to "Ver mais", crew_users_waiting_list_path, class: "waves-effect waves-light btn light-blue" %></p>
+    </div>
+    <div class="col s12 m8 l9">
+      <% if @eligible_users.any? %>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th data-field="id">Posição</th>
+              <th data-field="name">Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% position = 1 %>
+            <% @eligible_users.each do |user| %>
+              <tr>
+                <td><%= position %></td>
+                <td><%= user.name %></td>
+              </tr>
+              <% position = position + 1 %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col l6 m6 s12 left-align">
+    <%= link_to "Usuários cadastrados: #{@users.count}", crew_index_path, class: "waves-effect waves-light btn light-blue darken-1" %>
+  </div>
+  <div class="col l6 m6 s12 right-align">
+    <%= link_to "Usuários elegíveis para lotes: #{@eligible_users.count}", crew_users_waiting_list_path, class: "waves-effect waves-light btn light-blue darken-1" %>
+  </div>
+  <div class="col l6 m6 s12 left-align">
+    <%= link_to "Usuários desqualificados: #{@disqualified_users.count}", crew_users_disqualified_path, class: "waves-effect waves-light btn light-blue darken-1" %>
+  </div>
+  <div class="col l6 m6 s12 right-align">
+    <%= link_to "Usuários alocados: #{@allocated_users.count}", crew_users_qualified_path, class: "waves-effect waves-light btn light-blue darken-1" %>
+  </div>
+</div>
