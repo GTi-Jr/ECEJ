@@ -35,6 +35,10 @@ class Lot < ActiveRecord::Base
     nil
   end
 
+  def is_active?
+    self == Lot.active_lot
+  end
+
   def self.remove_overdue_users!
     # This event is only gonna have 3 lots
     final_lot = Lot.find(3)

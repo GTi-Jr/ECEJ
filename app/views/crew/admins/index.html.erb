@@ -1,0 +1,24 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Nome</th>
+      <th data-field="email">Email</th>
+      <th data-field="Edit">Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@admins.nil? %>
+      <% @admins.each do |admin| %>
+        <tr>
+          <td><%= admin.name %></td>
+          <td><%= admin.email %></td>
+          <td>
+            <%= link_to "Editar", crew_path(admin) %>
+            <%= link_to "Excluir", crew_path(admin), method: :delete %>
+          </td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

@@ -1,7 +1,7 @@
 class Crew::LotsController < ApplicationController
   layout 'admin_layout'
   before_action :authenticate_crew_admin!
-  before_action :load_lot, only: [:edit, :update]
+  before_action :load_lot, only: [:edit, :update, :destroy]
 
 
   def index
@@ -30,6 +30,14 @@ class Crew::LotsController < ApplicationController
       redirect_to edit_crew_lot_path(@lot), notice: "Lote editado com sucesso."
     else
       redirect_to edit_crew_lot_path(@lot), alert: "Não foi possível alterar lote."
+    end
+  end
+
+  def destroy
+    if @lot.destroy
+      redirect_to crew_lots_path, notice: "Lote apagado com sucesso."
+    else
+      redirect_to crew_lots_path, notice: "Erro ao apagar o lote #{@lot.number}"
     end
   end
 

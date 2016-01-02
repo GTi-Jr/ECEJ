@@ -6,42 +6,32 @@
           <p class="center login-form-text">Cadastro de administrador</p>
         </div>
       </div>
-        
+      <!----------------NOME----------- -->
       <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-person-outline prefix"></i>
-          <%= f.text_field :name, id: 'name', autofocus: true %>
+        <div class="col s12">
           <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-person-outline prefix"></i>
-          <%= f.email_field :email, id: 'email' %>
+      <!----------------EMAIL----------- -->
+        <div class="col s12">
           <%= f.label :email, class: "center-align" %>
+          <%= f.email_field :email, id: 'email' %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-lock-outline prefix"></i>
+      <!----------------SENHA----------- -->
+        <div class="col s12">
+          <%= f.label :password, "Senha", class: "center-align" %>
           <%= f.password_field :password, id:'password', autocomplete: "off" %>
-          <label for="password">Senha</label>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-lock-outline prefix"></i>
+      <!----------------CONFIRMAÇÃO----------- -->
+        <div class="col s12">
+          <%= f.label :password, "Senha", class: "center-align" %>
           <%= f.password_field :password_confirmation, id:'password_confirmation', autocomplete: "off" %>
-          <label for="password_confirmation">Confirmação de senha</label>
         </div>
       </div>
 
       <div class="row">
-        <div class="input-field col s12">
-          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light col s12' %>
+        <div class="input-field center-align col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 s12 m6 l4 ' %>
         </div>
       </div>
 

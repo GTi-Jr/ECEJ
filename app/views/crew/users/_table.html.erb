@@ -11,11 +11,11 @@
   <tbody>
     <% if !@users.nil? %>
       <% @users.each do |user| %>
-        <tr>
+        <tr class="<%= "left-red-border" if !user.active %>">
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td><%= user.junior_enterprise %></td>
-          <td><%= link_to "Editar" %></td>
+          <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
         </tr>
       <% end %> 
     <% end %>

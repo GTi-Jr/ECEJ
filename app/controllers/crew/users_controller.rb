@@ -1,15 +1,12 @@
 class Crew::UsersController < ApplicationController
   # Only admins can use this controller
   before_action :authenticate_crew_admin!
-  before_action :load_user, only: [:show, :edit, :update]
+  before_action :load_user, only: [:edit, :update, :disqualify, :requalify]
 
   layout 'admin_layout'
 
   def index
     @users = User.all
-  end
-
-  def show
   end
 
   def new
@@ -20,7 +17,7 @@ class Crew::UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      redirect_to admin_root, notice: "Usuário criado com sucesso"
+      redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else
       render :new
     end
@@ -31,9 +28,25 @@ class Crew::UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to admin_root
+      redirect_to edit_crew_user_path(@user), notice: "Usuário atualizado com sucesso."
     else
       render :new
+    end
+  end
+
+  def disqualify
+    if @user.update_attribute(:active, false)
+      redirect_to edit_crew_user_path(@user), notice: "#{@user.name} foi desqualificado"
+    else
+      redirect_to edit_crew_user_path(@user), alert: "Não foi possível desqualificar #{@user.name}."
+    end
+  end
+
+  def requalify
+    if @user.update_attribute(:active, true)
+      redirect_to edit_crew_user_path(@user), notice: "#{@user.name} foi requalificado"
+    else
+      redirect_to edit_crew_user_path(@user), alert: "Não foi possível requalificar #{@user.name}."
     end
   end
 
@@ -46,7 +59,7 @@ class Crew::UsersController < ApplicationController
   end
 
   def waiting_list
-    @users = User.waiting_list
+    @users = User.eligible
   end
 
   private
@@ -55,9 +68,9 @@ class Crew::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender,
+    params.require(:user).permit(:name, :email, :general_register, :cpf, :birthday, :gender,
                                  :avatar, :phone, :special_needs, :federation,
-                                 :junior_enteprise, :enterprise_office, :university,
+                                 :junior_enteprise, :job, :enterprise_office, :university,
                                  :city, :street, :postal_code, :complement)
   end
 end

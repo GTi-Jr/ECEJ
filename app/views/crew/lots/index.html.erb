@@ -6,6 +6,7 @@
       <th data-field="limit">Limite</th>
       <th data-field="begin">Início</th>
       <th data-field="end">Término</th>
+      <th data-field="actions">Ações</th>
     </tr>
   </thead>
 
@@ -19,6 +20,7 @@
           <td><%= lot.start_date %></td>
           <td><%= lot.end_date %></td>
           <td><%= link_to "Editar", edit_crew_lot_path(lot) %></td>
+          <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete %></td>
         </tr>
       <% end %> 
     <% end %>

@@ -18,14 +18,17 @@ Rails.application.routes.draw do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
     get '/new_admin' => 'admins#new_admin'
+    get '/admin/:id/edit' => 'admins#edit'
+    patch '/admin/:id' => 'admins#update'
+    delete '/admins/:id' => 'admins#destroy'
 
-    get '/users/index' => 'users#index', as: :users_index
-    get '/users/show/:id' => 'users#show', as: :user_show
-    get '/users/new' => 'users#new', as: :user_new
-    get '/users/edit/:id' => 'users#edit', as: :user_edit
-    get '/users/qualified' => 'users#qualified', as: :users_qualified
-    get '/users/disqualified' => 'users#disqualified', as: :users_disqualified
-    get '/users/waiting_list' => 'users#waiting_list', as: :users_waiting_list
+    resources :users
+    
+    patch '/users/disqualify/:id' => 'users#disqualify', as: :user_disqualify
+    patch '/users/requalify/:id' => 'users#requalify', as: :user_requalify
+    get '/qualified_users' => 'users#qualified', as: :users_qualified
+    get '/disqualified_users' => 'users#disqualified', as: :users_disqualified
+    get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
     resources :lots
     resources :rooms
