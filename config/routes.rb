@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
     get '/new_admin' => 'admins#new_admin'
+    get '/admin/:id/edit' => 'admins#edit'
+    patch '/admin/:id' => 'admins#update'
+    delete '/admins/:id' => 'admins#destroy'
 
     resources :users
     
