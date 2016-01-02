@@ -1,0 +1,56 @@
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @event, url: {action: "create"}, method: :post do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de evento</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s12 center">
+          <% if @event.errors.any? %>
+            <ul>
+              <% @event.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>            
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="col s12 m6 l4">
+          <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :facilitator, "Facilitador", class: "center-align" %>
+          <%= f.text_field :facilitator, id: 'facilitator' %>
+        </div>
+
+        <div class="col s12 m6 l4 ">
+          <%= f.label :limit, "Limite", class: "center-align" %>
+          <%= f.number_field :limit, id: 'limit' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :start, "Início", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :start, id: 'start' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :end, "Término", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :end, id: 'end' %>
+        </div>
+
+        <div class="input-field col s12 m6 l4">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
+        </div>
+      </div>
+    <% end %>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+  </div>
+</div>

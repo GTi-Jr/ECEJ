@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
 
   def self.happening
     now = DateTime.now
-    Event.select { |event| now > self.start && now < self.end } 
+    Event.select { |event| now < event.end && now > event.start } 
   end
 
 end
