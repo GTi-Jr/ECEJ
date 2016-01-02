@@ -1,0 +1,28 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Nome</th>
+      <th data-field="facilitator">Facilitador</th>
+      <th data-field="start">Início</th>
+      <th data-field="end">Fim</th>
+      <th data-field="actions">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@events.nil? %>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= event.name %></td>
+          <td><%= event.facilitator %></td>
+          <td><%= event.start %></td>
+          <td><%= event.end %></td>
+          <td>
+            <%= link_to "Editar", edit_crew_event_path(event) %>
+            <%= link_to "Excluir", crew_event_path(event), method: :delete, data: { confirm: "Deseja realmente excluir #{event.name}"} %>
+          </td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

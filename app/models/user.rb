@@ -4,8 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  belongs_to :lot
+  has_many :subscriptions
+  has_many :events, through: :subscriptions
+  
+  belongs_to :lot  
   has_one :address
+  
   mount_uploader :avatar, AvatarUploader
   # Returns false unless the user has updated all of his information
   def is_completed?

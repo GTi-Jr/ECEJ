@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subscribed_at: 2016-01-02 17:37:49
+  user_id: 1
+  event_id: 1
+
+two:
+  subscribed_at: 2016-01-02 17:37:49
+  user_id: 1
+  event_id: 1

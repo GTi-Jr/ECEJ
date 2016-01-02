@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
     resources :lots
     resources :rooms
+    resources :events
 
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin"
