@@ -1,15 +1,12 @@
 class Crew::UsersController < ApplicationController
   # Only admins can use this controller
   before_action :authenticate_crew_admin!
-  before_action :load_user, only: [:show, :edit, :update]
+  before_action :load_user, only: [:edit, :update, :disqualify, :requalify]
 
   layout 'admin_layout'
 
   def index
     @users = User.all
-  end
-
-  def show
   end
 
   def new
@@ -20,7 +17,7 @@ class Crew::UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      redirect_to admin_root_path, notice: "Usuário criado com sucesso."
+      redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else
       render :new
     end
@@ -31,9 +28,25 @@ class Crew::UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to admin_root_path, notice: "Usuário atualizado com sucesso."
+      redirect_to edit_crew_user_path(@user), notice: "Usuário atualizado com sucesso."
     else
       render :new
+    end
+  end
+
+  def disqualify
+    if @user.update_attribute(:active, false)
+      redirect_to edit_crew_user_path(@user), notice: "#{@user.name} foi desqualificado"
+    else
+      redirect_to edit_crew_user_path(@user), alert: "Não foi possível desqualificar #{@user.name}."
+    end
+  end
+
+  def requalify
+    if @user.update_attribute(:active, true)
+      redirect_to edit_crew_user_path(@user), notice: "#{@user.name} foi requalificado"
+    else
+      redirect_to edit_crew_user_path(@user), alert: "Não foi possível requalificar #{@user.name}."
     end
   end
 

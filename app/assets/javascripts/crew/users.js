@@ -2,7 +2,5 @@
 // All this logic will automatically be available in application.js.
 
 jQuery(function ($) {
-  $('#cpf').formatter({
-            'pattern': '{{999}}.{{990}}.{{999}}-{{99}}',
-  });
+  $("#phone").mask("(99) 99999-9999");
 });

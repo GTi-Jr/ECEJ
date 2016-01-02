@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require materialize.js
 //= require plugins.js
+//= require jquery.maskedinput.min
 //= require custom-script.js
+//= require crew/users.js
