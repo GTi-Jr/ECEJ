@@ -1,8 +1,8 @@
 <div id="" class="row">
   <div class="col s12 z-depth-4 card-panel">
-    <%= form_for @lot, url: {action: "create"}, html: { class: 'login-form' }, method: :post do |f| %>
+    <%= form_for @lot, url: {action: "create"}, method: :post do |f| %>
       <div class="row">
-        <div class="input-field col s12 center">
+        <div class="col s12 center">
           <p class="center login-form-text">Cadastro de lote</p>
         </div>
       </div>
@@ -14,72 +14,50 @@
       <% end %>
         
       <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-perm-identity prefix"></i>
-          <%= f.text_field :name, id: 'name', autofocus: true %>
+        <div class="col s12 m6 l4">
           <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
         </div>
-      </div>
 
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-markunread-mailbox prefix"></i>
-          <%= f.number_field :number, id: 'number', autofocus: true %>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :number, "Número", class: "center-align" %>
+          <%= f.number_field :number, id: 'number', autofocus: true %>
         </div>
-      </div>
 
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-domain prefix"></i>
-          <%= f.number_field :limit, id: 'limit', autofocus: true %>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :limit, "Limite", class: "center-align" %>
+          <%= f.number_field :limit, id: 'limit', autofocus: true %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-payment prefix"></i>
-          <%= f.number_field :value_federated, id: 'value_federated', autofocus: true %>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :value_federated, "Valor para federados", class: "center-align" %>
+          <%= f.number_field :value_federated, id: 'value_federated', autofocus: true %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-action-payment prefix"></i>
-          <%= f.number_field :value_not_federated, id: 'value_not_federated', autofocus: true %>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :value_not_federated, "Valor para não federados", class: "center-align" %>
+          <%= f.number_field :value_not_federated, id: 'value_not_federated', autofocus: true %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-person-outline prefix"></i>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :start_date, "Data de início", class: "center-align", autofocus: true %><br />
           <%= f.datetime_local_field :start_date, id: 'start_date' %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-person-outline prefix"></i>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :end_date, "Data de término", class: "center-align", autofocus: true %><br />
           <%= f.datetime_local_field :end_date, id: 'end_date' %>
         </div>
-      </div>
-
-      <div class="row margin">
-        <div class="input-field col s12">
-          <i class="mdi-social-person-outline prefix"></i>
+      
+        <div class="col s12 m6 l4">
           <%= f.label :payment_deadline, "Prazo de pagamento", class: "center-align", autofocus: true %><br />
           <%= f.datetime_local_field :payment_deadline, id: 'payment_deadline' %>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.submit "Salvar", class: 'btn waves-effect waves-light col s12' %>
+        <div class="input-field col s12 m6 l4">
+          <%= f.submit "Criar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
         </div>
       </div>
 
