@@ -11,7 +11,8 @@ class Event < ActiveRecord::Base
             presence: true
   validate :start_must_be_smaller_than_end
 
-  has_many :users
+  has_many :subscriptions
+  has_many :users, through: :subscriptions
 
   def start_must_be_smaller_than_end
     errors.add(:start, "deve ser menor que a data de término") if self.start > self.end
