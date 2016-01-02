@@ -54,7 +54,7 @@ class Crew::RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Quarto foi apagado com sucesso.' }
+      format.html { redirect_to crew_rooms_path, notice: 'Quarto foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
