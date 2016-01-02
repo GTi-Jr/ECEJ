@@ -24,11 +24,11 @@ Rails.application.routes.draw do
 
     resources :users
     
-    patch '/users/:id/disqualify' => 'users#disqualify', as: :user_disqualify
-    patch '/users/:id/requalify' => 'users#requalify', as: :user_requalify
-    get '/users/qualified' => 'users#qualified', as: :users_qualified
-    get '/users/disqualified' => 'users#disqualified', as: :users_disqualified
-    get '/users/waiting_list' => 'users#waiting_list', as: :users_waiting_list
+    patch '/users/disqualify/:id' => 'users#disqualify', as: :user_disqualify
+    patch '/users/requalify/:id' => 'users#requalify', as: :user_requalify
+    get '/qualified_users' => 'users#qualified', as: :users_qualified
+    get '/disqualified_users' => 'users#disqualified', as: :users_disqualified
+    get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
     resources :lots
     resources :rooms
