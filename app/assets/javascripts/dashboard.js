@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require materialize.js
 //= require plugins.js
-//= require after_registration.js
+//= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
 //= require plugins/prism/prism.js

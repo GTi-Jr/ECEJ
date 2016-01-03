@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Área do Usuário</title>
+  <%= stylesheet_link_tag    'dashboard', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dashboard', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- Start Page Loading -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+  <!-- End Page Loading -->
+
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+<%= render "layouts/shared/header" %>
+<%= render "layouts/shared/leftnav" %>
+
+<!-- START CONTENT -->
+<section id="content">
+  <!--start container-->
+  <div class="container">
+    <%= yield %>
+  </div>
+</section>
+
+<%= render "layouts/shared/rightnav" %>
+<%= render "layouts/shared/footer" %>
+
+
+</body>
+</html>

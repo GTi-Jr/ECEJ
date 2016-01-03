@@ -48,6 +48,7 @@ gem 'wicked'
 
 gem "pagseguro-oficial", "~> 2.4.0"
 
+
 #gem for Windows development - comment in linux
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

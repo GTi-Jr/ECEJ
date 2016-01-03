@@ -1,10 +1,39 @@
-<h2>Endereço </h2>
-<%= form_for(@user.address, :url => wizard_path, :method => :put) do |f| %>
-  <%= f.text_field :postal_code, :placeholder => 'Código Postal' %>
-  <%= f.text_field :city, :placeholder => 'Cidade' %>
-  <%= f.text_field :street, :placeholder => 'Endereço' %>
-  <%= f.text_field :complement, :placeholder => 'Complementoe' %>
-  <%= f.submit 'Finish', :class => 'btn btn-primary' %>
-<% end %>
-
-<%= link_to 'Anterior', previous_wizard_path %>
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+      <h4 class="header2">Endereço</h4>
+      <div class="row">
+        <%= form_for(@user.address, :url => wizard_path, :method => :put, :class => 'col s12') do |f| %>
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :postal_code, :id => 'postal_code' %>
+            <label for="postal_code">Código Postal</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :city, :id => 'city' %>
+            <label for="city">Cidade</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :street, :id => 'street' %>
+            <label for="street">Endereço</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+              <%= f.text_field :complement, :id => 'complement' %>
+            <label for="complement">Complemento</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.submit 'Próximo', :class => 'btn cyan waves-effect waves-light right'%>
+            <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

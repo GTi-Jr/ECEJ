@@ -4,7 +4,7 @@ class CheckoutController < ApplicationController
   before_action :verify_register_conclusion
   skip_before_filter :verify_authenticity_token, only: :confirm
 
-  layout "user_dashboard"
+  layout "dashboard"
 
   def confirm
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
