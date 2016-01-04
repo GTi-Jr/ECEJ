@@ -15,7 +15,7 @@
           <td><%= admin.email %></td>
           <td>
             <%= link_to "Editar", crew_path(admin) %>
-            <%= link_to "Excluir", crew_path(admin), method: :delete %>
+            <%= link_to "Excluir", crew_path(admin), method: :delete, data: { confirm: "Deseja realmente apagar o administrador #{admin.name}" } %>
           </td>
         </tr>
       <% end %> 

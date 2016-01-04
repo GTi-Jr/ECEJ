@@ -17,7 +17,7 @@
           <td><%= room.capacity %></td>
           <td>
             <%= link_to "Editar", edit_crew_room_path(room) %>
-            <%= link_to "Excluir", crew_room_path(room), method: :delete %>
+            <%= link_to "Excluir", crew_room_path(room), method: :delete, data: { confirm: "Deseja realmente apagar o quarto #{room.number} do #{room.hotel}" } %>
           </td>
         </tr>
       <% end %> 
