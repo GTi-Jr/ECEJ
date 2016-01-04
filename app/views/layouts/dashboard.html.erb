@@ -17,19 +17,25 @@
 
   <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-<%= render "layouts/shared/header" %>
-<%= render "layouts/shared/leftnav" %>
+  <%= render "layouts/shared/header" %>
 
-<!-- START CONTENT -->
-<section id="content">
-  <!--start container-->
-  <div class="container">
-    <%= yield %>
+  <!-- START MAIN -->
+  <div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+      <%= render "layouts/shared/leftnav" %>
+      <!-- START CONTENT -->
+      <section id="content">
+        <!--start container-->
+        <div class="container">
+          <%= yield %>
+        </div>
+      </section>
+      <%= render "layouts/shared/rightnav" %>
+    </div>
   </div>
-</section>
 
-<%= render "layouts/shared/rightnav" %>
-<%= render "layouts/shared/footer" %>
+  <%= render "layouts/shared/footer" %>
 
 
 </body>

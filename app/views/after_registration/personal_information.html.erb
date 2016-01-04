@@ -3,7 +3,7 @@
     <div class="card-panel">
       <h4 class="header2">Dados pessoais</h4>
       <div class="row">
-        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12') do |f| %>
+        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', :html=> {:id => 'formInfo'}) do |f| %>
         <div class="row">
           <div class="input-field col s12">
             <%= f.text_field :name, :id => 'name' %>
@@ -12,28 +12,28 @@
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :general_register, :id => 'rg' %>
+            <%= f.text_field :general_register, :id => 'rg', :required => true %>
             <label for="rg">Doc. de Identidade</label>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :cpf, :id => 'cpf'%>
+            <%= f.text_field :cpf, :id => 'cpf', :required => true%>
             <label for="cpf">CPF</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :phone, :id =>'phone'%>
+            <%= f.text_field :phone, :id =>'phone', :required => true%>
             <label for="phone">Telefone</label>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :birthday, :id =>'birthday'%>
+            <%= f.text_field :birthday, :id =>'birthday', :required => true%>
             <label for="birthday">Data de Nascimento</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <div class="select-wrapper initialized"><span class="caret">▼</span>
-              <%= f.select :gender, ['Masculino', 'Feminino']%>
+              <%= f.select :gender, ['Masculino', 'Feminino'], :required => true%>
             </div>
             <label>Gênero</label>
           </div>
@@ -61,3 +61,40 @@
     </div>
   </div>
 </div>
+<script>
+
+$("#formInfo").validate({
+  rules: {
+    name: {
+      required: true,
+    },
+    gender:"required"
+  },
+  //For custom messages
+  messages: {
+    name:{
+      required: "Preencha com seu nome completo"
+    }
+  },
+  errorElement : 'div',
+  errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
+});
+
+$('#rg').formatter({
+  'pattern': '{{9999999999}}-{{9}}',
+});
+$('#cpf').formatter({
+  'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
+});
+$('#phone').formatter({
+  'pattern': '({{99}}) {{9}} {{9999}} {{9999}}',
+  'persistent': true
+});
+</script>

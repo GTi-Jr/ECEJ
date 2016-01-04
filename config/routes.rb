@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   end
 
   #devise_for :users
-  devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}, path: "/", path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' }, :skip => 'registration'
+  devise_for :users,
+  controllers: {sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: 'users/confirmations'},
+  path: "/",
+  path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' },
+  :skip => 'registration'
+
   devise_scope :user do
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
 
