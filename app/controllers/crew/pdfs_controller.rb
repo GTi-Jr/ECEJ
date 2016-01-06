@@ -2,13 +2,11 @@ class Crew::PdfsController < ApplicationController
   before_action :authenticate_crew_admin!
 
   def users
-    @users = User.all.order(:name)
-    
-    html = render_to_string(layout: 'pdf')
-    
+    @users = User.all.order(:name)    
+    html = render_to_string(layout: 'pdf')    
     kit = PDFKit.new(html)
     pdf = kit.to_pdf
-
+    
     send_data pdf, filename: "congressistas_#{DateTime.now.strftime('%y:%m:%d:%H:%M')}.pdf",
                    type: "application/pdf"
   end
@@ -16,11 +14,14 @@ class Crew::PdfsController < ApplicationController
   def event_users
     @event = Event.find(params[:id])
 
-    html = render_to_string(layout: 'pdf')
-
-    kit = PDFKit.new(html)
-    pdf = kit.to_pdf
-
-    send_data pdf, filename: "congressistas em #{@event.name}.pdf"
+    respond_to do |format|
+      format.html
+      format.pdf do
+        html = render_to_string(layout: 'pdf')
+        kit = PDFKit.new(html)
+        pdf = kit.to_pdf
+        send_data pdf, filename: "congressistas em #{@event.name}.pdf"
+      end
+    end    
   end
 end

@@ -38,10 +38,10 @@ Rails.application.routes.draw do
     devise_for :admins, class_name: "Crew::Admin"
 
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
-    get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users
+    get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
-    get 'excel/users' => 'excel#users', as: :download_users
-    get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users
+    get 'excel/users' => 'excel#users', as: :download_users_excel
+    get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
   end
 
   #devise_for :users
