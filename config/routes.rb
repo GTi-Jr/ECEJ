@@ -1,19 +1,5 @@
 Rails.application.routes.draw do
 
-  authenticated :admin do
-    root 'crew/admins#dashboard',  as: :admin_root
-    # Rails 4 users must specify the 'as' option to give it a unique name
-    # root :to => "main#dashboard", :as => "authenticated_root"
-  end
-  authenticated :user do
-    root 'user_dashboard#index',  as: :user_root
-    # Rails 4 users must specify the 'as' option to give it a unique name
-    # root :to => "main#dashboard", :as => "authenticated_root"
-  end
-  unauthenticated do
-    root 'home#index'
-  end
-
   namespace :crew do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
@@ -22,6 +8,15 @@ Rails.application.routes.draw do
     get '/new_admin' => 'admins#new_admin'
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin"
+
+    devise_scope :admin do
+      authenticated :admin do
+        root 'crew/admins#dashboard',  as: :admin_root
+      end
+      unauthenticated do
+        root to: "devise/sessions#new"
+      end
+    end
   end
 
   #devise_for :users
@@ -32,6 +27,15 @@ Rails.application.routes.draw do
   :skip => 'registration'
 
   devise_scope :user do
+    authenticated :user do
+      root 'user_dashboard#index',  as: :user_root
+      # Rails 4 users must specify the 'as' option to give it a unique name
+      # root :to => "main#dashboard", :as => "authenticated_root"
+    end
+    unauthenticated do
+      root to: "users/sessions#new"
+    end
+
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
 
     get '/inscription/new' => 'users/registrations#new', :as => 'new_user_registration'

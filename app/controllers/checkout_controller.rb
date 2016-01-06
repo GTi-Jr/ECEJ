@@ -2,21 +2,8 @@ class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
   before_action :verify_register_conclusion
-  skip_before_filter :verify_authenticity_token, only: :confirm
 
   layout "dashboard"
-
-  def confirm
-    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
-
-    if transaction.errors.empty?
-      # Processa a notificação. A melhor maneira de se fazer isso é realizar
-      # o processamento em background. Uma boa alternativa para isso é a
-      # biblioteca Sidekiq.
-    end
-
-    render nothing: true, status: 200
-  end
 
   def new
     #order(@user)
@@ -35,8 +22,8 @@ class CheckoutController < ApplicationController
   def create
     payment = PagSeguro::PaymentRequest.new
 
-    payment.reference = 'lote[id]user[id]'
-    payment.notification_url = 'localhost:3000/payment'
+    payment.reference = "l1u#{@user.id}"
+    payment.notification_url = 'localhost:3000/confirm_payment'
     payment.redirect_url = 'localhost:3000/payment'
 
       payment.items << {
@@ -72,12 +59,12 @@ class CheckoutController < ApplicationController
       raise response.errors.join("\n")
     else
       redirect_to response.url
-      set_payed
+      Rails.logger.debug(response.code)
     end
   end
 
   private
   def set_payed
-
+    puts response.code
   end
 end

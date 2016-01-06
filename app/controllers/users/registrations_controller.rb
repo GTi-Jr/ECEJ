@@ -2,9 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
 
-layout 'login', :only => [:new]
-layout 'dashboard', :only => [:edit]
-
+  layout :determine_layout
   #GET /user/sign_up
   def new
     super
@@ -61,6 +59,7 @@ layout 'dashboard', :only => [:edit]
   def after_inactive_sign_up_path_for(user)
     super(user)
   end
+
 
   private
 

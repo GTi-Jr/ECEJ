@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
   def get_user
   	@user = current_user
   end
+
+  def determine_layout
+    current_user.nil? ? "login" : "dashboard"
+  end
+  
 end
