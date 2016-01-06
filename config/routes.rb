@@ -39,6 +39,9 @@ Rails.application.routes.draw do
 
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users
+
+    get 'excel/users' => 'excel#users', as: :download_users
+    get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users
   end
 
   #devise_for :users
