@@ -20,7 +20,7 @@
           <td><%= lot.start_date %></td>
           <td><%= lot.end_date %></td>
           <td><%= link_to "Editar", edit_crew_lot_path(lot) %></td>
-          <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete %></td>
+          <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete, data: { confirm: "Deseja realmente excluir o lote #{lot.number}" } %></td>
         </tr>
       <% end %> 
     <% end %>

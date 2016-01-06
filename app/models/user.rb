@@ -31,6 +31,15 @@ class User < ActiveRecord::Base
     User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
   end
 
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << ['Nome', "Telefone"]
+      all.each do |user|
+        csv << [user.name, user.phone]
+      end
+    end
+  end
+
   # This checking is possible since paid_on's default value is nil.
   def has_paid?
     return self.paid_on ? true : false
