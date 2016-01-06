@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+
   belongs_to :lot
   has_one :address
   mount_uploader :avatar, AvatarUploader
@@ -41,7 +45,7 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
-    User.insert_inactive_users_into_disqualified_lot! 
+    User.insert_inactive_users_into_disqualified_lot!
 
     User.eligible.each do |user|
       if Lot.active_lot.users.count <= Lot.active_lot.limit

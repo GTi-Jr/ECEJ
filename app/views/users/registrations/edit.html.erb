@@ -1,43 +1,62 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <div class="col s12 z-depth-4 card-panel">
+    <h4 class="header2">Dados pessoais</h4>
+    <div class="row">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :name, :id => 'name', :placeholder => 'Nome completo'%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= f.text_field :phone, :id =>'phone', :placeholder => 'Telefone'%>
+        </div>
+        <div class="file-field input-field col s6">
+          <input class="file-path validate" type="text">
+          <div class="btn">
+            <span>Foto</span>
+            <%= f.file_field :avatar, :placeholder => 'Foto de perfil'%>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
+          <label for="special_needs">Necessidades especiais</label>
+        </div>
+      </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.password_field :password, autocomplete: "off", :placeholder => 'Nova senha' %>
+        </div>
+      </div>
 
-  <%= image_tag(@user.avatar_url(:thumb), class:'circle responsive-img valign profile-image') if @user.avatar? %>
-  <div class="field">
-    <%= f.file_field :avatar %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => 'Repita sua nova senha' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.password_field :current_password, autocomplete: "off", required: true, :placeholder => 'Senha atual' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.submit 'Atualizar', :class => 'btn cyan waves-effect waves-light right'%>
+        </div>
+      </div>
+      <% end %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone, autofocus: true %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <script>
+  $('#phone').formatter({
+    'pattern': '({{99}}) {{9}} {{9999}} {{9999}}',
+    'persistent': true
+  });
+  </script>
