@@ -1,11 +1,25 @@
 Rails.application.routes.draw do
 
   namespace :crew do
-    # Directs /admin/products/* to Admin::ProductsController
-    # (app/controllers/admin/products_controller.rb)
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
     get '/new_admin' => 'admins#new_admin'
+    get '/admin/:id/edit' => 'admins#edit'
+    patch '/admin/:id' => 'admins#update'
+    delete '/admins/:id' => 'admins#destroy'
+
+    resources :users
+
+    patch '/users/disqualify/:id' => 'users#disqualify', as: :user_disqualify
+    patch '/users/requalify/:id' => 'users#requalify', as: :user_requalify
+    get '/qualified_users' => 'users#qualified', as: :users_qualified
+    get '/disqualified_users' => 'users#disqualified', as: :users_disqualified
+    get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
+
+    resources :lots
+    resources :rooms
+    resources :events
+
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin"
 
@@ -17,6 +31,12 @@ Rails.application.routes.draw do
         root to: "devise/sessions#new"
       end
     end
+
+    get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
+    get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
+
+    get 'excel/users' => 'excel#users', as: :download_users_excel
+    get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
   end
 
   #devise_for :users
@@ -97,11 +117,7 @@ Rails.application.routes.draw do
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  # :id = lot.id
+  # :auth = user.confirmation_token.first(8)
+  patch '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 end

@@ -1,0 +1,104 @@
+<!-- START LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav">
+  <ul id="slide-out" class="side-nav fixed leftside-navigation">
+    <li class="user-details cyan darken-2">
+    <div class="row">
+        <div class="col col s4 m4 l4">
+            <%= image_tag 'logo.png', class: 'circle responsive-img valign profile-image' %>
+        </div>
+        <div class="col col s8 m8 l8">
+            <ul id="profile-dropdown" class="dropdown-content">
+              <li>
+                <%= link_to '#' do %>
+                  <i class="mdi-communication-live-help"></i> Ajuda
+                <% end %>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to(destroy_user_session_path, :method => :delete) do %>
+                  <i class="mdi-hardware-keyboard-tab"></i>Sair
+                <% end %>
+              </li>
+            </ul>
+            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><%= current_crew_admin.name %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+            <p class="user-roal">Administrador</p>
+        </div>
+    </div>
+    </li>
+    <li class="bold">
+      <%= link_to crew_dashboard_path, class: 'waves-effect waves-cyan' do %>
+        <i class="mdi-action-dashboard"></i> Início
+      <% end %> 
+    </li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Eventos</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><%= link_to 'Criar evento', new_crew_event_path %>
+              </li>
+              <li><%= link_to 'Ver eventos', crew_events_path %>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-account-circle"></i> Usuários</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><%= link_to 'Novo admin', crew_new_admin_path %>
+              </li>
+              <li><%= link_to 'Novo usuário', new_crew_user_path %>
+              </li>
+              <li><%= link_to 'Usuários', crew_users_path %>
+              </li>
+              <li><%= link_to 'Admins', crew_index_path %>
+              </li>
+              <li><%= link_to 'Qualificados', crew_users_qualified_path %>
+              </li>
+              <li><%= link_to 'Fila de espera', crew_users_waiting_list_path %>
+              </li>
+              <li><%= link_to 'Desqualificados', crew_users_disqualified_path %>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-device-now-widgets"></i> Lotes</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><%= link_to 'Criar', new_crew_lot_path %>
+              </li>
+              <li><%= link_to 'Lista', crew_lots_path %>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-maps-hotel"></i> Quartos</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><%= link_to 'Cadastrar', new_crew_room_path %>
+              </li>
+              <li><%= link_to 'Lista', crew_rooms_path %>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>          
+  </ul>
+  <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+</aside>
+<!-- END LEFT SIDEBAR NAV-->
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->

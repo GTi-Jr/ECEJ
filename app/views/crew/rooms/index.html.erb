@@ -1,0 +1,26 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Hotel</th>
+      <th data-field="number">Número</th>
+      <th data-field="limit">Capacidade</th>
+      <th data-field="actions">Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@rooms.nil? %>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.hotel %></td>
+          <td><%= room.number %></td>
+          <td><%= room.capacity %></td>
+          <td>
+            <%= link_to "Editar", edit_crew_room_path(room) %>
+            <%= link_to "Excluir", crew_room_path(room), method: :delete, data: { confirm: "Deseja realmente apagar o quarto #{room.number} do #{room.hotel}" } %>
+          </td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

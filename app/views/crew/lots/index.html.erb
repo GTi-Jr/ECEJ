@@ -1,0 +1,28 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Nome</th>
+      <th data-field="number">Número</th>
+      <th data-field="limit">Limite</th>
+      <th data-field="begin">Início</th>
+      <th data-field="end">Término</th>
+      <th data-field="actions">Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@lots.nil? %>
+      <% @lots.each do |lot| %>
+        <tr>
+          <td><%= lot.name %></td>
+          <td><%= lot.number %></td>
+          <td><%= lot.limit %></td>
+          <td><%= lot.start_date %></td>
+          <td><%= lot.end_date %></td>
+          <td><%= link_to "Editar", edit_crew_lot_path(lot) %></td>
+          <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete, data: { confirm: "Deseja realmente excluir o lote #{lot.number}" } %></td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

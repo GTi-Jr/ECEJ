@@ -1,15 +1,40 @@
-<%= form_for @admin, url: {action: "create_admin"}, method: :post do |f| %>
-  <%= f.label :name, "Nome", class: "text-center" %><br />
-  <%= f.text_field :name, autofocus: true, class: "form-control" %>
+<div id="login-page" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @admin, url: {action: "create_admin", :class => 'login-form'}, method: :post do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de administrador</p>
+        </div>
+      </div>
+      <!----------------NOME----------- -->
+      <div class="row margin">
+        <div class="col s12">
+          <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
+        </div>
+      <!----------------EMAIL----------- -->
+        <div class="col s12">
+          <%= f.label :email, class: "center-align" %>
+          <%= f.email_field :email, id: 'email' %>
+        </div>
+      <!----------------SENHA----------- -->
+        <div class="col s12">
+          <%= f.label :password, "Senha", class: "center-align" %>
+          <%= f.password_field :password, id:'password', autocomplete: "off" %>
+        </div>
+      <!----------------CONFIRMAÇÃO----------- -->
+        <div class="col s12">
+          <%= f.label :password, "Senha", class: "center-align" %>
+          <%= f.password_field :password_confirmation, id:'password_confirmation', autocomplete: "off" %>
+        </div>
+      </div>
 
-  <%= f.label :email, "Email", class: "text-center" %><br />
-  <%= f.email_field :email, class: "form-control" %>
+      <div class="row">
+        <div class="input-field center-align col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 s12 m6 l4 ' %>
+        </div>
+      </div>
 
-  <%= f.label :password, "Senha", class: "text-center" %><br />
-  <%= f.password_field :password, class: "form-control" %>
-
-  <%= f.label :password_confirmation, "Confirmação de senha", class: "text-center" %><br />
-  <%= f.password_field :password_confirmation, class: "form-control" %>
-
-  <%= f.submit "Criar", class: "btn btn-lg btn-success btn-block" %>
-<% end %>
+    <% end %>
+  </div>
+</div>

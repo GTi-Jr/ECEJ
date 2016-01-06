@@ -1,0 +1,23 @@
+ <table class="highlight">
+  <thead>
+    <tr>
+      <th data-field="name">Nome</th>
+      <th data-field="email">Email</th>
+      <th data-field="JE">EJ</th>
+      <th data-field="Edit">Editar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@users.nil? %>
+      <% @users.each do |user| %>
+        <tr class="<%= "left-red-border" if !user.active %>">
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.junior_enterprise %></td>
+          <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+</table>

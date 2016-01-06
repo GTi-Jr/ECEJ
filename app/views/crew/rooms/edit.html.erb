@@ -1,0 +1,53 @@
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @room, url: {action: "update"}, method: :patch do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de quarto</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s12 center">
+          <% if @room.errors.any? %>
+            <ul>
+              <% @room.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>            
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row margin">
+        <div class="col s12 m6 l4">
+            <%= f.label :hotel, "Hotel", class: "center-align" %>
+            <%= select_tag "room[hotel]", "<option>Jangadeiro</option><option>Donana</option>".html_safe %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :number, "Número", class: "center-align" %>
+          <%= f.number_field :number, id: 'number' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :capacity, "Capacidade", class: "center-align" %>
+          <%= f.number_field :capacity, id: 'capacity' %>
+        </div>
+
+        <div class="col s12 ">
+          <%= f.label :extra_info, "Informação adicional", class: "center-align" %>
+          <%= f.text_area :extra_info, id: 'extra_info' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
+        </div>
+      </div>
+    <% end %>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+  </div>
+</div>

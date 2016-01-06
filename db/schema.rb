@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224042040) do
+ActiveRecord::Schema.define(version: 20160102203749) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 20151224042040) do
   add_index "crew_admins", ["email"], name: "index_crew_admins_on_email", unique: true
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
 
+  create_table "events", force: :cascade do |t|
+    t.string   "name",        default: ""
+    t.string   "facilitator", default: ""
+    t.integer  "limit",       default: 1
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "lots", force: :cascade do |t|
     t.string   "name"
     t.integer  "number"
@@ -59,6 +69,24 @@ ActiveRecord::Schema.define(version: 20151224042040) do
     t.datetime "end_date",            null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.datetime "payment_deadline"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string   "hotel"
+    t.integer  "number"
+    t.integer  "capacity"
+    t.text     "extra_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.datetime "subscribed_at"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,6 +120,7 @@ ActiveRecord::Schema.define(version: 20151224042040) do
     t.boolean  "active"
     t.integer  "lot_id"
     t.string   "avatar"
+    t.datetime "paid_on"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

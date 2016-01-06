@@ -16,3 +16,5 @@
 //= require plugins.js
 //= require after_registration.js
 //= require plugins/prism/prism.js
+//= require jquery.maskedinput.min
+//= require crew/users.js

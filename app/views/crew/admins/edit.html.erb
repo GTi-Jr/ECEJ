@@ -1,0 +1,30 @@
+<div id="login-page" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_for @admin, url: {action: "update", :class => 'login-form'}, method: :patch do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Edição de administrador</p>
+        </div>
+      </div>
+      <!----------------NOME----------- -->
+      <div class="row margin">
+        <div class="col s12">
+          <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name', autofocus: true %>
+        </div>
+      <!----------------EMAIL----------- -->
+        <div class="col s12">
+          <%= f.label :email, class: "center-align" %>
+          <%= f.email_field :email, id: 'email' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field center-align col s12">
+          <%= f.submit "Editar", class: 'btn waves-effect waves-light light-blue darken-1 s12 m6 l4 ' %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
