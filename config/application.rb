@@ -18,6 +18,8 @@ module Ecej2016
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'America/Sao_Paulo'
 
+    config.i18n.default_locale = :'pt-BR'
+
     config.assets.precompile =  [ '*.js', '*.scss']
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

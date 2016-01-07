@@ -8,7 +8,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   # POST /resource/confirmation
   def create
-    super
+    super do |resources|
+      flash[:notice] = "Inscrição confirmada, conclua seu cadastro para acessar o sistema."
+    end
   end
 
   # GET /resource/confirmation?confirmation_token=abcdef

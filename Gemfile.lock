@@ -98,6 +98,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-i18n (0.12.1)
     erubis (2.7.0)
     excon (0.44.4)
     execjs (2.6.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   byebug
   carrierwave
   devise
+  devise-i18n
   fog-aws
   jbuilder (~> 2.0)
   jquery-rails

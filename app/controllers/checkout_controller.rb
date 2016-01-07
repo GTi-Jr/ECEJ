@@ -2,42 +2,41 @@ class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
   before_action :verify_register_conclusion
+  before_action :check_payment_status
 
   layout "dashboard"
 
   def new
-    #order(@user)
-    if @total == 0
-      redirect_to root_path, :alert => "Você ainda não tem itens para ser comprados"
-    end
+    @lot = @user.lot
     if(@user.federation == nil)
-      @total = 15
+      @total = @lot.value_not_federated
     else
-      @total = 10
+      @total = @lot.value_federated
     end
     session[:price] = @total
-    session[:description] = 'Teste'
+    session[:description] = @lot.name
+    session[:lot] = @lot.number
   end
 
   def create
     payment = PagSeguro::PaymentRequest.new
 
-    payment.reference = "l1u#{@user.id}"
+    payment.reference = "l#{session[:lot]}u#{@user.id}"
     payment.notification_url = 'localhost:3000/confirm_payment'
     payment.redirect_url = 'localhost:3000/payment'
 
       payment.items << {
-        id: 1,
+        id: @user.id,
         description: session[:description],
         amount: session[:price]
       }
 
       payment.sender = {
         name: @user.name,
-        email: 'c14330875633327824357@sandbox.pagseguro.com.br',
-        cpf: '06105889313',
+        email: @user.email,
+        cpf: @user.cpf,
         phone: {
-          number: '88310483'
+          number: @user.phone
         }
       }
 
@@ -59,12 +58,21 @@ class CheckoutController < ApplicationController
       raise response.errors.join("\n")
     else
       redirect_to response.url
-      Rails.logger.debug(response.code)
+      set_payed
     end
   end
 
   private
   def set_payed
-    puts response.code
+    @user.paid_on = Time.now
+    @user.payment_status =  'Aguardando confirmação'
+    @user.save
+  end
+
+  def  check_payment_status
+    if @user.paid_on != nil
+      flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
+      redirect_to root_path
+    end
   end
 end
