@@ -17,10 +17,10 @@ end
 
 admin.save!
 
-lot1 = Lot.new do
+# lot1 = Lot.new do
   
-end
-lot1.save!
+# end
+# lot1.save!
 
-lot2 = Lot.new
-lot2.save!
+# lot2 = Lot.new
+# lot2.save!
