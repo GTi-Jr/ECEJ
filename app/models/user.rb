@@ -4,10 +4,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validates :payment_status, 
+            inclusion: { in: ["Pago", "Em processamento", "Não processado"] }
+
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
-  belongs_to :lot
+  
+  belongs_to :room
+  belongs_to :lot  
+
   has_one :address
 
   mount_uploader :avatar, AvatarUploader

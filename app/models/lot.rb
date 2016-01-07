@@ -21,8 +21,7 @@ class Lot < ActiveRecord::Base
             presence: true
   validates :end_date, 
             presence: true
-  validate :start_date_must_be_smaller, :dates_cant_overlap,
-           :users_length_smaller_than_limit
+  validate :start_date_must_be_smaller, :dates_cant_overlap
 
   
 
@@ -40,6 +39,10 @@ class Lot < ActiveRecord::Base
 
   def is_active?
     self == Lot.active_lot
+  end
+
+  def is_full?
+    self.users.count >= self.limit
   end
 
   def self.remove_overdue_users!
@@ -71,9 +74,7 @@ class Lot < ActiveRecord::Base
     end
   end
 
-  def users_length_smaller_than_limit
-    users.count
-  end
+
 
 
 end

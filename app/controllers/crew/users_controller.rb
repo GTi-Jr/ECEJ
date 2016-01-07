@@ -71,6 +71,6 @@ class Crew::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :general_register, :cpf, :birthday, :gender,
                                  :avatar, :phone, :special_needs, :federation,
                                  :junior_enteprise, :job, :enterprise_office, :university,
-                                 :city, :street, :postal_code, :complement)
+                                 :city, :street, :postal_code, :complement, :payment_status)
   end
 end

@@ -22,7 +22,7 @@
       <div class="row margin">
         <div class="col s12 m6 l4">
             <%= f.label :hotel, "Hotel", class: "center-align" %>
-            <%= select_tag "room[hotel]", "<option>Jangadeiro</option><option>Donana</option>".html_safe %>
+            <%= select_tag "room[hotel]", options_for_select(["Jangadeiro", "Donana"], @room.hotel) %>
         </div>
 
         <div class="col s12 m6 l4">
