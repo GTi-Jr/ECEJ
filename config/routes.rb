@@ -74,5 +74,5 @@ Rails.application.routes.draw do
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
   patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early 
-  patch '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot', as: :subscribe_into_lot  
+  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot  
 end
