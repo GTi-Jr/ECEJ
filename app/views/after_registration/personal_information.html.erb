@@ -16,28 +16,23 @@
         <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', :html=> {:id => 'formInfo'}) do |f| %>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :name, :id => 'name', required: true%>
-            <label for="name">Nome completo</label>
+            <%= f.text_field :name, :id => 'name', required: true, placeholder: 'Nome completo'%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :general_register, :id => 'rg', :required => true %>
-            <label for="rg">Doc. de Identidade</label>
+            <%= f.text_field :general_register, :id => 'rg', :required => true, placeholder: 'Doc. de Identidade'%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :cpf, :id => 'cpf', :required => true%>
-            <label for="cpf">CPF</label>
+            <%= f.text_field :cpf, :id => 'cpf', :required => true, placeholder: 'CPF'%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :phone, :id =>'phone', :required => true%>
-            <label for="phone">Telefone</label>
+            <%= f.text_field :phone, :id =>'phone', :required => true, placeholder: 'Telefone celular'%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :birthday, :id =>'birthday', :required => true%>
-            <label for="birthday">Data de Nascimento</label>
+            <%= f.date_field :birthday, :id =>'birthday', :required => true, placeholder: 'Data de nascimento', class: 'datepicker'%>
           </div>
         </div>
         <div class="row">
@@ -98,17 +93,22 @@ $("#formInfo").validate({
 });
 
 $('#rg').formatter({
-  'pattern': '{{9999999999}}-{{9}}',
+  'pattern': '{{99999999999999999}}-{{9}}',
 });
 $('#cpf').formatter({
   'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
 });
 $('#phone').formatter({
-  'pattern': '({{99}}) {{9}} {{9999}} {{9999}}',
+  'pattern': '({{99}}){{9}}{{9999}}{{9999}}',
   'persistent': true
 });
 $('#birthday').formatter({
   'pattern': '{{99}}-{{99}}-{{9999}}',
   'persistent': true
 });
+
+$('.datepicker').pickadate({
+   selectMonths: true, // Creates a dropdown to control month
+   selectYears: 80 // Creates a dropdown of 15 years to control year
+ });
 </script>

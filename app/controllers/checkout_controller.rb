@@ -3,7 +3,7 @@ class CheckoutController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
   before_action :check_payment_status
-  before_action :check_payment_status
+  before_action :setup_lot
 
   layout "dashboard"
 
@@ -35,10 +35,7 @@ class CheckoutController < ApplicationController
       payment.sender = {
         name: @user.name,
         email: @user.email,
-        cpf: @user.cpf,
-        phone: {
-          number: @user.phone
-        }
+        cpf: @user.cpf
       }
 
     # Caso você precise passar parâmetros para a api que ainda não foram
@@ -77,11 +74,11 @@ class CheckoutController < ApplicationController
     end
   end
 
-  end
   def  check_payment_status
     if @user.paid_on != nil && @user.payment_status != nil
       flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
       redirect_to root_path
     end
   end
+
 end
