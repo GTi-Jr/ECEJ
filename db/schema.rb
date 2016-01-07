@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20160107055935) do
     t.string   "avatar"
     t.datetime "paid_on"
     t.integer  "room_id"
-    t.string   "payment_status"
+    t.string   "payment_status", default: "Não processado"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
