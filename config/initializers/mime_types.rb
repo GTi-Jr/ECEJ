@@ -2,5 +2,6 @@
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
+
 Mime::Type.register "application/pdf", :pdf unless Mime::Type.lookup_by_extension(:pdf)
 Mime::Type.register "application/xls", :xls

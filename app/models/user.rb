@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
-  belongs_to :lot
+  
+  belongs_to :room
+  belongs_to :lot  
+
   has_one :address
 
   mount_uploader :avatar, AvatarUploader
