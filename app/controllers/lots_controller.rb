@@ -2,7 +2,7 @@ class LotsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_eligibility
 
-  def subscribe_into_lot
+  def subscribe_into_lot_early
     @lot = Lot.find(params[:id])
 
     # Checks if the link is, indeed, to that user
@@ -14,6 +14,17 @@ class LotsController < ApplicationController
       end
     else
       redirect_to user_root_path, alert: "O código de confirmação não lhe pertence."
+    end
+  end
+
+  def subscribe_into_lot
+    @lot = Lot.find(params[:id])
+
+    if !@lot.is_full? && @lot.is_active?
+      current_user.update(lot_id: @lot.id)
+      redirect_to user_root_path, notice: "Você conseguiu sua vaga no lote #{@lot.number}"
+    else
+      redirect_to user_root_path, alert: "Infelizmente o lote está cheio."
     end
   end
 
