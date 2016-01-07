@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
+before_filter :get_current_lot
+before_action :verify_register_conclusion, only: [:edit, :update]
 
   layout :determine_layout
   #GET /user/sign_up
@@ -10,7 +12,15 @@ before_filter :configure_account_update_params, only: [:update]
 
   #POST /user
   def create
-    super
+      @user = User.new(inscription_params)
+      @user.lot = @current_lot
+      if @user.save
+        flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
+        redirect_to root_path
+      else
+        flash[:error] = "Email já cadastrado no sistema"
+        redirect_to new_user_registration_path
+      end
   end
 
   #GET /user/edit
@@ -62,7 +72,9 @@ before_filter :configure_account_update_params, only: [:update]
 
 
   private
-
+  def inscription_params
+    params.require(:user).permit(:email,:password, :password_confirmation)
+  end
   def user_params
     # NOTE: Using `strong_parameters` gem
     params.require(:user).permit(:avatar, :phone, :email,:password, :password_confirmation, :current_password)

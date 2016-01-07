@@ -1,3 +1,13 @@
+<% flash.each do |key, value| %>
+<div id="card-alert" class="card orange">
+  <div class="card-content white-text">
+    <p><i class="mdi-alert-warning"></i> <%= value %></p>
+  </div>
+  <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<% end %>
 <div class="row">
   <div class="col s12">
     <div class="card-panel">
@@ -6,7 +16,7 @@
         <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', :html=> {:id => 'formInfo'}) do |f| %>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :name, :id => 'name' %>
+            <%= f.text_field :name, :id => 'name', required: true%>
             <label for="name">Nome completo</label>
           </div>
         </div>
@@ -95,6 +105,10 @@ $('#cpf').formatter({
 });
 $('#phone').formatter({
   'pattern': '({{99}}) {{9}} {{9999}} {{9999}}',
+  'persistent': true
+});
+$('#birthday').formatter({
+  'pattern': '{{99}}-{{99}}-{{9999}}',
   'persistent': true
 });
 </script>

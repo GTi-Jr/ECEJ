@@ -4,6 +4,7 @@ class AfterRegistrationController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
 
+  layout "dashboard"
   steps :personal_information, :address_information, :mej_information
 
   def show

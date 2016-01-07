@@ -11,33 +11,43 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            <%= f.email_field :email, autofocus: true %>
+            <%= f.email_field :email, autofocus: true,  required: true%>
             <label for="email" class="center-align">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password, autocomplete: "off" %>
+            <%= f.password_field :password, autocomplete: "off", required: true %>
             <label for="password">Senha</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", required: true %>
             <label for="password-again">Repita a senha</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.submit "Enviar inscrição", class:'btn waves-effect waves-light col s12'%>
+            <a class="btn waves-effect waves-light col s12 modal-trigger" href="#modal1">Enviar inscrição</a>
           </div>
           <div class="input-field col s12">
             <%= render "devise/shared/links" %>
           </div>
         </div>
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <p>
+              Você foi será adicionado a uma lista de espera, você receberá uma email com as instruções de confirmação.
+              Confirme sua inscrição para garantir sua vaga.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "OK", class:'btn waves-effect waves-light col s12'%>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
-

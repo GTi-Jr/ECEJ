@@ -2,7 +2,7 @@
     Sidebar
 ====================================================================================*/
 /*----------------------------------------
-    Sidebar Main Menu 
+    Sidebar Main Menu
 ------------------------------------------*/
 
 
@@ -41,7 +41,7 @@ nav {
 //DOTHIS
 ul.side-nav {
 	&.leftside-navigation {
-		top: 0px;
+		top: 64px;
 		overflow: hidden;
 		hr {
 			display: block;
@@ -128,8 +128,8 @@ ul.side-nav {
 }
 .sidebar-collapse {
 	position: absolute;
-	left: -177px;
-	top: 8px;
+	left: -170px;
+	top: -45px;
 }
 .user-task,
 .user-time {

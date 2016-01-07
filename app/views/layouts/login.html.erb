@@ -7,6 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="light-blue lighten-1">
+  <% flash.each do |key, value| %>
+      <div id="card-alert" class="card light-blue lighten-5" style="width:401px">
+        <div class="card-content deep-purple-text">
+          <p><i class="mdi-action-info-outline"></i> <%= value %> </p>
+        </div>
+        <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+  <% end %>
   <%= yield %>
 </body>
 </html>

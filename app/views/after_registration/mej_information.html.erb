@@ -6,23 +6,23 @@
         <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12') do |f| %>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :federation, :id => 'federation' %>
+            <%= f.text_field :federation, :id => 'federation'%>
             <label for="federation">Federação</label>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise' %>
+            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', required: true%>
             <label for="junior_enterprise">Empresa Júnior</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :job, :id => 'job' %>
+            <%= f.text_field :job, :id => 'job', required: true%>
             <label for="job">Cargo</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-              <%= f.text_field :university, :placeholder => 'university' %>
+              <%= f.text_field :university, :placeholder => 'university', required: true%>
             <label for="complement">Universidade</label>
           </div>
         </div>
