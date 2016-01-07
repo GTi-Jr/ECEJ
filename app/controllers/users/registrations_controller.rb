@@ -13,7 +13,7 @@ before_action :verify_register_conclusion, only: [:edit, :update]
   #POST /user
   def create
       @user = User.new(inscription_params)
-      @user.lot = @current_lot
+      @user.lot = Lot.first if !Lot.first.is_full?
       if @user.save
         flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
         redirect_to root_path
