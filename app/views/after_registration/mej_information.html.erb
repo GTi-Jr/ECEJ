@@ -1,10 +1,39 @@
-<h2>Dados da sua EJ </h2>
-<%= form_for(@user, :url => wizard_path, :method => :put) do |f| %>
-  <%= f.text_field :federation, :placeholder => 'Federação' %>
-  <%= f.text_field :junior_enterprise, :placeholder => 'Empresa Jr' %>
-  <%= f.text_field :job, :placeholder => 'Cargo' %>
-  <%= f.text_field :university, :placeholder => 'Universidade' %>
-  <%= f.submit 'Next', :class => 'btn btn-primary' %>
-<% end %>
-
-<%= link_to 'Anterior', previous_wizard_path %>
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+      <h4 class="header2">Sobre sua EJ</h4>
+      <div class="row">
+        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12') do |f| %>
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :federation, :id => 'federation' %>
+            <label for="federation">Federação</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise' %>
+            <label for="junior_enterprise">Empresa Júnior</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :job, :id => 'job' %>
+            <label for="job">Cargo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+              <%= f.text_field :university, :placeholder => 'university' %>
+            <label for="complement">Universidade</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.submit 'Finalizar', :class => 'btn cyan waves-effect waves-light right'%>
+            <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

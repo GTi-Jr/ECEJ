@@ -4,7 +4,7 @@ class AfterRegistrationController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
 
-  steps :personal_information, :mej_information, :address_information
+  steps :personal_information, :address_information, :mej_information
 
   def show
     @user.address = Address.new
@@ -17,13 +17,13 @@ class AfterRegistrationController < ApplicationController
     when :personal_information
       @user.update_attributes(personal_params)
       render_wizard @user
-    when :mej_information
-      @user.update_attributes(mej_params)
-      render_wizard @user
     when :address_information
       @user.address.update_attributes(address_params)
+      render_wizard @user
+    when :mej_information
+      @user.update_attributes(mej_params)
       @user.update_attribute(:completed,'true')
-      sign_in(@user, bypass: true) # needed for devisesign_in(@user, bypass: true) # needed for devise
+      sign_in(@user, bypass: true) # needed for devise
       redirect_to root_path
     end
 

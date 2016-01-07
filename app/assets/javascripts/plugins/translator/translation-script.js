@@ -13,10 +13,10 @@ function switchLanguage() {
 
     /* If user has selected a language, we apply it */
     if ($.cookie('app-language')) {
-        var language = $.cookie('app-language'); 
+        var language = $.cookie('app-language');
     }
     /* We get current language on page load */
-    $("[data-translate]").jqTranslate('js/plugins/translator/translate', {
+    $("[data-translate]").jqTranslate('javascripts/plugins/translator/translate', {
         forceLang: language
     });
 
@@ -24,7 +24,7 @@ function switchLanguage() {
     $('#switch-lang').on('change', function(e) {
         e.preventDefault();
         language = $(this).val();
-        $("[data-translate]").jqTranslate('js/plugins/translator/translate', {
+        $("[data-translate]").jqTranslate('javascripts/plugins/translator/translate', {
             forceLang: language
         });
 
@@ -32,5 +32,5 @@ function switchLanguage() {
         $.cookie('app-language', language);
         $.cookie('app-language', language, { path: '/' });
     });
-  
+
 }

@@ -1,6 +1,6 @@
 <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name),  html: {:class => 'login-form'} ) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),  html: {:class => 'login-form', :id => 'form_login'} ) do |f| %>
         <div class="row">
           <div class="input-field col s12 center">
             <img src="images/logo.png" alt="" class="circle responsive-img valign profile-image-login">
@@ -10,14 +10,14 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <%= f.email_field :email, id: 'username', autofocus: true %>
-            <label for="username" class="center-align">Email</label>
+            <%= f.email_field :email, id: 'email', class: 'error', autofocus: true %>
+            <label for="email" class="center-align">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password, id:'password', autocomplete: "off" %>
+            <%= f.password_field :password, id:'password', class: 'error', autocomplete: "off" %>
             <label for="password">Senha</label>
           </div>
         </div>
@@ -46,3 +46,30 @@
       <% end %>
     </div>
   </div>
+<script>
+  $("#form_login").validate({
+          rules: {
+              email: {
+                  required: true,
+              },
+              password: {
+        				required: true,
+        				minlength: 6
+        			},
+              //For custom messages
+              messages: {
+                  email:{
+                      required: "Enter a email",
+                  },
+              },
+              errorElement : 'div',
+              errorPlacement: function(error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                  $(placement).append(error)
+                } else {
+                  error.insertAfter(element);
+                }
+              }
+           });
+</script>

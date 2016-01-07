@@ -1,14 +1,14 @@
 /*** Colors ***/
-$primary-color: color("cyan", "base") !default;
+$primary-color: color("blue", "lighten-2") !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
-$primary-color-dark: darken($primary-color, 15%) !default; 
+$primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: color("pink", "accent-2") !default;
+$secondary-color: color("grey", "lighten-1") !default;
 $success-color: color("green", "accent-3") !default;
 $error-color: color("red", "accent-3") !default;
 
 /** Custom color class **/
-$navbar-color: color("deep-orange", "lighten-1") !default; 
+$navbar-color: color("deep-orange", "lighten-1") !default;
 $link-color: $primary-color !default;
 
 /*** Badges ***/

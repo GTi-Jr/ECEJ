@@ -6,11 +6,13 @@ class User < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :events, through: :subscriptions
+
   
   belongs_to :room
   belongs_to :lot  
+
   has_one :address
-  
+
   mount_uploader :avatar, AvatarUploader
   # Returns false unless the user has updated all of his information
   def is_completed?
@@ -76,8 +78,9 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
+    User.insert_inactive_users_into_disqualified_lot!
     Lot.remove_overdue_users!
-    User.insert_eligible_users_into_third_lot    
+    User.insert_eligible_users_into_third_lot
   end
 
   # Take those users who are eligible and, if the third lot has free slots,

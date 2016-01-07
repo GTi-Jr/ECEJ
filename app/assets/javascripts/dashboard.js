@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize.js
 //= require plugins.js
-//= require custom-script.js
+//= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
+//= require plugins/prism/prism.js
+//= require plugins/formatter/jquery.formatter.min.js
+//= require plugins/jquery-validation/jquery.validate.min.js
+//= require plugins/jquery-validation/additional-methods.min.js

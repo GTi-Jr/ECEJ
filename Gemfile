@@ -46,7 +46,10 @@ gem 'brazilian-rails'
 
 gem 'wicked'
 
-gem 'simple_form'
+gem "pagseguro-oficial", "~> 2.4.0"
+
+gem 'rack-cors', :require => 'rack/cors'
+
 
 gem 'pdfkit'
 # Dependencia for wicked_pdf
