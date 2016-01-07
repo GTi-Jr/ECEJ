@@ -14,9 +14,4 @@ class UsersLotMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "ECEJ 2016 - Você está no lote #{user.lot.number}"
   end
-
-  def non_allocated(user)
-    @user = user
-    mail to: user.email, subject: "ECEJ 2016 - Não foi possível garantir sua vaga no lote."
-  end
 end
