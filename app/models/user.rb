@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validates :payment_status, 
+            inclusion: { in: ["Pago", "Em processamento", "Não processado"] }
+
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
