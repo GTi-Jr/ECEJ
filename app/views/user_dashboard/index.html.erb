@@ -59,12 +59,23 @@
         <!-- profile-page-wall-share -->
         <div id="profile-page-wall-share" class="row">
           <div class="col s12">
-            <div id="card-alert" class="card yellow">
-              <div class="card-content white-text">
-                <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
-                <p><%= @user.payment_status %></p>
+            <% if @user.payment_status.nil? %>
+              <div id="card-alert" class="card orange lighten-5">
+                <div class="card-content orange-text">
+                  <%= link_to(payment_path) do %>
+                    <span class="card-content orange-text"><i class="mdi-social-notifications"></i> Efetue o pagamento para garantir sua vaga</span>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <%else%>
+              <div id="card-alert" class="card yellow">
+                <div class="card-content white-text">
+                  <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
+                  <p><%= @user.payment_status %></p>
+                </div>
+              </div>
+            <% end %>
+
           </div>
         </div>
       </div>

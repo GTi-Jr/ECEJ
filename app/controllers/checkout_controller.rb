@@ -70,7 +70,7 @@ class CheckoutController < ApplicationController
   end
 
   def  check_payment_status
-    if @user.paid_on != nil
+    if @user.paid_on != nil && @user.payment_status != nil
       flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
       redirect_to root_path
     end
