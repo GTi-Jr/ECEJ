@@ -6,7 +6,7 @@ class AddUserAtributes < ActiveRecord::Migration
     	t.string :cpf
     	t.date :nasc_date
     	t.string :gender
-    	t.attachment :avatar
+    	t.string :avatar
     	t.string :telephone
     	t.string :federation
     	t.string :junior_enteprise
