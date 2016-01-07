@@ -43,12 +43,12 @@ class Crew::LotsController < ApplicationController
 
   private
   def load_lot
-    @lot = Lot.find(params[:id])    
+    @lot = Lot.find(params[:id])  
   end
 
   def lot_params
     params.require(:lot).permit(:name, :number, :limit, :value_federated, 
                                 :value_not_federated, :start_date, :end_date,
-                                :payment_deadline)
+                                :payment_deadline, :link_fed, :link_unfed)
   end
 end
