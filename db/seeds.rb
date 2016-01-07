@@ -16,9 +16,3 @@ admin = Crew::Admin.new do |admin|
 end
 
 admin.save!
-
-lot1 = Lot.new
-lot1.save!
-
-lot2 = Lot.new
-lot2.save!

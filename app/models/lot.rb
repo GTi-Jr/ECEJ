@@ -6,24 +6,24 @@ class Lot < ActiveRecord::Base
   has_and_belongs_to_many :events,
                           autosave: true
 
-  validates :number, 
+  validates :number,
             uniqueness: true
-  validates :limit, 
+  validates :limit,
             presence: true,
             numericality: { greater_than: 0 }
   validates :value_federated,
             presence: true,
             numericality: { greater_than: 0 }
-  validates :value_not_federated, 
+  validates :value_not_federated,
             presence: true,
             numericality: { greater_than: 0 }
   validates :start_date,
             presence: true
-  validates :end_date, 
+  validates :end_date,
             presence: true
   validate :start_date_must_be_smaller, :dates_cant_overlap
 
-  
+
 
   def self.active_lot
     now = Time.now
@@ -60,7 +60,7 @@ class Lot < ActiveRecord::Base
 
   # Validator methods
   def start_date_must_be_smaller
-    errors.add(:start_date, "deve ser menor que a data de término") if start_date > end_date
+    errors.add(:start_date, "deve ser menor que a data de término") if self.start_date > self.end_date
   end
 
   def dates_cant_overlap
