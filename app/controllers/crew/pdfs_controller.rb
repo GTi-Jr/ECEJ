@@ -13,15 +13,10 @@ class Crew::PdfsController < ApplicationController
 
   def event_users
     @event = Event.find(params[:id])
+    html = render_to_string(layout: 'pdf')
+    kit = PDFKit.new(html)
+    pdf = kit.to_pdf
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        html = render_to_string(layout: 'pdf')
-        kit = PDFKit.new(html)
-        pdf = kit.to_pdf
-        send_data pdf, filename: "congressistas em #{@event.name}.pdf"
-      end
-    end    
+    send_data pdf, filename: "congressistas em #{@event.name}.pdf"  
   end
 end
