@@ -11,14 +11,14 @@ admin = Crew::Admin.new do |admin|
   admin.email = "ecej@ecej2016.com"
   admin.confirmed_at = Time.now
   admin.confirmation_sent_at = Time.now
-  admin.password = ENV['ADMIN_PW']
-  admin.password_confirmation = ENV['ADMIN_PW']
+  admin.password = Rails.application.secrets.ecej_admin_password
+  admin.password_confirmation = Rails.application.secrets.ecej_admin_password_confirmation
 end
 
 admin.save!
 
 # lot1 = Lot.new do
-  
+
 # end
 # lot1.save!
 

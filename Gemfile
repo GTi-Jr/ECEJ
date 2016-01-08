@@ -41,7 +41,7 @@ gem 'carrierwave'
 
 gem 'mini_magick', '3.8.0'
 
-gem "fog-aws"
+gem 'fog'
 
 gem 'brazilian-rails'
 

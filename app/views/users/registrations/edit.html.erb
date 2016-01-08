@@ -14,8 +14,10 @@
         <div class="file-field input-field col s6">
           <input class="file-path validate" type="text">
           <div class="btn">
-            <span>Foto</span>
-            <%= f.file_field :avatar, :placeholder => 'Foto de perfil'%>
+            <span>
+              <%= f.hidden_field :avatar_cache %>
+            </span>
+            <%= f.file_field :avatar, accept: 'image/png,image/jpg,image/jpeg', value: @user.avatar_url %>
           </div>
         </div>
       </div>

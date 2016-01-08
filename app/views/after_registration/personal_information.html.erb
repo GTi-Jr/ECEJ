@@ -45,7 +45,10 @@
           <div class="file-field input-field col s6">
             <input class="file-path validate" type="text">
             <div class="btn">
-              <span>Foto</span>
+              <span>
+                <%= image_tag(@user.avatar_url) if @user.avatar? %>
+                <%= f.hidden_field :avatar_cache %>
+              </span>
               <%= f.file_field :avatar, accept: 'image/png,image/jpg,image/jpeg', value: @user.avatar_url %>
             </div>
           </div>

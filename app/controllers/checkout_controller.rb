@@ -35,7 +35,7 @@ class CheckoutController < ApplicationController
       payment.sender = {
         name: @user.name,
         email: @user.email,
-        cpf: @user.cpf
+        cpf: @user.cpf.gsub(/[^0-9]/, '')
       }
 
     # Caso você precise passar parâmetros para a api que ainda não foram
