@@ -28,7 +28,9 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.submit 'Próximo', :class => 'btn cyan waves-effect waves-light right'%>
+            <%= button_tag(type: 'submit', class: 'btn cyan waves-effect waves-light right') do %>
+              Próximo
+            <% end %>
             <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
           </div>
         </div>
