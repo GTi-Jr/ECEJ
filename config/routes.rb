@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
   end
 
-  #devise_for :users
+  #routes for :users
   devise_for :users,
   controllers: {sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: 'users/confirmations'},
   path: "/",
@@ -68,11 +68,12 @@ Rails.application.routes.draw do
   end
   resources :after_registration
 
+  # routes for payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
-  patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early 
-  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot  
+  patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
+  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 end
