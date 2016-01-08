@@ -17,13 +17,12 @@
             <ul id="profile-dropdown" class="dropdown-content active">
               <li>
                 <%= link_to edit_user_registration_path do %>
-                <i class="mdi-action-face-unlock"></i> Perfil
+                  <i class="mdi-action-face-unlock left"></i> Perfil
                 <% end %>
               </li>
-              <li class="divider"></li>
               <li>
                 <%= link_to(destroy_user_session_path, :method => :delete) do %>
-                <i class="mdi-hardware-keyboard-tab"></i> Sair
+                  <i class="mdi-hardware-keyboard-tab left"></i> Sair
                 <% end %>
               </li>
             </ul>

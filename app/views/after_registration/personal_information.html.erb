@@ -32,7 +32,7 @@
             <%= f.text_field :phone, :id =>'phone', :required => true, placeholder: 'Telefone celular'%>
           </div>
           <div class="input-field col s6">
-            <%= f.date_field :birthday, :id =>'birthday', :required => true, placeholder: 'Data de nascimento', class: 'datepicker'%>
+            <%= f.text_field :birthday, :id =>'birthday', :required => true, placeholder: 'Data de nascimento', class: 'datepicker'%>
           </div>
         </div>
         <div class="row">
@@ -46,7 +46,7 @@
             <input class="file-path validate" type="text">
             <div class="btn">
               <span>Foto</span>
-              <%= f.file_field :avatar%>
+              <%= f.file_field :avatar, accept: 'image/png,image/jpg,image/jpeg', value: @user.avatar_url %>
             </div>
           </div>
         </div>
@@ -58,7 +58,9 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.submit 'Próximo', :class => 'btn cyan waves-effect waves-light right'%>
+            <%= button_tag(type: 'submit', class: 'btn cyan waves-effect waves-light right') do %>
+              Próximo
+            <% end %>
           </div>
         </div>
         <% end %>
@@ -66,8 +68,8 @@
     </div>
   </div>
 </div>
-<script>
 
+<script>
 $("#formInfo").validate({
   rules: {
     name: {
@@ -100,10 +102,6 @@ $('#cpf').formatter({
 });
 $('#phone').formatter({
   'pattern': '({{99}}){{9}}{{9999}}{{9999}}',
-  'persistent': true
-});
-$('#birthday').formatter({
-  'pattern': '{{99}}-{{99}}-{{9999}}',
   'persistent': true
 });
 

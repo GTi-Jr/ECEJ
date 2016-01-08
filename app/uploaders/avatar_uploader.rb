@@ -17,11 +17,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(jpg jpeg gif png)
+    %w(jpg jpeg png)
   end
 
   def default_url(*args)
-   "/images/" + [version_name, "dgeneric-avatar.png"].compact.join('_')
+   "/images/" + [version_name, "generic-avatar.png"].compact.join('_')
   end
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
