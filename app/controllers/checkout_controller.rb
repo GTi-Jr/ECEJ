@@ -3,6 +3,7 @@ class CheckoutController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
   before_action :check_payment_status
+  before_action :verify_lot
 
   layout "dashboard"
 
@@ -64,8 +65,8 @@ class CheckoutController < ApplicationController
 
   private
   def set_payed
-    @user.paid_on = Time.now
-    @user.payment_status =  'Aguardando confirmação'
+    @user.paid_on = DateTime.now
+    @user.payment_status = 'Em processamento'
     @user.save
   end
 
@@ -74,5 +75,9 @@ class CheckoutController < ApplicationController
       flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
       redirect_to root_path
     end
+  end
+
+  def verify_lot    
+    redirect_to user_root_path if @user.lot.nil?
   end
 end
