@@ -81,4 +81,10 @@ class CheckoutController < ApplicationController
   def verify_lot    
     redirect_to user_root_path if @user.lot.nil?
   end
+
+  def check_payment_method
+    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
+      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+    end
+  end
 end

@@ -71,6 +71,8 @@ Rails.application.routes.draw do
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
+  get 'payment_billet' => 'billets#new'
+
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
   patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early 
