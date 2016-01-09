@@ -68,10 +68,11 @@ Rails.application.routes.draw do
   end
   resources :after_registration
 
+  post 'confirm_payment/:notificationCode' => 'checkout#confirm_payment', as: :confirm_payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
-  get 'payment_billet' => 'billets#billet', as: 'payment_billet'
+  get 'payment_billet' => 'billets#billet', as: :payment_billet
 
 
   # :id = lot.id
