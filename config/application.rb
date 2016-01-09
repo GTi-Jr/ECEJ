@@ -31,5 +31,8 @@ module Ecej2016
 
     config.middleware.use PDFKit::Middleware, :print_media_type => true
     config.assets.initialize_on_precompile = false
+
+    # Use this to join those files to the project
+    Dir[File.join(Rails.root, "lib", "core_ext", "*.rb")].each {|l| require l }
   end
 end

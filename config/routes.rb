@@ -69,8 +69,12 @@ Rails.application.routes.draw do
   resources :after_registration
 
   # routes for payment
+  post 'confirm_payment/:notificationCode' => 'checkout#confirm_payment', as: :confirm_payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
+
+  get 'payment_billet' => 'billets#billet', as: :payment_billet
+
 
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)

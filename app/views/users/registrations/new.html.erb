@@ -32,8 +32,9 @@
               Enviar inscrição
             <% end %>
           </div>
-          <div class="input-field col s12">
+          <div class="col s12 center-align">
             <%= render "devise/shared/links" %>
+            <%= link_to "Voltar", :back %>
           </div>
         </div>
       <% end %>
@@ -71,7 +72,7 @@
     $( "#confirm_password" ).rules( "add", {
       required: true,
       rangelength: [6,12],
-      equalTo: "#password", 
+      equalTo: "#password",
       messages: {
         required: "Entre com sua senha",
         rangelength: "A senha deve conter entre 6 e 12 caracteres",

@@ -7,7 +7,7 @@
         <div class="row">
           <div class="input-field col s6">
             <%= f.text_field :postal_code, :id => 'postal_code', required: true%>
-            <label for="postal_code">Código Postal</label>
+            <label for="postal_code">CEP</label>
           </div>
           <div class="input-field col s6">
             <%= f.text_field :city, :id => 'city', required: true%>
@@ -32,6 +32,9 @@
               Próximo
             <% end %>
             <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
+            <div class="col s12 center-align">
+              <span class="chip">2/3</span> 
+            </div>
           </div>
         </div>
         <% end %>
@@ -39,3 +42,11 @@
     </div>
   </div>
 </div>
+<script>
+
+$('#postal_code').formatter({
+  'pattern': '{{99999}}-{{999}}',
+  'persistent': true
+});
+
+</script>

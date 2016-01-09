@@ -3,7 +3,7 @@ class CheckoutController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
   before_action :check_payment_status
-  before_action :setup_lot
+  before_action :verify_lot
 
   layout "dashboard"
 
@@ -35,7 +35,11 @@ class CheckoutController < ApplicationController
       payment.sender = {
         name: @user.name,
         email: @user.email,
-        cpf: @user.cpf.gsub(/[^0-9]/, '')
+        cpf: @user.cpf.only_numbers,
+        phone: {
+          area_code: @user.phone.only_numbers[0..1],
+          number: @user.phone.only_numbers[2..10]
+        }
       }
 
     # Caso você precise passar parâmetros para a api que ainda não foram
@@ -60,10 +64,19 @@ class CheckoutController < ApplicationController
     end
   end
 
+  def confirm_payment
+    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
+    if transaction.errors.empty?
+      pagseg_notification = PagSeguroNotification.new
+      pagseg_notification.log = transaction.to_yaml
+      pagseg_notification.save
+    end
+  end
+
   private
   def set_payed
     @user.paid_on = DateTime.now
-    @user.payment_status = "Não processado"
+    @user.payment_status = 'Em processamento'
     @user.save
   end
 
@@ -81,4 +94,16 @@ class CheckoutController < ApplicationController
     end
   end
 
+  def verify_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to user_root_path
+    end
+  end
+
+  def check_payment_method
+    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
+      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+    end
+  end
 end
