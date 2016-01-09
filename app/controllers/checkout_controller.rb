@@ -64,15 +64,6 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def confirm_payment
-    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
-    if transaction.errors.empty?
-      pagseg_notification = PagSeguroNotification.new
-      pagseg_notification.log = transaction.to_yaml
-      pagseg_notification.save
-    end
-  end
-
   private
   def set_payed
     @user.paid_on = DateTime.now
