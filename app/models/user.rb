@@ -64,16 +64,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_phone
-    numbers = ['0','1','2','3','4','5','6','7','8','9']
-    num = String.new
-
-    self.phone.each_char do |n|
-      num << n if numbers.include?(n)
-    end
-    num
-  end
-
   # Insert users into groups
   def insert_into_disqualified_list!
     self.update_attribute(:active, false)
