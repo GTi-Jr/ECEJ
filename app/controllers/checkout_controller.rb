@@ -3,7 +3,7 @@ class CheckoutController < ApplicationController
   before_action :get_user
   before_action :verify_register_conclusion
   before_action :check_payment_status
-  before_action :verify_lot
+  before_action :setup_lot
 
   layout "dashboard"
 
@@ -40,6 +40,7 @@ class CheckoutController < ApplicationController
           area_code: @user.phone.only_numbers[0..1],
           number: @user.phone.only_numbers[2..10]
         }
+
       }
 
     # Caso você precise passar parâmetros para a api que ainda não foram
@@ -66,9 +67,16 @@ class CheckoutController < ApplicationController
 
   private
   def set_payed
-    @user.paid_on = DateTime.now
+    # @user.paid_on = DateTime.now
     @user.payment_status = 'Em processamento'
     @user.save
+  end
+
+  def setup_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to root_path
+    end
   end
 
   def  check_payment_status
@@ -76,10 +84,6 @@ class CheckoutController < ApplicationController
       flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
       redirect_to root_path
     end
-  end
-
-  def verify_lot    
-    redirect_to user_root_path if @user.lot.nil?
   end
 
   def check_payment_method

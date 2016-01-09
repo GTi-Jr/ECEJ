@@ -4,12 +4,10 @@ class NotificationsController < ApplicationController
   def confirm_payment
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
     if transaction.errors.empty?
-      pagseg_notification = PagSeguroNotification.new
-      pagseg_notification.log = transaction.to_yaml
-      pagseg_notification.save
+      user = User.where(email: transaction.sender.email).first
+      user.payment_status = "Pago"
+      user.paid_on = DateTime.now
+      user.save
     end
-    pagseg_notification = PagSeguroNotification.new
-    pagseg_notification.log = transaction.to_yaml
-    pagseg_notification.save
   end
 end

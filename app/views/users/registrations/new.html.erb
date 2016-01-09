@@ -31,7 +31,9 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <a class="btn waves-effect waves-light col s12 modal-trigger" href="#modal1">Enviar inscrição</a>
+            <%= button_tag(type: 'submit', class: 'btn waves-effect waves-light col s12') do %>
+              Enviar inscrição
+            <% end %>
           </div>
           <div class="col s12 center-align">
             <%= render "devise/shared/links" %>
@@ -48,6 +50,7 @@
             <%= f.submit "OK", class:'btn waves-effect waves-light col s12'%>
           </div>
         </div>
+
       <% end %>
     </div>
   </div>

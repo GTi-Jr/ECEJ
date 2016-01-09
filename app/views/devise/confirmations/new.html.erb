@@ -15,7 +15,9 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.submit "Reenviar instruções de confirmação", class: 'btn waves-effect waves-light col s12'%>
+            <%= button_tag(type: 'submit', class: 'btn waves-effect waves-light col s12') do %>
+              Reenviar instruções de confirmação
+            <% end %>
           </div>
           <div class="input-field col s12">
             <%= render "devise/shared/links" %>

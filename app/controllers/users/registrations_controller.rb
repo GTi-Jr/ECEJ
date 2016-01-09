@@ -13,12 +13,16 @@ before_action :verify_register_conclusion, only: [:edit, :update]
   #POST /user
   def create
       @user = User.new(inscription_params)
-      @user.lot = @current_lot
+      @lot = Lot.first
+      if(!@lot.nil? && !@lot.is_full?) 
+        @user.lot = @lot
+      end
       if @user.save
         flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
         redirect_to root_path
       else
-        flash[:error] = "Email já cadastrado no sistema"
+        flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
+        flash[:error] = @user.errors
         redirect_to new_user_registration_path
       end
   end

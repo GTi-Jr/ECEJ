@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   end
   resources :after_registration
 
-  post 'confirm_payment/:notificationCode' => 'notifications#confirm_payment', as: :confirm_payment
+  post 'confirm_payment' => 'notifications#confirm_payment', as: :confirm_payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 

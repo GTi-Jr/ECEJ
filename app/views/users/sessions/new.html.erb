@@ -10,15 +10,14 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <%= f.email_field :email, id: 'email', class: 'error', autofocus: true %>
+            <%= f.email_field :email, id: 'email', class: 'error', placeholder: 'example@mail.com', autofocus: true %>
             <label for="email" class="center-align">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password, id:'password', class: 'error', autocomplete: "off" %>
-            <label for="password">Senha</label>
+            <%= f.password_field :password, id:'password', class: 'error', autocomplete: "off", placeholder: 'Senha' %>
           </div>
         </div>
         <div class="row">
@@ -31,7 +30,9 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.submit "Entrar", class: 'btn waves-effect waves-light col s12'%>
+            <%= button_tag(type: 'submit', class: 'btn waves-effect waves-light col s12') do %>
+              Entrar
+            <% end %>
           </div>
         </div>
         <div class="row">
