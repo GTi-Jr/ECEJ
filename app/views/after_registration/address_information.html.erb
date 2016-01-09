@@ -30,6 +30,9 @@
           <div class="input-field col s12">
             <%= f.submit 'Próximo', :class => 'btn cyan waves-effect waves-light right'%>
             <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
+            <div class="col s12 center-align">
+              <span class="chip">2/3</span> 
+            </div>
           </div>
         </div>
         <% end %>
@@ -37,3 +40,11 @@
     </div>
   </div>
 </div>
+<script>
+
+$('#postal_code').formatter({
+  'pattern': '{{99999}}-{{999}}',
+  'persistent': true
+});
+
+</script>
