@@ -2,29 +2,102 @@
     <h4 class="header2">Dados pessoais</h4>
     <div class="row">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.text_field :name, :id => 'name', :placeholder => 'Nome completo'%>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <%= f.text_field :phone, :id =>'phone', :placeholder => 'Telefone'%>
-        </div>
-        <div class="file-field input-field col s6">
-          <input class="file-path validate" type="text">
-          <div class="btn">
-            <span>Foto</span>
-            <%= f.file_field :avatar, :placeholder => 'Foto de perfil'%>
+        <!----------- PERSONAL INFO -------->
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :name, :id => 'name', required: true%>
+            <label for="name">Nome completo</label>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
-          <label for="special_needs">Necessidades especiais</label>
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :general_register, :id => 'rg', :required => true %>
+            <label for="rg">Doc. de Identidade</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :cpf, :id => 'cpf', :required => true%>
+            <label for="cpf">CPF</label>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :phone, :id =>'phone', :required => true%>
+            <label for="phone">Telefone</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :birthday, :id =>'birthday', :required => true%>
+            <label for="birthday">Data de Nascimento</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <div class="select-wrapper initialized"><span class="caret">▼</span>
+              <%= f.select :gender, ['Masculino', 'Feminino'], :required => true%>
+            </div>
+            <label>Gênero</label>
+          </div>
+          <div class="file-field input-field col s6">
+            <input class="file-path validate" type="text">
+            <div class="btn">
+              <span>Foto</span>
+              <%= f.file_field :avatar, accept: 'avatar/png, avatar/jpeg'%>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
+            <label for="special_needs">Necessidades especiais</label>
+          </div>
+        </div>
+        
+        <!-------- MEJ -------->
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :federation, :id => 'federation'%>
+            <label for="federation">Federação</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', required: true%>
+            <label for="junior_enterprise">Empresa Júnior</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :job, :id => 'job', required: true%>
+            <label for="job">Cargo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+              <%= f.text_field :university, required: true%>
+            <label for="complement">Universidade</label>
+          </div>
+        </div>
+
+        <!--------- Adress info ------>
+        <div class="row">
+          <div class="input-field col s6">
+            <%= f.text_field :postal_code, :id => 'postal_code', required: true%>
+            <label for="postal_code">CEP</label>
+          </div>
+          <div class="input-field col s6">
+            <%= f.text_field :city, :id => 'city', required: true%>
+            <label for="city">Cidade</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :street, :id => 'street', required: true%>
+            <label for="street">Endereço</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+              <%= f.text_field :complement, :id => 'complement'%>
+            <label for="complement">Complemento</label>
+          </div>
+        </div>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
