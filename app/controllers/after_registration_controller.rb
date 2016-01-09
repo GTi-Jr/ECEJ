@@ -32,9 +32,6 @@ class AfterRegistrationController < ApplicationController
 
 
   protected
-  def get_user
-  	@user = current_user
-  end
   def verify_register_conclusion
     if @user.is_completed?
     	redirect_to root_path

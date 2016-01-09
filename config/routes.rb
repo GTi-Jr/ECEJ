@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   devise_for :users,
   controllers: {sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: 'users/confirmations'},
   path: "/",
-  path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' },
+  path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', unlock: 'unblock', registration: 'inscription', sign_up: 'new' },
   :skip => 'registration'
 
   devise_scope :user do
