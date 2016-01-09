@@ -81,7 +81,6 @@ class User < ActiveRecord::Base
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
-    User.insert_inactive_users_into_disqualified_lot!
     Lot.remove_overdue_users!
     User.insert_eligible_users_into_third_lot
   end
