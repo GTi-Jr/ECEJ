@@ -71,7 +71,8 @@ Rails.application.routes.draw do
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
-  get 'payment_billet' => 'billets#new'
+  get 'payment_billet' => 'billets#billet', as: 'payment_billet'
+
 
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)

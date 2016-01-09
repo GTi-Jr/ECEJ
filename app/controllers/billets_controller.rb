@@ -1,9 +1,15 @@
 class BilletsController < CheckoutController
-  def new
+  def billet
     @lot = @user.lot
     @user.payment_method ||= "billet"
     unless @user.save
       redirect_to user_root_path, alert: "Não foi possível completar a ação"
+    end
+
+    if @user.federation.nil?
+      redirect_to @lot.link_unfed
+    else
+      redirect_to @lot.link_fed
     end
   end
 
