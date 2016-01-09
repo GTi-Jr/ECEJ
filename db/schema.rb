@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20160109072328) do
     t.datetime "confirmation_sent_at"
     t.boolean  "completed"
     t.text     "special_needs"
-    t.boolean  "active"
+    t.boolean  "active", default: true
     t.integer  "lot_id"
     t.string   "avatar"
     t.datetime "paid_on"
