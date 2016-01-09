@@ -73,30 +73,6 @@
 </div>
 
 <script>
-$("#formInfo").validate({
-  rules: {
-    name: {
-      required: true,
-    },
-    gender:"required"
-  },
-  //For custom messages
-  messages: {
-    name:{
-      required: "Preencha com seu nome completo"
-    }
-  },
-  errorElement : 'div',
-  errorPlacement: function(error, element) {
-    var placement = $(element).data('error');
-    if (placement) {
-      $(placement).append(error)
-    } else {
-      error.insertAfter(element);
-    }
-  }
-});
-
 $('#rg').formatter({
   'pattern': '{{99999999999999999}}-{{9}}',
 });

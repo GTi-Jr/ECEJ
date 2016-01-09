@@ -22,7 +22,6 @@ before_action :verify_register_conclusion, only: [:edit, :update]
         redirect_to root_path
       else
         flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
-        flash[:error] = @user.errors
         redirect_to new_user_registration_path
       end
   end
