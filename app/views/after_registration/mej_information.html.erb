@@ -7,7 +7,7 @@
         <label for="filled-in-box">Federado?</label>
       </p>
       <div class="row">
-        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', id:"form_mej") do |f| %>
+        <%= form_for(@user, :url => wizard_path, html: {method: :put, class: 'col s12', id:"form_mej"}) do |f| %>
         <div class="row">
           <div class="input-field col s6">
             <%= f.text_field :federation, :id => 'federation'%>
@@ -44,8 +44,6 @@
   </div>
 </div>
 <script type="text/javascript">
-$('#federation').hide();
-
 //show it when the checkbox is clicked
 $('#filled-in-box').on('click', function () {
   if ($(this).prop('checked')) {

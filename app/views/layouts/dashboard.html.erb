@@ -29,6 +29,17 @@
       <section id="content">
         <!--start container-->
         <div class="container">
+          <div id="profile-page" class="section">
+            <% flash.each do |key, value| %>
+                <div id="card-alert" class="card light-blue lighten-5">
+                  <div class="card-content deep-purple-text">
+                    <p><i class="mdi-action-info-outline"></i> <%= value %> </p>
+                  </div>
+                  <button type="button" class="close deep-purple-text" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+            <% end %>
           <%= yield %>
         </div>
       </section>

@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
     delete '/inscription' => 'users/registrations#destroy'
   end
-  
+
   resources :after_registration
 
   # post '/after_registration/:id' => 'after_registration#update'

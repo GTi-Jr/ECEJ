@@ -1,11 +1,10 @@
 class AfterRegistrationController < ApplicationController
-  include Wicked::Wizard
   before_action :authenticate_user!
   before_action :get_user
-  before_action :verify_register_conclusion
+  #before_action :verify_register_conclusion
 
   layout "dashboard"
-  steps :personal_information, :address_information, :mej_information
+  steps :address_information, :personal_information, :mej_information
 
   def show
     @user.completed = false
