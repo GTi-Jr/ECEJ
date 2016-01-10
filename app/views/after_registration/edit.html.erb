@@ -1,0 +1,113 @@
+<%= form_for(@user, url: { :action => "update" }, html: { method: :put, id: "edit_user_form"}) do |f| %>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Dados pessoais</h4>
+  <div class="row">
+    <!----------- PERSONAL INFO -------->
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :name, :id => 'name', placeholder: 'Nome completo'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :general_register, :id => 'rg', placeholder: 'Doc. de Identidade'%>
+      </div>
+      <div class="input-field col s6">
+        <%= f.text_field :cpf, :id => 'cpf', placeholder: 'CPF'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
+      </div>
+      <div class="input-field col s6">
+        <%= f.text_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <div class="select-wrapper initialized"><span class="caret">▼</span>
+          <%= f.select :gender, ['Masculino', 'Feminino']%>
+        </div>
+        <label>Gênero</label>
+      </div>
+      <div class="file-field input-field col s6">
+        <div class="btn">
+          <span>File</span>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path" type="text" disabled="true">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
+        <label for="special_needs">Necessidades especiais</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Dados do MEJ</h4>
+  <div class="row">
+    <!-------- MEJ -------->
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
+      </div>
+      <div class="input-field col s6">
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :university, placeholder: "Universidade"%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Endereço</h4>
+  <div class="row">
+    <!--------- Adress info ------>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
+      </div>
+      <div class="input-field col s6">
+        <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
+      </div>
+    </div>
+    <%= f.hidden_field :addres, id: "addres" %>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <div class="row">
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+    <div class="input-field col s12">
+      <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
+        Atualizar
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -67,7 +67,8 @@ Rails.application.routes.draw do
     delete '/inscription' => 'users/registrations#destroy'
   end
 
-  resources :after_registration
+  get "cadastro/completar" => "after_registration#edit"
+  put "cadastro" => "after_registration#update"
 
   # routes for payment
   post 'confirm_payment/:notificationCode' => 'checkout#confirm_payment', as: :confirm_payment
