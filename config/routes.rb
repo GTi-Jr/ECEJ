@@ -39,11 +39,11 @@ Rails.application.routes.draw do
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
   end
 
-  #devise_for :users
+  #routes for :users
   devise_for :users,
   controllers: {sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: 'users/confirmations'},
   path: "/",
-  path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'inscription', sign_up: 'new' },
+  path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', unlock: 'unblock', registration: 'inscription', sign_up: 'new' },
   :skip => 'registration'
 
   devise_scope :user do
@@ -66,8 +66,12 @@ Rails.application.routes.draw do
 
     delete '/inscription' => 'users/registrations#destroy'
   end
+  
   resources :after_registration
 
+  # post '/after_registration/:id' => 'after_registration#update'
+
+  # routes for payment
   post 'confirm_payment' => 'notifications#confirm_payment', as: :confirm_payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
@@ -77,6 +81,6 @@ Rails.application.routes.draw do
 
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
-  patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early 
-  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot  
+  patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
+  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 end

@@ -11,8 +11,8 @@ admin = Crew::Admin.new do |admin|
   admin.email = "ecej@ecej2016.com"
   admin.confirmed_at = Time.now
   admin.confirmation_sent_at = Time.now
-  admin.password = "caiocaio"#ENV['ADMIN_PW']
-  admin.password_confirmation = "caiocaio"#ENV['ADMIN_PW']
+  admin.password = Rails.application.secrets.ecej_admin_password
+  admin.password_confirmation = Rails.application.secrets.ecej_admin_password_confirmation
 end
 admin.save!
 
@@ -51,4 +51,3 @@ lot3 = Lot.new do |lot|
   lot.payment_deadline = DateTime.new(2016, 1, 31, 23, 59, 59 , '-3')
 end
 lot3.save!
-

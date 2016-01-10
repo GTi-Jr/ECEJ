@@ -24,6 +24,63 @@ class CheckoutController < ApplicationController
     @user.payment_method ||= "pagseguro"
     @user.save
 
+    pagseguro_request
+  end
+
+  
+
+  private
+  def set_payed
+    # @user.paid_on = DateTime.now
+    @user.payment_status = 'Em processamento'
+    @user.save
+  end
+
+  def setup_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to root_path
+    end
+  end
+
+  def check_payment_status
+    if @user.payment_status != "Não processado"
+      flash[:success] = "Você já solicitou o pagamento, aguarde a confirmação de recebimento."
+    end
+  end
+
+  def verify_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to user_root_path
+    end
+  end
+
+  def check_payment_method
+    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
+      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+    end
+  end
+
+  def redirect_if_user_has_paid
+    if @user.has_paid?
+      # flash[:notice] = "Sua inscrição já foi paga!"
+      redirect_to user_root_path, notice: "Sua inscrição já foi paga!"
+    else
+      get_payment if @user.payment_status == "Em processamento"
+    end
+  end
+
+  def get_payment
+    if controller_name != "create" && @user.payment_method == "pagseguro"
+      pagseguro_request
+    elsif controller_name != "billets" && @user.payment_method == "boleto"
+      redirect_to payment_billet_path
+    end
+    Rails.logger.info "#{controller_name}"
+  end
+
+  def pagseguro_request
     payment = PagSeguro::PaymentRequest.new
 
     payment.reference = "l#{session[:lot]}u#{@user.id}"
@@ -44,7 +101,6 @@ class CheckoutController < ApplicationController
           area_code: @user.phone.only_numbers[0..1],
           number: @user.phone.only_numbers[2..10]
         }
-
       }
 
     # Caso você precise passar parâmetros para a api que ainda não foram
@@ -68,45 +124,4 @@ class CheckoutController < ApplicationController
       set_payed
     end
   end
-
-  def get_payment
-    if @user.payment_method == "pagseguro"
-      render :create
-    elsif @user.payment_method == "boleto"
-      redirect_to payment_billet_path
-    end
-  end
-
-  private
-  def set_payed
-    # @user.paid_on = DateTime.now
-    @user.payment_status = 'Em processamento'
-    @user.save
-  end
-
-  def setup_lot
-    if @user.lot.nil?
-      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to root_path
-    end
-  end
-
-  def check_payment_status
-    if @user.payment_status != "Não processado"
-      flash[:success] = "Você já solicitou o pagamento, aguarde a confirmação de recebimento."
-      redirect_to root_path
-    end
-  end
-
-  def check_payment_method
-    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
-      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
-    end
-  end
-
-  def redirect_if_user_has_paid
-    render :get_payment if @user.payment_status == "Em processamento"
-  end
-
-
 end
