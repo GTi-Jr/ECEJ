@@ -8,7 +8,6 @@ class AfterRegistrationController < ApplicationController
   steps :personal_information, :address_information, :mej_information
 
   def show
-    @user.address = Address.new
     @user.completed = false
     render_wizard
   end
@@ -19,7 +18,7 @@ class AfterRegistrationController < ApplicationController
       @user.update_attributes(personal_params)
       render_wizard @user
     when :address_information
-      @user.address.update_attributes(address_params)
+      @user.addres = "#{params[:street]} #{params[:complement]} #{params[:city]} #{params[:postal_code]}"
       render_wizard @user
     when :mej_information
       @user.update_attributes(mej_params)
@@ -49,6 +48,6 @@ class AfterRegistrationController < ApplicationController
   end
   def address_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:address).permit(:city, :street, :postal_code, :complement)
+    params.require(:user).permit(:addres)
   end
 end

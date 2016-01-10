@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109072328) do
-
-  create_table "addresses", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "city"
-    t.string   "street"
-    t.string   "postal_code"
-    t.string   "complement"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
+ActiveRecord::Schema.define(version: 20160109194413) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -123,13 +111,14 @@ ActiveRecord::Schema.define(version: 20160109072328) do
     t.datetime "confirmation_sent_at"
     t.boolean  "completed"
     t.text     "special_needs"
-    t.boolean  "active", default: true
+    t.boolean  "active",                 default: true
     t.integer  "lot_id"
     t.string   "avatar"
     t.datetime "paid_on"
     t.integer  "room_id"
     t.string   "payment_status",         default: "Não processado"
     t.string   "payment_method"
+    t.text     "addres"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

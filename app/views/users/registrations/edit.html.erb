@@ -1,32 +1,27 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: "edit_user_form"}) do |f| %>
   <div class="col s12 z-depth-4 card-panel">
     <h4 class="header2">Dados pessoais</h4>
     <div class="row">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <!----------- PERSONAL INFO -------->
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :name, :id => 'name', required: true%>
-            <label for="name">Nome completo</label>
+            <%= f.text_field :name, :id => 'name', required: true, placeholder: 'Nome completo'%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :general_register, :id => 'rg', :required => true %>
-            <label for="rg">Doc. de Identidade</label>
+            <%= f.text_field :general_register, :id => 'rg', :required => true, placeholder: 'Doc. de Identidade'%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :cpf, :id => 'cpf', :required => true%>
-            <label for="cpf">CPF</label>
+            <%= f.text_field :cpf, :id => 'cpf', :required => true, placeholder: 'CPF'%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :phone, :id =>'phone', :required => true%>
-            <label for="phone">Telefone</label>
+            <%= f.text_field :phone, :id =>'phone', :required => true, placeholder: 'Telefone celular'%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :birthday, :id =>'birthday', :required => true%>
-            <label for="birthday">Data de Nascimento</label>
+            <%= f.text_field :birthday, :id =>'birthday', :required => true, placeholder: 'Data de nascimento', class: 'datepicker'%>
           </div>
         </div>
         <div class="row">
@@ -50,86 +45,117 @@
             <label for="special_needs">Necessidades especiais</label>
           </div>
         </div>
-
+      </div>
+    </div>
+        <div class="col s12 z-depth-4 card-panel">
+          <h4 class="header2">Dados do MEJ</h4>
+          <div class="row">
         <!-------- MEJ -------->
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :federation, :id => 'federation'%>
-            <label for="federation">Federação</label>
+            <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', required: true%>
-            <label for="junior_enterprise">Empresa Júnior</label>
+            <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', required: true, placeholder: "Empresa Junior"%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :job, :id => 'job', required: true%>
-            <label for="job">Cargo</label>
+            <%= f.text_field :job, :id => 'job', required: true, placeholder: "Cargo"%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-              <%= f.text_field :university, required: true%>
-            <label for="complement">Universidade</label>
+              <%= f.text_field :university, required: true, placeholder: "Universidade"%>
           </div>
         </div>
-
+      </div>
+    </div>
+        <div class="col s12 z-depth-4 card-panel">
+          <h4 class="header2">Endereço</h4>
+          <div class="row">
         <!--------- Adress info ------>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :postal_code, :id => 'postal_code', required: true%>
-            <label for="postal_code">CEP</label>
+            <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :city, :id => 'city', required: true%>
-            <label for="city">Cidade</label>
+            <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= f.text_field :street, :id => 'street', required: true%>
-            <label for="street">Endereço</label>
+            <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-              <%= f.text_field :complement, :id => 'complement'%>
-            <label for="complement">Complemento</label>
+              <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
           </div>
         </div>
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
-
+        <%= f.hidden_field :addres, id: "addres" %>
+      </div>
+    </div>
+        <div class="col s12 z-depth-4 card-panel">
+          <h4 class="header2">Alterar senha</h4>
+          <div class="row">
       <div class="row">
         <div class="input-field col s12">
-          <%= f.password_field :password, autocomplete: "off", :placeholder => 'Nova senha' %>
+          <%= f.password_field :password, id: "password", autocomplete: "off", :placeholder => 'Nova senha' %>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => 'Repita sua nova senha' %>
+          <%= f.password_field :password_confirmation, id: "password_confirmation", autocomplete: "off", :placeholder => 'Repita sua nova senha' %>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.password_field :current_password, autocomplete: "off", required: true, :placeholder => 'Senha atual' %>
+          <%= f.password_field :current_password, autocomplete: "off", :placeholder => 'Senha atual' %>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <%= f.submit 'Atualizar', :class => 'btn cyan waves-effect waves-light right'%>
+          <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
+            Atualizar
+          <% end %>
         </div>
       </div>
-      <% end %>
     </div>
   </div>
-  <script>
-  $('#phone').formatter({
-    'pattern': '({{99}}) {{9}} {{9999}} {{9999}}',
-    'persistent': true
+<% end %>
+  <script type="text/javascript">
+  $().ready(function() {
+    $("#edit_user_form").validate({
+      errorElement : 'div',
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error)
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    });
+    $( "#password" ).rules( "add", {
+      required: true,
+      rangelength: [8,12],
+      messages: {
+        required: "Entre com sua senha",
+        rangelength: "A senha deve conter entre 8 e 12 caracteres"
+      }
+    });
+    $( "#confirm_password" ).rules( "add", {
+      required: true,
+      rangelength: [8,12],
+      equalTo: "#password",
+      messages: {
+        required: "Entre com sua senha",
+        rangelength: "A senha deve conter entre 8 e 12 caracteres",
+        equalTo: "As senhas não conferem"
+      }
+    });
   });
   </script>
