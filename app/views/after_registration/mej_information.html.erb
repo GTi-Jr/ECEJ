@@ -7,7 +7,7 @@
         <div class="row">
           <div class="input-field col s6">
             <%= f.text_field :federation, :id => 'federation'%>
-            <label for="federation">Federação</label>
+            <label for="federation">Federação <sup>Deixe em branco caso sua EJ não seja federada</sup></label>
           </div>
           <div class="input-field col s6">
             <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', required: true%>
@@ -32,7 +32,7 @@
               Finalizar
             <% end %>
             <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
-            <div class="col s12">
+            <div class="col s12 center align">
               <span class="chip">3/3</span> 
             </div>
           </div>
