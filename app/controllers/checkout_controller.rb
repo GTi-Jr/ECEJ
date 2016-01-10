@@ -77,7 +77,6 @@ class CheckoutController < ApplicationController
     elsif controller_name != "billets" && @user.payment_method == "boleto"
       redirect_to payment_billet_path
     end
-    Rails.logger.info "#{controller_name}"
   end
 
   def pagseguro_request
