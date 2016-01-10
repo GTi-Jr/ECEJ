@@ -1,6 +1,7 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
+  before_action :redirect_if_user_has_paid
   before_action :verify_register_conclusion
   before_action :check_payment_status
   before_action :setup_lot
@@ -20,6 +21,9 @@ class CheckoutController < ApplicationController
   end
 
   def create
+    @user.payment_method ||= "pagseguro"
+    @user.save
+
     payment = PagSeguro::PaymentRequest.new
 
     payment.reference = "l#{session[:lot]}u#{@user.id}"
@@ -65,6 +69,14 @@ class CheckoutController < ApplicationController
     end
   end
 
+  def get_payment
+    if @user.payment_method == "pagseguro"
+      render :create
+    elsif @user.payment_method == "boleto"
+      redirect_to payment_billet_path
+    end
+  end
+
   private
   def set_payed
     # @user.paid_on = DateTime.now
@@ -79,9 +91,9 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def  check_payment_status
-    if @user.paid_on != nil && @user.payment_status != nil
-      flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
+  def check_payment_status
+    if @user.payment_status != "Não processado"
+      flash[:success] = "Você já solicitou o pagamento, aguarde a confirmação de recebimento."
       redirect_to root_path
     end
   end
@@ -91,4 +103,10 @@ class CheckoutController < ApplicationController
       redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
     end
   end
+
+  def redirect_if_user_has_paid
+    render :get_payment if @user.payment_status == "Em processamento"
+  end
+
+
 end
