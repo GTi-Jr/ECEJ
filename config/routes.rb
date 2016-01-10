@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
     delete '/inscription' => 'users/registrations#destroy'
   end
+
   resources :after_registration
 
   # routes for payment

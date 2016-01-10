@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def verify_register_conclusion
     if !@user.is_completed?
       flash[:notice] = "Conclua sua inscrição para acessar todas as funções do sistema"
-    	redirect_to after_registration_path(:personal_information)
+    	redirect_to after_registration_path(:address_information)
     end
   end
   helper_method :check_and_redirect
