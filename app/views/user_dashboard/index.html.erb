@@ -4,8 +4,8 @@
         <div class="card-content deep-purple-text">
           <p><i class="mdi-action-info-outline"></i> <%= value %> </p>
         </div>
-        <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">×</span>
+        <button type="button" class="close deep-purple-text" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
         </button>
       </div>
   <% end %>
@@ -48,7 +48,7 @@
           <li class="collection-item">
             <div class="row">
               <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Aniversário</div>
-              <div class="col s7 grey-text text-darken-4 right-align"><%= @user.birthday %></div>
+              <div class="col s7 grey-text text-darken-4 right-align"><%= @user.birthday.strftime("%d/%m/%Y") %></div>
             </div>
           </li>
         </ul>
@@ -59,16 +59,20 @@
         <!-- profile-page-wall-share -->
         <div id="profile-page-wall-share" class="row">
           <div class="col s12">
-            <% if @user.payment_status.nil? %>
-              <div id="card-alert" class="card orange lighten-5">
-                <div class="card-content orange-text">
-                  <%= link_to(payment_path) do %>
-                    <span class="card-content orange-text"><i class="mdi-social-notifications"></i> Efetue o pagamento para garantir sua vaga</span>
-                  <% end %>
-                </div>
+            <% if @user.paid_on.nil? %>
+              <div id="card-alert" class="card pink lighten-5">
+                <%= link_to(payment_path) do %>
+                  <div class="card-content pink-text darken-1">
+                    <span class="card-title pink-text darken-1">
+                      <i class="mdi-action-info-outline"></i>
+                      Você ainda não efetuou o pagamento
+                    </span>
+                      <p> Clique aqui e efetue o pagamento para garantir sua vaga</p>
+                  </div>
+                <% end %>
               </div>
             <%else%>
-              <div id="card-alert" class="card yellow">
+              <div id="card-alert" class="card light-blue darken-2">
                 <div class="card-content white-text">
                   <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
                   <p><%= @user.payment_status %></p>

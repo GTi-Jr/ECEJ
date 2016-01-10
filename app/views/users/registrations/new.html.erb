@@ -1,7 +1,7 @@
 <% @title="Inscrição" %>
 <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name),  html: { class:'login-form', method: :post }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name),  html: { class:"registration_form", id: "registration_form", method: :post }) do |f| %>
         <div class="row">
           <div class="input-field col s12 center">
             <h4>Inscrição ECEJ 2016</h4>
@@ -11,34 +11,73 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            <%= f.email_field :email, autofocus: true,  required: true%>
-            <label for="email" class="center-align">Email</label>
+            <%= f.email_field :email, id:"email", autofocus: true, placeholder:'Email'%>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password, autocomplete: "off", required: true %>
-            <label for="password">Senha</label>
+            <%= f.password_field :password, id: "password", placeholder:'Senha', autocomplete: "off" %>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <%= f.password_field :password_confirmation, autocomplete: "off", required: true %>
-            <label for="password-again">Repita a senha</label>
+            <%= f.password_field :password_confirmation, id: "confirm_password", placeholder:'Repita a senha', autocomplete: "off"%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= button_tag(type: 'submit', class: 'btn waves-effect waves-light col s12') do %>
+            <%= button_tag(type: 'submit', name: 'action', class: 'btn waves-effect waves-light col s12') do %>
               Enviar inscrição
             <% end %>
           </div>
-          <div class="input-field col s12">
+          <div class="col s12 center-align">
             <%= render "devise/shared/links" %>
+            <%= link_to "Voltar", :back %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
+  <script type="text/javascript">
+  $().ready(function() {
+    $("#registration_form").validate({
+      errorElement : 'div',
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error)
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    });
+    $( "#email" ).rules( "add", {
+      required: true,
+      email: true,
+      messages: {
+        required: "Preencha com seu email",
+        email: "Entre com um email válido"
+      }
+    });
+    $( "#password" ).rules( "add", {
+      required: true,
+      rangelength: [8,12],
+      messages: {
+        required: "Entre com sua senha",
+        rangelength: "A senha deve conter entre 8 e 12 caracteres"
+      }
+    });
+    $( "#confirm_password" ).rules( "add", {
+      required: true,
+      rangelength: [8,12],
+      equalTo: "#password",
+      messages: {
+        required: "Entre com sua senha",
+        rangelength: "A senha deve conter entre 8 e 12 caracteres",
+        equalTo: "As senhas não conferem"
+      }
+    });
+  });
+  </script>

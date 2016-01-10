@@ -18,3 +18,4 @@
 //= require plugins/prism/prism.js
 //= require jquery.maskedinput.min
 //= require crew/users.js
+//= require plugins/perfect-scrollbar/perfect-scrollbar.min.js

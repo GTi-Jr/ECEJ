@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize.js
-//= require plugins.js
+//= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
+//= require plugins/formatter/jquery.formatter.min.js
+//= require plugins/jquery-validation/jquery.validate.min.js
+//= require plugins/jquery-validation/additional-methods.min.js

@@ -1,7 +1,6 @@
 <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-        <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put , id:"reset_pass_form"}) do |f| %>
         <%= f.hidden_field :reset_password_token %>
         <div class="row">
           <div class="input-field col s12 center">
@@ -10,19 +9,14 @@
         </div>
         <div class="row margin">
           <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-            <% end %>
-            <%= f.password_field :password, autofocus: true, autocomplete: "off", id: 'pass' %>
-            <label for="pass" class="center-align">Nova senha</label>
+            <i class="mdi-action-lock-outline prefix"></i>
+            <%= f.password_field :password, autofocus: true, placeholder: "Nova Senha" ,autocomplete: "off", id: 'password' %>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-              <%= f.password_field :password_confirmation, autocomplete: "off", id:'pass_conf' %>
-            <label for="pass_conf" class="center-align">Confirme sua nova senha</label>
+            <i class="mdi-action-lock-outline prefix"></i>
+              <%= f.password_field :password_confirmation, placeholder: "Confirme sua nova senha", autocomplete: "off", id:'confirm_password' %>
           </div>
         </div>
         <div class="row">
@@ -38,3 +32,36 @@
       <% end %>
     </div>
 </div>
+<script type="text/javascript">
+$().ready(function() {
+  $("#reset_pass_form").validate({
+    errorElement : 'div',
+    errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $(placement).append(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+  $( "#password" ).rules( "add", {
+    required: true,
+    rangelength: [6,12],
+    messages: {
+      required: "Entre com sua senha",
+      rangelength: "A senha deve conter entre 6 e 12 caracteres"
+    }
+  });
+  $( "#confirm_password" ).rules( "add", {
+    required: true,
+    rangelength: [6,12],
+    equalTo: "#password",
+    messages: {
+      required: "Entre com sua senha",
+      rangelength: "A senha deve conter entre 6 e 12 caracteres",
+      equalTo: "As senhas não conferem"
+    }
+  });
+});
+</script>

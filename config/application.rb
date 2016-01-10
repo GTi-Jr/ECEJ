@@ -18,7 +18,7 @@ module Ecej2016
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'America/Sao_Paulo'
 
-    # config.i18n.default_locale = :'pt-BR'
+    config.i18n.default_locale = :'pt-BR'
 
     config.assets.precompile =  [ '*.js', '*.scss']
 
@@ -31,5 +31,8 @@ module Ecej2016
 
     config.middleware.use PDFKit::Middleware, :print_media_type => true
     config.assets.initialize_on_precompile = false
+
+    # Use this to join those files to the project
+    Dir[File.join(Rails.root, "lib", "core_ext", "*.rb")].each {|l| require l }
   end
 end

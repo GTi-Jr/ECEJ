@@ -14,7 +14,7 @@ before_action :verify_register_conclusion, only: [:edit, :update]
   def create
       @user = User.new(inscription_params)
       @lot = Lot.first
-      if(!@lot.nil? && !@lot.is_full?) 
+      if(!@lot.nil? && !@lot.is_full?)
         @user.lot = @lot
       end
       if @user.save
@@ -22,7 +22,6 @@ before_action :verify_register_conclusion, only: [:edit, :update]
         redirect_to root_path
       else
         flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
-        flash[:error] = @user.errors
         redirect_to new_user_registration_path
       end
   end
@@ -81,6 +80,6 @@ before_action :verify_register_conclusion, only: [:edit, :update]
   end
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:avatar, :phone, :email,:password, :password_confirmation, :current_password)
+    params.require(:user).permit(:avatar, :phone, :email,:password, :name, :avatar_cache, :special_needs ,:password_confirmation, :current_password)
   end
 end
