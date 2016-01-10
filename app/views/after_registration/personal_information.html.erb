@@ -97,12 +97,10 @@ $("#formInfo").validate({
   }
 });
 
-<<<<<<< HEAD
-=======
+
 $('#rg').formatter({
   'pattern': '{{99999999999999999}}-{{9}}',
 });
->>>>>>> 5e90777a3ef274d3754abdc705cef2be75d00db1
 $('#cpf').formatter({
   'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
   'persistent': true
@@ -111,9 +109,18 @@ $('#phone').formatter({
   'pattern': '({{99}}){{9}}{{9999}}{{9999}}',
   'persistent': true
 });
-
 $('.datepicker').pickadate({
-   selectMonths: true, // Creates a dropdown to control month
-   selectYears: 80 // Creates a dropdown of 15 years to control year
+  monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+  monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+  weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+  today: 'Hoje',
+  clear: 'Limpar',
+  close: 'Fechar',
+  min: new Date(1940,1,1),
+  max: new Date(2015,12,31),
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 40, // Creates a dropdown of 15 years to control year
+  yearRange: '1950:2005'
  });
 </script>
