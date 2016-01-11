@@ -11,10 +11,16 @@ class AfterRegistrationController < ApplicationController
 
   def update
     if !params[:user][:birthday].empty?
-      birthday = params[:user][:birthday].split('/')
-      birthday = Date.new(birthday[2].to_i, birthday[1].to_i, birthday[0].to_i)
+      birthday = params[:user][:birthday].split('-')
+      birthday = Date.new(birthday[0].to_i, birthday[1].to_i, birthday[2].to_i)
       @user.birthday = birthday
     end
+    cep = params[:postal_code]
+    city = params[:city]
+    complement = params[:complement]
+    street = params[:street]
+    @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
+    Rails.logger.info @user.addres
     if @user.save && @user.update_attributes(user_params)
       @user.completed = true
       @user.save
@@ -37,6 +43,6 @@ class AfterRegistrationController < ApplicationController
   private
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :cpf, :gender, :avatar, :phone, :special_needs, :addres,:federation, :junior_enterprise, :job, :university)
+    params.require(:user).permit(:name, :general_register, :cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
   end
 end
