@@ -8,12 +8,14 @@ class Crew::PaymentsController < ApplicationController
     case status
     when 'paid'
       @user.payment_status = "Pago"
+      @user.paid_on = DateTime.now
     when 'waiting'
       @user.payment_status = "Em processamento"
     when 'cancelled'   
       @user.payment_status = "Não processado"
     when 'non_paid'
-      @user.payment_status = "Não processado"   
+      @user.payment_status = "Não processado"
+      @user.paid_on = nil   
     end
 
     if @user.save

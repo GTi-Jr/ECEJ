@@ -14,6 +14,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   #POST /user
   def create
       @user = User.new(inscription_params)
+      @user.active = true
       @lot = Lot.first
       if(!@lot.nil? && !@lot.is_full?)
         @user.lot = @lot
