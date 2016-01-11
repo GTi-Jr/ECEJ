@@ -10,9 +10,11 @@ class AfterRegistrationController < ApplicationController
   end
 
   def update
-    birthday = params[:user][:birthday].split('/')
-    birthday = Date.new(birthday[2].to_i, birthday[1].to_i, birthday[0].to_i)
-    @user.birthday = birthday
+    if !params[:user][:birthday].empty?
+      birthday = params[:user][:birthday].split('/')
+      birthday = Date.new(birthday[2].to_i, birthday[1].to_i, birthday[0].to_i)
+      @user.birthday = birthday
+    end
     if @user.save && @user.update_attributes(user_params)
       @user.completed = true
       @user.save

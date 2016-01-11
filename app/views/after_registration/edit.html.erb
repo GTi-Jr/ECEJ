@@ -21,13 +21,13 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-      <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker' %>
+      <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker', required: true %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
         <div class="select-wrapper initialized"><span class="caret">▼</span>
-          <%= f.select :gender, ['Masculino', 'Feminino']%>
+          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar']%>
         </div>
         <label>Gênero</label>
       </div>
