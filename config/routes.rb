@@ -63,6 +63,9 @@ Rails.application.routes.draw do
     get '/inscription/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
     put '/inscription' => 'users/registrations#update'
 
+    get '/senha/editar' => 'users/registrations#edit_password', :as => 'password_edit'
+    put '/senha' => 'users/registrations#update_password'
+
     delete '/inscription' => 'users/registrations#destroy'
   end
 
