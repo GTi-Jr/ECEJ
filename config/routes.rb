@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :crew do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
@@ -66,10 +65,14 @@ Rails.application.routes.draw do
 
     delete '/inscription' => 'users/registrations#destroy'
   end
-  resources :after_registration
+
+  get "cadastro/completar" => "after_registration#edit"
+  put "cadastro" => "after_registration#update"
+
+  # post '/after_registration/:id' => 'after_registration#update'
 
   # routes for payment
-  post 'confirm_payment/:notificationCode' => 'checkout#confirm_payment', as: :confirm_payment
+  post 'confirm_payment' => 'notifications#confirm_payment', as: :confirm_payment
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 

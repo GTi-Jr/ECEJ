@@ -3,8 +3,8 @@
     <div class="card-panel">
       <h4 class="header2">Dados pessoais</h4>
       <div class="row">
-        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', html: {id: "form_info"}) do |f| %>
-        <div class="row">
+      <%= form_for(@user, :url => wizard_path, html: { method: :put, id: "form_info", class: 'col s12'}) do |f| %>
+       <div class="row">
           <div class="input-field col s12">
             <%= f.text_field :name, id:"name", placeholder: 'Nome completo'%>
           </div>
@@ -33,10 +33,17 @@
             <label>Gênero</label>
           </div>
           <div class="file-field input-field col s6">
-            <input class="file-path validate" type="text">
             <div class="btn">
+<<<<<<< HEAD
               <span>Foto</span>
-              <%= f.file_field :avatar, accept: 'avatar/png, avatar/jpeg, avatar/jpg'%>
+              <%= f.file_field :avatar, accept: 'image/png,image/jpg,image/jpeg', value: @user.avatar_url %>
+=======
+              <span>File</span>
+              <%= f.file_field :avatar %>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path" type="text" disabled="true">
+>>>>>>> 1b44907d52394a7db2addc166c3ba019db288c04
             </div>
           </div>
         </div>
@@ -47,7 +54,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <%= button_tag(type: 'submit', class: 'btn cyan waves-effect waves-light right') do %>
+            <%= button_tag(class: 'btn cyan waves-effect waves-light right') do %>
               Próximo
             <% end %>
           </div>
@@ -60,20 +67,35 @@
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
   $('.datepicker').pickadate({
+    monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    close: 'Fechar',
     format: 'dd/mm/yyyy',
     formatSubmit: 'yyyy-mm-dd',
-    selectYears: 80,
-    max: true
+    min: new Date(1940,1,1),
+    max: new Date(2015,12,31),
+    max: true,
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 40, // Creates a dropdown of 15 years to control year
+    yearRange: '1950:2005'
   });
   $('#cpf').formatter({
           'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
   });
   $('#phone').formatter({
-          'pattern': '+55 ({{99}}) {{99999}} {{9999}}',
+          'pattern': '({{99}}) {{99999}} {{9999}}',
   });
   $("#form_info").validate({
+    submitHandler: function(form) {
+    $(form).ajaxSubmit();
+  },
      errorElement : 'div',
      errorPlacement: function(error, element) {
        var placement = $(element).data('error');

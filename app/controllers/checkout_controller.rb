@@ -1,9 +1,10 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
+  before_action :redirect_if_user_has_paid
   before_action :verify_register_conclusion
   before_action :check_payment_status
-  before_action :verify_lot
+  before_action :setup_lot
 
   layout "dashboard"
 
@@ -20,6 +21,65 @@ class CheckoutController < ApplicationController
   end
 
   def create
+    @user.payment_method ||= "pagseguro"
+    @user.save
+
+    pagseguro_request
+  end
+
+  
+
+  private
+  def set_payed
+    # @user.paid_on = DateTime.now
+    @user.payment_status = 'Em processamento'
+    @user.save
+  end
+
+  def setup_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to root_path
+    end
+  end
+
+  def check_payment_status
+    if @user.payment_status != "Não processado"
+      flash[:success] = "Você já solicitou o pagamento, aguarde a confirmação de recebimento."
+    end
+  end
+
+  def verify_lot
+    if @user.lot.nil?
+      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
+      redirect_to user_root_path
+    end
+  end
+
+  def check_payment_method
+    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
+      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+    end
+  end
+
+  def redirect_if_user_has_paid
+    if @user.has_paid?
+      # flash[:notice] = "Sua inscrição já foi paga!"
+      redirect_to user_root_path, notice: "Sua inscrição já foi paga!"
+    else
+      get_payment if @user.payment_status == "Em processamento"
+    end
+  end
+
+  def get_payment
+    if controller_name != "create" && @user.payment_method == "pagseguro"
+      pagseguro_request
+    elsif controller_name != "billets" && @user.payment_method == "boleto"
+      redirect_to payment_billet_path
+    end
+  end
+
+  def pagseguro_request
     payment = PagSeguro::PaymentRequest.new
 
     payment.reference = "l#{session[:lot]}u#{@user.id}"
@@ -61,49 +121,6 @@ class CheckoutController < ApplicationController
     else
       redirect_to response.url
       set_payed
-    end
-  end
-
-  def confirm_payment
-    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
-    if transaction.errors.empty?
-      pagseg_notification = PagSeguroNotification.new
-      pagseg_notification.log = transaction.to_yaml
-      pagseg_notification.save
-    end
-  end
-
-  private
-  def set_payed
-    @user.paid_on = DateTime.now
-    @user.payment_status = 'Em processamento'
-    @user.save
-  end
-
-  def setup_lot
-    if @user.lot.nil?
-      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to root_path
-    end
-  end
-
-  def  check_payment_status
-    if @user.paid_on != nil && @user.payment_status != nil
-      flash[:success] = "Você já efetuou o pagamento, aguarde a confirmação de recebimento."
-      redirect_to root_path
-    end
-  end
-
-  def verify_lot
-    if @user.lot.nil?
-      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to user_root_path
-    end
-  end
-
-  def check_payment_method
-    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
-      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
     end
   end
 end

@@ -7,10 +7,11 @@
         <label for="filled-in-box">Federado?</label>
       </p>
       <div class="row">
-        <%= form_for(@user, :url => wizard_path, :method => :put, :class => 'col s12', id:"form_mej") do |f| %>
+        <%= form_for(@user, :url => wizard_path, html: {method: :put, class: 'col s12', id:"form_mej"}) do |f| %>
         <div class="row">
           <div class="input-field col s6">
-            <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
+            <%= f.text_field :federation, :id => 'federation'%>
+            <label for="federation">Federação <sup>Deixe em branco caso sua EJ não seja federada</sup></label>
           </div>
           <div class="input-field col s6">
             <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior"%>
@@ -32,8 +33,8 @@
               Finalizar
             <% end %>
             <%= link_to 'Anterior', previous_wizard_path, :class => 'btn cyan waves-effect waves-light left' %>
-            <div class="col s12">
-              <span class="chip">3/3</span>
+            <div class="col s12 center align">
+              <span class="chip">3/3</span> 
             </div>
           </div>
         </div>
@@ -43,8 +44,6 @@
   </div>
 </div>
 <script type="text/javascript">
-$('#federation').hide();
-
 //show it when the checkbox is clicked
 $('#filled-in-box').on('click', function () {
   if ($(this).prop('checked')) {

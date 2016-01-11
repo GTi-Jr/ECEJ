@@ -1,32 +1,29 @@
 class AfterRegistrationController < ApplicationController
-  include Wicked::Wizard
   before_action :authenticate_user!
   before_action :get_user
-  before_action :verify_register_conclusion
+  #before_action :verify_register_conclusion
 
   layout "dashboard"
-  steps :personal_information, :address_information, :mej_information
 
-  def show
+  def edit
     @user.completed = false
-    render_wizard
   end
 
   def update
-    case step
-    when :personal_information
-      @user.update_attributes(personal_params)
-      render_wizard @user
-    when :address_information
-      @user.addres = "#{params[:street]} #{params[:complement]} #{params[:city]} #{params[:postal_code]}"
-      render_wizard @user
-    when :mej_information
-      @user.update_attributes(mej_params)
-      @user.update_attribute(:completed,'true')
-      sign_in(@user, bypass: true) # needed for devise
+    if !params[:user][:birthday].empty?
+      birthday = params[:user][:birthday].split('/')
+      birthday = Date.new(birthday[2].to_i, birthday[1].to_i, birthday[0].to_i)
+      @user.birthday = birthday
+    end
+    if @user.save && @user.update_attributes(user_params)
+      @user.completed = true
+      @user.save
+      flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
+      redirect_to root_path
+    else
+      flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe."
       redirect_to root_path
     end
-
   end
 
 
@@ -38,16 +35,8 @@ class AfterRegistrationController < ApplicationController
   end
 
   private
-  def personal_params
+  def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender, :avatar, :phone, :special_needs)
-  end
-  def mej_params
-    # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:federation, :junior_enterprise, :job, :university)
-  end
-  def address_params
-    # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:addres)
+    params.require(:user).permit(:name, :general_register, :cpf, :gender, :avatar, :phone, :special_needs, :addres,:federation, :junior_enterprise, :job, :university)
   end
 end

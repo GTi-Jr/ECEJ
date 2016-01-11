@@ -11,9 +11,11 @@
         </div>
         <ul class="right hide-on-med-and-down">
           <li>
-            <a href="javascript:void(0);" class="dropdown-button active" data-activates="profile-dropdown"><%= @user.name.nil? ? @user.email : @user.name %>
-              <i class="mdi-navigation-arrow-drop-down right"></i>
-            </a>
+            <% if @user.present? %>
+              <a href="javascript:void(0);" class="dropdown-button active" data-activates="profile-dropdown"><%= @user.name.nil? ? @user.email : @user.name %>
+                <i class="mdi-navigation-arrow-drop-down right"></i>
+              </a>
+            <% end %>
             <ul id="profile-dropdown" class="dropdown-content active">
               <li>
                 <%= link_to edit_user_registration_path do %>

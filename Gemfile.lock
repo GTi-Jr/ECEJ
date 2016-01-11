@@ -74,6 +74,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     brnumeros (3.3.0)
+    browser (1.1.0)
     brstring (3.3.0)
       activesupport (>= 3.0.0)
     builder (3.2.2)
@@ -321,6 +322,7 @@ DEPENDENCIES
   bcrypt
   bcrypt-ruby (~> 3.0.0)
   brazilian-rails
+  browser
   byebug
   carrierwave
   devise

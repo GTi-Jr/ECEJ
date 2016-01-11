@@ -1,0 +1,190 @@
+<%= form_for @user, url: { :action => "update" }, html: { id: "edit_user_form", method: :put } do |f| %>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Dados pessoais</h4>
+  <div class="row">
+    <!----------- PERSONAL INFO -------->
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :name, :id => 'name', placeholder: 'Nome completo'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :general_register, :id => 'rg', placeholder: 'Doc. de Identidade'%>
+      </div>
+      <div class="input-field col s6">
+        <%= f.text_field :cpf, :id => 'cpf', placeholder: 'CPF'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
+      </div>
+      <div class="input-field col s6">
+        <% if browser.firefox? %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
+          <script>
+            $('#birthday').formatter({
+              'pattern': '{{99}}/{{99}}/{{9999}}',
+            });
+          </script>
+        <% else %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker', required: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <div class="select-wrapper initialized"><span class="caret">▼</span>
+          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar']%>
+        </div>
+        <label>Gênero</label>
+      </div>
+      <div class="file-field input-field col s6">
+        <div class="btn">
+          <span>Foto</span>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path" type="text" disabled="true">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
+        <label for="special_needs">Necessidades especiais</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Dados do MEJ</h4>
+  <div class="row">
+    <!-------- MEJ -------->
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
+      </div>
+      <div class="input-field col s6">
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= f.text_field :university, placeholder: "Universidade"%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Endereço</h4>
+  <div class="row">
+    <!--------- Adress info ------>
+    <div class="row">
+      <div class="input-field col s6">
+        <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
+      </div>
+      <div class="input-field col s6">
+        <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
+      </div>
+    </div>
+    <%= f.hidden_field :addres, id: "addres" %>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <div class="row">
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+    <div class="input-field col s12">
+      <%= f.submit "go" %>
+      <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
+        Atualizar
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+  $('.datepicker').pickadate({
+    monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    close: 'Fechar',
+    format: 'dd/mm/yyyy',
+    min: new Date(1940,1,1),
+    max: new Date(2015,12,31),
+    max: true,
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 40, // Creates a dropdown of 15 years to control year
+    yearRange: '1950:2005'
+  });
+  $('#cpf').formatter({
+          'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
+  });
+  $('#phone').formatter({
+          'pattern': '({{99}}) {{99999}} {{9999}}',
+  });
+  $("#form_info").validate({
+    submitHandler: function(form) {
+    $(form).ajaxSubmit();
+  },
+     errorElement : 'div',
+     errorPlacement: function(error, element) {
+       var placement = $(element).data('error');
+       if (placement) {
+         $(placement).append(error)
+       } else {
+         error.insertAfter(element);
+       }
+     }
+   });
+   $( "#name" ).rules( "add", {
+     required: true,
+     messages: {
+       required: "Preencha com nome completo"
+     }
+   });
+   $( "#general_register" ).rules( "add", {
+     required: true,
+     digits: true,
+     messages: {
+       required: "Entre com seu número de identidade",
+       digits: "Preencha esse campo apenas com números"
+     }
+   });
+   $( "#cpf" ).rules( "add", {
+     required: true,
+     rangelength: [11,14],
+     messages: {
+       required: "Entre com seu cpf",
+       rangelength: "O CPF deve possuir 11 dígitos"
+     }
+   });
+   $( "#phone" ).rules( "add", {
+     required: true,
+     messages: {
+       required: "Entre com seu número de celular"
+     }
+   });
+</script>
