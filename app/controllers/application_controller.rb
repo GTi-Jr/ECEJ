@@ -8,10 +8,11 @@ class ApplicationController < ActionController::Base
   def verify_register_conclusion
     if !@user.is_completed?
       flash[:notice] = "Conclua sua inscrição para acessar todas as funções do sistema"
-    	redirect_to cadastro_completar_path(:address_information)
+    	redirect_to cadastro_completar_path
     end
   end
   helper_method :check_and_redirect
+
   def get_current_lot
     @current_lot = Lot.active_lot
   end
