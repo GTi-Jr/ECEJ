@@ -23,6 +23,11 @@
                 <% end %>
               </li>
               <li>
+                <%= link_to password_edit_path do %>
+                  <i class="mdi-action-face-unlock left"></i> Alterar senha
+                <% end %>
+              </li>
+              <li>
                 <%= link_to(destroy_user_session_path, :method => :delete) do %>
                   <i class="mdi-hardware-keyboard-tab left"></i> Sair
                 <% end %>

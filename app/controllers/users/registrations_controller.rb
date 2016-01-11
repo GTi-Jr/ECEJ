@@ -2,7 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
 before_filter :get_current_lot
-before_action :verify_register_conclusion, only: [:edit, :update]
+before_action :get_user
+before_action :verify_register_conclusion, only: [:edit, :update, :edit_password, :update_password]
 
   layout :determine_layout
   #GET /user/sign_up
@@ -33,7 +34,39 @@ before_action :verify_register_conclusion, only: [:edit, :update]
 
   #PUT /user
   def update
-    super
+    cep = params[:postal_code]
+    city = params[:city]
+    complement = params[:complement]
+    street = params[:street]
+    @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
+    @user.completed = true
+    if @user.save && @user.update_attributes(user_params)
+      flash[:success] = "Cadastro atualizado."
+      redirect_to root_path
+    else
+      flash[:error] = "Erro ao atualizar cadastro."
+      redirect_to root_path
+    end
+  end
+
+  def edit_password
+  end
+
+  def update_password
+    if @user.valid_password?(params[:user][:current_password])
+      if @user.update(password_params)
+        # Sign in the user by passing validation in case their password changed
+        sign_in @user, :bypass => true
+        flash[:sucsses] = "Senha alterada com sucesso."
+        redirect_to root_path
+      else
+        flash[:error] = "Não foi possível alterar sua senha."
+        redirect_to password_edit_path
+      end
+    else
+      flash[:error] = "Senha atual incorreta."
+      redirect_to password_edit_path
+    end
   end
 
   #DELETE /user
@@ -59,7 +92,7 @@ before_action :verify_register_conclusion, only: [:edit, :update]
 
   #If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:avatar, :phone, :email,:password, :password_confirmation, :current_password) }
+    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :addres ,:federation, :junior_enterprise, :job, :university) }
   end
 
 
@@ -75,11 +108,17 @@ before_action :verify_register_conclusion, only: [:edit, :update]
 
 
   private
+
+  def password_params
+    # NOTE: Using `strong_parameters` gem
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
   def inscription_params
     params.require(:user).permit(:email,:password, :password_confirmation)
   end
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:avatar, :phone, :email,:password, :name, :avatar_cache, :special_needs ,:password_confirmation, :current_password)
+    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
   end
 end
