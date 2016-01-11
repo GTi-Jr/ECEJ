@@ -21,7 +21,16 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-      <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker', required: true %>
+        <% if browser.firefox? %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
+          <script>
+            $('#birthday').formatter({
+              'pattern': '{{99}}/{{99}}/{{9999}}',
+            });
+          </script>
+        <% else %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker', required: true %>
+        <% end %>
       </div>
     </div>
     <div class="row">
