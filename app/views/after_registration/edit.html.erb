@@ -21,16 +21,16 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-        <% if browser.firefox? %>
-          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento AAAA-MM-DD', required: true %>
+        <!-- <% if browser.firefox? %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
           <script>
             $('#birthday').formatter({
-              'pattern': '{{9999}}/{{99}}/{{99}}',
+              'pattern': '{{99}}/{{99}}/{{9999}}',
             });
           </script>
-        <% else %>
+        <% else %> -->
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
-        <% end %>
+        <!-- <% end %> -->
       </div>
     </div>
     <div class="row">
@@ -88,20 +88,20 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.addres.split(',')[1].lstrip %>
+        <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.addres.split(',')[0].lstrip %>
+        <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.addres.split(',')[2].lstrip %>
+        <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.addres.split(',')[3].lstrip %>
+        <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
       </div>
     </div>
     <%= f.hidden_field :addres, id: "addres" %>
