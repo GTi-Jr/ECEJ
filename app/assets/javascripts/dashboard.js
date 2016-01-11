@@ -21,3 +21,11 @@
 //= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
 //= require after_registration.js
 //= require user_dashboard.js
+$('.progress').hide();
+$("#edit_user").validate({
+  submitHandler: function(form) {
+    // do other things for a valid form
+    $('.progress').show();
+    form.submit();
+  }
+ });

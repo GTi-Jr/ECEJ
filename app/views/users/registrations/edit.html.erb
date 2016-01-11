@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: "edit_user_form"}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: "edit_user"}) do |f| %>
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Dados pessoais</h4>
   <div class="row">
@@ -21,16 +21,7 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-        <!-- <% if browser.firefox? %>
-          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
-          <script>
-            $('#birthday').formatter({
-              'pattern': '{{99}}/{{99}}/{{9999}}',
-            });
-          </script>
-        <% else %> -->
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
-        <!-- <% end %> -->
       </div>
     </div>
     <div class="row">
@@ -113,9 +104,18 @@
       <div class="indeterminate"></div>
     </div>
     <div class="input-field col s12">
-      <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
-        Salvar
-      <% end %>
+      <div class="col s12 center-align">
+        <%= button_tag(type:"submit", class: 'btn waves-effect waves-light') do %>
+          Salvar
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <div class="col s12 center-align">
+          <%= link_to "Alterar Senha", password_edit_path, class: 'btn waves-effect waves-light' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

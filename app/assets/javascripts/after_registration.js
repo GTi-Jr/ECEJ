@@ -20,6 +20,9 @@
     $('#phone').formatter({
             'pattern': '({{99}}) {{99999}} {{9999}}',
     });
+    $('#postal_code').formatter({
+            'pattern': '{{99999}}-{{999}}',
+    });
     $('.progress').hide();
     $("#edit_user_form").validate({
       submitHandler: function(form) {
