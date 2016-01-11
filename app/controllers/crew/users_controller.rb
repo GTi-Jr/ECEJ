@@ -15,7 +15,7 @@ class Crew::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    
+    @user.active = true
     if @user.save
       redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else

@@ -81,9 +81,12 @@ Rails.application.routes.draw do
 
   get 'payment_billet' => 'billets#billet', as: :payment_billet
 
-
+  # get request so link can be sent through email
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
-  patch '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
+  get '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
   patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
+  
+  # set payment manually
+  patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
 end
