@@ -20,7 +20,6 @@ class AfterRegistrationController < ApplicationController
     complement = params[:complement]
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
-    Rails.logger.info @user.addres
     if @user.save && @user.update_attributes(user_params)
       @user.completed = true
       @user.save
