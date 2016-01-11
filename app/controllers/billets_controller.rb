@@ -7,7 +7,7 @@ class BilletsController < CheckoutController
       redirect_to user_root_path, alert: "Não foi possível completar a ação"
     end
 
-    if @user.federation.empty?
+    if @user.federation.nil?
       redirect_to @lot.link_unfed
     else
       redirect_to @lot.link_fed
