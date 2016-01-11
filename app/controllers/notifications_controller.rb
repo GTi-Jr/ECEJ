@@ -4,13 +4,14 @@ class NotificationsController < ApplicationController
   def confirm_payment
     Rails.logger.info "NOTIFICAÇÃO RECEBIDA #{params[:notificationCode]}"
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
+    transaction_1 = PagSeguro::Transaction.find_by_code(transaction)
     Rails.logger.info "\n\n NOTIFICAÇÃOTRANSAÇÃO \n  #{transaction}"
-    if transaction.errors.empty?
+    if transaction_1.errors.empty?
       Rails.logger.info "\n\n\n TRANSAÇÃO ENCONTRADA"
-      Rails.logger.info "\n\n  Enviada por #{transaction.sender.email}"
-      Rails.logger.info "\n\n  Status: #{transaction.status}"
-      user = User.where(email: transaction.sender.email).first
-      case transaction.status.status
+      Rails.logger.info "\n\n  Enviada por #{transaction_1.sender.email}"
+      Rails.logger.info "\n\n  Status: #{transaction_1.status}"
+      user = User.where(email: transaction_1.sender.email).first
+      case transaction_1.status.status
       when :initiated
         user.payment_status = "Em processamento"
       when :waiting_payment
@@ -42,7 +43,7 @@ class NotificationsController < ApplicationController
       user.save
     else
       Rails.logger.info "\n\n\n   Erros ao receber notificação:"
-      transaction.errors.to_a.each do |error|
+      transaction_1.errors.to_a.each do |error|
         Rails.logger.info "  - #{error}"
       end
     end
