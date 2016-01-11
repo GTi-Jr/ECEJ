@@ -51,6 +51,8 @@ gem "pagseguro-oficial", "~> 2.4.0"
 
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'browser'
+
 
 gem 'pdfkit'
 # Dependencia for wicked_pdf

@@ -10,15 +10,14 @@ class AfterRegistrationController < ApplicationController
   end
 
   def update
-      @user.completed = true
-      if @user.save && @user.update_attributes(user_params)
-        flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
-        redirect_to root_path
-      else
-        flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe."
-        redirect_to root_path
-      end
-
+    @user.completed = true
+    if @user.save && @user.update_attributes(user_params)
+      flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
+      redirect_to root_path
+    else
+      flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe."
+      redirect_to root_path
+    end
   end
 
   private

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :crew do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
