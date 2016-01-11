@@ -17,6 +17,23 @@ class User < ActiveRecord::Base
   has_one :address
 
   mount_uploader :avatar, AvatarUploader
+
+  def city
+    addres ? addres.split(',')[0].lstrip : nil
+  end
+
+  def cep
+    addres ? addres.split(',')[1].lstrip : nil
+  end
+
+  def street    
+    addres ? addres.split(',')[2].lstrip : nil
+  end
+
+  def complement    
+    addres ? addres.split(',')[3].lstrip : nil
+  end
+
   # Returns false unless the user has updated all of his information
   def is_completed?
     return false unless self.completed
