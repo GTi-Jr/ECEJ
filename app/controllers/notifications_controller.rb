@@ -2,10 +2,11 @@ class NotificationsController < ApplicationController
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' || c.request.format == 'application/xml'}
 
   def confirm_payment
-    Rails.logger.info "NOTIFICAÇÃO RECEBIDA #{params[:notificationCode]}"
-    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
+    Rails.logger.info "NOTIFICAÇÃO RECEBIDA #{params[:transacaoID]}"
+    transaction = PagSeguro::Transaction.find_by_code(params[:transacaoID])
+    Rails.logger.info "\n\n NOTIFICAÇÃOTRANSAÇÃO \n  #{transaction}"
     if transaction.errors.empty?
-      Rails.logger.info "\n\n\n NOTIFICAÇÃO ENCONTRADA"
+      Rails.logger.info "\n\n\n TRANSAÇÃO ENCONTRADA"
       Rails.logger.info "\n\n  Enviada por #{transaction.sender.email}"
       Rails.logger.info "\n\n  Status: #{transaction.status}"
       user = User.where(email: transaction.sender.email).first
