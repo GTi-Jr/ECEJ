@@ -88,20 +88,20 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.addres.split(',')[1].lstrip %>
+        <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.addres.split(',')[1].lstrip || "" %>
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.addres.split(',')[0].lstrip %>
+        <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.addres.split(',')[0].lstrip || "" %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.addres.split(',')[2].lstrip %>
+        <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.addres.split(',')[2].lstrip || "" %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.addres.split(',')[3].lstrip %>
+        <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.addres.split(',')[3].lstrip || "" %>
       </div>
     </div>
     <%= f.hidden_field :addres, id: "addres" %>
