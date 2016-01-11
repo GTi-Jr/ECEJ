@@ -48,7 +48,7 @@
         <!-- profile-page-wall-share -->
         <div id="profile-page-wall-share" class="row">
           <div class="col s12">
-            <% if @user.paid_on.nil? %>
+            <% if @user.payment_status == "Não processado" %>
               <div id="card-alert" class="card pink lighten-5">
                 <%= link_to(payment_path) do %>
                   <div class="card-content pink-text darken-1">
@@ -74,6 +74,3 @@
       </div>
     </div>
 </div>
-<script>
-Materialize.toast('Bem vindo, ao Painel de Controle do ECEJ 2016!', 4000)
-</script>

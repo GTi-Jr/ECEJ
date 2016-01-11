@@ -1,7 +1,7 @@
 class AfterRegistrationController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
-  #before_action :verify_register_conclusion
+  before_action :verify_register_conclusion
 
   layout "dashboard"
 
@@ -10,9 +10,8 @@ class AfterRegistrationController < ApplicationController
   end
 
   def update
-      if @user.update_attributes(user_params)
-        @user.completed = true
-        @user.save
+      @user.completed = true
+      if @user.save && @user.update_attributes(user_params)
         flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
         redirect_to root_path
       else
@@ -20,14 +19,6 @@ class AfterRegistrationController < ApplicationController
         redirect_to root_path
       end
 
-  end
-
-
-  protected
-  def verify_register_conclusion
-    if @user.is_completed?
-    	redirect_to root_path
-    end
   end
 
   private

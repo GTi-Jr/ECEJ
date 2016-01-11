@@ -23,14 +23,14 @@
             </ul>
           </div>
           <div class="card-action center-align">
+            <sub>OBS: Após escolher um método, este não poderá ser mudado.</sub>
             <p>Método de pagamento:</p>
             <%= link_to payment_path, method: :post, target: '_blank', class: 'margin-fix' do %>
               <span class="waves-effect waves-light btn">PagSeguro</span>
             <% end %> <br><br>
             <%= link_to payment_billet_path, target: '_blank', class: 'margin-fix' do %>
               <span class="waves-effect waves-light btn">Boleto</span>
-            <% end %>
-            <p><sub>OBS: Após escolher um método, este não poderá ser mudado.</sub></p>
+            <% end %>            
           </div>
         </div>
       </article>

@@ -18,4 +18,6 @@
 //= require plugins/formatter/jquery.formatter.min.js
 //= require plugins/jquery-validation/jquery.validate.min.js
 //= require plugins/jquery-validation/additional-methods.min.js
+//= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
 //= require after_registration.js
+//= require user_dashboard.js

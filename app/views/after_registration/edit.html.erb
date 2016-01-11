@@ -1,4 +1,4 @@
-<%= form_for(@user, url: { :action => "update" }, html: { method: :put, id: "edit_user_form"}) do |f| %>
+<%= form_for @user, url: { :action => "update" }, html: { id: "edit_user_form", method: :put } do |f| %>
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Dados pessoais</h4>
   <div class="row">
@@ -21,7 +21,7 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-        <%= f.text_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker' %>
+        <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker' %>
       </div>
     </div>
     <div class="row">
@@ -33,7 +33,7 @@
       </div>
       <div class="file-field input-field col s6">
         <div class="btn">
-          <span>File</span>
+          <span>Foto</span>
           <%= f.file_field :avatar %>
         </div>
         <div class="file-path-wrapper">
@@ -68,7 +68,7 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <%= f.text_field :university, placeholder: "Universidade"%>
+        <%= f.text_field :university, :id => 'university', placeholder: "Universidade"%>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@
     </div>
     <div class="input-field col s12">
       <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
-        Atualizar
+        Salvar
       <% end %>
     </div>
   </div>
