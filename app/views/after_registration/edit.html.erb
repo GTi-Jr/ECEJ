@@ -88,20 +88,36 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.addres.split(',')[1].lstrip || "" %>
+        <% if @user.addres.nil? %>
+          <%= text_field_tag 'postal_code', nil, placeholder: "CEP" %>
+        <% else %>
+          <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.addres.split(',')[1].lstrip || "" %>
+        <% end %>        
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.addres.split(',')[0].lstrip || "" %>
+        <% if @user.addres.nil? %>
+          <%= text_field_tag 'city', nil, placeholder: "Cidade" %>
+        <% else %>
+          <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.addres.split(',')[0].lstrip || "" %>
+        <% end %>        
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.addres.split(',')[2].lstrip || "" %>
+        <% if @user.addres.nil? %>
+          <%= text_field_tag 'street', nil, placeholder: "Endereço" %>
+        <% else %>
+          <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.addres.split(',')[2].lstrip || "" %>
+        <% end %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.addres.split(',')[3].lstrip || "" %>
+        <% if @user.addres.nil? %>
+          <%= text_field_tag 'complement', nil, placeholder: "Complemento" %>
+        <% else %>
+          <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.addres.split(',')[3].lstrip || "" %>
+        <% end %>        
       </div>
     </div>
     <%= f.hidden_field :addres, id: "addres" %>
