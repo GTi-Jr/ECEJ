@@ -41,10 +41,12 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
+    @user.cpf = Cpf.new(params[:user][:cpf])
     if @user.save && @user.update_attributes(user_params)
       flash[:success] = "Cadastro atualizado."
       redirect_to root_path
     else
+      Rails.logger.info @user.errors.full_messages
       flash[:error] = "Erro ao atualizar cadastro."
       redirect_to root_path
     end
@@ -120,6 +122,6 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   end
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
+    params.require(:user).permit(:name, :general_register, :birthday , :cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
   end
 end

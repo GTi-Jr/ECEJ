@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   validates :payment_status, 
             inclusion: { in: ["Pago", "Em processamento", "Não processado"] }
 
+  usar_como_cpf :cpf
+
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
@@ -136,5 +138,4 @@ class User < ActiveRecord::Base
       Rails.logger.info "---- An email was sent to #{user.name}"
     end
   end
-
 end
