@@ -17,7 +17,7 @@ class Crew::PaymentsController < ApplicationController
     end
 
     if @user.save
-      redirect to :back, notice: "Stats do pagamentoa foi alterado."
+      redirect_to :back, notice: "Status do pagamentoa foi alterado."
     else
       redirect_to :back, alert: "Não foi possível alterar o status do pagamento."
     end

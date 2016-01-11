@@ -85,5 +85,5 @@ Rails.application.routes.draw do
   patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
   
   # set payment manually
-  patch '/user_payment/:id/:payment_status' => 'payments#set_user_payment', as: :set_user_payment
+  patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
 end
