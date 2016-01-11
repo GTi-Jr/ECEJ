@@ -14,8 +14,7 @@
 //= require jquery_ujs
 //= require materialize.js
 //= require plugins.js
-//= require after_registration.js
 //= require plugins/prism/prism.js
-//= require jquery.maskedinput.min
+//= require jquery.maskedinput.min.js
 //= require crew/users.js
 //= require plugins/perfect-scrollbar/perfect-scrollbar.min.js

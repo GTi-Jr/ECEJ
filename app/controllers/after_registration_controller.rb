@@ -1,7 +1,7 @@
 class AfterRegistrationController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
-  #before_action :verify_register_conclusion
+  before_action :verify_register_conclusion
 
   layout "dashboard"
 
@@ -10,6 +10,7 @@ class AfterRegistrationController < ApplicationController
   end
 
   def update
+
     if !params[:user][:birthday].empty?
       birthday = params[:user][:birthday].split('-')
       birthday = Date.new(birthday[0].to_i, birthday[1].to_i, birthday[2].to_i)
@@ -20,9 +21,8 @@ class AfterRegistrationController < ApplicationController
     complement = params[:complement]
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
+    @user.completed = true
     if @user.save && @user.update_attributes(user_params)
-      @user.completed = true
-      @user.save
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
       redirect_to root_path
     else
@@ -31,15 +31,13 @@ class AfterRegistrationController < ApplicationController
     end
   end
 
-
-  protected
+  private
   def verify_register_conclusion
     if @user.is_completed?
-    	redirect_to root_path
+      redirect_to root_path
     end
   end
 
-  private
   def user_params
     # NOTE: Using `strong_parameters` gem
     params.require(:user).permit(:name, :general_register, :cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)

@@ -27,7 +27,7 @@ class CheckoutController < ApplicationController
     pagseguro_request
   end
 
-  
+
 
   private
   def set_payed
@@ -49,16 +49,10 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def verify_lot
-    if @user.lot.nil?
-      flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to user_root_path
-    end
-  end
-
   def check_payment_method
     unless @user.payment_method == nil || @user.payment_method == "pagseguro"
-      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+      flash[:error] = "Você não tem acesso a esse método de pagamento."
+      redirect_to user_root_path
     end
   end
 

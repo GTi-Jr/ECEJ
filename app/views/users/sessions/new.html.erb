@@ -47,21 +47,34 @@
       <% end %>
     </div>
   </div>
-<script type="text/javascript">
+<<script type="text/javascript">
+$().ready(function() {
   $("#form_login").validate({
-          rules: {
-              email: {
-                  required: true,
-              },
-              password: {
-        				required: true,
-        				minlength: 6
-        			},
-              //For custom messages
-              messages: {
-                  email:{
-                      required: "Enter a email",
-                  },
-              }
-           });
+    errorElement : 'div',
+    errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $(placement).append(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+  $( "#email" ).rules( "add", {
+    required: true,
+    email: true,
+    messages: {
+      required: "Preencha com seu email",
+      email: "Entre com um email válido"
+    }
+  });
+  $( "#password" ).rules( "add", {
+    required: true,
+    rangelength: [8,12],
+    messages: {
+      required: "Entre com sua senha",
+      rangelength: "A senha deve conter entre 8 e 12 caracteres"
+    }
+  });
+});
 </script>
