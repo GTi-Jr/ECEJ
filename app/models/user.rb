@@ -19,19 +19,19 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   def city
-    self.addres ? @user.addres.split(',')[0].lstrip : nil
+    addres ? addres.split(',')[0].lstrip : nil
   end
 
-  def cpf
-    self.addres ? self.addres.split(',')[1].lstrip : nil
+  def cep
+    addres ? addres.split(',')[1].lstrip : nil
   end
 
   def street    
-    self.addres ? @user.addres.split(',')[2].lstrip : nil
+    addres ? addres.split(',')[2].lstrip : nil
   end
 
   def complement    
-    self.addres ? @user.addres.split(',')[3].lstrip : nil
+    addres ? addres.split(',')[3].lstrip : nil
   end
 
   # Returns false unless the user has updated all of his information
