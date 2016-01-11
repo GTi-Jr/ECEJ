@@ -21,6 +21,12 @@ class AfterRegistrationController < ApplicationController
   end
 
   private
+  def verify_register_conclusion
+    if @user.is_completed?
+      redirect_to root_path
+    end
+  end
+
   def user_params
     # NOTE: Using `strong_parameters` gem
     params.require(:user).permit(:name, :general_register, :cpf, :birthday, :gender, :avatar, :phone, :special_needs, :addres,:federation, :junior_enterprise, :job, :university)
