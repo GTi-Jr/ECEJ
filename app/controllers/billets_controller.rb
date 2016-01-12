@@ -1,7 +1,7 @@
 class BilletsController < CheckoutController
   def billet
     @lot = @user.lot
-    @user.payment_method ||= "boleto"
+    @user.payment_method ||= "Boleto"
     @user.payment_status = "Em processamento"
     unless @user.save
       redirect_to user_root_path, alert: "Não foi possível completar a ação"
