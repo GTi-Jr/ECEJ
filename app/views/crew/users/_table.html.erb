@@ -16,10 +16,16 @@
           <td><%= user.email %></td>
           <td><%= user.junior_enterprise %></td>
           <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
-          <td><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></td>
-          <td><%= link_to "Em espera", set_user_payment_path(user.id, 'waiting'), method: :patch %></td>
-          <td><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></td>
-          <td><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></td>
+          <td>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+              <li><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></li>
+              <li><%= link_to "Em espera", set_user_payment_path(user.id, 'waiting'), method: :patch %></li>
+              <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
+              <li><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></li>
+            </ul>
+          </td>      
         </tr>
       <% end %> 
     <% end %>
