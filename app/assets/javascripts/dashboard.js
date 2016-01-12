@@ -29,3 +29,38 @@ $("#edit_user").validate({
     form.submit();
   }
  });
+ $("#edit_password_form").validate({
+   errorElement : 'div',
+   errorPlacement: function(error, element) {
+     var placement = $(element).data('error');
+     if (placement) {
+       $(placement).append(error)
+     } else {
+       error.insertAfter(element);
+     }
+   }
+ });
+ $( "#current_password" ).rules( "add", {
+   required: true,
+   messages: {
+     required: "Preencha com seu email",
+   }
+ });
+ $( "#new_password" ).rules( "add", {
+   required: true,
+   rangelength: [8,12],
+   messages: {
+     required: "Entre com sua senha",
+     rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres"
+   }
+ });
+ $( "#new_confirm_password" ).rules( "add", {
+   required: true,
+   rangelength: [8,12],
+   equalTo: "#new_password",
+   messages: {
+     required: "Entre com sua senha",
+     rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres",
+     equalTo: "As senhas não conferem"
+   }
+ });
