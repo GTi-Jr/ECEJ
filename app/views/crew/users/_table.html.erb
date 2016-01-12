@@ -2,7 +2,8 @@
   <h4 class="header">DataTables example</h4>
   <div class="row">
     <div class="col s12 m8 l9">
-      <table id="data-table-simple highlight" class="responsive-table display" cellspacing="0">
+      <script></script>
+      <table id="data-table-simple table" class="responsive-table display highlight" cellspacing="0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -47,3 +48,13 @@
     </div>
   </div>
 </div> 
+
+<script>
+  $(document).ready(function() {
+    $('#table').DataTable();
+} );
+</script>
+<%= stylesheet_link_tag "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" %>
+<%= stylesheet_link_tag "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css" %>
+<%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js" %>
+<%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" %>
