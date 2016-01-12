@@ -1,39 +1,75 @@
 <div class="section center-align">
   <div class="row center">
-    <section class="plans-container" id="plans">
-      <article class="col s12 ">
-        <div class="card z-depth-1 hoverable">
-          <div class="card-image cyan waves-effect">
-            <div class="card-title">Pacote Único -
-              <% if @user.federation == nil %>
-                <%= 'Não federado' %>
-              <% else %>
-                <%= 'Federado' %>
-              <% end %>
+    <div id="preselecting-tab" class="section">
+      <h4 class="header">Forma de pagamento</h4>
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s12">
+              <ul class="tabs tab-demo-active z-depth-1 cyan" style="width: 100%;">
+                <li class="tab col s3"><a class="white-text waves-effect waves-light  active" href="#pagseguro"><i class="mdi-action-payment"></i> Pagseguro</a>
+                </li>
+                <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#boleto"><i class="mdi-action-receipt"></i> Boleto</a>
+                </li>
+                <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#deposito"><i class="mdi-editor-attach-money"></i> Depósito ou Transferência</a>
+                </li>
+                <div class="indicator" style="right: 120px; left: 121px;"></div><div class="indicator" style="right: 120px; left: 121px;"></div></ul>
+              </div>
+              <div class="col s12">
+                <div id="pagseguro" class="col s12" style="display: block;">
+                  <div class="container">
+                    <div class="section">
+                      <div class="row">
+                        <section class="plans-container" id="plans">
+                          <article class="col s8 offset-s2" style="align:center; !important">
+                            <div class="card hoverable">
+                              <div class="card-image cyan waves-effect">
+                                <div class="card-title">{Lote nome}</div>
+                                <div class="price"><sup>$</sup>{valor}<sub></sub></div>
+                              </div>
+                              <div class="card-action center-align">
+                                <button class="waves-effect waves-light btn">Pagar</button>
+                              </div>
+                            </div>
+                          </article>
+                        </section>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div id="boleto" class="col s12" style="display: none;">
+                  <div class="col s8 offset-s2">
+                    <div class="container">
+                      <div class="section">
+                        <div class="row">
+                          <section class="plans-container" id="plans">
+                            <article class="col s12" style="align:center; !important">
+                              <div class="card hoverable">
+                                <div class="card-image cyan waves-effect">
+                                  <div class="card-title">{Lote nome}</div>
+                                  <div class="price"><sup>$</sup>{valor}<sub></sub></div>
+                                </div>
+                                <div class="card-action center-align">
+                                  <%= select_tag "parcelas", "<option> Duas vezes </option> <option> Tres vezes </option> <option> Quatro vezes </option>".html_safe ,prompt: "À vista" %>
+                                </div>
+                                <div class="card-action center-align">
+                                  <button class="waves-effect waves-light btn">Gerar boletos</button>
+                                </div>
+                              </div>
+                            </article>
+                          </section>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="deposito" class="col s12" style="display: none;">
+                </div>
+              </div>
             </div>
-            <div class="price"><sup>R$</sup><%= @total %></div>
-            <div class="price-desc"><%= @lot.name %></div>
-          </div>
-          <div class="card-content">
-            <ul class="collection">
-              <li class="collection-item">15 palestras</li>
-              <li class="collection-item">Estadia</li>
-              <li class="collection-item">Rodas de discussão</li>
-              <li class="collection-item">4 dias de evento</li>
-            </ul>
-          </div>
-          <div class="card-action center-align">
-            <sub>OBS: Após escolher um método, este não poderá ser mudado.</sub>
-            <p>Método de pagamento:</p>
-            <%= link_to payment_path, method: :post, target: '_blank', class: 'margin-fix' do %>
-              <span class="waves-effect waves-light btn">PagSeguro</span>
-            <% end %> <br><br>
-            <%= link_to payment_billet_path, target: '_blank', class: 'margin-fix' do %>
-              <span class="waves-effect waves-light btn">Boleto</span>
-            <% end %>            
           </div>
         </div>
-      </article>
-    </section>
-  </div>
-</div>
+      </div>
+    </div>
+    <!--end container-->
