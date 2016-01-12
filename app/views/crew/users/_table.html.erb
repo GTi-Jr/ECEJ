@@ -1,23 +1,49 @@
- <table class="highlight">
-  <thead>
-    <tr>
-      <th data-field="name">Nome</th>
-      <th data-field="email">Email</th>
-      <th data-field="JE">EJ</th>
-      <th data-field="Edit">Editar</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if !@users.nil? %>
-      <% @users.each do |user| %>
-        <tr class="<%= "left-red-border" if !user.active %>">
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-          <td><%= user.junior_enterprise %></td>
-          <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
-        </tr>
-      <% end %> 
-    <% end %>
-  </tbody>
-</table>
+<div id="table-datatables">
+  <h4 class="header">DataTables example</h4>
+  <div class="row">
+    <div class="col s12 m8 l9">
+      <table id="data-table-simple highlight" class="responsive-table display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+     
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Editar</th>
+            </tr>
+        </tfoot>
+     
+        <tbody>
+          <% if !@users.nil? %>
+            <% @users.each do |user| %>
+              <tr class="<%= "left-red-border" if !user.active %>">
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.junior_enterprise %></td>
+                <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
+                <td>
+                  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
+                  <!-- Dropdown Structure -->
+                  <ul id='dropdown1' class='dropdown-content'>
+                    <li><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></li>
+                    <li><%= link_to "Em espera", set_user_payment_path(user.id, 'waiting'), method: :patch %></li>
+                    <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
+                    <li><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></li>
+                  </ul>
+                </td>      
+              </tr>
+            <% end %> 
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> 

@@ -11,7 +11,7 @@ class AfterRegistrationController < ApplicationController
 
   def update
     cep = params[:postal_code]
-    city = params[:city]
+    city = params[:city].capitalize
     complement = params[:complement]
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
