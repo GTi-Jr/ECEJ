@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112202632) do
+ActiveRecord::Schema.define(version: 20160112210448) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -57,10 +57,10 @@ ActiveRecord::Schema.define(version: 20160112202632) do
     t.datetime "end_date",            null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.date     "deadline_1"
-    t.date     "deadline_2"
-    t.date     "deadline_3"
-    t.date     "deadline_4"
+    t.datetime "deadline_1"
+    t.datetime "deadline_2"
+    t.datetime "deadline_3"
+    t.datetime "deadline_4"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160112202632) do
     t.string   "link_4"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
   end
 
   create_table "rooms", force: :cascade do |t|

@@ -30,20 +30,10 @@
           <%= f.label :limit, "Limite", class: "center-align" %>
           <%= f.number_field :limit, id: 'limit', autofocus: true %>
         </div>
-
-        <div class="col s12 m6 l4">
-          <%= f.label :link_fed, "Link do boleto para federados", class: "center-align" %>
-          <%= f.text_field :link_fed, id: 'link_fed', autofocus: true %>
-        </div>
       
         <div class="col s12 m6 l4">
           <%= f.label :value_federated, "Valor para federados", class: "center-align" %>
           <%= f.number_field :value_federated, id: 'value_federated', autofocus: true %>
-        </div>
-
-        <div class="col s12 m6 l4">
-          <%= f.label :link_unfed, "Link do boleto para não federados", class: "center-align" %>
-          <%= f.text_field :link_unfed, id: 'link_unfed', autofocus: true %>
         </div>
       
         <div class="col s12 m6 l4">
@@ -62,8 +52,23 @@
         </div>
       
         <div class="col s12 m6 l4">
-          <%= f.label :payment_deadline, "Prazo de pagamento", class: "center-align", autofocus: true %><br />
-          <%= f.datetime_local_field :payment_deadline, id: 'payment_deadline' %>
+          <%= f.label :deadline_1, "Prazo de pagamento primeira parcela", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :deadline_1, id: 'deadline_1' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :deadline_2, "Prazo de pagamento segunda parcela", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :deadline_2, id: 'deadline_2' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :deadline_3, "Prazo de pagamento terceira parcela", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :deadline_3, id: 'deadline_3' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :deadline_4, "Prazo de pagamento quarta parcela", class: "center-align", autofocus: true %><br />
+          <%= f.datetime_local_field :deadline_4, id: 'deadline_4' %>
         </div>
 
         <div class="input-field col s12 m6 l4">
