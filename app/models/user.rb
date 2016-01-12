@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             inclusion: { in: ["Pago", "Em processamento", "Não processado"] }
 
   usar_como_cpf :cpf
-
+  has_one :payment
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   def complement    
     addres ? addres.split(',')[3].lstrip : nil
+  end
+
+  def is_fed?
+    !self.federation.empty?
   end
 
   # Returns false unless the user has updated all of his information
