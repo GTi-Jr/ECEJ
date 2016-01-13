@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  # validate :must_be_older_than_14
+
   usar_como_cpf :cpf
   has_one :payment
   has_many :subscriptions
@@ -16,6 +18,10 @@ class User < ActiveRecord::Base
   has_one :address
 
   mount_uploader :avatar, AvatarUploader
+
+  def age
+    ((Date.today - User.first.birthday).to_f.days/360.days).round(-1)
+  end
 
   def city
     addres ? addres.split(',')[0].lstrip : nil
@@ -139,4 +145,11 @@ class User < ActiveRecord::Base
       Rails.logger.info "---- An email was sent to #{user.name}"
     end
   end
+
+
+  # VALIDATORS
+
+  # def must_be_older_than_14
+  #   errors.add(:birthday, "Você deve ter mais de 14 anos para participar do evento.") if self.age <= 14.years
+  # end
 end

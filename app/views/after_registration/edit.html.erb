@@ -21,7 +21,7 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-        <!-- <% if browser.firefox? %>
+        <% if browser.firefox? %>
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
           <script>
             $('#birthday').formatter({
@@ -30,7 +30,7 @@
           </script>
         <% else %> -->
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
-        <!-- <% end %> -->
+        <% end %>
       </div>
     </div>
     <div class="row">

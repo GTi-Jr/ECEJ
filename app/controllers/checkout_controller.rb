@@ -101,7 +101,8 @@ class CheckoutController < ApplicationController
     elsif controller_name != "create" && @user.payment.method == "PagSeguro"
       pagseguro_request
     elsif controller_name != "billets" && @user.payment.method == "Boleto"
-      redirect_to payment_billet_path
+      flash[:alert] = "Seu método de pagamento ja foi escolhido."
+      redirect_to user_root_path
     end
   end
 
