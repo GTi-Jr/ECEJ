@@ -2,6 +2,17 @@ class Crew::PaymentsController < ApplicationController
   before_action :authenticate_crew_admin!
   before_action :load_user
 
+  def index
+    @payments = Payment.all
+  end
+
+  def edit
+    @payment = Payment.find(params[:id])
+  end
+
+  def update
+  end
+
   def set_user_payment
     status = params[:payment_status]
 
@@ -11,8 +22,6 @@ class Crew::PaymentsController < ApplicationController
       @user.paid_on = DateTime.now
     when 'waiting'
       @user.payment_status = "Em processamento"
-    when 'cancelled'   
-      @user.payment_status = "Não processado"
     when 'non_paid'
       @user.payment_status = "Não processado"
       @user.paid_on = nil   
