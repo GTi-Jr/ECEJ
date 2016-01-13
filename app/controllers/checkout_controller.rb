@@ -126,6 +126,7 @@ class CheckoutController < ApplicationController
       phone: {
         area_code: @user.phone.only_numbers[0..1],
         number: @user.phone.only_numbers[2..10]
+
       }
     }
     # Caso você precise passar parâmetros para a api que ainda não foram

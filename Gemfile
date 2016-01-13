@@ -86,5 +86,5 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'sendgrid'
-  gem "airbrake"
+  gem 'airbrake', '~> 5.0'
 end
