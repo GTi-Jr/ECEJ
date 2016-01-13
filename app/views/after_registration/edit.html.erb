@@ -2,6 +2,12 @@
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Dados pessoais</h4>
   <div class="row">
+      <%= f.file_field :avatar, class:"dropify"%>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Dados pessoais</h4>
+  <div class="row">
     <!----------- PERSONAL INFO -------->
     <div class="row">
       <div class="input-field col s12">
@@ -21,16 +27,7 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-        <!-- <% if browser.firefox? %>
-          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
-          <script>
-            $('#birthday').formatter({
-              'pattern': '{{99}}/{{99}}/{{9999}}',
-            });
-          </script>
-        <% else %> -->
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
-        <!-- <% end %> -->
       </div>
     </div>
     <div class="row">
@@ -39,15 +36,6 @@
           <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar']%>
         </div>
         <label>Gênero</label>
-      </div>
-      <div class="file-field input-field col s6">
-        <div class="btn">
-          <span>Foto</span>
-          <%= f.file_field :avatar %>
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path" type="text" disabled="true">
-        </div>
       </div>
     </div>
     <div class="row">
@@ -67,7 +55,7 @@
         <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
       </div>
       <div class="input-field col s6">
-        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior"%>
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"I am tooltip"%>
       </div>
     </div>
     <div class="row">

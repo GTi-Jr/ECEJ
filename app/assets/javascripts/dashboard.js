@@ -19,8 +19,29 @@
 //= require plugins/jquery-validation/jquery.validate.min.js
 //= require plugins/jquery-validation/additional-methods.min.js
 //= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
+//= require dropify.min.js
 //= require after_registration.js
 //= require user_dashboard.js
+Materialize.toast('<p><i class="mdi-alert-error"></i> <%= value %> </p>',3000);
+$('.dropify').dropify({
+    messages: {
+        'default': 'Arraste a foto ou clique para enviar',
+        'replace': 'Arraste ou clique para substituir',
+        'remove':  'Remover',
+        'error':   'Esse arquivo é muito grande'
+
+    }
+});
+$('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
 $('.progress').hide();
 $("#edit_user").validate({
   submitHandler: function(form) {
@@ -28,6 +49,12 @@ $("#edit_user").validate({
     $('.progress').show();
     form.submit();
   }
+ });
+ $( "#user_avatar" ).rules( "add", {
+   extension: "png|jpg",
+   messages: {
+     extension: "Só são permitidos arquivos .jpg ou .png"
+   }
  });
  $("#edit_password_form").validate({
    errorElement : 'div',

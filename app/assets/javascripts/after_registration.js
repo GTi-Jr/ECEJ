@@ -40,6 +40,12 @@
          }
        }
      });
+     $( "#user_avatar" ).rules( "add", {
+       extension: "png|jpg",
+       messages: {
+         extension: "Só são permitidos arquivos .jpg ou .png"
+       }
+     });
      $( "#name" ).rules( "add", {
        required: true,
        messages: {
