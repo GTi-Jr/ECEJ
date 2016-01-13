@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :events
 
     post '/create_admin' => 'admins#create_admin'
-    devise_for :admins, class_name: "Crew::Admin"
+    devise_for :admins, class_name: "Crew::Admin", :skip => 'registration'
 
     devise_scope :admin do
       authenticated :admin do
@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   # :auth = user.confirmation_token.first(8)
   get '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
   patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
-  
+
   # set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
 end

@@ -50,3 +50,22 @@ body {
   -o-transform: translateY(0%);
   transform: translateY(0%);
 }
+::-webkit-input-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+::-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-ms-input-placeholder {
+   color: $primary-color;
+   font: 14px;
+}

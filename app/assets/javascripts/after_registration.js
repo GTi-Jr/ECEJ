@@ -24,6 +24,7 @@
             'pattern': '{{99999}}-{{999}}',
     });
     $('.progress').hide();
+    if($("#edit_user_form").length){
     $("#edit_user_form").validate({
       submitHandler: function(form) {
         // do other things for a valid form
@@ -110,3 +111,4 @@
          required: "Informe a universidade da sua EJ"
        }
      });
+   }

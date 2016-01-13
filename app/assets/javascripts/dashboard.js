@@ -22,7 +22,6 @@
 //= require dropify.min.js
 //= require after_registration.js
 //= require user_dashboard.js
-Materialize.toast('<p><i class="mdi-alert-error"></i> <%= value %> </p>',3000);
 $('.dropify').dropify({
     messages: {
         'default': 'Arraste a foto ou clique para enviar',
@@ -43,51 +42,55 @@ $('.dropdown-button').dropdown({
     }
   );
 $('.progress').hide();
-$("#edit_user").validate({
-  submitHandler: function(form) {
-    // do other things for a valid form
-    $('.progress').show();
-    form.submit();
-  }
- });
- $( "#user_avatar" ).rules( "add", {
-   extension: "png|jpg",
-   messages: {
-     extension: "Só são permitidos arquivos .jpg ou .png"
-   }
- });
- $("#edit_password_form").validate({
-   errorElement : 'div',
-   errorPlacement: function(error, element) {
-     var placement = $(element).data('error');
-     if (placement) {
-       $(placement).append(error)
-     } else {
-       error.insertAfter(element);
+if($("#edit_user").length){
+  $("#edit_user").validate({
+    submitHandler: function(form) {
+      // do other things for a valid form
+      $('.progress').show();
+      form.submit();
+    }
+   });
+   $( "#user_avatar" ).rules( "add", {
+     extension: "png|jpg",
+     messages: {
+       extension: "Só são permitidos arquivos .jpg ou .png"
      }
-   }
- });
- $( "#current_password" ).rules( "add", {
-   required: true,
-   messages: {
-     required: "Preencha com seu email",
-   }
- });
- $( "#new_password" ).rules( "add", {
-   required: true,
-   rangelength: [8,12],
-   messages: {
-     required: "Entre com sua senha",
-     rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres"
-   }
- });
- $( "#new_confirm_password" ).rules( "add", {
-   required: true,
-   rangelength: [8,12],
-   equalTo: "#new_password",
-   messages: {
-     required: "Entre com sua senha",
-     rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres",
-     equalTo: "As senhas não conferem"
-   }
- });
+   });
+}
+if($("#edit_password_form").length){
+   $("#edit_password_form").validate({
+     errorElement : 'div',
+     errorPlacement: function(error, element) {
+       var placement = $(element).data('error');
+       if (placement) {
+         $(placement).append(error)
+       } else {
+         error.insertAfter(element);
+       }
+     }
+   });
+   $( "#current_password" ).rules( "add", {
+     required: true,
+     messages: {
+       required: "Entre com sua senha atual",
+     }
+   });
+   $( "#new_password" ).rules( "add", {
+     required: true,
+     rangelength: [8,12],
+     messages: {
+       required: "Entre com sua senha",
+       rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres"
+     }
+   });
+   $( "#new_confirm_password" ).rules( "add", {
+     required: true,
+     rangelength: [8,12],
+     equalTo: "#new_password",
+     messages: {
+       required: "Entre com sua senha",
+       rangelength: "Sua nova senha deve conter entre 8 e 12 caracteres",
+       equalTo: "As senhas não conferem"
+     }
+   });
+ }
