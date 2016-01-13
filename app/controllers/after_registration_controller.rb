@@ -16,11 +16,12 @@ class AfterRegistrationController < ApplicationController
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
+    @user.errors.add(:birthday, "Você deve ter mais de 14 anos para participar do evento.") if @user.age <= 14.years
     if @user.save && @user.update_attributes(user_params)
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
       redirect_to root_path
     else
-      flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe."
+      flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe.\n #{@user.errors.full_messages}"
       redirect_to root_path
     end
   end

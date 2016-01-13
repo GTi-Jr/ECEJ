@@ -3,18 +3,9 @@ class Lot < ActiveRecord::Base
 
   has_many :users
 
-  has_and_belongs_to_many :events,
-                          autosave: true
-
   validates :number,
             uniqueness: true
   validates :limit,
-            presence: true,
-            numericality: { greater_than: 0 }
-  validates :value_federated,
-            presence: true,
-            numericality: { greater_than: 0 }
-  validates :value_not_federated,
             presence: true,
             numericality: { greater_than: 0 }
   validates :start_date,

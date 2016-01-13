@@ -1,0 +1,55 @@
+<div>
+  <h4 class="header">Usuários</h4>
+  <div class="row">
+    <div class="col s12 m8 l9">
+      <table id="users_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>EJ</th>
+              <th>Parcela paga</th>
+              <th>Parcelas</th>
+              <th>Editar</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Parcela paga</th>
+                <th>Parcelas</th>
+                <th>Editar</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
+          <% if !@payments.nil? %>
+            <% @payments.each do |payment| %>
+              <tr>
+                <td><%= payment.user.name %></td>
+                <td><%= payment.user.email %></td>
+                <td><%= payment.user.junior_enterprise %></td>
+                <td><%= payment.portion_paid %></td>
+                <td><%= payment.portions %></td>
+                <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
+                <td>
+                  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
+                  <!-- Dropdown Structure -->
+                  <ul id='dropdown1' class='dropdown-content'>
+                    <li><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></li>
+                    <li><%= link_to "Em espera", set_user_payment_path(user.id, 'waiting'), method: :patch %></li>
+                    <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
+                    <li><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></li>
+                  </ul>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

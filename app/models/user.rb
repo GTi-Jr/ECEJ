@@ -4,11 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :payment_status, 
-            inclusion: { in: ["Pago", "Em processamento", "Não processado"] }
+  # validate :must_be_older_than_14
 
   usar_como_cpf :cpf
-
+  has_one :payment
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
@@ -19,6 +18,10 @@ class User < ActiveRecord::Base
   has_one :address
 
   mount_uploader :avatar, AvatarUploader
+
+  def age
+    ((Date.today - User.first.birthday).to_f.days/360.days).round(-1)
+  end
 
   def city
     addres ? addres.split(',')[0].lstrip : nil
@@ -34,6 +37,10 @@ class User < ActiveRecord::Base
 
   def complement    
     addres ? addres.split(',')[3].lstrip : nil
+  end
+
+  def is_fed?
+    !self.federation.empty?
   end
 
   # Returns false unless the user has updated all of his information
@@ -138,4 +145,11 @@ class User < ActiveRecord::Base
       Rails.logger.info "---- An email was sent to #{user.name}"
     end
   end
+
+
+  # VALIDATORS
+
+  # def must_be_older_than_14
+  #   errors.add(:birthday, "Você deve ter mais de 14 anos para participar do evento.") if self.age <= 14.years
+  # end
 end
