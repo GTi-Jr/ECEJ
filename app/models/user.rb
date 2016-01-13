@@ -19,10 +19,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  def age
-    ((Date.today - User.first.birthday).to_f.days/360.days).round(-1)
-  end
-
   def city
     addres ? addres.split(',')[0].lstrip : nil
   end
