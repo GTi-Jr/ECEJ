@@ -53,6 +53,7 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'browser'
 
+gem 'airbrake', '~> 5.0'
 
 gem 'pdfkit'
 # Dependencia for wicked_pdf
@@ -86,5 +87,5 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'sendgrid'
-  gem 'airbrake', '~> 5.0'
+
 end
