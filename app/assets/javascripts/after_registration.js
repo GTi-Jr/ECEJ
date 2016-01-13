@@ -24,6 +24,7 @@
             'pattern': '{{99999}}-{{999}}',
     });
     $('.progress').hide();
+    if($("#edit_user_form").length){
     $("#edit_user_form").validate({
       submitHandler: function(form) {
         // do other things for a valid form
@@ -38,6 +39,12 @@
          } else {
            error.insertAfter(element);
          }
+       }
+     });
+     $( "#user_avatar" ).rules( "add", {
+       extension: "png|jpg",
+       messages: {
+         extension: "Só são permitidos arquivos .jpg ou .png"
        }
      });
      $( "#name" ).rules( "add", {
@@ -104,3 +111,4 @@
          required: "Informe a universidade da sua EJ"
        }
      });
+   }

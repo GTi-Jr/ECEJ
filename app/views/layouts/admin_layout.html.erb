@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ecej2016</title>
+  <title>Ecej2016 Admnistrador</title>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -16,12 +16,12 @@
   </div>
   <%= render 'layouts/shared/header' %>
   <div id="main">
-      
+
       <%= render 'shared/admin_left_nav' %>
-      <div class="container">    
+      <div class="container">
         <%= yield %>
       </div>
-  
+
   </div>
 
 </body>

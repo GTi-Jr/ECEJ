@@ -1,26 +1,28 @@
-<div id="table-datatables">
-  <h4 class="header">DataTables example</h4>
+<div>
+  <h4 class="header">Usuários</h4>
   <div class="row">
     <div class="col s12 m8 l9">
-      <table id="data-table-simple highlight" class="responsive-table display" cellspacing="0">
+      <table id="users_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>EJ</th>
-                <th>Editar</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>EJ</th>
+              <th>Editar</th>
+              <th>Status do pagamento</th>
             </tr>
         </thead>
-     
+
         <tfoot>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>EJ</th>
                 <th>Editar</th>
+                <th>Status do pagamento</th>
             </tr>
         </tfoot>
-     
+
         <tbody>
           <% if !@users.nil? %>
             <% @users.each do |user| %>
@@ -38,12 +40,12 @@
                     <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
                     <li><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></li>
                   </ul>
-                </td>      
+                </td>
               </tr>
-            <% end %> 
+            <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-</div> 
+</div>

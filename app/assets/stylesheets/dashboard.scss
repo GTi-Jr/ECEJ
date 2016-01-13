@@ -17,6 +17,7 @@
  @import "style";
  @import "plugins/perfect-scrollbar/perfect-scrollbar.css";
  @import "plugins/prism/prism.css";
+ @import "dropify.min.css";
  body {
     display: flex;
     min-height: 100vh;
@@ -49,4 +50,27 @@
   -ms-transform: translateY(0%);
   -o-transform: translateY(0%);
   transform: translateY(0%);
+}
+ul li#profile-name {
+  text-align: center;
+  min-width: 200px;
+}
+::-webkit-input-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+::-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-ms-input-placeholder {
+   color: $primary-color;
+   font: 14px;
 }

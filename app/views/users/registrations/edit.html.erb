@@ -1,5 +1,11 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: "edit_user"}) do |f| %>
 <div class="col s12 z-depth-4 card-panel">
+  <h4 class="header2">Foto de Perfil</h4>
+  <div class="row">
+      <%= f.file_field :avatar, class:"dropify", 'data-default-file' => @user.avatar_url(:medium) if @user.avatar?%>
+  </div>
+</div>
+<div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Dados pessoais</h4>
   <div class="row">
     <!----------- PERSONAL INFO -------->
@@ -31,15 +37,6 @@
         </div>
         <label>Gênero</label>
       </div>
-      <div class="file-field input-field col s6">
-        <div class="btn">
-          <span>Foto</span>
-          <%= f.file_field :avatar %>
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path" type="text" disabled="true">
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
@@ -55,10 +52,10 @@
     <!-------- MEJ -------->
     <div class="row">
       <div class="input-field col s6">
-        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Deixe em branco, em caso de EJ não federada ou Pós-júnior."%>
       </div>
       <div class="input-field col s6">
-        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior"%>
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior",  class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, preencha com os dados de sua antiga EJ."%>
       </div>
     </div>
     <div class="row">

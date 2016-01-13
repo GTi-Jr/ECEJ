@@ -14,8 +14,27 @@
  */
  @import "materialize";
  @import "style";
- @import "plugins/data-tables/jquery.dataTables.min.css";
+ @import "jquery.dataTables.min.css";
  @import "plugins/prism/prism.css";
 .left-red-border {
   border-left: solid 5px #F44336;
+}
+::-webkit-input-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+::-moz-placeholder {
+   color: $primary-color;
+   font: 14px;
+}
+
+:-ms-input-placeholder {
+   color: $primary-color;
+   font: 14px;
 }

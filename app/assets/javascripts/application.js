@@ -16,7 +16,6 @@
 //= require plugins.js
 //= require plugins/prism/prism.js
 //= require jquery.maskedinput.min.js
+//= require jquery.dataTables.min.js
 //= require crew/users.js
 //= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
-//= require plugins/data-tables/js/jquery.dataTables.min.js
-//= require plugins/data-tables/data-tables-script.js

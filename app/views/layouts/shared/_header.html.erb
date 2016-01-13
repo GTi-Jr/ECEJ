@@ -5,12 +5,14 @@
     <nav class="navbar-color">
       <div class="nav-wrapper">
         <ul class="center">
-          <li><h1 class="logo-wrapper"><a style="margin-top: 0px; padding-top: 8px;" href="" class="brand-logo darken-1"><img src="/images/Logo-ECEJ.png"></a> <span class="logo-text">ECEJ 2016</span></h1></li>
+          <li>
+            <h1 class="logo-wrapper"><a style="margin-top: 0px; padding-top: 8px;" href="" class="brand-logo darken-1"><img src="/images/Logo-ECEJ.png"></a> <span class="logo-text">ECEJ 2016</span></h1>
+          </li>
         </ul>
         <div class="header-search-wrapper hide-on-med-and-down">
         </div>
         <ul class="right hide-on-med-and-down">
-          <li>
+          <li id="profile-name">
             <% if @user.present? %>
               <a href="javascript:void(0);" class="dropdown-button active" data-activates="profile-dropdown"><%= @user.name.nil? ? @user.email : @user.name %>
                 <i class="mdi-navigation-arrow-drop-down right"></i>
@@ -24,7 +26,7 @@
               </li>
               <li>
                 <%= link_to password_edit_path do %>
-                  <i class="mdi-action-face-unlock left"></i> Alterar senha
+                  <i class="mdi-action-lock-outline left"></i> Alterar senha
                 <% end %>
               </li>
               <li>
