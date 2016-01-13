@@ -1,6 +1,6 @@
 class Crew::PaymentsController < ApplicationController
   before_action :authenticate_crew_admin!
-  before_action :load_user
+  before_action :load_user, only: [:set_user_payment, :edit, :update]
 
   def index
     @payments = Payment.all

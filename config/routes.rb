@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
+
+    get 'payments' => 'payments#index'
   end
 
   #routes for :users

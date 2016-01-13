@@ -11,7 +11,6 @@
               <th>Parcela paga</th>
               <th>Parcelas</th>
               <th>Editar</th>
-              <th>Status do pagamento</th>
             </tr>
         </thead>
 
@@ -23,17 +22,18 @@
                 <th>Parcela paga</th>
                 <th>Parcelas</th>
                 <th>Editar</th>
-                <th>Status do pagamento</th>
             </tr>
         </tfoot>
 
         <tbody>
           <% if !@payments.nil? %>
             <% @payments.each do |payment| %>
-              <tr class="<%= "left-red-border" if !user.active %>">
+              <tr>
                 <td><%= payment.user.name %></td>
                 <td><%= payment.user.email %></td>
                 <td><%= payment.user.junior_enterprise %></td>
+                <td><%= payment.portion_paid %></td>
+                <td><%= payment.portions %></td>
                 <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
                 <td>
                   <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
