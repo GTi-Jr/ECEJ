@@ -571,15 +571,16 @@
 
                             <h1>Seja&nbsp;Bem Vindo&nbsp;ao ECEJ 2016 !</h1>
 <br>
-<% if @payments.billets_links.length > 1 %>
-  Seguem abaixo os links dos boletos referentes as <%= @payments.portions %> parcelas do seu pagamento:
+<% if @payment.billets_links.length > 1 %>
+  Seguem abaixo os links dos boletos referentes as <%= @payment.portions %> parcelas do seu pagamento:
 <% else %>
   Segue abaixo o link do boleto:
 <% end %>
-
+<br />
 <% count = 1 %>
-<% @payments.billets_links.each do |link| %>
-  <%= count %> - <a href="<%= link %>"></a>
+<% @payment.billets_links.each do |link| %>
+  <%= count %> - <a href="<%= link %>">Link para o boleto referente a parcela <%= count %></a>
+  <% count = count + 1 %>
   <br />
 <% end %>
 

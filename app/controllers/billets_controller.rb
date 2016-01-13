@@ -28,7 +28,7 @@ class BilletsController < CheckoutController
       redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
 
-    UserBilletMailer.send_billet_links(@user).send_now
+    UserBilletMailer.send_billet_links(@user).deliver_now
 
     redirect_to user_root_path, notice: "Enviamos um email para você contendo os links para gerar novos boletos."
   end
