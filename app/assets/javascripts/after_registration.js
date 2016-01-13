@@ -8,7 +8,7 @@
     close: 'Fechar',
     format: 'dd/mm/yyyy',
     min: new Date(1940,1,1),
-    max: new Date(2015,12,31),
+    max: new Date(2001,12,31),
     max: true,
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 40, // Creates a dropdown of 15 years to control year
