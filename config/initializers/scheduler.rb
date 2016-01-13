@@ -4,7 +4,7 @@ singleton = Rufus::Scheduler.singleton
 scheduler = Rufus::Scheduler.new
 
 singleton.every('30s') do
-  Rails.logger.info "Scheduler is active"
+  Rails.logger.info "SCHEDULER TÁ FUNFANDO"
 end
 
 singleton.every '4h' do
