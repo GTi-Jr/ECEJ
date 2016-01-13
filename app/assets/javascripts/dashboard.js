@@ -48,6 +48,16 @@ if($("#edit_user").length){
       // do other things for a valid form
       $('.progress').show();
       form.submit();
+    },
+    errorElement : 'div',
+    errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $(placement).append(error)
+      } else {
+        error.insertAfter(element);
+        alert("Erro ao enviar imagem, permitidos apenas arquivos .jpg ou .png");
+      }
     }
    });
    $( "#user_avatar" ).rules( "add", {
