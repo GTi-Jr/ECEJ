@@ -52,12 +52,17 @@
                                   <div class="card-title"><%= @user.lot.name %></div>
                                   <div class="price"><sup>R$</sup><%= @value_billet %><sub></sub></div>
                                 </div>
-                                <div class="card-action center-align">
-                                  <%= select_tag "parcelas", "<option> Duas vezes </option> <option> Tres vezes </option> <option> Quatro vezes </option>".html_safe ,prompt: "À vista" %>
-                                </div>
-                                <div class="card-action center-align">
-                                  <button class="waves-effect waves-light btn">Gerar boletos</button>
-                                </div>
+                                <%= form_tag payment_billet_path do %>
+                                  <div class="card-action center-align">
+                                  
+                                    <%= select_tag "option", options_for_select([ "À vista", "Duas vezes", "Três vezes", "Quatro vezes"], "À vista") %>
+                                  </div>
+                                  <div class="card-action center-align">
+                                    <%= button_tag type: 'submit', class: 'waves-effect waves-light btn' do %>
+                                      <%= content_tag(:strong, 'Gerar boletos') %>
+                                    <% end %>
+                                  </div>
+                                <% end %>
                               </div>
                             </article>
                           </section>
@@ -74,4 +79,5 @@
         </div>
       </div>
     </div>
+  </div>
     <!--end container-->

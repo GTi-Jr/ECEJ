@@ -51,7 +51,10 @@ class CheckoutController < ApplicationController
       payment.portions = 1
     end
     @user.payment.set_payment
-    @user.save
+    
+    unless @user.save
+      redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
+    end
 
     if @user.payment.method == "PagSeguro"
       pagseguro_request

@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
-  get 'payment_billet' => 'billets#billet', as: :payment_billet
+  post 'payment_billet' => 'billets#billet', as: :payment_billet
 
   # get request so link can be sent through email
   # :id = lot.id

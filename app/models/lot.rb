@@ -8,12 +8,6 @@ class Lot < ActiveRecord::Base
   validates :limit,
             presence: true,
             numericality: { greater_than: 0 }
-  validates :value_federated,
-            presence: true,
-            numericality: { greater_than: 0 }
-  validates :value_not_federated,
-            presence: true,
-            numericality: { greater_than: 0 }
   validates :start_date,
             presence: true
   validates :end_date,

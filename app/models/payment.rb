@@ -11,12 +11,24 @@ class Payment < ActiveRecord::Base
     self.save
   end
 
+  def pagseguro?
+    self.method == "PagSeguro"
+  end
+
+  def boleto?
+    self.method == "Boleto"
+  end
+
+  def money?
+    self.method == "Dinheiro"
+  end
+
   def total_amount
     self.price * self.portions
   end
 
   def amount_paid
-    self.price * self.portions_paid
+    self.price * self.portion_paid
   end
 
   def partially_paid?
@@ -63,12 +75,11 @@ class Payment < ActiveRecord::Base
 
   
 
-  private     
     def set_price 
       if self.method == "Boleto"
-        set_billet_INFO
+        self.set_billet_INFO
       elsif self.method == "PagSeguro"
-        set_price_pagseguro
+        self.set_price_pagseguro
       end    
     end
 
@@ -84,10 +95,13 @@ class Payment < ActiveRecord::Base
     end
 
     def set_billet_INFO
+      Rails.logger.info "\n portions: #{self.portions}"
+      Rails.logger.info "\n lot number: #{self.user.lot.number}"
+      Rails.logger.info "\n User is fed?: #{self.user.is_fed?.to_s}"
       case self.portions
       when 1
-        if @user.if_fed?
-          case @user.lot.number
+        if self.user.is_fed?
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_1_1_FED
             self.price = PaymentModule::BILLET_1_PRICE_1_FED
@@ -99,7 +113,7 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_2_PRICE_1_FED
           end
         else
-          case @user.lot.number
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_1_1_UNFED
             self.price = PaymentModule::BILLET_1_PRICE_1_UNFED
@@ -112,8 +126,8 @@ class Payment < ActiveRecord::Base
           end
         end
       when 2
-        if @user.if_fed?
-          case @user.lot.number
+        if self.user.is_fed?
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_2_1_FED
             self.link_2 = PaymentModule::BILLET_1_LINK_2_2_FED
@@ -128,7 +142,7 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_3_PRICE_1_FED
           end
         else
-          case @user.lot.number
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_2_1_UNFED
             self.link_2 = PaymentModule::BILLET_1_LINK_2_2_UNFED
@@ -144,8 +158,8 @@ class Payment < ActiveRecord::Base
           end
         end
       when 3
-        if @user.if_fed?
-          case @user.lot.number
+        if self.user.is_fed?
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_3_1_FED
             self.link_2 = PaymentModule::BILLET_1_LINK_3_2_FED
@@ -163,7 +177,7 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_3_PRICE_1_FED
           end
         else
-          case @user.lot.number
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_3_1_UNFED
             self.link_2 = PaymentModule::BILLET_1_LINK_3_2_UNFED
@@ -182,8 +196,8 @@ class Payment < ActiveRecord::Base
           end
         end
       when 4 
-        if @user.if_fed?
-          case @user.lot.number
+        if self.user.is_fed?
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_4_1_FED
             self.link_2 = PaymentModule::BILLET_1_LINK_4_2_FED
@@ -204,7 +218,7 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_3_PRICE_4_FED
           end
         else
-          case @user.lot.number
+          case self.user.lot.number
           when 1
             self.link_1 = PaymentModule::BILLET_1_LINK_4_1_UNFED
             self.link_2 = PaymentModule::BILLET_1_LINK_4_2_UNFED
