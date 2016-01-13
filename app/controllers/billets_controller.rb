@@ -1,6 +1,5 @@
 class BilletsController < CheckoutController
   def billet
-    Rails.logger.info "PARAMETRO #{params[:option]}\n"
     case params[:option]
     when "À vista"
       portions = 1
@@ -14,13 +13,10 @@ class BilletsController < CheckoutController
       redirect_to user_root_path, alert: "Ocorreu um erro ao gerar seu(s) boleto(s). Tente novamente."
     end
 
-    Rails.logger.info "\nportions = #{portions}\n"
-
     @user.payment ||= Payment.new do |payment|
       payment.method = "Boleto"
       payment.portions = portions
     end
-    Rails.logger.info "\npayment.portions = #{@user.payment.portions}"
 
     @user.payment.set_payment
 
@@ -28,9 +24,13 @@ class BilletsController < CheckoutController
       redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
 
-    UserBilletMailer.send_billet_links(@user).deliver_now
+    if @user.payment.portions > 1
+      message = "Os links dos boletos referentes as #{@user.payment.portions} parcelas da inscrição estão disponíveis na tela principal do sistema."
+    else
+      message = "O link do boleto referente a inscrição está disponível na tela principal do sistema."
+    end
 
-    redirect_to user_root_path, notice: "Enviamos um email para você contendo os links para gerar novos boletos."
+    redirect_to user_root_path, notice: message
   end
 
   # overrided method

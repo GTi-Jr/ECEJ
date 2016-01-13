@@ -66,6 +66,16 @@
                 <div class="card-content white-text">
                   <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
                   <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
+                  <% if @user.payment.method == "Boleto" %>
+                    <br>
+                    Parcelas pagas:
+                    <% if @user.payment.portion_paid == 0 %>
+                      <strong>nenhuma parcela paga</strong>
+                    <% else %>
+                      <strong><%= "#{@user.payment.portion_paid}/#{@user.payment.portions}"  %></strong>
+                    <% end %>
+                    
+                  <% end %>
                 </div>
               </div>
             <% elsif !@user.payment.nil? && @user.payment.paid? %>

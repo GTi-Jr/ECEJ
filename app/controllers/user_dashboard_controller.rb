@@ -16,5 +16,6 @@ class UserDashboardController < ApplicationController
         @method_message = "rever os dados da conta"      
       end
     end
+    @age = (Date.today - @user.birthday).years
   end
 end
