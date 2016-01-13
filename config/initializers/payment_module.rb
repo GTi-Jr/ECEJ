@@ -1,26 +1,35 @@
 module PaymentModule
     # Billets links
     # Lot 1
-    BILLET_1_LINK_1_1_FED = "LINK"
-    BILLET_1_LINK_2_1_FED = "LINK"
-    BILLET_1_LINK_2_2_FED = "LINK"
-    BILLET_1_LINK_3_1_FED = "LINK"
-    BILLET_1_LINK_3_2_FED = "LINK"
-    BILLET_1_LINK_3_3_FED = "LINK"
-    BILLET_1_LINK_4_1_FED = "LINK"
-    BILLET_1_LINK_4_2_FED = "LINK"
-    BILLET_1_LINK_4_3_FED = "LINK"
-    BILLET_1_LINK_4_4_FED = "LINK"
-    BILLET_1_LINK_1_1_UNFED = "LINK"
-    BILLET_1_LINK_2_1_UNFED = "LINK"
-    BILLET_1_LINK_2_2_UNFED = "LINK"
-    BILLET_1_LINK_3_1_UNFED = "LINK"
-    BILLET_1_LINK_3_2_UNFED = "LINK"
-    BILLET_1_LINK_3_3_UNFED = "LINK"
-    BILLET_1_LINK_4_1_UNFED = "LINK"
-    BILLET_1_LINK_4_2_UNFED = "LINK"
-    BILLET_1_LINK_4_3_UNFED = "LINK"
-    BILLET_1_LINK_4_4_UNFED = "LINK"
+    BILLET_1_LINK_1_1_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288634"
+    # Pagamento em duas parcelas:
+    BILLET_1_LINK_2_1_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288635"
+    BILLET_1_LINK_2_2_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288636"
+    # Pagamento em 3 parcelas:
+    BILLET_1_LINK_3_1_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288637"
+    BILLET_1_LINK_3_2_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288638"
+    BILLET_1_LINK_3_3_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288639"
+    # Pagamento em 4 parcelas:
+    BILLET_1_LINK_4_1_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288640"
+    BILLET_1_LINK_4_2_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288641"
+    BILLET_1_LINK_4_3_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288642"
+    BILLET_1_LINK_4_4_FED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288643"
+    # EJS NÃO FEDERADAS:
+    # Pagamento a vista:
+    BILLET_1_LINK_1_1_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288644"
+    # Pagamento em duas parcelas:
+    BILLET_1_LINK_2_1_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288645"
+    BILLET_1_LINK_2_2_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288646"
+    # Pagamento em 3 parcelas:
+    BILLET_1_LINK_3_1_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288647"
+    BILLET_1_LINK_3_2_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288648"
+    BILLET_1_LINK_3_3_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288649"
+    # Pagamento em 4 parcelas:
+    BILLET_1_LINK_4_1_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288650"
+    BILLET_1_LINK_4_2_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288651"
+    BILLET_1_LINK_4_3_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288652"
+    BILLET_1_LINK_4_4_UNFED = "https://cobranca.unicrednne.com.br/BoletoPublico/Novo?id=288653"
+
     # Lot 2
     BILLET_2_LINK_1_1_FED = "LINK"
     BILLET_2_LINK_2_1_FED = "LINK"
@@ -115,9 +124,9 @@ module PaymentModule
     PAGSEGURO_PRICE_3_UNFED = 437.88
 
     UNICRED_ACCOUNT = {
-        NAME: 'Associação - Associação Cearense de Junior Empresas',
-        BANK: 'Unicred' ,
-        AGENCY: '2301',
-        NUMBER: '21940-1'
+        name: 'Associação - Associação Cearense de Junior Empresas',
+        bank: 'Unicred' ,
+        agency: '2301',
+        number: '21940-1'
     }
 end

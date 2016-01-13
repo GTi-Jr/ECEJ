@@ -42,6 +42,7 @@ class CheckoutController < ApplicationController
         @value_money = PaymentModule::MONEY_PRICE_3_UNFED
       end
     end
+    @account = PaymentModule::UNICRED_ACCOUNT
   end
 
   def create
@@ -105,9 +106,9 @@ class CheckoutController < ApplicationController
   end
 
   def get_payment
-    if controller_name != "create" && @user.payment_method == "pagseguro"
+    if controller_name != "create" && @user.payment.method == "PagSeguro"
       pagseguro_request
-    elsif controller_name != "billets" && @user.payment_method == "boleto"
+    elsif controller_name != "billets" && @user.payment.method == "Boleto"
       redirect_to payment_billet_path
     end
   end

@@ -28,7 +28,9 @@
                                 <div class="price"><sup>R$</sup><%= @value_pagseguro %><sub></sub></div>
                               </div>
                               <div class="card-action center-align">
-                                <button class="waves-effect waves-light btn">Pagar</button>
+                                <%= link_to payment_path, method: :post do %>
+                                  <button class="waves-effect waves-light btn">Pagar</button>
+                                <% end %>
                               </div>
                             </div>
                           </article>
