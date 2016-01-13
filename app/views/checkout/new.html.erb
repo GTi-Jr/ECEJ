@@ -24,11 +24,13 @@
                           <article class="col s8 offset-s2" style="align:center; !important">
                             <div class="card hoverable">
                               <div class="card-image cyan waves-effect">
-                                <div class="card-title">{Lote nome}</div>
-                                <div class="price"><sup>$</sup>{valor}<sub></sub></div>
+                                <div class="card-title"><%= @user.lot.name %></div>
+                                <div class="price"><sup>R$</sup><%= @value_pagseguro %><sub></sub></div>
                               </div>
                               <div class="card-action center-align">
-                                <button class="waves-effect waves-light btn">Pagar</button>
+                                <%= link_to payment_path, method: :post do %>
+                                  <button class="waves-effect waves-light btn">Pagar</button>
+                                <% end %>
                               </div>
                             </div>
                           </article>
@@ -47,15 +49,20 @@
                             <article class="col s12" style="align:center; !important">
                               <div class="card hoverable">
                                 <div class="card-image cyan waves-effect">
-                                  <div class="card-title">{Lote nome}</div>
-                                  <div class="price"><sup>$</sup>{valor}<sub></sub></div>
+                                  <div class="card-title"><%= @user.lot.name %></div>
+                                  <div class="price"><sup>R$</sup><%= @value_billet %><sub></sub></div>
                                 </div>
-                                <div class="card-action center-align">
-                                  <%= select_tag "parcelas", "<option> Duas vezes </option> <option> Tres vezes </option> <option> Quatro vezes </option>".html_safe ,prompt: "À vista" %>
-                                </div>
-                                <div class="card-action center-align">
-                                  <button class="waves-effect waves-light btn">Gerar boletos</button>
-                                </div>
+                                <%= form_tag payment_billet_path do %>
+                                  <div class="card-action center-align">
+                                  
+                                    <%= select_tag "option", options_for_select([ "À vista", "Duas vezes", "Três vezes", "Quatro vezes"], "À vista") %>
+                                  </div>
+                                  <div class="card-action center-align">
+                                    <%= button_tag type: 'submit', class: 'waves-effect waves-light btn' do %>
+                                      <%= content_tag(:strong, 'Gerar boletos') %>
+                                    <% end %>
+                                  </div>
+                                <% end %>
                               </div>
                             </article>
                           </section>
@@ -72,4 +79,5 @@
         </div>
       </div>
     </div>
+  </div>
     <!--end container-->

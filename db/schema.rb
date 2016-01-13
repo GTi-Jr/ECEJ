@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109194413) do
+ActiveRecord::Schema.define(version: 20160113065423) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -57,9 +57,24 @@ ActiveRecord::Schema.define(version: 20160109194413) do
     t.datetime "end_date",            null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.datetime "payment_deadline"
-    t.string   "link_fed"
-    t.string   "link_unfed"
+    t.datetime "deadline_1"
+    t.datetime "deadline_2"
+    t.datetime "deadline_3"
+    t.datetime "deadline_4"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "method"
+    t.integer  "portions",     default: 1
+    t.integer  "portion_paid", default: 0
+    t.float    "price"
+    t.string   "link_1"
+    t.string   "link_2"
+    t.string   "link_3"
+    t.string   "link_4"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -80,14 +95,14 @@ ActiveRecord::Schema.define(version: 20160109194413) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
-    t.string   "email",                  default: "",               null: false
-    t.string   "encrypted_password",     default: "",               null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -116,8 +131,6 @@ ActiveRecord::Schema.define(version: 20160109194413) do
     t.string   "avatar"
     t.datetime "paid_on"
     t.integer  "room_id"
-    t.string   "payment_status",         default: "Não processado"
-    t.string   "payment_method"
     t.text     "addres"
   end
 

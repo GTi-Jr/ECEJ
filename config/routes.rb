@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
+
+    get 'payments' => 'payments#index'
   end
 
   #routes for :users
@@ -79,7 +81,7 @@ Rails.application.routes.draw do
   post "payment" => "checkout#create", :as => "payment"
   get "payment" => "checkout#new"
 
-  get 'payment_billet' => 'billets#billet', as: :payment_billet
+  post 'payment_billet' => 'billets#billet', as: :payment_billet
 
   # get request so link can be sent through email
   # :id = lot.id

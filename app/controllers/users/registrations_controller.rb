@@ -1,7 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
-before_filter :get_current_lot
 before_action :get_user
 before_action :verify_register_conclusion, only: [:edit, :update, :edit_password, :update_password]
 
@@ -19,6 +18,9 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
       if(!@lot.nil? && !@lot.is_full?)
         @user.lot = @lot
       end
+
+      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
+
       if @user.save
         flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
         redirect_to root_path

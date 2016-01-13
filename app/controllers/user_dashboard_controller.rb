@@ -6,6 +6,25 @@ class UserDashboardController < ApplicationController
   layout "dashboard"
   
   def index
-  end
+    @today = DateTime.now
+    @payment = @user.payment
+    @lot = @user.lot
+    @deadlines = Array.new
+    @deadlines << @lot.deadline_1
+    @deadlines << @lot.deadline_2
+    @deadlines << @lot.deadline_3
+    @deadlines << @lot.deadline_4
 
+    if !@payment.nil?
+      case @user.payment.method
+      when "PagSeguro"
+        @method_message = "entrar novamente no PagSeguro."
+      when "Boleto"
+        @method_message = "receber um novo email com os boletos"
+        @billets_links = @payment.billets_links
+      when "Dinheiro"
+        @method_message = "rever os dados da conta"      
+      end
+    end
+  end
 end
