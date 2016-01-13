@@ -1,4 +1,6 @@
 class Payment < ActiveRecord::Base
+  require "#{Rails.root}/config/initializers/payment_module.rb"
+
   validates :method,
             inclusion: { in: %w(PagSeguro Boleto Dinheiro) }
 
@@ -25,7 +27,30 @@ class Payment < ActiveRecord::Base
     self.portions_paid == self.portions
   end
 
-  def payment_billets
+  def money_amount
+    case self.user.lot
+    when 1
+      if self.user.is_fed?
+        MONEY_PRICE_1_FED 
+      else
+        MONEY_PRICE_1_UNFED
+      end
+    when 2
+      if self.user.is_fed?
+        MONEY_PRICE_2_FED 
+      else
+        MONEY_PRICE_2_UNFED
+      end
+    when 3
+      if self.user.is_fed?
+        MONEY_PRICE_3_FED 
+      else
+        MONEY_PRICE_3_UNFED
+      end
+    end
+  end
+
+  def billets_links
     billet_links = Array.new
     if self.method == "Boleto"
       billet_links << self.link_1 unless self.link_1.nil?
@@ -36,17 +61,19 @@ class Payment < ActiveRecord::Base
     billet_links
   end
 
-  private  
+  
+
+  private     
     def set_price 
-      if @user.payment_method.downcase == "boleto"
+      if self.method == "Boleto"
         set_billet_INFO
-      elsif @user.payment_method.downcase == "pagseguro"
+      elsif self.method == "PagSeguro"
         set_price_pagseguro
       end    
     end
 
     def set_price_pagseguro
-      case @user.lot.number
+      case self.user.lot.number
       when 1
         self.price = 401.42
       when 2

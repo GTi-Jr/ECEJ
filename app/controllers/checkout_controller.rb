@@ -1,4 +1,6 @@
 class CheckoutController < ApplicationController
+  require "#{Rails.root}/config/initializers/payment_module.rb"
+  
   before_action :authenticate_user!
   before_action :get_user
   before_action :setup_lot_and_total
@@ -9,13 +11,53 @@ class CheckoutController < ApplicationController
   layout "dashboard"
 
   def new
+    if @user.is_fed?
+      case @user.lot.number
+      when 1
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_1_FED
+        @value_billet = PaymentModule::BILLET_1_PRICE_1_FED
+        @value_money = PaymentModule::MONEY_PRICE_1_FED
+      when 2
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_2_FED
+        @value_billet = PaymentModule::BILLET_2_PRICE_1_FED
+        @value_money = PaymentModule::MONEY_PRICE_2_FED
+      when 3
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_3_FED
+        @value_billet = PaymentModule::BILLET_3_PRICE_1_FED
+        @value_money = PaymentModule::MONEY_PRICE_3_FED
+      end
+    else
+      case @user.lot.number
+      when 1
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_1_UNFED
+        @value_billet = PaymentModule::BILLET_1_PRICE_1_UNFED
+        @value_money = PaymentModule::MONEY_PRICE_1_UNFED
+      when 2
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_2_UNFED
+        @value_billet = PaymentModule::BILLET_2_PRICE_1_UNFED
+        @value_money = PaymentModule::MONEY_PRICE_2_UNFED
+      when 3
+        @value_pagseguro = PaymentModule::PAGSEGURO_PRICE_3_UNFED
+        @value_billet = PaymentModule::BILLET_3_PRICE_1_UNFED
+        @value_money = PaymentModule::MONEY_PRICE_3_UNFED
+      end
+    end
   end
 
   def create
+    @user.payment ||= Payment.new do |payment|
+      payment.method = "PagSeguro"
+      payment.portions = 1
+    end
+    @user.payment.set_payment
     @user.payment_method ||= "pagseguro"
     @user.save
 
-    pagseguro_request
+    if @user.payment.method == "PagSeguro"
+      pagseguro_request
+    else
+      redirect_to user_root_path, notice: "Você não tem acesso."
+    end
   end
 
 
