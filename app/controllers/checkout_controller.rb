@@ -1,23 +1,14 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :get_user
-  before_action :redirect_if_user_has_paid
+  before_action :setup_lot_and_total
+  # before_action :redirect_if_user_has_paid
   before_action :verify_register_conclusion
   before_action :check_payment_status
-  before_action :setup_lot
 
   layout "dashboard"
 
   def new
-    @lot = @user.lot
-    if(@user.federation == nil)
-      @total = @lot.value_not_federated
-    else
-      @total = @lot.value_federated
-    end
-    session[:price] = @total
-    session[:description] = @lot.name
-    session[:lot] = @lot.number
   end
 
   def create
@@ -36,10 +27,16 @@ class CheckoutController < ApplicationController
     @user.save
   end
 
-  def setup_lot
+  def setup_lot_and_total
     if @user.lot.nil?
       flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
       redirect_to root_path
+    else
+      if(@user.federation.empty?)
+        @total = @user.lot.value_not_federated
+      else
+        @total = @user.lot.value_federated
+      end
     end
   end
 
@@ -72,7 +69,6 @@ class CheckoutController < ApplicationController
       redirect_to payment_billet_path
     end
   end
-
   def pagseguro_request
     payment = PagSeguro::PaymentRequest.new
 
@@ -82,20 +78,19 @@ class CheckoutController < ApplicationController
 
       payment.items << {
         id: @user.id,
-        description: session[:description],
-        amount: session[:price]
+        description: @user.lot.name,
+        amount: @total
       }
 
       payment.sender = {
         name: @user.name,
         email: @user.email,
-        cpf: @user.cpf.only_numbers,
+        # cpf: @user.cpf.numero.only_numbers,
         phone: {
           area_code: @user.phone.only_numbers[0..1],
           number: @user.phone.only_numbers[2..10]
         }
       }
-
     # Caso você precise passar parâmetros para a api que ainda não foram
     # mapeados na gem, você pode fazer de maneira dinâmica utilizando um
     # simples hash.
