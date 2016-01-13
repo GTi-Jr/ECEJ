@@ -18,7 +18,7 @@ class BilletsController < CheckoutController
 
   # overrided method
   def check_payment_method
-    unless @user.payment_method == nil || @user.payment_method == "boleto"
+    if @user.payment.method != nil && @user.payment.method != "Boleto"
       redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
     end
   end

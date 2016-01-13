@@ -20,11 +20,11 @@ class Payment < ActiveRecord::Base
   end
 
   def partially_paid?
-    self.portions_paid > 0 ? true : false
+    self.portion_paid > 0 ? true : false
   end
 
   def paid?
-    self.portions_paid == self.portions
+    self.portion_paid == self.portions
   end
 
   def money_amount

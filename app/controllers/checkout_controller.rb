@@ -3,8 +3,8 @@ class CheckoutController < ApplicationController
   
   before_action :authenticate_user!
   before_action :get_user
-  before_action :setup_lot_and_total
-  # before_action :redirect_if_user_has_paid
+  before_action :verify_user_lot
+  before_action :redirect_if_user_has_paid
   before_action :verify_register_conclusion
   before_action :check_payment_status
 
@@ -51,7 +51,6 @@ class CheckoutController < ApplicationController
       payment.portions = 1
     end
     @user.payment.set_payment
-    @user.payment_method ||= "pagseguro"
     @user.save
 
     if @user.payment.method == "PagSeguro"
@@ -64,76 +63,67 @@ class CheckoutController < ApplicationController
 
 
   private
-  def set_payed
-    # @user.paid_on = DateTime.now
-    @user.payment_status = 'Em processamento'
-    @user.save
-  end
-
-  def setup_lot_and_total
+  def verify_user_lot
     if @user.lot.nil?
       flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
       redirect_to root_path
-    else
-      if(@user.federation.empty?)
-        @total = @user.lot.value_not_federated
-      else
-        @total = @user.lot.value_federated
-      end
     end
   end
 
   def check_payment_status
-    if @user.payment_status != "Não processado"
+    if !@user.payment.nil?
       flash[:success] = "Você já solicitou o pagamento, aguarde a confirmação de recebimento."
     end
   end
 
   def check_payment_method
-    unless @user.payment_method == nil || @user.payment_method == "pagseguro"
+    unless @user.payment.method == nil || @user.payment.method == "PagSeguro"
       flash[:error] = "Você não tem acesso a esse método de pagamento."
       redirect_to user_root_path
     end
   end
 
   def redirect_if_user_has_paid
-    if @user.has_paid?
+    payment = @user.payment
+    if !payment.nil? && payment.paid?
       # flash[:notice] = "Sua inscrição já foi paga!"
       redirect_to user_root_path, notice: "Sua inscrição já foi paga!"
     else
-      get_payment if @user.payment_status == "Em processamento"
+      get_payment
     end
   end
 
   def get_payment
-    if controller_name != "create" && @user.payment.method == "PagSeguro"
+    if @user.payment.nil? # do nothing
+    elsif controller_name != "create" && @user.payment.method == "PagSeguro"
       pagseguro_request
     elsif controller_name != "billets" && @user.payment.method == "Boleto"
       redirect_to payment_billet_path
     end
   end
+
   def pagseguro_request
     payment = PagSeguro::PaymentRequest.new
 
     payment.reference = "l#{session[:lot]}u#{@user.id}"
-    payment.notification_url = 'localhost:3000/confirm_payment'
-    payment.redirect_url = 'localhost:3000/payment'
+    payment.notification_url = 'www.sistemaecej.com.br/confirm_payment'
+    payment.redirect_url = 'www.sistemaecej.com.br'
 
-      payment.items << {
-        id: @user.id,
-        description: @user.lot.name,
-        amount: @total
-      }
+    payment.items << {
+      id: @user.id,
+      description: @user.lot.name,
+      amount: @user.payment.price
+    }
 
-      payment.sender = {
-        name: @user.name,
-        email: @user.email,
-        # cpf: @user.cpf.numero.only_numbers,
-        phone: {
-          area_code: @user.phone.only_numbers[0..1],
-          number: @user.phone.only_numbers[2..10]
-        }
+    payment.sender = {
+      name: @user.name,
+      email: @user.email,
+      # cpf: @user.cpf.numero.only_numbers,
+      phone: {
+        area_code: @user.phone.only_numbers[0..1],
+        number: @user.phone.only_numbers[2..10]
       }
+    }
     # Caso você precise passar parâmetros para a api que ainda não foram
     # mapeados na gem, você pode fazer de maneira dinâmica utilizando um
     # simples hash.
@@ -152,7 +142,6 @@ class CheckoutController < ApplicationController
       raise response.errors.join("\n")
     else
       redirect_to response.url
-      set_payed
     end
   end
 end

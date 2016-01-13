@@ -6,6 +6,13 @@ class UserDashboardController < ApplicationController
   layout "dashboard"
   
   def index
+    case @user.payment.method
+    when "PagSeguro"
+      @method_message = "entrar novamente no PagSeguro."
+    when "Boleto"
+      @method_message = "receber um novo email com os boletos"
+    when "Dinheiro"
+      @method_message = "rever os dados da conta"      
+    end
   end
-
 end

@@ -49,9 +49,9 @@
         <!-- profile-page-wall-share -->
         <div id="profile-page-wall-share" class="row">
           <div class="col s12">
-            <% if @user.payment_status == "Não processado" %>
+            <% if @user.payment.nil? %>
               <div id="card-alert" class="card pink lighten-5">
-                <%= link_to(payment_path) do %>
+                <%= link_to payment_path do %>
                   <div class="card-content pink-text darken-1">
                     <span class="card-title pink-text darken-1">
                       <i class="mdi-action-info-outline"></i>
@@ -61,11 +61,18 @@
                   </div>
                 <% end %>
               </div>
-            <%else%>
+            <% elsif !@user.payment.nil? && !@user.payment.paid? %>
               <div id="card-alert" class="card light-blue darken-2">
                 <div class="card-content white-text">
                   <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
-                  <p><%= @user.payment_status %></p>
+                  <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
+                </div>
+              </div>
+            <% elsif !@user.payment.nil? && @user.payment.paid? %>
+              <div id="card-alert" class="card light-blue darken-2">
+                <div class="card-content white-text">
+                  <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
+                  <p>Pago</p>
                 </div>
               </div>
             <% end %>
