@@ -27,7 +27,16 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker tooltipped', "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Menores de 18 anos, necessitam de autorização dos pais."%>
+        <% if browser.firefox? %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
+          <script>
+            $('#birthday').formatter({
+              'pattern': '{{99}}/{{99}}/{{9999}}',
+            });
+          </script>
+        <% else %> -->
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
+        <% end %>
       </div>
     </div>
     <div class="row">
@@ -51,20 +60,21 @@
   <div class="row">
     <!-------- MEJ -------->
     <div class="row">
-      <div class="input-field col s6">
-        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação"%>
+      <div class="col s12"><sub>Caso sua EJ não seja federada, deixe FEDERAÇÃO em branco.</sub></div>
+      <div class="input-field col s12 m6">
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior e membros de EJs não federadas, deixar em branco."%>
       </div>
       <div class="input-field col s6">
-        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"I am tooltip"%>
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, informe sua última EJ."%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12 m6">
         <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <%= f.text_field :university, :id => 'university', placeholder: "Universidade"%>
       </div>
     </div>
