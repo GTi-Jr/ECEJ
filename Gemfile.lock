@@ -322,7 +322,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  airbrake
+  airbrake (~> 5.0)
   bcrypt
   bcrypt-ruby (~> 3.0.0)
   brazilian-rails
