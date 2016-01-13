@@ -3,7 +3,7 @@ class CreatePayments < ActiveRecord::Migration
     create_table :payments do |t|
       t.string :method
       t.integer :portions
-      t.integer :portion_paid
+      t.integer :portion_paid, default: 0
       t.float :price
       t.string :link_1
       t.string :link_2

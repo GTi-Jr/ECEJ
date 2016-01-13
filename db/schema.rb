@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160112210448) do
   create_table "payments", force: :cascade do |t|
     t.string   "method"
     t.integer  "portions"
-    t.integer  "portion_paid"
+    t.integer  "portion_paid", default: 0
     t.float    "price"
     t.string   "link_1"
     t.string   "link_2"

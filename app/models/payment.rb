@@ -9,11 +9,38 @@ class Payment < ActiveRecord::Base
     set_price
   end
 
+  def total_amount
+    self.price * self.portions
+  end
+
+  def amount_paid
+    self.price * self.portions_paid
+  end
+
+  def partially_paid?
+    self.portions_paid > 0 ? true : false
+  end
+
+  def paid?
+    self.portions_paid == self.portions
+  end
+
+  def payment_billets
+    billet_links = Array.new
+    if self.method == "Boleto"
+      billet_links << self.link_1 unless self.link_1.nil?
+      billet_links << self.link_2 unless self.link_2.nil?
+      billet_links << self.link_3 unless self.link_3.nil?
+      billet_links << self.link_4 unless self.link_4.nil?
+    end
+    billet_links
+  end
+
   private  
     def set_price 
-      if @user.payment_method == "Boleto"
+      if @user.payment_method.downcase == "boleto"
         set_billet_INFO
-      elsif @user.payment_method == "PagSeguro"
+      elsif @user.payment_method.downcase == "pagseguro"
         set_price_pagseguro
       end    
     end
@@ -128,7 +155,7 @@ class Payment < ActiveRecord::Base
           end
         end
       when 4 
-      if @user.if_fed?
+        if @user.if_fed?
           case @user.lot.number
           when 1
             self.link_1 = BILLET_1_LINK_4_1_FED
@@ -152,20 +179,23 @@ class Payment < ActiveRecord::Base
         else
           case @user.lot.number
           when 1
-            self.link_1 = BILLET_1_LINK_3_1_UNFED
-            self.link_2 = BILLET_1_LINK_3_2_UNFED
-            self.link_3 = BILLET_1_LINK_3_3_UNFED
-            self.price = BILLET_1_PRICE_3_UNFED
+            self.link_1 = BILLET_1_LINK_4_1_UNFED
+            self.link_2 = BILLET_1_LINK_4_2_UNFED
+            self.link_3 = BILLET_1_LINK_4_3_UNFED
+            self.link_4 = BILLET_1_LINK_4_4_UNFED
+            self.price = BILLET_1_PRICE_4_UNFED
           when 2
-            self.link_1 = BILLET_2_LINK_3_1_UNFED
-            self.link_2 = BILLET_2_LINK_3_2_UNFED
-            self.link_3 = BILLET_2_LINK_3_3_UNFED
-            self.price = BILLET_2_PRICE_2_UNFED
+            self.link_1 = BILLET_2_LINK_4_1_UNFED
+            self.link_2 = BILLET_2_LINK_4_2_UNFED
+            self.link_3 = BILLET_2_LINK_4_3_UNFED
+            self.link_4 = BILLET_2_LINK_4_4_UNFED
+            self.price = BILLET_2_PRICE_4_UNFED
           when 3            
-            self.link_1 = BILLET_3_LINK_3_1_UNFED
-            self.link_2 = BILLET_3_LINK_3_2_UNFED
-            self.link_3 = BILLET_3_LINK_3_3_UNFED
-            self.price = BILLET_3_PRICE_1_UNFED
+            self.link_1 = BILLET_3_LINK_4_1_UNFED
+            self.link_2 = BILLET_3_LINK_4_2_UNFED
+            self.link_3 = BILLET_3_LINK_4_3_UNFED
+            self.link_4 = BILLET_3_LINK_4_4_UNFED
+            self.price = BILLET_3_PRICE_4_UNFED
           end
         end     
       end
