@@ -8,8 +8,8 @@
   </thead>
 
   <tbody>
-    <% if !@event.users.nil? %>
-      <% @event.users.each do |user| %>
+    <% if !@users.nil? %>
+      <% @users.each do |user| %>
         <tr>
           <td style="width: 50%; "><%= user.name %></td>
           <td style="width: 50%; "><%= user.phone %></td>
