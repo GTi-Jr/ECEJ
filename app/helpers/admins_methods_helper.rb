@@ -1,0 +1,2 @@
+module AdminsMethodsHelper
+end
