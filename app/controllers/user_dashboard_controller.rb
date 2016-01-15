@@ -8,12 +8,14 @@ class UserDashboardController < ApplicationController
   def index
     @today = DateTime.now
     @payment = @user.payment
-    @lot = @user.lot
+    @lot = @user.lot if !@user.lot.nil?
     @deadlines = Array.new
-    @deadlines << @lot.deadline_1
-    @deadlines << @lot.deadline_2
-    @deadlines << @lot.deadline_3
-    @deadlines << @lot.deadline_4
+    if !@lot.nil?
+      @deadlines << @lot.deadline_1
+      @deadlines << @lot.deadline_2
+      @deadlines << @lot.deadline_3
+      @deadlines << @lot.deadline_4
+    end
 
     if !@payment.nil?
       case @user.payment.method

@@ -4,25 +4,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  # validate :must_be_older_than_14
-
   usar_como_cpf :cpf
   has_one :payment
   has_many :subscriptions
   has_many :events, through: :subscriptions
 
-  
   belongs_to :room
-  belongs_to :lot  
+  belongs_to :lot
 
   has_one :address
 
   mount_uploader :avatar, AvatarUploader
 
-  def age
-    ((Date.today - User.first.birthday).to_f.days/360.days).round(-1)
-  end
-
+  # Get attributes from addres string
   def city
     addres ? addres.split(',')[0].lstrip : nil
   end
@@ -31,14 +25,16 @@ class User < ActiveRecord::Base
     addres ? addres.split(',')[1].lstrip : nil
   end
 
-  def street    
+  def street
     addres ? addres.split(',')[2].lstrip : nil
   end
 
-  def complement    
+  def complement
     addres ? addres.split(',')[3].lstrip : nil
   end
+  # end of attributes
 
+  # Returns true if there's anything in federation.
   def is_fed?
     !self.federation.empty?
   end
@@ -62,12 +58,17 @@ class User < ActiveRecord::Base
   def self.allocated
     User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
   end
+  # end of lists
 
+  # Generates a CSV from all users
+  # To add any param to the CSV just do
+  # csv_attributes << user.attribute
   def self.to_csv
     CSV.generate do |csv|
       csv << ['Nome', "Telefone"]
       all.each do |user|
-        csv << [user.name, user.phone]
+        csv_attributes = [user.name, user.phone]
+        csv << csv_attributes
       end
     end
   end
@@ -146,10 +147,4 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  # VALIDATORS
-
-  # def must_be_older_than_14
-  #   errors.add(:birthday, "Você deve ter mais de 14 anos para participar do evento.") if self.age <= 14.years
-  # end
 end
