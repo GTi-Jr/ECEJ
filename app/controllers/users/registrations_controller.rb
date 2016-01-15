@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 before_filter :configure_account_update_params, only: [:update]
+before_action :verify_lot_and_redirect, only: [:new, :create]
 before_action :get_user
 before_action :verify_register_conclusion, only: [:edit, :update, :edit_password, :update_password]
 
@@ -113,6 +114,12 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
 
 
   private
+  def verify_lot_and_redirect
+    if(Lot.active_lot.nil?)
+      flash[:notice] = "Aguarde a abertura do próximo lote para realizar seu cadastro. Para mais informações, visite nossa página no Facebook."
+      redirect_to root_path
+    end
+  end
 
   def password_params
     # NOTE: Using `strong_parameters` gem
