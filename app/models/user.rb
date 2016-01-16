@@ -116,6 +116,13 @@ class User < ActiveRecord::Base
     save
   end
 
+  def change_position_with(user)
+    auxiliar_lot = lot
+    self.lot = user.lot
+    user.lot = auxiliar_lot
+    save && user.save
+  end
+
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!

@@ -11,6 +11,10 @@ people.each do |row|
     user.confirmation_sent_at = DateTime.now
     user.active = true
     user.lot_id = 2
+    user.payment = Payment.new do |payment|
+      payment.method = "Dinheiro"
+      payment.change_status :paid
+    end
   end
   if user.save
     Rails.logger.info "#{user.name foi adicionado}"
