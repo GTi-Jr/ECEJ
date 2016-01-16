@@ -11,7 +11,7 @@ class Crew::ExcelController < ApplicationController
   end
 
   def lot_users
-    @lot = Lot.find(param[:id])
+    @lot = Lot.find(params[:id])
     @users = @lot.all.order(:name)
 
     respond_to do |format|
