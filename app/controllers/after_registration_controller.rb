@@ -17,11 +17,11 @@ class AfterRegistrationController < ApplicationController
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
     @lot = Lot.first
-    if(!@lot.nil? && !@lot.is_full?)
+    if(!@lot.nil? && !@lot.is_full? && @user.lot.nil?)
       @user.lot = @lot
     end
 
-    if @user.save && @user.update_attributes(user_params)    
+    if @user.save && @user.update_attributes(user_params)
       UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
