@@ -7,14 +7,19 @@
 #
 # Configuration details:
 # https://github.com/airbrake/airbrake-ruby#configuration
-if Rails.env.production?
+
   Airbrake.configure do |c|
     # You must set both project_id & project_key. To find your project_id and
     # project_key navigate to your project's General Settings and copy the values
     # from the right sidebar.
     # https://github.com/airbrake/airbrake-ruby#project_id--project_key
-    c.project_id = ENV['AIRBRAKE_PROJECT_ID']
-    c.project_key = ENV['AIRBRAKE_API_KEY']
+    if Rails.env.production?
+        c.project_id = ENV['AIRBRAKE_PROJECT_ID']
+        c.project_key = ENV['AIRBRAKE_API_KEY']
+    else
+        c.project_id = Rails.application.secrets.airbrake_project_id
+        c.project_key = Rails.application.secrets.airbrake_project_key
+    end
 
     # Configures the root directory of your project. Expects a String or a
     # Pathname, which represents the path to your project. Providing this option
@@ -39,9 +44,8 @@ if Rails.env.production?
     # Array, which means Airbrake Ruby sends exceptions occurring in all
     # environments.
     # https://github.com/airbrake/airbrake-ruby#ignore_environments
-    c.ignore_environments = %w(test)
+    c.ignore_environments = %w(test, development)
   end
-end
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the
 # line below. It might simplify debugging of background Airbrake workers, which
