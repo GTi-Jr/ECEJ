@@ -13,22 +13,16 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
 
   #POST /user
   def create
-      @user = User.new(inscription_params)
-      @user.active = true
-      @lot = Lot.first
-      if(!@lot.nil? && !@lot.is_full?)
-        @user.lot = @lot
-      end
+    @user = User.new(inscription_params)
+    @user.active = true
 
-      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
-
-      if @user.save
-        flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
-        redirect_to root_path
-      else
-        flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
-        redirect_to new_user_registration_path
-      end
+    if @user.save
+      flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
+      redirect_to root_path
+    else
+      flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
+      redirect_to new_user_registration_path
+    end
   end
 
   #GET /user/edit
