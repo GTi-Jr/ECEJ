@@ -12,5 +12,9 @@ people.each do |row|
     user.active = true
     user.lot_id = 2
   end
-  user.save!
+  if user.save
+    Rails.logger.info "#{user.name foi adicionado}"
+  else
+    Rails.logger.info "Não foi possível adicionar #{user.name}. Erros:\n\t #{user.errors.full_messages}"
+  end
 end
