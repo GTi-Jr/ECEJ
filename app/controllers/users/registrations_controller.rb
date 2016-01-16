@@ -15,12 +15,6 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   def create
       @user = User.new(inscription_params)
       @user.active = true
-      @lot = Lot.first
-      if(!@lot.nil? && !@lot.is_full?)
-        @user.lot = @lot
-      end
-
-      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
       if @user.save
         flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
