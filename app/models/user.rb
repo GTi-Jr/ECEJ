@@ -107,9 +107,9 @@ class User < ActiveRecord::Base
 
   # Disqualify user
   def disqualify
-    this.active = false
+    self.active = false
 
-    if !lot.nil?
+    if !self.lot.nil?
       User.eligible.first.update_attributes lot_id: lot.id
       self.lot = nil
     end
