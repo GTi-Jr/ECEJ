@@ -8,7 +8,6 @@ class LotsController < ApplicationController
     # Checks if the link is, indeed, to that user
     if current_user.confirmation_token.first(8) == params[:auth]
       if !@lot.is_full? && current_user.insert_into_lot(@lot)
-        UsersLotMailer.send_antecipated_lot(current_user)
         redirect_to user_root_path, notice: "Cadastrado(a) no #{@lot.name} com sucesso."
       else
         redirect_to user_root_path, alert: "Infelizmente, o lote já lotou."
@@ -26,13 +25,13 @@ class LotsController < ApplicationController
         redirect_to user_root_path, notice: "Você conseguiu sua vaga no lote #{@lot.number}"
       else
         redirect_to user_root_path, notice: "Não foi possível fazer cadastro no lote #{@lot.number}"
-      end      
+      end
     else
       redirect_to user_root_path, alert: "Infelizmente o lote está cheio."
     end
   end
 
-  private 
+  private
     def check_eligibility
       redirect_to user_root_path, alert: "Você não pode se registrar neste lote." unless User.eligible.include?(current_user)
     end

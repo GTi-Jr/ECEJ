@@ -10,6 +10,17 @@ class Crew::ExcelController < ApplicationController
     end
   end
 
+  def lot_users
+    @lot = Lot.find(param[:id])
+    @users = @lot.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.to_csv, filename: "Lista de congressistas no lote #{@lot.name}.csv" }
+      format.xls
+    end
+  end
+
   def event_users_csv
     @event = Event.find(params[:id])
 
@@ -17,6 +28,6 @@ class Crew::ExcelController < ApplicationController
       format.html
       format.csv { send_data @event.users.to_csv, filename: "Congressistas em #{@event.name}.csv" }
       format.xls
-    end    
+    end
   end
 end
