@@ -12,7 +12,7 @@ class Crew::ExcelController < ApplicationController
 
   def lot_users
     @lot = Lot.find(params[:id])
-    @users = @lot.all.order(:name)
+    @users = @lot.users.order(:name)
 
     respond_to do |format|
       format.html
