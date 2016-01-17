@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113065423) do
+ActiveRecord::Schema.define(version: 20160117015548) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -78,12 +78,12 @@ ActiveRecord::Schema.define(version: 20160113065423) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "hotel"
+    t.string   "hotel",      default: ""
     t.integer  "number"
     t.integer  "capacity"
-    t.text     "extra_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "extra_info", default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -95,14 +95,14 @@ ActiveRecord::Schema.define(version: 20160113065423) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -112,10 +112,6 @@ ActiveRecord::Schema.define(version: 20160113065423) do
     t.string   "cpf"
     t.date     "birthday"
     t.string   "gender"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "phone"
     t.string   "federation"
     t.string   "junior_enterprise"
@@ -126,12 +122,13 @@ ActiveRecord::Schema.define(version: 20160113065423) do
     t.datetime "confirmation_sent_at"
     t.boolean  "completed"
     t.text     "special_needs"
-    t.boolean  "active"
+    t.boolean  "active",                 default: true
     t.integer  "lot_id"
     t.string   "avatar"
     t.datetime "paid_on"
     t.integer  "room_id"
     t.text     "addres"
+    t.string   "state"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

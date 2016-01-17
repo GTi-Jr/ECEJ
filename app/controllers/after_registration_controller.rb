@@ -21,6 +21,8 @@ class AfterRegistrationController < ApplicationController
       @user.lot = @lot
     end
 
+    
+
     if @user.save && @user.update_attributes(user_params)
       UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
