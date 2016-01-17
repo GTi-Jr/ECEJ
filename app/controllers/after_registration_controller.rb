@@ -16,8 +16,10 @@ class AfterRegistrationController < ApplicationController
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
-    @lot = Lot.first
-    if(!@lot.nil? && !@lot.is_full? && @user.lot.nil?)
+    @user.state = BuscaEndereco.cep(cep)[:uf]
+    @lot = Lot.active_lot
+
+    if !@lot.nil? && !@lot.is_full? && @user.lot.nil?
       @user.lot = @lot
     end
 

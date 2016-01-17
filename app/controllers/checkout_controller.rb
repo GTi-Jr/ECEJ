@@ -69,7 +69,7 @@ class CheckoutController < ApplicationController
   def verify_user_lot
     if @user.lot.nil?
       flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 
