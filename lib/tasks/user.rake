@@ -12,7 +12,8 @@ namespace :user do
     User.all.each do |user|
       p "#{progress}/#{total}"
       if !user.cep.nil?
-        user.update_attribute :state, BuscaEndereco.cep(user.cep)[:uf]
+        get_cep = BuscaEndereco.cep(user.cep)
+        user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
       else
         p "     CEP do usuário #{user.email} é inválido."
       end
