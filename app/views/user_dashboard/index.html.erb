@@ -80,12 +80,12 @@
             <% if !@payment.nil? %>
               <% if @payment.method == "Boleto" %>
                 <% count = 0 %>
-                <% @billets_links.each do |link| %>
+                <% @billets_links.each do |link|%>
                   <% if count == 0  %>
                     <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
                     <br><br>
                   <% elsif @today > @deadlines[count-1] %>
-                    <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
+                    <%= link_to "Parcela #{count+1}", link , class: 'waves-effect waves-light btn light-blue darken-2' %>
                     <br><br>
                   <% else %>
                     <%= link_to "Parcela #{count+1} disponível apenas em #{@deadlines[count].strftime("%d/%m/%Y")}", '#', class: 'waves-effect waves-light btn light-red darken-2' %>

@@ -134,7 +134,6 @@ class CheckoutController < ApplicationController
     }
 
     payment.sender = {
-      name: @user.name,
       email: @user.email,
       # cpf: @user.cpf.numero.only_numbers,
       phone: {
