@@ -168,4 +168,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.ask_to_choose_payment_method
+    User.allocated.each do |user|
+      UsersLotMailer.choose_payment(user)
+    end
+  end
+
 end
