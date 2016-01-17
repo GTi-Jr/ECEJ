@@ -147,7 +147,7 @@ class Payment < ActiveRecord::Base
 
   def set_price_money
     if user.is_fed?
-      case user.lot
+      case user.lot.id
       when 1
         self.price = PaymentModule::MONEY_PRICE_1_FED
       when 2
@@ -156,7 +156,7 @@ class Payment < ActiveRecord::Base
         self.price = PaymentModule::MONEY_PRICE_3_FED
       end
     else
-      case user.lot
+      case user.lot.id
       when 1
         self.price = PaymentModule::MONEY_PRICE_1_UNFED
       when 2
