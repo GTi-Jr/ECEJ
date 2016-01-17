@@ -6,16 +6,18 @@ namespace :user do
     end
   end
 
-  task set_users_state: :environment do
+  task set_users_address: :environment do
     progress = 1
     total = User.all.count
     User.all.each do |user|
       p "#{progress}/#{total}"
-      if !user.cep.nil?
-        get_cep = BuscaEndereco.cep(user.cep)
-        user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
-      else
-        p "     CEP do usuário #{user.email} é inválido."
+      if !user.cep.blank?
+        if !user.cep.nil?
+          get_cep = BuscaEndereco.cep(user.cep)
+          user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
+        else
+          p "     CEP do usuário #{user.email} é inválido."
+        end
       end
       progress += 1
     end
