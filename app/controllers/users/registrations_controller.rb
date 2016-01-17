@@ -39,6 +39,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
     @user.cpf = Cpf.new(params[:user][:cpf])
+
     if @user.save && @user.update_attributes(user_params)
       flash[:success] = "Cadastro atualizado."
       redirect_to root_path
@@ -92,7 +93,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
 
   #If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :addres ,:federation, :junior_enterprise, :job, :university) }
+    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :addres ,:federation, :junior_enterprise, :job, :university, :transport_required) }
   end
 
 
@@ -125,6 +126,6 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   end
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :birthday , :cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
+    params.require(:user).permit(:name, :general_register, :birthday , :cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university, :transport_required)
   end
 end

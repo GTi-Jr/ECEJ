@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117170605) do
+ActiveRecord::Schema.define(version: 20160117175049) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -129,7 +129,8 @@ ActiveRecord::Schema.define(version: 20160117170605) do
     t.integer  "room_id"
     t.text     "addres"
     t.string   "state"
-    t.boolean  "transport_required",     default: false
+    t.string   "transport_required",     default: "Não"
+    t.string   "city"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

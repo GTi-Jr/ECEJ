@@ -24,7 +24,7 @@ class AfterRegistrationController < ApplicationController
     end
 
     if @user.save && @user.update_attributes(user_params)
-      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil? && @lot.is_active?
+      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
       redirect_to root_path
@@ -43,6 +43,6 @@ class AfterRegistrationController < ApplicationController
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university)
+    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university, :transport_required)
   end
 end
