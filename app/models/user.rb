@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
 
   def self.ask_to_choose_payment_method
     User.allocated.each do |user|
-      UsersLotMailer.choose_payment(user)
+      UsersLotMailer.choose_payment(user).deliver_now
     end
   end
 
