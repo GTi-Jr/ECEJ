@@ -1,6 +1,6 @@
 class CheckoutController < ApplicationController
   require "#{Rails.root}/config/initializers/payment_module.rb"
-  
+
   before_action :authenticate_user!
   before_action :get_user
   before_action :verify_user_lot
@@ -51,7 +51,7 @@ class CheckoutController < ApplicationController
       payment.portions = 1
     end
     @user.payment.set_payment
-    
+
     unless @user.save
       redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
@@ -60,6 +60,18 @@ class CheckoutController < ApplicationController
       pagseguro_request
     else
       redirect_to user_root_path, notice: "Você não tem acesso."
+    end
+  end
+
+  def deposit
+    @user.payment ||= Payment.new do |payment|
+      payment.method = "Dinheiro"
+      payment.portions = 1
+    end
+    @user.payment.set_payment
+
+    unless @user.save
+      redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
   end
 
