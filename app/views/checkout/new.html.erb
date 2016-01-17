@@ -90,8 +90,10 @@
                                   </ul>
                                 </div>
                                 <div class="card-action center-align">
-                                  <%= button_tag type: 'submit', class: 'waves-effect waves-light btn' do %>
-                                    <%= content_tag(:strong, 'Pagar por depósito ou tranferência') %>
+                                  <%= form_tag payment_deposit_path do %>
+                                    <%= button_tag type: 'submit', class: 'waves-effect waves-light btn' do %>
+                                      <%= content_tag(:strong, 'Pagar por depósito ou tranferência') %>
+                                    <% end %>
                                   <% end %>
                                 </div>
                               </div>

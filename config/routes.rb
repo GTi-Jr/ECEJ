@@ -88,6 +88,8 @@ Rails.application.routes.draw do
 
   post 'payment_billet' => 'billets#billet', as: :payment_billet
 
+  post 'payment_deposit' => 'checkout#deposit', as: :payment_deposit
+
   # get request so link can be sent through email
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
