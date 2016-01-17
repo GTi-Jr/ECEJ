@@ -70,8 +70,10 @@ class CheckoutController < ApplicationController
     end
     @user.payment.set_payment
 
-    unless @user.save
-      redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
+    if @user.save
+      redirect_to authenticated_user_root_path
+    else
+      redirect_to authenticated_user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
   end
 
