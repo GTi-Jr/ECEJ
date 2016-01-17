@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   # get request so link can be sent through email
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
-  get '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
+  get '/registration/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
   patch '/registration/lot' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 
   # set payment manually
