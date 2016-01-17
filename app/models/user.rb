@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     addres ? addres.split(',')[0].lstrip : nil
   end
 
-  def cep
+  def cep1
     addres ? addres.split(',')[1].lstrip : nil
   end
 
