@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :crew do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
@@ -22,15 +23,6 @@ Rails.application.routes.draw do
     post '/create_admin' => 'admins#create_admin'
     devise_for :admins, class_name: "Crew::Admin", :skip => 'registration'
 
-    devise_scope :admin do
-      authenticated :admin do
-        root 'crew/admins#dashboard',  as: :admin_root
-      end
-      unauthenticated do
-        root to: "devise/sessions#new"
-      end
-    end
-
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
@@ -50,12 +42,10 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'user_dashboard#index',  as: :user_root
-      # Rails 4 users must specify the 'as' option to give it a unique name
-      # root :to => "main#dashboard", :as => "authenticated_root"
+      root to: 'user_dashboard#index',  as: :authenticated_user_root
     end
-    unauthenticated do
-      root to: "users/sessions#new"
+    unauthenticated :users do
+      root to: "users/sessions#new", as: :unauthenticated_user_root
     end
 
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
