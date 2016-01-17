@@ -1,6 +1,6 @@
 class LotsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_eligibility
+  before_action :check_eligibility, except: [:subscribe_into_lot_early]
   before_action :user_cant_be_in_a_lot
 
   def subscribe_into_lot_early
@@ -13,7 +13,7 @@ class LotsController < ApplicationController
         redirect_to user_root_path, alert: "Infelizmente, o lote já lotou."
       end
     else
-      redirect_to user_root_path, alert: "O código de confirmação não lhe pertence."
+      redirect_to user_root_path, alert: "Parece que você é muito amiguinho de alguém que recebeu o acesso antecipado né? Hehe."
     end
   end
 

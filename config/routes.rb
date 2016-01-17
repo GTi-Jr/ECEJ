@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
-    patch 'change_payment/:id/:method/:portions' => 'admins_methods#disqualify_user', as: :disqualify_user
+    get 'change_payment/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment
 
 
   end

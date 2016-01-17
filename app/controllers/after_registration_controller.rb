@@ -17,14 +17,14 @@ class AfterRegistrationController < ApplicationController
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
     @user.state = BuscaEndereco.cep(cep)[:uf]
-    @lot = Lot.first
+    @lot = Lot.active_lot
 
     if !@lot.nil? && @lot.is_active? && !@lot.is_full? && @user.lot.nil?
       @user.lot = @lot
     end
 
     if @user.save && @user.update_attributes(user_params)
-      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
+      UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil? && @lot.is_active?
 
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
       redirect_to root_path
