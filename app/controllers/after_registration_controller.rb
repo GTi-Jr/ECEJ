@@ -16,12 +16,12 @@ class AfterRegistrationController < ApplicationController
     street = params[:street]
     @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
+    @user.state = BuscaEndereco.cep(cep)[:uf]
     @lot = Lot.first
-    if !@lot.nil? && && @lot.is_active? && !@lot.is_full? && @user.lot.nil?
+
+    if !@lot.nil? && @lot.is_active? && !@lot.is_full? && @user.lot.nil?
       @user.lot = @lot
     end
-
-    
 
     if @user.save && @user.update_attributes(user_params)
       UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
