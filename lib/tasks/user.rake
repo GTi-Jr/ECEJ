@@ -14,7 +14,9 @@ namespace :user do
       if !user.cep.blank?
         if !user.cep.nil?
           get_cep = BuscaEndereco.cep(user.cep)
-          user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
+          if !get_cep.nil?
+            user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
+          end
         else
           p "     CEP do usuário #{user.email} é inválido."
         end
