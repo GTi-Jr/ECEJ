@@ -81,12 +81,14 @@ class Payment < ActiveRecord::Base
     case method.to_s.humanize.downcase
     when "pagseguro"
       self.method = "PagSeguro"
-    when "billet"
+      self.portions = 1
+    when "boleto"
       self.method = "Boleto"
-    when "money"
-        self.method = "Dinheiro"
+      self.portions = portions
+    when "dinheiro"
+      self.method = "Dinheiro"
+      self.portions = 1
     end
-    self.portions = portions
     set_payment
   end
 

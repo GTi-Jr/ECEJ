@@ -17,7 +17,7 @@ class Crew::AdminsMethodsController < ApplicationController
   # PATCH
   # Disqualify user and puta waiting_list instead
   def disqualify_user
-    user = User.find([params[:id]])
+    user = User.find(params[:id])
 
     if !user.nil?
       user.disqualify
@@ -29,7 +29,10 @@ class Crew::AdminsMethodsController < ApplicationController
 
   def change_payment_method
     payment = Payment.find(params[:id])
-    payment.change_method params[:method], params[:portions]
+    method = params[:method]
+    portions = params[:portions].to_i
+    
+    payment.change_method method, portions
 
     if payment.save
       redirect_to :back, notice: "Método do pagamento foi alterado."

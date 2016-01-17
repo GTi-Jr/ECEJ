@@ -48,6 +48,14 @@
       </div>
     </div>
     <div class="row">
+      <div class="input-field col s6">
+        <div class="select-wrapper initialized"><span class="caret">▼</span>
+          <%= f.select :transport_required, ['Não', 'Sim'] %>
+        </div>
+        <label>Translado</label>
+      </div>
+    </div>
+    <div class="row">
       <div class="input-field col s12">
         <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
         <label for="special_needs">Necessidades especiais</label>

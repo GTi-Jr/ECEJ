@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Confirmação da Inscrição</title>
+    <title>Acesso antecipado</title>
 
     <style type="text/css">
     p{
@@ -571,9 +571,9 @@
 
                             <h1>Seja&nbsp;Bem Vindo&nbsp;ao ECEJ 2016 !</h1>
 <br>
-Olá, <%= @user.name <%>
+Olá, <%= @user.name %>
 <br />
-Devido a sua posição na fila de espera, você está recebendo este email com o link de cadastro antecipado <%= @lot.name %>!
+Devido a sua posição na fila de espera, você está recebendo este email com o link de cadastro antecipado do <%= @lot.name %>!
 <br />
 <p>Para entrar no <%= @lot.name %>, <a href="<%= "www.sistemaecej.com.br/registration/#{@lot.id}/#{@user.confirmation_token.first(8)}" %>">CLIQUE AQUI</a>
 <br>
