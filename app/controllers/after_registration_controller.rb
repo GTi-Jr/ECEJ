@@ -10,13 +10,7 @@ class AfterRegistrationController < ApplicationController
   end
 
   def update
-    cep = params[:postal_code]
-    city = params[:city].capitalize
-    complement = params[:complement]
-    street = params[:street]
-    @user.addres = "#{city}, #{cep}, #{street}, #{complement}"
     @user.completed = true
-    @user.state = BuscaEndereco.cep(cep)[:uf]
     @lot = Lot.active_lot
 
     if !@lot.nil? && !@lot.is_full? && @user.lot.nil?
@@ -43,6 +37,6 @@ class AfterRegistrationController < ApplicationController
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university, :transport_required)
+    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federation, :junior_enterprise, :job, :university, :transport_required, :cep, :state, :city, :street)
   end
 end

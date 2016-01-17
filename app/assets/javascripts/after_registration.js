@@ -94,10 +94,16 @@
          required: "Entre com seu número de celular"
        }
      });
-     $( "#postal_code" ).rules( "add", {
+     $( "#cep" ).rules( "add", {
        required: true,
        messages: {
          required: "Preencha com seu CEP"
+       }
+     });
+     $( "#state" ).rules( "add", {
+       required: true,
+       messages: {
+         required: "Preencha com seu Estado"
        }
      });
      $( "#city" ).rules( "add", {

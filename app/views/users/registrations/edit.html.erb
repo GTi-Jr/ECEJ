@@ -90,23 +90,20 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
+        <%= f.text_field :cep, placeholder: "CEP"%>
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
+        <%= f.text_field :state, placeholder: "Estado"%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
+      <div class="input-field col s4">
+        <%= f.text_field :city, placeholder: "Cidade"%>
+      </div>
+      <div class="input-field col s8">
+        <%= f.text_field :street, placeholder: "Endereço"%>
       </div>
     </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
-      </div>
-    </div>
-    <%= f.hidden_field :addres, id: "addres" %>
   </div>
 </div>
 <div class="col s12 z-depth-4 card-panel">
