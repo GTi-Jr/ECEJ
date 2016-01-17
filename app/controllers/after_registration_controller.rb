@@ -19,7 +19,7 @@ class AfterRegistrationController < ApplicationController
     @user.state = BuscaEndereco.cep(cep)[:uf]
     @lot = Lot.active_lot
 
-    if !@lot.nil? && @lot.is_active? && !@lot.is_full? && @user.lot.nil?
+    if !@lot.nil? && !@lot.is_full? && @user.lot.nil?
       @user.lot = @lot
     end
 
@@ -27,17 +27,17 @@ class AfterRegistrationController < ApplicationController
       UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
       flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     else
       flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe.\n #{@user.errors.full_messages}"
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 
   private
   def verify_register_conclusion
     if @user.is_completed?
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 

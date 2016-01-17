@@ -6,7 +6,7 @@
           <p class="center login-form-text">Edição de usuário</p>
         </div>
       </div>
-      
+
       <div class="row">
         <div class=" col s12 center">
           <% if @user.errors.any? %>
@@ -14,11 +14,10 @@
               <% @user.errors.full_messages.each do |error| %>
                 <li><%= error %></li>
               <% end %>
-            </ul>            
+            </ul>
           <% end %>
         </div>
       </div>
-
       <div class="row margin">
         <!------------------NOME------------------- -->
         <div class=" col s12 m6 l4">
@@ -90,4 +89,3 @@
     <p><%= alert %></p>
   </div>
 </div>
-

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :crew do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
@@ -44,8 +45,6 @@ Rails.application.routes.draw do
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
     get 'change_payment/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment
-
-
   end
 
   #routes for :users
@@ -57,12 +56,10 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'user_dashboard#index',  as: :user_root
-      # Rails 4 users must specify the 'as' option to give it a unique name
-      # root :to => "main#dashboard", :as => "authenticated_root"
+      root to: 'user_dashboard#index',  as: :authenticated_user_root
     end
-    unauthenticated do
-      root to: "users/sessions#new"
+    unauthenticated :users do
+      root to: "users/sessions#new", as: :unauthenticated_user_root
     end
 
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'

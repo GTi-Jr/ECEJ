@@ -18,7 +18,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
 
     if @user.save
       flash[:success] = "Inscrição realizada, em instantes receberá as instruções de confirmação"
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     else
       flash[:error] = "Um erro ocorreu, não foi possível processar sua inscrição"
       redirect_to new_user_registration_path
@@ -42,11 +42,11 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
 
     if @user.save && @user.update_attributes(user_params)
       flash[:success] = "Cadastro atualizado."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     else
       Rails.logger.info @user.errors.full_messages
       flash[:error] = "Erro ao atualizar cadastro."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 
@@ -59,7 +59,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
         # Sign in the user by passing validation in case their password changed
         sign_in @user, :bypass => true
         flash[:sucsses] = "Senha alterada com sucesso."
-        redirect_to root_path
+        redirect_to authenticated_user_root_path
       else
         flash[:error] = "Não foi possível alterar sua senha."
         redirect_to password_edit_path
@@ -112,7 +112,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   def verify_lot_and_redirect
     if(Lot.active_lot.nil?)
       flash[:notice] = "Aguarde a abertura do próximo lote para realizar seu cadastro. Para mais informações, visite nossa página no Facebook."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 

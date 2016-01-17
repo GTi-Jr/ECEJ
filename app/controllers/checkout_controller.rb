@@ -53,13 +53,13 @@ class CheckoutController < ApplicationController
     @user.payment.set_payment
 
     unless @user.save
-      redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
+      redirect_to authenticated_user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
 
     if @user.payment.method == "PagSeguro"
       pagseguro_request
     else
-      redirect_to user_root_path, notice: "Você não tem acesso."
+      redirect_to authenticated_user_root_path, notice: "Você não tem acesso."
     end
   end
 
@@ -81,7 +81,7 @@ class CheckoutController < ApplicationController
   def verify_user_lot
     if @user.lot.nil?
       flash[:notice] = "Por enquanto, não temos vagas, aguarde a abertura de novas vagas."
-      redirect_to root_path
+      redirect_to authenticated_user_root_path
     end
   end
 
@@ -94,7 +94,7 @@ class CheckoutController < ApplicationController
   def check_payment_method
     unless @user.payment.method == nil || @user.payment.method == "PagSeguro"
       flash[:error] = "Você não tem acesso a esse método de pagamento."
-      redirect_to user_root_path
+      redirect_to authenticated_user_root_path
     end
   end
 
@@ -102,7 +102,7 @@ class CheckoutController < ApplicationController
     payment = @user.payment
     if !payment.nil? && payment.paid?
       # flash[:notice] = "Sua inscrição já foi paga!"
-      redirect_to user_root_path, notice: "Sua inscrição já foi paga!"
+      redirect_to authenticated_user_root_path, notice: "Sua inscrição já foi paga!"
     else
       get_payment
     end
@@ -114,7 +114,7 @@ class CheckoutController < ApplicationController
       pagseguro_request
     elsif controller_name != "billets" && @user.payment.method == "Boleto"
       flash[:alert] = "Seu método de pagamento ja foi escolhido."
-      redirect_to user_root_path
+      redirect_to authenticated_user_root_path
     end
   end
 

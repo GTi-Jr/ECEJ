@@ -30,7 +30,7 @@ class BilletsController < CheckoutController
       message = "O link do boleto referente a inscrição está disponível na tela principal do sistema."
     end
 
-    redirect_to user_root_path, notice: message
+    redirect_to authenticated_user_root_path, notice: message
   end
 
   # overrided method
