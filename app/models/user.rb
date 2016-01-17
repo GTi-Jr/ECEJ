@@ -110,8 +110,11 @@ class User < ActiveRecord::Base
     self.active = false
 
     if !self.lot.nil?
-      User.eligible.first.update_attributes lot_id: lot.id
+      allocated_user = User.eligible.first
+      allocated_user.update_attributes lot_id: lot.id
       self.lot = nil
+
+      UsersLotMailer.allocated(allocated_user)
     end
     save
   end

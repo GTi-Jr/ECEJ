@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       end
     end
 
+    get 'payments' => 'payments#index'
+
+    # Admin actions routes
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
@@ -38,7 +41,11 @@ Rails.application.routes.draw do
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
 
-    get 'payments' => 'payments#index'
+    patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
+    patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
+    patch 'change_payment/:id/:method/:portions' => 'admins_methods#disqualify_user', as: :disqualify_user
+
+
   end
 
   #routes for :users
