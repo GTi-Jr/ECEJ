@@ -2,7 +2,7 @@
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Foto de Perfil</h4>
   <div class="row">
-      <%= f.file_field :avatar, class:"dropify tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Permitidos apenas arquivos .png ou .jpg", 'data-default-file' => @user.avatar_url(:medium) if @user.avatar?%>
+      <%= f.file_field :avatar, class:"dropify" , 'data-default-file' => @user.avatar_url%>
   </div>
 </div>
 <div class="col s12 z-depth-4 card-panel">
@@ -27,15 +27,25 @@
         <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
       </div>
       <div class="input-field col s6">
-          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker tooltipped', "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Menores de 18 anos, necessitam de autorização dos pais."%>
+        <% if browser.firefox? %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA'%>
+        <% else %>
+          <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
+        <% end %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
         <div class="select-wrapper initialized"><span class="caret">▼</span>
-          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar']%>
+          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar'], :id =>'gender'%>
         </div>
         <label>Gênero</label>
+      </div>
+      <div class="input-field col s6">
+        <div class="select-wrapper initialized"><span class="caret">▼</span>
+          <%= f.select :transport_required, ['Não', 'Sim'], :id =>'transport'%>
+        </div>
+        <label>Necessita de Translado?</label>
       </div>
     </div>
     <div class="row">
@@ -51,20 +61,24 @@
   <div class="row">
     <!-------- MEJ -------->
     <div class="row">
-      <div class="input-field col s6">
-        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Deixe em branco, em caso de EJ não federada ou Pós-júnior."%>
+      <div class="input-field col s2">
+          <input class="filled-in" id="filled-in-box" checked="checked" type="checkbox" onchange="valueChanged()">
+          <label for="filled-in-box">EJ Federada ?</label>
       </div>
-      <div class="input-field col s6">
-        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior",  class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, preencha com os dados de sua antiga EJ."%>
+      <div id="federation_div" class="input-field col s10">
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior e membros de EJs não federadas, deixar em branco."%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s6">
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, informe sua última EJ."%>
+      </div>
+      <div class="input-field col s6">
         <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12 m6">
         <%= f.text_field :university, :id => 'university', placeholder: "Universidade"%>
       </div>
     </div>
@@ -76,23 +90,20 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP", value: @user.cep %>
+        <%= f.text_field :cep, placeholder: "CEP"%>
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade", value: @user.city %>
+        <%= f.text_field :state, placeholder: "Estado"%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço", value: @user.street %>
+      <div class="input-field col s4">
+        <%= f.text_field :city, placeholder: "Cidade"%>
+      </div>
+      <div class="input-field col s8">
+        <%= f.text_field :street, placeholder: "Endereço"%>
       </div>
     </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento", value: @user.complement %>
-      </div>
-    </div>
-    <%= f.hidden_field :addres, id: "addres" %>
   </div>
 </div>
 <div class="col s12 z-depth-4 card-panel">
@@ -103,15 +114,15 @@
     <div class="input-field col s12">
       <div class="col s12 center-align">
         <%= button_tag(type:"submit", class: 'btn waves-effect waves-light') do %>
-          Salvar
+          <strong>Salvar</strong>
         <% end %>
       </div>
     </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <div class="col s12 center-align">
-          <%= link_to "Alterar Senha", password_edit_path, class: 'btn waves-effect waves-light' %>
-        </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <div class="col s12 center-align">
+        <%= link_to "Alterar Senha", password_edit_path, class: 'btn waves-effect waves-light' %>
       </div>
     </div>
   </div>

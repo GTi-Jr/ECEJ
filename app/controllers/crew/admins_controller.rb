@@ -6,10 +6,10 @@ class Crew::AdminsController < ApplicationController
   def dashboard
     # users
     @users = User.all
-    @eligible_users = User.eligible.order(:created_at).take(10)
-    @non_eligible_users = User.waiting_list.take(10)
-    @disqualified_users = User.disqualified.take(10)
-    @allocated_users = User.allocated.take(10)
+    @eligible_users = User.eligible.order(:created_at)
+    @non_eligible_users = User.waiting_list
+    @disqualified_users = User.disqualified
+    @allocated_users = User.allocated
     # lots
     @lots = Lot.all
     @active_lot = Lot.active_lot
@@ -37,7 +37,7 @@ class Crew::AdminsController < ApplicationController
     @admin = Crew::Admin.new
   end
 
-  def create_admin  
+  def create_admin
     @admin = Crew::Admin.new(admin_params)
 
     if @admin.save
@@ -66,14 +66,14 @@ class Crew::AdminsController < ApplicationController
     end
   end
 
-  private 
+  private
   def load_admin
     @admin = Crew::Admin.find(params[:id])
   end
   def admin_params
     params[:crew_admin][:confirmed_at] = Time.now
     params[:crew_admin][:confirmation_sent_at] = Time.now
-    params.require(:crew_admin).permit(:name, :email, :password, 
+    params.require(:crew_admin).permit(:name, :email, :password,
                                        :password_confirmation, :confirmed_at,
                                        :confirmation_sent_at)
   end

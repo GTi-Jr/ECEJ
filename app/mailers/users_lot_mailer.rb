@@ -19,4 +19,9 @@ class UsersLotMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "ECEJ 2016 - Fique atento a lista de espera!"
   end
+
+  def choose_payment(user)
+    @user = user
+    mail to: user.email, subject: "ECEJ 2016 - Você pode nos dar uma mãozinha?"
+  end
 end

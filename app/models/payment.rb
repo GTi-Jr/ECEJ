@@ -1,8 +1,12 @@
 class Payment < ActiveRecord::Base
-  #require "#{Rails.root}/config/initializers/payment_module.rb"
-
   validates :method,
             inclusion: { in: %w(PagSeguro Boleto Dinheiro) }
+  validates :portions,
+            numericality: { less_than_or_equal_to: 4,
+                            greater_than: 0 }
+  validates :portion_paid,
+            numericality: { greater_than_or_equal_to: 0 }
+  validate :portion_paid_smaller_than_portions
 
   belongs_to :user
 
@@ -12,15 +16,15 @@ class Payment < ActiveRecord::Base
   end
 
   def pagseguro?
-    self.method == "PagSeguro"
+    method == "PagSeguro"
   end
 
   def boleto?
-    self.method == "Boleto"
+    method == "Boleto"
   end
 
   def money?
-    self.method == "Dinheiro"
+    method == "Dinheiro"
   end
 
   def total_amount
@@ -73,172 +77,248 @@ class Payment < ActiveRecord::Base
     billet_links
   end
 
+  def change_method(method, portions = 1)
+    case method.to_s.humanize.downcase
+    when "pagseguro"
+      self.method = "PagSeguro"
+      self.portions = 1
+    when "boleto"
+      self.method = "Boleto"
+      self.portions = portions
+    when "dinheiro"
+      self.method = "Dinheiro"
+      self.portions = 1
+    end
+    set_payment
+  end
 
+  def change_status(status)
+    case status.to_s.humanize.downcase
+    when 'paid'
+      self.portion_paid = self.portion
+    when 'non paid'
+      self.portion_paid = 0
+    end
+    save
+  end
 
-  def set_price
+  def set_billet_portion_paid(portion)
     if self.method == "Boleto"
-      self.set_billet_INFO
-    elsif self.method == "PagSeguro"
-      self.set_price_pagseguro
+      self.portion_paid = portion
+    end
+    save
+  end
+
+  private
+  def set_price
+    if method == "Boleto"
+      set_billet_info false # clears the links
+      set_billet_info # fill the links
+    elsif method == "PagSeguro"
+      set_price_pagseguro
+      set_billet_info false
+    elsif method == "Dinheiro"
+      set_price_money
+      set_billet_info false
     end
   end
 
   def set_price_pagseguro
-    case self.user.lot.number
-    when 1
-      self.price = 401.42
-    when 2
-      self.price = 411.84
-    when 3
-      self.price = 422.25
+    if user.is_fed?
+      case self.user.lot.number
+      when 1
+        self.price = PaymentModule::PAGSEGURO_PRICE_1_FED
+      when 2
+        self.price = PaymentModule::PAGSEGURO_PRICE_2_FED
+      when 3
+        self.price = PaymentModule::PAGSEGURO_PRICE_3_FED
+      end
+    else
+      case user.lot.number
+      when 1
+        self.price = PaymentModule::PAGSEGURO_PRICE_1_UNFED
+      when 2
+        self.price = PaymentModule::PAGSEGURO_PRICE_2_UNFED
+      when 3
+        self.price = PaymentModule::PAGSEGURO_PRICE_3_UNFED
+      end
     end
   end
 
-  def set_billet_INFO
-    Rails.logger.info "\n portions: #{self.portions}"
-    Rails.logger.info "\n lot number: #{self.user.lot.number}"
-    Rails.logger.info "\n User is fed?: #{self.user.is_fed?.to_s}"
-    case self.portions
-    when 1
-      if self.user.is_fed?
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_1_1_FED
-          self.price = PaymentModule::BILLET_1_PRICE_1_FED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
-          self.price = PaymentModule::BILLET_2_PRICE_1_FED
-        when 3
-          self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
-          self.price = PaymentModule::BILLET_2_PRICE_1_FED
-        end
-      else
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_1_1_UNFED
-          self.price = PaymentModule::BILLET_1_PRICE_1_UNFED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
-          self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
-        when 3
-          self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
-          self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
-        end
+  def set_price_money
+    if user.is_fed?
+      case user.lot.id
+      when 1
+        self.price = PaymentModule::MONEY_PRICE_1_FED
+      when 2
+        self.price = PaymentModule::MONEY_PRICE_2_FED
+      when 3
+        self.price = PaymentModule::MONEY_PRICE_3_FED
       end
-    when 2
-      if self.user.is_fed?
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_2_1_FED
-          self.link_2 = PaymentModule::BILLET_1_LINK_2_2_FED
-          self.price = PaymentModule::BILLET_1_PRICE_2_FED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_2_1_FED
-          self.link_2 = PaymentModule::BILLET_2_LINK_2_2_FED
-          self.price = PaymentModule::BILLET_2_PRICE_2_FED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_2_1_FED
-          self.link_2 = PaymentModule::BILLET_3_LINK_1_1_FED
-          self.price = PaymentModule::BILLET_3_PRICE_1_FED
-        end
-      else
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_2_1_UNFED
-          self.link_2 = PaymentModule::BILLET_1_LINK_2_2_UNFED
-          self.price = PaymentModule::BILLET_1_PRICE_2_UNFED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_2_1_UNFED
-          self.link_2 = PaymentModule::BILLET_2_LINK_2_2_UNFED
-          self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_2_1_UNFED
-          self.link_2 = PaymentModule::BILLET_3_LINK_1_1_UNFED
-          self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
-        end
+    else
+      case user.lot.id
+      when 1
+        self.price = PaymentModule::MONEY_PRICE_1_UNFED
+      when 2
+        self.price = PaymentModule::MONEY_PRICE_2_UNFED
+      when 3
+        self.price = PaymentModule::MONEY_PRICE_3_UNFED
       end
-    when 3
-      if self.user.is_fed?
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_3_1_FED
-          self.link_2 = PaymentModule::BILLET_1_LINK_3_2_FED
-          self.link_3 = PaymentModule::BILLET_1_LINK_3_3_FED
-          self.price = PaymentModule::BILLET_1_PRICE_3_FED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_3_1_FED
-          self.link_2 = PaymentModule::BILLET_2_LINK_3_2_FED
-          self.link_3 = PaymentModule::BILLET_2_LINK_3_3_FED
-          self.price = PaymentModule::BILLET_2_PRICE_2_FED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_3_1_FED
-          self.link_2 = PaymentModule::BILLET_3_LINK_3_2_FED
-          self.link_3 = PaymentModule::BILLET_3_LINK_3_3_FED
-          self.price = PaymentModule::BILLET_3_PRICE_1_FED
+    end
+  end
+
+  def set_billet_info(set_billets = true)
+    unless set_billets
+      self.link_1 = self.link_2 = self.link_3 = self.link_4 = nil
+    else
+      case self.portions
+      when 1
+        if self.user.is_fed?
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_1_1_FED
+            self.price = PaymentModule::BILLET_1_PRICE_1_FED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
+            self.price = PaymentModule::BILLET_2_PRICE_1_FED
+          when 3
+            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
+            self.price = PaymentModule::BILLET_2_PRICE_1_FED
+          end
+        else
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_1_1_UNFED
+            self.price = PaymentModule::BILLET_1_PRICE_1_UNFED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
+          when 3
+            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
+          end
         end
-      else
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_3_1_UNFED
-          self.link_2 = PaymentModule::BILLET_1_LINK_3_2_UNFED
-          self.link_3 = PaymentModule::BILLET_1_LINK_3_3_UNFED
-          self.price = PaymentModule::BILLET_1_PRICE_3_UNFED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_3_1_UNFED
-          self.link_2 = PaymentModule::BILLET_2_LINK_3_2_UNFED
-          self.link_3 = PaymentModule::BILLET_2_LINK_3_3_UNFED
-          self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_3_1_UNFED
-          self.link_2 = PaymentModule::BILLET_3_LINK_3_2_UNFED
-          self.link_3 = PaymentModule::BILLET_3_LINK_3_3_UNFED
-          self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
+      when 2
+        if self.user.is_fed?
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_2_1_FED
+            self.link_2 = PaymentModule::BILLET_1_LINK_2_2_FED
+            self.price = PaymentModule::BILLET_1_PRICE_2_FED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_2_1_FED
+            self.link_2 = PaymentModule::BILLET_2_LINK_2_2_FED
+            self.price = PaymentModule::BILLET_2_PRICE_2_FED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_2_1_FED
+            self.link_2 = PaymentModule::BILLET_3_LINK_1_1_FED
+            self.price = PaymentModule::BILLET_3_PRICE_1_FED
+          end
+        else
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_2_1_UNFED
+            self.link_2 = PaymentModule::BILLET_1_LINK_2_2_UNFED
+            self.price = PaymentModule::BILLET_1_PRICE_2_UNFED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_2_1_UNFED
+            self.link_2 = PaymentModule::BILLET_2_LINK_2_2_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_2_1_UNFED
+            self.link_2 = PaymentModule::BILLET_3_LINK_1_1_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
+          end
         end
-      end
-    when 4
-      if self.user.is_fed?
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_4_1_FED
-          self.link_2 = PaymentModule::BILLET_1_LINK_4_2_FED
-          self.link_3 = PaymentModule::BILLET_1_LINK_4_3_FED
-          self.link_4 = PaymentModule::BILLET_1_LINK_4_4_FED
-          self.price = PaymentModule::BILLET_1_PRICE_4_FED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_4_1_FED
-          self.link_2 = PaymentModule::BILLET_2_LINK_4_2_FED
-          self.link_3 = PaymentModule::BILLET_2_LINK_4_3_FED
-          self.link_4 = PaymentModule::BILLET_2_LINK_4_4_FED
-          self.price = PaymentModule::BILLET_2_PRICE_4_FED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_4_1_FED
-          self.link_2 = PaymentModule::BILLET_3_LINK_4_2_FED
-          self.link_3 = PaymentModule::BILLET_3_LINK_4_3_FED
-          self.link_4 = PaymentModule::BILLET_3_LINK_4_4_FED
-          self.price = PaymentModule::BILLET_3_PRICE_4_FED
+      when 3
+        if self.user.is_fed?
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_3_1_FED
+            self.link_2 = PaymentModule::BILLET_1_LINK_3_2_FED
+            self.link_3 = PaymentModule::BILLET_1_LINK_3_3_FED
+            self.price = PaymentModule::BILLET_1_PRICE_3_FED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_3_1_FED
+            self.link_2 = PaymentModule::BILLET_2_LINK_3_2_FED
+            self.link_3 = PaymentModule::BILLET_2_LINK_3_3_FED
+            self.price = PaymentModule::BILLET_2_PRICE_2_FED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_3_1_FED
+            self.link_2 = PaymentModule::BILLET_3_LINK_3_2_FED
+            self.link_3 = PaymentModule::BILLET_3_LINK_3_3_FED
+            self.price = PaymentModule::BILLET_3_PRICE_1_FED
+          end
+        else
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_3_1_UNFED
+            self.link_2 = PaymentModule::BILLET_1_LINK_3_2_UNFED
+            self.link_3 = PaymentModule::BILLET_1_LINK_3_3_UNFED
+            self.price = PaymentModule::BILLET_1_PRICE_3_UNFED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_3_1_UNFED
+            self.link_2 = PaymentModule::BILLET_2_LINK_3_2_UNFED
+            self.link_3 = PaymentModule::BILLET_2_LINK_3_3_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_3_1_UNFED
+            self.link_2 = PaymentModule::BILLET_3_LINK_3_2_UNFED
+            self.link_3 = PaymentModule::BILLET_3_LINK_3_3_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
+          end
         end
-      else
-        case self.user.lot.number
-        when 1
-          self.link_1 = PaymentModule::BILLET_1_LINK_4_1_UNFED
-          self.link_2 = PaymentModule::BILLET_1_LINK_4_2_UNFED
-          self.link_3 = PaymentModule::BILLET_1_LINK_4_3_UNFED
-          self.link_4 = PaymentModule::BILLET_1_LINK_4_4_UNFED
-          self.price = PaymentModule::BILLET_1_PRICE_4_UNFED
-        when 2
-          self.link_1 = PaymentModule::BILLET_2_LINK_4_1_UNFED
-          self.link_2 = PaymentModule::BILLET_2_LINK_4_2_UNFED
-          self.link_3 = PaymentModule::BILLET_2_LINK_4_3_UNFED
-          self.link_4 = PaymentModule::BILLET_2_LINK_4_4_UNFED
-          self.price = PaymentModule::BILLET_2_PRICE_4_UNFED
-        when 3
-          self.link_1 = PaymentModule::BILLET_3_LINK_4_1_UNFED
-          self.link_2 = PaymentModule::BILLET_3_LINK_4_2_UNFED
-          self.link_3 = PaymentModule::BILLET_3_LINK_4_3_UNFED
-          self.link_4 = PaymentModule::BILLET_3_LINK_4_4_UNFED
-          self.price = PaymentModule::BILLET_3_PRICE_4_UNFED
+      when 4
+        if self.user.is_fed?
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_4_1_FED
+            self.link_2 = PaymentModule::BILLET_1_LINK_4_2_FED
+            self.link_3 = PaymentModule::BILLET_1_LINK_4_3_FED
+            self.link_4 = PaymentModule::BILLET_1_LINK_4_4_FED
+            self.price = PaymentModule::BILLET_1_PRICE_4_FED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_4_1_FED
+            self.link_2 = PaymentModule::BILLET_2_LINK_4_2_FED
+            self.link_3 = PaymentModule::BILLET_2_LINK_4_3_FED
+            self.link_4 = PaymentModule::BILLET_2_LINK_4_4_FED
+            self.price = PaymentModule::BILLET_2_PRICE_4_FED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_4_1_FED
+            self.link_2 = PaymentModule::BILLET_3_LINK_4_2_FED
+            self.link_3 = PaymentModule::BILLET_3_LINK_4_3_FED
+            self.link_4 = PaymentModule::BILLET_3_LINK_4_4_FED
+            self.price = PaymentModule::BILLET_3_PRICE_4_FED
+          end
+        else
+          case self.user.lot.number
+          when 1
+            self.link_1 = PaymentModule::BILLET_1_LINK_4_1_UNFED
+            self.link_2 = PaymentModule::BILLET_1_LINK_4_2_UNFED
+            self.link_3 = PaymentModule::BILLET_1_LINK_4_3_UNFED
+            self.link_4 = PaymentModule::BILLET_1_LINK_4_4_UNFED
+            self.price = PaymentModule::BILLET_1_PRICE_4_UNFED
+          when 2
+            self.link_1 = PaymentModule::BILLET_2_LINK_4_1_UNFED
+            self.link_2 = PaymentModule::BILLET_2_LINK_4_2_UNFED
+            self.link_3 = PaymentModule::BILLET_2_LINK_4_3_UNFED
+            self.link_4 = PaymentModule::BILLET_2_LINK_4_4_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_4_UNFED
+          when 3
+            self.link_1 = PaymentModule::BILLET_3_LINK_4_1_UNFED
+            self.link_2 = PaymentModule::BILLET_3_LINK_4_2_UNFED
+            self.link_3 = PaymentModule::BILLET_3_LINK_4_3_UNFED
+            self.link_4 = PaymentModule::BILLET_3_LINK_4_4_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_4_UNFED
+          end
         end
       end
     end
+  end # end :set_billet_info
+
+
+  # VALIDATORS
+  def portion_paid_smaller_than_portions
+    errors.add(:portion_paid, "deve ser menor que a quatidade total de parcelas.") if portion_paid > portions
   end
 end

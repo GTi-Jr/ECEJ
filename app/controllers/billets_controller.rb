@@ -10,7 +10,7 @@ class BilletsController < CheckoutController
     when "Quatro vezes"
       portions = 4
     else
-      redirect_to user_root_path, alert: "Ocorreu um erro ao gerar seu(s) boleto(s). Tente novamente."
+      redirect_to authenticated_user_root_path, alert: "Ocorreu um erro ao gerar seu(s) boleto(s). Tente novamente."
     end
 
     @user.payment ||= Payment.new do |payment|
@@ -21,7 +21,7 @@ class BilletsController < CheckoutController
     @user.payment.set_payment
 
     unless @user.save
-      redirect_to user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
+      redirect_to authenticated_user_root_path, alert: "Não foi possível completar a ação. Tente novamente."
     end
 
     if @user.payment.portions > 1
@@ -30,13 +30,13 @@ class BilletsController < CheckoutController
       message = "O link do boleto referente a inscrição está disponível na tela principal do sistema."
     end
 
-    redirect_to user_root_path, notice: message
+    redirect_to authenticated_user_root_path, notice: message
   end
 
   # overrided method
   def check_payment_method
     if @user.payment.method != nil && @user.payment.method != "Boleto"
-      redirect_to user_root_path, notice: "Você não tem acesso a esse método de pagamento."
+      redirect_to authenticated_user_root_path, notice: "Você não tem acesso a esse método de pagamento."
     end
   end
 end

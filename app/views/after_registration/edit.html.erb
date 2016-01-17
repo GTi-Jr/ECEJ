@@ -1,6 +1,6 @@
 <%= form_for @user, url: { :action => "update" }, html: { id: "edit_user_form", method: :put } do |f| %>
 <div class="col s12 z-depth-4 card-panel">
-  <h4 class="header2">Dados pessoais</h4>
+  <h4 class="header2">Foto de Perfil</h4>
   <div class="row">
       <%= f.file_field :avatar, class:"dropify"%>
   </div>
@@ -29,11 +29,6 @@
       <div class="input-field col s6">
         <% if browser.firefox? %>
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', required: true %>
-          <script>
-            $('#birthday').formatter({
-              'pattern': '{{99}}/{{99}}/{{9999}}',
-            });
-          </script>
         <% else %>
           <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
         <% end %>
@@ -42,9 +37,15 @@
     <div class="row">
       <div class="input-field col s6">
         <div class="select-wrapper initialized"><span class="caret">▼</span>
-          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar']%>
+          <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar'], :id =>'gender'%>
         </div>
         <label>Gênero</label>
+      </div>
+      <div class="input-field col s6">
+        <div class="select-wrapper initialized"><span class="caret">▼</span>
+          <%= f.select :transport_required, ['Não', 'Sim'], :id =>'transport'%>
+        </div>
+        <label>Necessita de Translado?</label>
       </div>
     </div>
     <div class="row">
@@ -60,16 +61,19 @@
   <div class="row">
     <!-------- MEJ -------->
     <div class="row">
-      <div class="col s12"><sub>Caso sua EJ não seja federada, deixe FEDERAÇÃO em branco.</sub></div>
-      <div class="input-field col s12 m6">
-        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior e membros de EJs não federadas, deixar em branco."%>
+      <div class="input-field col s2">
+          <input class="filled-in" id="filled-in-box" checked="checked" type="checkbox" onchange="valueChanged()">
+          <label for="filled-in-box">EJ Federada ?</label>
       </div>
-      <div class="input-field col s6">
-        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, informe sua última EJ."%>
+      <div id="federation_div" class="input-field col s10">
+        <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior e membros de EJs não federadas, deixar em branco."%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12 m6">
+      <div class="input-field col s6">
+        <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, informe sua última EJ."%>
+      </div>
+      <div class="input-field col s6">
         <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
       </div>
     </div>
@@ -86,23 +90,20 @@
     <!--------- Adress info ------>
     <div class="row">
       <div class="input-field col s6">
-        <%= text_field_tag 'postal_code', nil, placeholder: "CEP"%>
+        <%= f.text_field :cep, placeholder: "CEP", id:"cep"%>
       </div>
       <div class="input-field col s6">
-        <%= text_field_tag 'city', nil, placeholder: "Cidade"%>
+        <%= f.text_field :state, placeholder: "Estado", id:"state"%>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'street', nil, placeholder: "Endereço"%>
+      <div class="input-field col s4">
+        <%= f.text_field :city, placeholder: "Cidade", id:"city"%>
+      </div>
+      <div class="input-field col s8">
+        <%= f.text_field :street, placeholder: "Endereço", id:"street"%>
       </div>
     </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <%= text_field_tag 'complement', nil, placeholder: "Complemento"%>
-      </div>
-    </div>
-    <%= f.hidden_field :addres, id: "addres" %>
   </div>
 </div>
 <div class="col s12 z-depth-4 card-panel">
@@ -111,9 +112,11 @@
       <div class="indeterminate"></div>
     </div>
     <div class="input-field col s12">
-      <%= button_tag(type:"submit", class: 'btn cyan waves-effect waves-light right') do %>
-        Salvar
-      <% end %>
+      <div class="col s12 center-align">
+        <%= button_tag(type:"submit", class: 'btn waves-effect waves-light') do %>
+          <strong>Salvar</strong>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

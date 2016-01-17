@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :crew do
     get '/index' => 'admins#index'
     get '/dashboard' => 'admins#dashboard'
@@ -31,13 +32,19 @@ Rails.application.routes.draw do
       end
     end
 
+    get 'payments' => 'payments#index'
+
+    # Admin actions routes
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
+    get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
 
-    get 'payments' => 'payments#index'
+    patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
+    patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
+    get 'change_payment/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment
   end
 
   #routes for :users
@@ -49,12 +56,10 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'user_dashboard#index',  as: :user_root
-      # Rails 4 users must specify the 'as' option to give it a unique name
-      # root :to => "main#dashboard", :as => "authenticated_root"
+      root to: 'user_dashboard#index',  as: :authenticated_user_root
     end
-    unauthenticated do
-      root to: "users/sessions#new"
+    unauthenticated :users do
+      root to: "users/sessions#new", as: :unauthenticated_user_root
     end
 
     get '/inscription/cancel' => 'users/registrations#cancel', :as => 'cancel_user_registration'
@@ -83,11 +88,13 @@ Rails.application.routes.draw do
 
   post 'payment_billet' => 'billets#billet', as: :payment_billet
 
+  post 'payment_deposit' => 'checkout#deposit', as: :payment_deposit
+
   # get request so link can be sent through email
   # :id = lot.id
   # :auth = user.confirmation_token.first(8)
-  get '/early_registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
-  patch '/registration/lot/:id' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
+  get '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
+  patch '/registration/lot' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 
   # set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment

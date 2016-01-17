@@ -2,7 +2,7 @@
 <aside id="left-sidebar-nav">
   <ul id="slide-out" class="side-nav fixed leftside-navigation">
     <li class="bold">
-      <%= link_to root_path do %>
+      <%= link_to authenticated_user_root_path do %>
       <i class="mdi-action-dashboard"></i> Home
       <% end %>
     </li>
@@ -10,6 +10,31 @@
       <%= link_to payment_path do %>
       <i class="mdi-action-add-shopping-cart"></i> Pagamento
       <% end %>
+    </li>
+    <li class="no-padding hide-on-large-only">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><%= @user.name.nil? ? "Usuário" : @user.name %></a>
+          <div class="collapsible-body">
+            <ul>
+              <li class="bold">
+                <%= link_to edit_user_registration_path do %>
+                  <i class="mdi-action-face-unlock left"></i> Perfil
+                <% end %>
+              </li>
+              <li class="bold">
+                <%= link_to password_edit_path do %>
+                  <i class="mdi-action-lock-outline left"></i> Alterar senha
+                <% end %>
+              </li>
+              <li class="bold">
+                <%= link_to(destroy_user_session_path, :method => :delete) do %>
+                  <i class="mdi-hardware-keyboard-tab left"></i> Sair
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </li>
   </ul>
   <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>

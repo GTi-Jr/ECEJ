@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     addres ? addres.split(',')[0].lstrip : nil
   end
 
-  def cep
+  def cep1
     addres ? addres.split(',')[1].lstrip : nil
   end
 
@@ -105,6 +105,27 @@ class User < ActiveRecord::Base
     self.update_attribute(:lot_id, 3) unless Lot.find(3).nil?
   end
 
+  # Disqualify user
+  def disqualify
+    self.active = false
+
+    if !self.lot.nil?
+      allocated_user = User.eligible.first
+      allocated_user.update_attributes lot_id: lot.id
+      self.lot = nil
+
+      UsersLotMailer.allocated(allocated_user)
+    end
+    save
+  end
+
+  def change_position_with(user)
+    auxiliar_lot = lot
+    self.lot = user.lot
+    user.lot = auxiliar_lot
+    save && user.save
+  end
+
   # METHODS USED IN THE SCHEDULED TASK
   # Call this method in the scheduled task
   def self.organize_lots!
@@ -144,6 +165,12 @@ class User < ActiveRecord::Base
     User.eligible.first(lot.limit).each do |user|
       UsersLotMailer.send_antecipated_lot(user, lot).deliver_now
       Rails.logger.info "---- An email was sent to #{user.name}"
+    end
+  end
+
+  def self.ask_to_choose_payment_method
+    User.allocated.each do |user|
+      UsersLotMailer.choose_payment(user).deliver_now
     end
   end
 
