@@ -12,7 +12,7 @@ namespace :user do
     User.all.each do |user|
       p "#{progress}/#{total}"
       if !user.cep.blank?
-        if !user.cep.nil?
+        if !user.cep1.nil?
           begin
             if get_cep = BuscaEndereco.cep(user.cep1)
               user.update_attributes cep: user.cep, state: get_cep[:uf], city: get_cep[:cidade], street: get_cep[:logradouro]
