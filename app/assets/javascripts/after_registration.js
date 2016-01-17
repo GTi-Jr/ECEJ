@@ -14,6 +14,22 @@
     selectYears: 40, // Creates a dropdown of 15 years to control year
     yearRange: '1950:2005'
   });
+
+  function valueChanged(){
+        if($('#filled-in-box').is(":checked")){
+            $("#federation_div").show();
+            $( "#federation" ).rules( "add", {
+              required: true,
+              messages: {
+                required: "Se você pertence a uma EJ federada, é necessário que informe qual federação."
+              }
+            });
+        }
+        else{
+            $("#federation_div").hide();
+        }
+  }
+
     $('#cpf').formatter({
             'pattern': '{{999}}.{{999}}.{{999}}-{{99}}',
     });
@@ -22,6 +38,9 @@
     });
     $('#postal_code').formatter({
             'pattern': '{{99999}}-{{999}}',
+    });
+    $('#birthday').formatter({
+        'pattern': '{{99}}/{{99}}/{{9999}}',
     });
     $('.progress').hide();
     if($("#edit_user_form").length){
@@ -109,6 +128,18 @@
        required: true,
        messages: {
          required: "Informe a universidade da sua EJ"
+       }
+     });
+     $( "#birthday" ).rules( "add", {
+       required: true,
+       messages: {
+         required: "Informe sua Data de Nascimento"
+       }
+     });
+     $( "#transport" ).rules( "add", {
+       required: true,
+       messages: {
+         required: "Precisamos saber se precisa de transporte para o evento"
        }
      });
    }
