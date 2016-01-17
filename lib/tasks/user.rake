@@ -27,4 +27,10 @@ namespace :user do
     end
   end
 
+  task set_federation: :environment do
+    User.all.each do |user|
+      user.update_attribute :federation, nil if user.federation == ""
+    end
+  end
+
 end
