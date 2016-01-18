@@ -27,9 +27,19 @@ namespace :user do
     end
   end
 
-  task set_federation: :environment do
-    User.all.each do |user|
-      user.update_attribute :federation, nil if user.federation == ""
+  task set_billets_links: :environment do
+    Payment.where(link_1: "LINK").each do |payment|
+      portions = payment.portions
+      method = payment.method
+      p "portions #{portions}"
+      p "method #{method}"
+
+      payment.change_method method, portions if !payment.user.nil? && !payment.user.lot.nil?
+
+      p "AFTER"
+      p "portions #{portions}"
+      p "method #{method}"
+      payment.save
     end
   end
 
