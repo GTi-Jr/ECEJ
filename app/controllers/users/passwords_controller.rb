@@ -12,7 +12,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if successfully_sent?(resource)
       flash[:notice] = "Enviamos um email com as informações para recuperação da senha"
-      redirect_to root_path
+      redirect_to unauthenticated_user_root_path
     else
       flash[:error] = "Não foi possível enviar as instruções de recuperação, verifique se o email está correto"
       redirect_to new_user_password_path

@@ -6,7 +6,11 @@ class Crew::UsersController < ApplicationController
   layout 'admin_layout'
 
   def index
-    @users = User.all
+    # @users = User.all
+    @users = []
+    User.all.each do |user|
+      @users << [user, user.payment]
+    end
   end
 
   def new
@@ -19,7 +23,7 @@ class Crew::UsersController < ApplicationController
     @user.password = "ecej2016"
     @user.password_confirmation = "ecej2016"
     lot = Lot.first
-    @user.lot = lot if !lot.is_full? 
+    @user.lot = lot if !lot.is_full?
     if @user.save
       redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else

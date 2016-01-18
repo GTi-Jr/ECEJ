@@ -14,7 +14,7 @@
     <% if !@lots.nil? %>
       <% @lots.each do |lot| %>
         <tr>
-          <td><%= lot.name %></td>
+          <td><%= link_to lot.name, crew_lot_path(lot) %></td>
           <td><%= lot.number %></td>
           <td><%= lot.limit %></td>
           <td><%= lot.start_date %></td>
@@ -22,7 +22,7 @@
           <td><%= link_to "Editar", edit_crew_lot_path(lot) %></td>
           <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete, data: { confirm: "Deseja realmente excluir o lote #{lot.number}" } %></td>
         </tr>
-      <% end %> 
+      <% end %>
     <% end %>
   </tbody>
 </table>

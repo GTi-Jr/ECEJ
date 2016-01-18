@@ -1,12 +1,61 @@
 <div id="" class="row">
   <div class="col s12 z-depth-4 card-panel">
+    <h4 class="header2">Opções</h4>
+    <div class="col s6">
+      <div class="row">
+        <div class="input-field col s12">
+          <div class="col s12 center-align">
+            <%= link_to "Ação que o caio vai por", authenticated_user_root_path, class: 'btn waves-effect waves-light' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <div class="col s12 center-align">
+            <%= link_to "Ação que o caio vai por", authenticated_user_root_path, class: 'btn waves-effect waves-light' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s6">
+      <div class="row">
+        <div class="input-field col s12">
+          <div class="col s12 center-align">
+            <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions1-dropdown">Caio vai por algo
+              <i class="mdi-navigation-arrow-drop-down right"></i>
+            </a>
+            <ul id='actions1-dropdown' class='dropdown-content'>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <div class="col s12 center-align">
+            <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions2-dropdown">Caio vai por algo
+              <i class="mdi-navigation-arrow-drop-down right"></i>
+            </a>
+            <ul id='actions2-dropdown' class='dropdown-content'>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+              <li><%= link_to "Algo", authenticated_user_root_path %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 z-depth-4 card-panel">
     <%= form_for @user, url: { action: "update" }, method: :patch do |f| %>
       <div class="row">
         <div class=" col s12 center">
           <p class="center login-form-text">Edição de usuário</p>
         </div>
       </div>
-
       <div class="row">
         <div class=" col s12 center">
           <% if @user.errors.any? %>
@@ -85,7 +134,12 @@
         </div>
       </div>
     <% end %>
-    <p><%= notice %></p>
-    <p><%= alert %></p>
+    <% flash.each do |key, value| %>
+      <div id="card-alert" class="card deep-purple">
+        <div class="card-content white-text">
+          <p><i class="mdi-action-info-outline"></i> <%= value %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
