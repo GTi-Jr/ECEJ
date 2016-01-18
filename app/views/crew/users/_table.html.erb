@@ -31,8 +31,8 @@
                 <td><%= user.email %></td>
                 <td><%= user.junior_enterprise %></td>
                 <td><%= link_to "Perfil", edit_crew_user_path(user) %></td>
-                <% if !payment.nil? %>
-                  <td>
+                <td>
+                  <% if !payment.nil? %>
                     <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
@@ -47,8 +47,8 @@
                         <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
                       <% end %>
                     </ul>
-                  </td>
-                <% end %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>
