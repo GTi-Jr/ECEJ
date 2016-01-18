@@ -1,0 +1,54 @@
+<div>
+  <h4 class="header">Usuários no lote: <%= @lot.number %> </h4>
+  <div class="row">
+    <div class="col s12 m8 l9">
+      <table id="users_lot_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>EJ</th>
+              <th>Editar</th>
+              <th>Status do pagamento</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Editar</th>
+                <th>Status do pagamento</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
+          <% if !@users.nil? %>
+            <% @users.each do |user| %>
+              <tr class="<%= "left-red-border" if !user.active %>">
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.junior_enterprise %></td>
+                <td><%= link_to "Editar", edit_crew_user_path(user) %></td>
+                <td>
+                  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
+                  <!-- Dropdown Structure -->
+                  <ul id='dropdown1' class='dropdown-content'>
+                    <li><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></li>
+                    <li><%= link_to "Em espera", set_user_payment_path(user.id, 'waiting'), method: :patch %></li>
+                    <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
+                    <li><%= link_to "Cancelado", set_user_payment_path(user.id, 'cancelled'), method: :patch %></li>
+                  </ul>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+$('#users_lot_table').DataTable();
+</script>

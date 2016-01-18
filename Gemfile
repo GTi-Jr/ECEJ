@@ -59,6 +59,8 @@ gem 'pdfkit'
 # Dependencia for wicked_pdf
 gem 'wkhtmltopdf-binary'
 
+gem 'google-analytics-rails', '1.0.0'
+
 #gem for Windows development - comment in linux
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

@@ -1,15 +1,19 @@
 class Crew::LotsController < ApplicationController
   layout 'admin_layout'
   before_action :authenticate_crew_admin!
-  before_action :load_lot, only: [:edit, :update, :destroy]
+  before_action :load_lot, only: [:show, :edit, :update, :destroy]
 
 
   def index
     @lots = Lot.all
   end
 
+  def show
+    @users = @lot.users
+  end
+
   def new
-    @lot = Lot.new    
+    @lot = Lot.new
   end
 
   def create
@@ -43,11 +47,11 @@ class Crew::LotsController < ApplicationController
 
   private
   def load_lot
-    @lot = Lot.find(params[:id])  
+    @lot = Lot.find(params[:id])
   end
 
   def lot_params
-    params.require(:lot).permit(:name, :number, :limit, :value_federated, 
+    params.require(:lot).permit(:name, :number, :limit, :value_federated,
                                 :value_not_federated, :start_date, :end_date,
                                 :deadline_1, :deadline_2, :deadline_3, :deadline_4)
   end
