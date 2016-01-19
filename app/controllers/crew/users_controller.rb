@@ -33,6 +33,7 @@ class Crew::UsersController < ApplicationController
 
   def edit
     @payment = @user.payment
+    @lots = Lot.all
   end
 
   def update
