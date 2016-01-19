@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
     patch 'change_payment_method/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment_method
     patch 'change_payment_status/:id/:status' => 'admins_methods#change_payment_status', as: :change_payment_status
+    patch 'set_billet_portion_paid/:id/:portion_paid' => 'admins_methods#billet_portion_paid', as: :set_billet_portion_paid
     patch 'move_user_to_lot/:user_id/:lot_id' => 'admins_methods#move_user_to_lot', as: :move_user_to_lot
 
   end
