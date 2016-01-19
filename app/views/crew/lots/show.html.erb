@@ -1,6 +1,11 @@
 <div>
   <h4 class="header">Usuários no lote: <%= @lot.number %> </h4>
   <div class="row">
+    <div class="col s12">
+      <%= link_to "Baixar lista em XLS", crew_download_lot_users_excel_path(@lot, format: :xls), class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
     <div class="col s12 m8 l9">
       <table id="users_lot_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
         <thead>
