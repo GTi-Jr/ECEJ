@@ -32,7 +32,6 @@ class Crew::UsersController < ApplicationController
   end
 
   def edit
-    @user.build_payment
   end
 
   def update
