@@ -10,15 +10,15 @@
         <Cell><Data ss:Type="String">EJ</Data></Cell>
         <Cell><Data ss:Type="String">Cargo</Data></Cell>
         <Cell><Data ss:Type="String">Nome</Data></Cell>
-        <Cell><Data ss:Type="String">Cidade</Data></Cell>
+        <Cell><Data ss:Type="String">Federação</Data></Cell>
         <Cell><Data ss:Type="String">UF</Data></Cell>
       </Row>
       <% @users.each do |user| %>
         <Row>
-          <Cell><Data ss:Type="String"><%= user.junior_enterprise || "NÃO FEDERADA" %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.junior_enterprise %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.job %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.name %></Data></Cell>
-          <Cell><Data ss:Type="String"><%= user.city || user.city1 %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.federation || "" %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.state %></Data></Cell>
         </Row>
       <% end %>
