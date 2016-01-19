@@ -31,24 +31,24 @@
                 <td><%= user.email %></td>
                 <td><%= user.junior_enterprise %></td>
                 <td><%= link_to "Perfil", edit_crew_user_path(user) %></td>
-                <% if !payment.nil? %>
-                  <td>
+                <td>
+                  <% if !payment.nil? %>
                     <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
                       <% if payment.boleto?  %>
-                        <li><%= link_to "Pago", "path", method: :patch %></li>
-                        <li><%= link_to "1", "path", method: :patch %></li>
-                        <li><%= link_to "Pago", "path", method: :patch %></li>
-                        <li><%= link_to "Pago", "path", method: :patch %></li>
-                        <li><%= link_to "Pago", "path", method: :patch %></li>
+                        <li><%= link_to "Não pago", change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
+                        <li><%= link_to "P1 paga", change_payment_method_path(payment.id, 'boleto', 1), method: :patch %></li>
+                        <li><%= link_to "P2 paga", change_payment_method_path(payment.id, 'boleto', 2), method: :patch %></li>
+                        <li><%= link_to "P3 paga", change_payment_method_path(payment.id, 'boleto', 3), method: :patch %></li>
+                        <li><%= link_to "Pago", change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
                       <% else %>
-                        <li><%= link_to "Pago", set_user_payment_path(user.id, 'paid'), method: :patch %></li>
-                        <li><%= link_to "Não pago", set_user_payment_path(user.id, 'non_paid'), method: :patch %></li>
+                        <li><%= link_to "Pago", change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
+                        <li><%= link_to "Não pago", change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
                       <% end %>
                     </ul>
-                  </td>
-                <% end %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>

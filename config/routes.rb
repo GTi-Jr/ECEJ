@@ -42,9 +42,13 @@ Rails.application.routes.draw do
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
 
+    # Admin methods
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
-    get 'change_payment/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment
+    patch 'change_payment_method/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment_method
+    patch 'change_payment_status/:id/:status' => 'admins_methods#change_payment_status', as: :change_payment_status
+    patch 'move_user_to_lot/:user_id/:lot_id' => 'admins_methods#move_user_to_lot', as: :move_user_to_lot
+
   end
 
   #routes for :users

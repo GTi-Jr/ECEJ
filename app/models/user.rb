@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   # Get attributes from addres string
-  def city
+  def city1
     addres ? addres.split(',')[0].lstrip : nil
   end
 
@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     addres ? addres.split(',')[1].lstrip : nil
   end
 
-  def street
+  def street1
     addres ? addres.split(',')[2].lstrip : nil
   end
 
