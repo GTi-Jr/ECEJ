@@ -95,7 +95,7 @@ class Payment < ActiveRecord::Base
   def change_status(status)
     case status.to_s.humanize.downcase
     when 'paid'
-      self.portion_paid = self.portion
+      self.portion_paid = self.portions
     when 'non paid'
       self.portion_paid = 0
     end

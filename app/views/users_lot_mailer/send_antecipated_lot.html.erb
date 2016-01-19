@@ -573,7 +573,7 @@
 <br>
 Ora Ora, parece que o jogo virou não é mesmo?<br>
 <br>
-A lista andou e agora é você que conseguiu uma vaga no ECEJ ! &nbsp;Mas a sua inscrição para o 2º lote só estará confirmada quando você acessar esse link &nbsp;&lt; <a href="<%= "www.sistemaecej.com.br/registration/#{@lot.id}/#{@user.confirmation_token.first(8)}" %>">CLIQUE AQUI</a> &gt; e preencher todos os dados do seu perfil no sistema !<br>
+A lista andou e agora é você que conseguiu uma vaga no ECEJ ! &nbsp;Mas a sua inscrição para o 2º lote só estará confirmada quando você acessar esse link &nbsp;&lt; <%= link_to "CLIQUE AQUI", subscribe_into_lot_early_url(@lot.id, @user.confirmation_token.first(8)), method: 'patch' %> &gt; e preencher todos os dados do seu perfil no sistema !<br>
 <br>
 Boa Sorte ! Esperamos você lá ! :D<br>
 <br>
