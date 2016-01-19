@@ -37,14 +37,14 @@
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
                       <% if payment.boleto?  %>
-                        <li><%= link_to "Não pago", change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
-                        <li><%= link_to "P1 paga", change_payment_method_path(payment.id, 'boleto', 1), method: :patch %></li>
-                        <li><%= link_to "P2 paga", change_payment_method_path(payment.id, 'boleto', 2), method: :patch %></li>
-                        <li><%= link_to "P3 paga", change_payment_method_path(payment.id, 'boleto', 3), method: :patch %></li>
-                        <li><%= link_to "Pago", change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
+                        <li><%= link_to "Não pago", crew_change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
+                        <li><%= link_to "P1 paga", crew_change_payment_method_path(payment.id, 'boleto', 1), method: :patch %></li>
+                        <li><%= link_to "P2 paga", crew_change_payment_method_path(payment.id, 'boleto', 2), method: :patch %></li>
+                        <li><%= link_to "P3 paga", crew_change_payment_method_path(payment.id, 'boleto', 3), method: :patch %></li>
+                        <li><%= link_to "Pago", crew_change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
                       <% else %>
-                        <li><%= link_to "Pago", change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
-                        <li><%= link_to "Não pago", change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
+                        <li><%= link_to "Pago", crew_change_payment_status_path(payment.id, 'paid'), method: :patch %></li>
+                        <li><%= link_to "Não pago", crew_change_payment_status_path(payment.id, 'non paid'), method: :patch %></li>
                       <% end %>
                     </ul>
                   <% end %>
