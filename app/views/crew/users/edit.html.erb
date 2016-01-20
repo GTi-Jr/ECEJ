@@ -17,7 +17,9 @@
             </a>
             <ul id='lots-dropdown' class='dropdown-content'>
               <% @lots.each do |lot| %>
-                <li><%= link_to lot.name, crew_move_user_to_lot_path(@user, lot.number), method: :patch %></li>
+                <% unless @user_lot == lot %>
+                  <li><%= link_to lot.name, crew_move_user_to_lot_path(@user, lot.number), method: :patch %></li>
+                <% end %>
               <% end %>
             </ul>
           </div>
@@ -113,70 +115,110 @@
           <% end %>
         </div>
       </div>
-      <div class="row margin">
-        <!------------------NOME------------------- -->
-        <div class=" col s12 m6 l4">
-          <%= f.label :name, "Nome", class: "center-align" %>
-          <%= f.text_field :name, id: 'name' %>
+      <div class="col s12 z-depth-4 card-panel">
+        <h4 class="header2">Dados pessoais</h4>
+        <div class="row">
+          <!----------- PERSONAL INFO -------->
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :name, :id => 'name', placeholder: 'Nome completo'%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.text_field :general_register, :id => 'rg', placeholder: 'Doc. de Identidade'%>
+            </div>
+            <div class="input-field col s6">
+              <%= f.text_field :cpf, :id => 'cpf', placeholder: 'CPF'%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
+            </div>
+            <div class="input-field col s6">
+              <% if browser.firefox? %>
+                <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA'%>
+              <% else %>
+                <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <div class="select-wrapper initialized"><span class="caret">▼</span>
+                <%= f.select :gender, ['Masculino', 'Feminino', 'Prefiro não declarar'], :id =>'gender'%>
+              </div>
+              <label>Gênero</label>
+            </div>
+            <div class="input-field col s6">
+              <div class="select-wrapper initialized"><span class="caret">▼</span>
+                <%= f.select :transport_required, ['Não', 'Sim'], :id =>'transport'%>
+              </div>
+              <label>Necessita de Translado?</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_area :special_needs, :id => 'special_needs', :class => 'materialize-textarea',:length => '120' %>
+              <label for="special_needs">Necessidades especiais</label>
+            </div>
+          </div>
         </div>
-        <!------------------EMAIL------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :email, "Email", class: "center-align" %>
-          <%= f.email_field :email, id: 'email' %>
+      </div>
+      <div class="col s12 z-depth-4 card-panel">
+        <h4 class="header2">Dados do MEJ</h4>
+        <div class="row">
+          <!-------- MEJ -------->
+          <div class="row">
+            <div class="input-field col s2">
+                <input class="filled-in" id="filled-in-box" checked="checked" type="checkbox" onchange="valueChanged()">
+                <label for="filled-in-box">EJ Federada ?</label>
+            </div>
+            <div id="federation_div" class="input-field col s10">
+              <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior e membros de EJs não federadas, deixar em branco."%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.text_field :junior_enterprise, :id => 'junior_enterprise', placeholder: "Empresa Junior", class:"tooltipped", "data-position"=>"bottom" ,"data-delay"=>"50", "data-tooltip"=>"Pós-júnior, informe sua última EJ."%>
+            </div>
+            <div class="input-field col s6">
+              <%= f.text_field :job, :id => 'job', placeholder: "Cargo"%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <%= f.text_field :university, :id => 'university', placeholder: "Universidade"%>
+            </div>
+          </div>
         </div>
-        <!------------------CPF------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :cpf, "CPF", class: "center-align" %>
-          <%= f.text_field :cpf, id: 'cpf' %>
+      </div>
+      <div class="col s12 z-depth-4 card-panel">
+        <h4 class="header2">Endereço</h4>
+        <div class="row">
+          <!--------- Adress info ------>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.text_field :cep, placeholder: "CEP"%>
+            </div>
+            <div class="input-field col s6">
+              <%= f.text_field :state, placeholder: "Estado"%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <%= f.text_field :city, placeholder: "Cidade"%>
+            </div>
+            <div class="input-field col s8">
+              <%= f.text_field :street, placeholder: "Endereço"%>
+            </div>
+          </div>
         </div>
-        <!------------------REGISTRO GERAL------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :general_register, "Registro Geral", class: "center-align" %>
-          <%= f.text_field :general_register, id: 'general_register' %>
-        </div>
-        <!------------------DATA DE NASCIMENTO----- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :birthday, "Data de nascimento", class: "center-align" %>
-          <%= f.date_field :birthday, id: 'birthday' %>
-        </div>
-        <!------------------GENERO------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :birthday, "Gênero", class: "center-align" %>
-          <%= select_tag "user[gender]", "<option>Prefiro não declarar</option><option>Masculino</option><option>Feminino</option>".html_safe %>
-        </div>
-        <!------------------TELEFONE------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :phone, "Telefone", class: "center-align" %>
-          <%= f.text_field :phone, id: 'phone' %>
-        </div>
-        <!------------------FEDERAÇÃO------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :federation, "Federação", class: "center-align" %>
-          <%= f.text_field :federation, id: 'federation' %>
-        </div>
-        <!------------------EMPRESA------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :junior_enterprise, "Empresa Júnior", class: "center-align" %>
-          <%= f.text_field :junior_enterprise, id: 'junior_enterprise' %>
-        </div>
-        <!------------------CARGO------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :job, "Cargo", class: "center-align" %>
-          <%= f.text_field :job, id: 'job' %>
-        </div>
-        <!------------------UNIVERSIDADE------------------- -->
-        <div class="col s12 m6 l4">
-          <%= f.label :university, "Universidade", class: "center-align" %>
-          <%= f.text_field :university, id: 'university' %>
-        </div>
+      </div>
 
         <div class="input-field col s4">
           <%= f.submit "Editar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
-          <% if @user.active %>
-            <%= link_to "DESQUALIFICAR", crew_user_disqualify_path(@user), class: 'btn waves-effect waves-light red darken-1 col s12', data: { confirm: "Deseja realmente DESQUALIFICAR o usuário?"}, method: :patch %>
-          <% else %>
-            <%= link_to "REQUALIFICAR", crew_user_requalify_path(@user), class: 'btn waves-effect waves-light green darken-1 col s12', data: { confirm: "Deseja realmente REQUALIFICAR o usuário?"}, method: :patch %>
-          <% end %>
         </div>
       </div>
     <% end %>
