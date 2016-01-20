@@ -9,7 +9,6 @@
               <th>Email</th>
               <th>EJ</th>
               <th>Editar</th>
-              <th>Status do pagamento</th>
             </tr>
         </thead>
 
@@ -19,7 +18,6 @@
                 <th>Email</th>
                 <th>EJ</th>
                 <th>Editar</th>
-                <th>Status do pagamento</th>
             </tr>
         </tfoot>
 
@@ -31,26 +29,6 @@
                 <td><%= user.email %></td>
                 <td><%= user.junior_enterprise %></td>
                 <td><%= link_to "Perfil", edit_crew_user_path(user) %></td>
-                <td>
-                  <% if !payment.nil? %>
-                    <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Status</a>
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                      <% if payment.boleto?  %>
-                        <li><%= link_to "Não pago", crew_change_payment_status_path(payment, 'non paid'), method: :patch %></li>
-                        <li><%= link_to "P1 paga", crew_change_payment_method_path(payment, 'boleto', 1), method: :patch %></li>
-                        <li><%= link_to "P2 paga", crew_change_payment_method_path(payment, 'boleto', 2), method: :patch %></li>
-                        <li><%= link_to "P3 paga", crew_change_payment_method_path(payment, 'boleto', 3), method: :patch %></li>
-                        <li><%= link_to "Pago", crew_change_payment_status_path(payment, 'paid'), method: :patch %></li>
-                      <% else %>
-                        <li><%= link_to "Pago", crew_change_payment_status_path(payment, 'paid'), method: :patch %></li>
-                        <li><%= link_to "Não pago", crew_change_payment_status_path(payment, 'non paid'), method: :patch %></li>
-                      <% end %>
-                    </ul>
-                  <% else %>
-                    Não selecionou pagamento.
-                  <% end %>
-                </td>
               </tr>
             <% end %>
           <% end %>
