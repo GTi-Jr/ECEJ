@@ -28,33 +28,37 @@
       <div class="row">
         <div class="input-field col s12">
           <div class="col s12 center-align">
-            <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions1-dropdown">Pagamento
-              <i class="mdi-navigation-arrow-drop-down right"></i>
-            </a>
-            <ul id='actions1-dropdown' class='dropdown-content'>
-              <% if @payment.boleto?  %>
-                <% if @payment.portions == 1 %>
-                  <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+            <% if !@payment.nil? %>
+              <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions1-dropdown">Pagamento
+                <i class="mdi-navigation-arrow-drop-down right"></i>
+              </a>
+              <ul id='actions1-dropdown' class='dropdown-content'>
+                <% if @payment.boleto?  %>
+                  <% if @payment.portions == 1 %>
+                    <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+                    <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
+                  <% elsif @payment.portions == 2 %>
+                    <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+                    <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
+                    <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
+                  <% elsif @payment.portions == 3 %>
+                    <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+                    <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
+                    <li><%= link_to "P2 paga", crew_set_billet_portion_paid_path(@payment.id, 2), method: :patch %></li>
+                    <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
+                  <% elsif @payment.portions == 4 %>
+                    <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+                    <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
+                    <li><%= link_to "P2 paga", crew_set_billet_portion_paid_path(@payment.id, 2), method: :patch %></li>
+                    <li><%= link_to "P3 paga", crew_set_billet_portion_paid_path(@payment.id, 3), method: :patch %></li>
+                    <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
+                  <% end %>
+                <% else %>
                   <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
-                <% elsif @payment.portions == 2 %>
                   <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
-                  <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
-                  <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
-                <% elsif @payment.portions == 3 %>
-                  <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
-                  <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
-                  <li><%= link_to "P2 paga", crew_set_billet_portion_paid_path(@payment.id, 2), method: :patch %></li>
-                  <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
-                <% elsif @payment.portions == 4 %>
-                  <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
-                  <li><%= link_to "P1 paga", crew_set_billet_portion_paid_path(@payment.id, 1), method: :patch %></li>
-                  <li><%= link_to "P2 paga", crew_set_billet_portion_paid_path(@payment.id, 2), method: :patch %></li>
-                  <li><%= link_to "P3 paga", crew_set_billet_portion_paid_path(@payment.id, 3), method: :patch %></li>
-                  <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
                 <% end %>
               <% else %>
-                <li><%= link_to "Pago", crew_change_payment_status_path(@payment.id, 'paid'), method: :patch %></li>
-                <li><%= link_to "Não pago", crew_change_payment_status_path(@payment.id, 'non paid'), method: :patch %></li>
+                Não há pagamento disponível
               <% end %>
             </ul>
           </div>
@@ -63,17 +67,19 @@
       <div class="row">
         <div class="input-field col s12">
           <div class="col s12 center-align">
-            <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions2-dropdown">Mudar método de pagamento para:
-              <i class="mdi-navigation-arrow-drop-down right"></i>
-            </a>
-            <ul id='actions2-dropdown' class='dropdown-content'>
-              <li><%= link_to "PagSeguro", crew_change_payment_method_path(@payment, 'pagseguro', 1), method: :patch %></li>
-              <li><%= link_to "Depósito/dinheiro", crew_change_payment_method_path(@payment, 'dinheiro', 1), method: :patch %></li>
-              <li><%= link_to "Boleto 1 vez", crew_change_payment_method_path(@payment, 'boleto', 1), method: :patch %></li>
-              <li><%= link_to "Boleto 2 vezes", crew_change_payment_method_path(@payment, 'boleto', 2), method: :patch %></li>
-              <li><%= link_to "Boleto 3 vezes", crew_change_payment_method_path(@payment, 'boleto', 3), method: :patch %></li>
-              <li><%= link_to "Boleto 4 vezes", crew_change_payment_method_path(@payment, 'boleto', 4), method: :patch %></li>
-            </ul>
+            <% if !@payment.nil? %>
+              <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions2-dropdown">Mudar método de pagamento para:
+                <i class="mdi-navigation-arrow-drop-down right"></i>
+              </a>
+              <ul id='actions2-dropdown' class='dropdown-content'>
+                <li><%= link_to "PagSeguro", crew_change_payment_method_path(@payment, 'pagseguro', 1), method: :patch %></li>
+                <li><%= link_to "Depósito/dinheiro", crew_change_payment_method_path(@payment, 'dinheiro', 1), method: :patch %></li>
+                <li><%= link_to "Boleto 1 vez", crew_change_payment_method_path(@payment, 'boleto', 1), method: :patch %></li>
+                <li><%= link_to "Boleto 2 vezes", crew_change_payment_method_path(@payment, 'boleto', 2), method: :patch %></li>
+                <li><%= link_to "Boleto 3 vezes", crew_change_payment_method_path(@payment, 'boleto', 3), method: :patch %></li>
+                <li><%= link_to "Boleto 4 vezes", crew_change_payment_method_path(@payment, 'boleto', 4), method: :patch %></li>
+              </ul>
+            <% end %>
           </div>
         </div>
       </div>
