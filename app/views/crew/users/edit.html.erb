@@ -5,7 +5,7 @@
       <div class="row">
         <div class="input-field col s12">
           <div class="col s12 center-align">
-            <%= link_to "Desclassificar usuário", crew_disqualify_user_path(@user), class: 'btn waves-effect waves-light', method: :patch, data: { confirm: "Deseja realmente desclassificar #{@user.name.upcase}" } %>
+            <%= link_to "Desclassificar usuário", crew_disqualify_user_path(@user), class: 'btn waves-effect waves-light', method: :patch, data: { confirm: "Deseja realmente desclassificar #{@user.name || @user.email}" } %>
           </div>
         </div>
       </div>
