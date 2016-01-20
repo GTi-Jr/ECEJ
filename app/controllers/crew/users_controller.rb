@@ -22,8 +22,8 @@ class Crew::UsersController < ApplicationController
     @user.active = true
     @user.password = "ecej2016"
     @user.password_confirmation = "ecej2016"
-    lot = Lot.first
-    @user.lot = lot if !lot.is_full?
+    lot = Lot.active_lot
+    @user.lot = lot if !lot.nil? && !lot.is_full?
     if @user.save
       redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else
@@ -34,6 +34,7 @@ class Crew::UsersController < ApplicationController
   def edit
     @payment = @user.payment
     @lots = Lot.all
+    @user_lot = @user.lot unless @user.lot.nil?
   end
 
   def update
@@ -80,7 +81,8 @@ class Crew::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :general_register, :cpf, :birthday, :gender,
                                  :avatar, :phone, :special_needs, :federation,
-                                 :junior_enteprise, :job, :enterprise_office, :university,
-                                 :city, :street, :postal_code, :complement, :payment_status)
+                                 :junior_enterprise, :job, :enterprise_office, :university,
+                                 :city, :street, :postal_code, :complement, :payment_status, :transport_required,
+                                 :city, :street, :cep, :state)
   end
 end

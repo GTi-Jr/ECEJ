@@ -48,17 +48,6 @@ class Crew::AdminsMethodsController < ApplicationController
     end
   end
 
-  def billet_portion_paid
-    payment = Payment.find(params[:id])
-    portion_paid = params[:portion_paid].to_i
-
-    if payment.set_billet_portion_paid portion_paid
-      redirect_to :back, notice: "A parcela #{portion_paid} foi paga."
-    else
-      redirect_to :back, alert: "Não foi possível alterar a parcela paga."
-    end
-  end
-
   def move_user_to_lot
     lot = Lot.find(params[:lot_id])
     user = User.find(params[:user_id])
@@ -67,6 +56,17 @@ class Crew::AdminsMethodsController < ApplicationController
       redirect_to :back, notice: "Usuário foi movido para o lote #{lot.number}"
     else
       redirect_to :back, alert: "Não foi possíve mover o usuário para o lote #{lot.number}."
+    end
+  end
+
+  def billet_portion_paid
+    payment = Payment.find(params[:id])
+    portion_paid = params[:portion_paid].to_i
+
+    if payment.set_billet_portion_paid portion_paid
+      redirect_to :back, notice: "A parcela #{portion_paid} foi paga."
+    else
+      redirect_to :back, alert: "Não foi possível alterar a parcela paga."
     end
   end
 
