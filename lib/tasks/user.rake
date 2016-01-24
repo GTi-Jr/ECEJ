@@ -43,4 +43,15 @@ namespace :user do
     end
   end
 
+  task remember_lot_1_2_payment: :environment do
+    users = User.select { |user| !user.payment.nil? && !user.payment.partially_paid? }
+    counter = 0;
+    users.each do |user|
+      UsersLotMailer.remember_lot_1_2_payment(user).deliver_now
+      p "Email sent to #{user.email}"
+      counter += 1
+    end
+    p "#{counter} EMAILS SENT TO REMEMBER PAYMENT"
+  end
+
 end
