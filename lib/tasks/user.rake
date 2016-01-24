@@ -54,4 +54,36 @@ namespace :user do
     p "#{counter} EMAILS SENT TO REMEMBER PAYMENT"
   end
 
+  task remember_lot_1_2_payment_complement: :environment do
+    users = User.select do |user|
+      !user.lot.nil? && user.payment.nil?
+    end
+    emails = []
+
+    users.each do |user|
+      UsersLotMailer.remember_lot_1_2_payment(user).deliver_now
+      puts "Email sent to #{user.email}"
+      emails << user.email
+    end
+
+    emails.each { |email| puts email }
+    puts "#{emails.length} EMAILS SENT TO REMEMBER PAYMENT"
+  end
+
+  task waiting_list_into_lot_2: :environment do
+    second_lot = Lot.second
+    waiting_list = User.eligible
+    emails = []
+
+    waiting_list.each do |user|
+      user.insert_into_lot(second_lot)
+      emails << user.email
+      UsersLotMailer.waiting_list_into_lot_2(user).deliver_now
+    end
+
+    emails.each { |email| puts email }
+    puts "EMAILS SENT: #{emails.length}"
+
+  end
+
 end
