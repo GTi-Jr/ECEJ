@@ -29,4 +29,9 @@ class UsersLotMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "ECEJ 2016 - Você pode nos dar uma mãozinha?"
   end
+
+  def waiting_list_into_lot_2(user)
+    @user = user
+    mail to: user.email, subject: "ECEJ 2016 - Sempre há uma segunda chance!"
+  end
 end
