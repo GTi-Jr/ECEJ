@@ -182,8 +182,8 @@ class Payment < ActiveRecord::Base
             self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
             self.price = PaymentModule::BILLET_2_PRICE_1_FED
           when 3
-            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_FED
-            self.price = PaymentModule::BILLET_2_PRICE_1_FED
+            self.link_1 = PaymentModule::BILLET_3_LINK_1_1_FED
+            self.price = PaymentModule::BILLET_3_PRICE_1_FED
           end
         else
           case self.user.lot.number
@@ -194,8 +194,8 @@ class Payment < ActiveRecord::Base
             self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
             self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
           when 3
-            self.link_1 = PaymentModule::BILLET_2_LINK_1_1_UNFED
-            self.price = PaymentModule::BILLET_2_PRICE_1_UNFED
+            self.link_1 = PaymentModule::BILLET_3_LINK_1_1_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
           end
         end
       when 2
