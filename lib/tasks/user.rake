@@ -83,7 +83,15 @@ namespace :user do
 
     emails.each { |email| puts email }
     puts "EMAILS SENT: #{emails.length}"
+  end
 
+  task remember_lot_3_payment: :environment do
+    counter = 0
+    User.all.each do |user|
+      UsersLotMailer.remember_lot_3_payment(user).deliver_now
+      counter += 1
+    end
+    puts "EMAILS SENT: #{counter}"
   end
 
 end
