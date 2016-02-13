@@ -30,4 +30,28 @@ class Crew::ExcelController < ApplicationController
       format.xls
     end
   end
+
+  def payments
+    @payments = []
+    @total = 0
+    @date = Date.today
+    users = User.select {|user| !user.payment.nil? }
+    
+    users.each do |user|
+      payment = user.payment
+      payment_data = {  name: user.name, 
+                        method: payment.method,
+                        portions: payment.portions,
+                        portion_paid: payment.portion_paid,
+                        amount_paid: payment.amount_paid }
+      
+      @total += payment_data[:amount_paid]
+      @payments << payment_data              
+    end
+
+    respond_to do |format|
+      format.html
+      format.xls
+    end
+  end
 end

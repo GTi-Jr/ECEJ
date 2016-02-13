@@ -34,13 +34,16 @@ Rails.application.routes.draw do
 
     get 'payments' => 'payments#index'
 
-    # Admin actions routes
+    # PDF
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
+    # Excel
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
+    get 'excel/lot/payments' => 'excel#payments', as: :download_payments_excel
+
 
     # Admin methods
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
