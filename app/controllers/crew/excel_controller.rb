@@ -50,7 +50,6 @@ class Crew::ExcelController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
       format.xls
     end
   end
