@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
     get 'excel/payments' => 'excel#payments', as: :download_payments_excel
+    get 'excel/late_users' => 'excel#users_after_third_lot_expiration', as: :users_after_third_lot_expiration
 
 
     # Admin methods

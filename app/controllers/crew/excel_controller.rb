@@ -53,4 +53,13 @@ class Crew::ExcelController < ApplicationController
       format.xls
     end
   end
+
+  def users_after_third_lot_expiration
+    deadline = Lot.third.deadline_1
+    @users = User.select { |user| user.created_at > deadline }
+    
+    respond_to do |format|
+      format.xls
+    end
+  end
 end
