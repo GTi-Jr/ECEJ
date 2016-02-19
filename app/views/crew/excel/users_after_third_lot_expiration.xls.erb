@@ -12,11 +12,13 @@
       <Row>
         <Cell><Data ss:Type="String">Nome</Data></Cell>
         <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Método</Data></Cell>
       </Row>
       <% @users.each do |user| %>
         <Row>
           <Cell><Data ss:Type="String"><%= user.name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.payment.method %></Data></Cell>
         </Row>
       <% end %>
     </Table>
