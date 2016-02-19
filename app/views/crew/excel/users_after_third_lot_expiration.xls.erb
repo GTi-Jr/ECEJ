@@ -18,7 +18,7 @@
         <Row>
           <Cell><Data ss:Type="String"><%= user.name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
-          <Cell><Data ss:Type="String"><%= user.payment.method %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.payment.method if user.payment %></Data></Cell>
         </Row>
       <% end %>
     </Table>
