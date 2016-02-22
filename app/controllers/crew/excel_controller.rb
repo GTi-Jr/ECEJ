@@ -65,5 +65,9 @@ class Crew::ExcelController < ApplicationController
 
   def non_paid_users
     @users = User.select { |user| user.payment.nil? || !user.payment.partially_paid? }
+
+    respond_to do |format|
+      format.xls
+    end
   end
 end
