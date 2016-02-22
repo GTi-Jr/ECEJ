@@ -15,6 +15,7 @@
       <% @users.each do |user| %>
         <Row>
           <Cell><Data ss:Type="String"><%= user.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.junior_enterprise %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.city || user.city1 %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.state %></Data></Cell>
