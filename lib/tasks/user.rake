@@ -94,7 +94,7 @@ namespace :user do
     puts "EMAILS SENT: #{counter}"
   end
 
-  ask remember_payment_2: :environment do
+  task remember_payment_2: :environment do
     counter = 0
     User.all.each do |user|
       UsersLotMailer.payment_3(user).deliver_now
