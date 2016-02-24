@@ -9,4 +9,12 @@ class Room < ActiveRecord::Base
              numericality: { greater_than: 0, message: "Capacidade deve ser maior que zero." }
 
   has_many :users
+
+  def self.hotels
+  	hotels = []
+  	Room.all.each do |room|
+  		hotel = room.hotel
+  		hotels << hotel unless hotels.include?(hotel)
+  	end
+  end
 end
