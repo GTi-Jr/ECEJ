@@ -107,4 +107,9 @@ Rails.application.routes.draw do
 
   # set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
+
+  # Rooms routes
+  get 'rooms/index' => 'rooms#index', as: :rooms
+  patch 'room/insert/:id' => 'rooms#insert_user', as: :insert_user_into_room
+  patch 'room/exit' => 'rooms#exit_room', as: :exit_room
 end
