@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
     resources :lots
+    resources :hotels
     resources :rooms
     resources :events
 
