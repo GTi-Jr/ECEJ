@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
 
   def is_happening_now?
     now = DateTime.now
-    now > self.start && now < self.end 
+    now > self.start && now < self.end
   end
 
   def self.past
