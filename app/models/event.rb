@@ -36,4 +36,13 @@ class Event < ActiveRecord::Base
     Event.select { |event| now < event.end && now > event.start } 
   end
 
+  def self.events_days
+    days = []
+    Event.all.each do |event|
+      date = event.start.to_date
+      days << date unless days.include?(date)
+    end
+    days.sort
+  end
+
 end
