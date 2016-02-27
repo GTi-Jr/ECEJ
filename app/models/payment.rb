@@ -211,8 +211,8 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_2_PRICE_2_FED
           when 3
             self.link_1 = PaymentModule::BILLET_3_LINK_2_1_FED
-            self.link_2 = PaymentModule::BILLET_3_LINK_1_1_FED
-            self.price = PaymentModule::BILLET_3_PRICE_1_FED
+            self.link_2 = PaymentModule::BILLET_3_LINK_2_2_FED
+            self.price = PaymentModule::BILLET_3_PRICE_2_FED
           end
         else
           case self.user.lot.number
@@ -226,8 +226,8 @@ class Payment < ActiveRecord::Base
             self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
           when 3
             self.link_1 = PaymentModule::BILLET_3_LINK_2_1_UNFED
-            self.link_2 = PaymentModule::BILLET_3_LINK_1_1_UNFED
-            self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
+            self.link_2 = PaymentModule::BILLET_3_LINK_2_2_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_2_UNFED
           end
         end
       when 3
@@ -247,7 +247,7 @@ class Payment < ActiveRecord::Base
             self.link_1 = PaymentModule::BILLET_3_LINK_3_1_FED
             self.link_2 = PaymentModule::BILLET_3_LINK_3_2_FED
             self.link_3 = PaymentModule::BILLET_3_LINK_3_3_FED
-            self.price = PaymentModule::BILLET_3_PRICE_1_FED
+            self.price = PaymentModule::BILLET_3_PRICE_3_FED
           end
         else
           case self.user.lot.number
@@ -260,12 +260,12 @@ class Payment < ActiveRecord::Base
             self.link_1 = PaymentModule::BILLET_2_LINK_3_1_UNFED
             self.link_2 = PaymentModule::BILLET_2_LINK_3_2_UNFED
             self.link_3 = PaymentModule::BILLET_2_LINK_3_3_UNFED
-            self.price = PaymentModule::BILLET_2_PRICE_2_UNFED
+            self.price = PaymentModule::BILLET_2_PRICE_3_UNFED
           when 3
             self.link_1 = PaymentModule::BILLET_3_LINK_3_1_UNFED
             self.link_2 = PaymentModule::BILLET_3_LINK_3_2_UNFED
             self.link_3 = PaymentModule::BILLET_3_LINK_3_3_UNFED
-            self.price = PaymentModule::BILLET_3_PRICE_1_UNFED
+            self.price = PaymentModule::BILLET_3_PRICE_3_UNFED
           end
         end
       when 4
