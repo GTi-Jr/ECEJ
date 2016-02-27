@@ -1,4 +1,6 @@
 class Crew::HotelsController < ApplicationController
+	layout "admin_layout"
+
 	before_action :authenticate_crew_admin!
 	before_action :load_hotel, only: [:show, :edit, :update, :destroy]
 
