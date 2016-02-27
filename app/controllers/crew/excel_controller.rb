@@ -73,7 +73,7 @@ class Crew::ExcelController < ApplicationController
 
 
   def users_federation
-    @users = User.all.order(:name)
+    @users = User.all.group(:federation)
 
     respond_to do |format|
       format.html
