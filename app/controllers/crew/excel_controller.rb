@@ -36,17 +36,17 @@ class Crew::ExcelController < ApplicationController
     @total = 0
     @date = Date.today
     users = User.select {|user| !user.payment.nil? }
-    
+
     users.each do |user|
       payment = user.payment
-      payment_data = {  name: user.name, 
+      payment_data = {  name: user.name,
                         method: payment.method,
                         portions: payment.portions,
                         portion_paid: payment.portion_paid,
                         amount_paid: payment.amount_paid }
-      
+
       @total += payment_data[:amount_paid]
-      @payments << payment_data              
+      @payments << payment_data
     end
 
     respond_to do |format|
@@ -57,7 +57,7 @@ class Crew::ExcelController < ApplicationController
   def users_after_third_lot_expiration
     deadline = Lot.third.deadline_1
     @users = User.select { |user| user.created_at > deadline }
-    
+
     respond_to do |format|
       format.xls
     end
@@ -67,6 +67,17 @@ class Crew::ExcelController < ApplicationController
     @users = User.select { |user| user.payment.nil? || !user.payment.partially_paid? }
 
     respond_to do |format|
+      format.xls
+    end
+  end
+
+
+  def users_federation
+    @users = User.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.to_csv, filename: "Lista de congressistas por federacao.csv" }
       format.xls
     end
   end
