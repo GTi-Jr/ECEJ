@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225024405) do
+ActiveRecord::Schema.define(version: 20160228191614) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -41,11 +41,10 @@ ActiveRecord::Schema.define(version: 20160225024405) do
     t.string   "name",        default: ""
     t.string   "facilitator", default: ""
     t.integer  "limit",       default: 1
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "user_count",  default: 0
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -91,8 +90,8 @@ ActiveRecord::Schema.define(version: 20160225024405) do
     t.text     "extra_info", default: ""
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.string   "hotel"
     t.string   "name",       default: ""
+    t.integer  "hotel_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
