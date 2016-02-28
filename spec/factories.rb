@@ -33,4 +33,12 @@ FactoryGirl.define do
 		capacity 4
 		extra_info "Extra information"
 	end
+
+	factory :event do
+		sequence(:name) { |n| "Event ##{n}" }
+		facilitator "Facilitator"
+		limit 50
+		start_time { DateTime.now }
+		end_time { DateTime.now + 1.hour }
+	end
 end
