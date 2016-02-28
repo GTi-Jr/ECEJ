@@ -111,6 +111,6 @@ Rails.application.routes.draw do
 
   # Rooms routes
   get 'rooms/index' => 'rooms#index', as: :rooms
-  patch 'room/insert/:id' => 'rooms#insert_user', as: :insert_user_into_room
+  patch 'room/:id/insert_current_user' => 'rooms#insert_user_into_room', as: :insert_user_into_room
   patch 'room/exit' => 'rooms#exit_room', as: :exit_room
 end
