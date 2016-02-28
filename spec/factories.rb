@@ -8,7 +8,7 @@ FactoryGirl.define do
 		lot { Lot.first }
 		transport_required "Sim"
 		general_register "9999999999999"
-		cpf "99999999-99"
+		cpf "604.771.534-61" # Random valid CPF
 		birthday { 20.years.ago }
 		phone "(99) 99999-9999"
 		federation "Federation"
