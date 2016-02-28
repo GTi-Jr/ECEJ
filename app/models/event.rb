@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
     Event.select { |event| now < event.end_time && now > event.start_time } 
   end
 
-  def self.events_days
+  def self.days
     days = []
     Event.all.each do |event|
       date = event.start_time.to_date
