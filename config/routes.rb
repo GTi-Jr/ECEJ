@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     get 'excel/late_users' => 'excel#users_after_third_lot_expiration', as: :users_after_third_lot_expiration
     get 'excel/users/non_paid' => 'excel#non_paid_users', as: :download_non_paid_users_excel
     get 'excel/users/federation' => 'excel#users_federation', as: :download_users_federation
+    get 'excel/current_payments' => 'excel#current_payments', as: :download_current_payments_excel
 
     # Admin methods
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
