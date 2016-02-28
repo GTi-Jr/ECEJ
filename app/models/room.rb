@@ -1,6 +1,4 @@
 class Room < ActiveRecord::Base
-  validates :hotel,
-            presence: true
   validates :number,
              uniqueness: { scope: :hotel, message: "Quarto já cadastrado nesse hotel." },
              numericality: { greater_than: 0, message: "Nº do quarto deve ser maior q zero." }

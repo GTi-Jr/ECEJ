@@ -94,8 +94,9 @@ class User < ActiveRecord::Base
   # Checks if the user has another event that is happening at the same time
   def has_concurrent_event?(event)
     events.each do |user_event|
-      condition = (user_event.start >= event.start && user_event.start < event.end) ||
-                  (user_event.end > event.start && user_event.end <= event.end)
+      condition = (user_event.start_time >= event.start_time && user_event.start_time < event.end_time) ||
+                  (user_event.end_time > event.start_time && user_event.end_time <= event.end_time)
+      
       return true if condition
     end
     false
