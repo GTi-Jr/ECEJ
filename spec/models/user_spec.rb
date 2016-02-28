@@ -2,29 +2,12 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
 	it "user can't go to concurrent events" do
-		user = User.create! do |user|
-			user.name         = "name"
-			user.email        = "test@test.com"
-			user.password     = "password"
-			user.lot_id       = 1
-			user.confirmed_at = DateTime.now
-		end
+		user = FactoryGirl.create(:user)
 
-		event_1 = Event.create! do |event|
-			event.name        = "Evento 1"
-			event.facilitator = "fac 1"
-			event.limit       = 50
-			event.start       = DateTime.now
-			event.end         = DateTime.now + 2.hours
-		end
-
-		event_2 = Event.create! do |event|
-			event.name        = "Evento 2"
-			event.facilitator = "fac 2"
-			event.limit       = 40
-			event.start       = DateTime.now - 1.hour
-			event.end         = DateTime.now + 1.hours
-		end
+		event_1 = FactoryGirl.create(:event, start_time: DateTime.now, 
+																				 end_time: DateTime.now + 2.hours)
+		event_2 = FactoryGirl.create(:event, start_time: 1.hour.ago, 
+																				 end_time: DateTime.now + 1.hours)
 
 		user.events << event_1
 
@@ -32,29 +15,12 @@ RSpec.describe User, type: :model do
 	end
 
 	it "user can go to consecutive events" do
-		user = User.create! do |user|
-			user.name         = "name"
-			user.email        = "test@test.com"
-			user.password     = "password"
-			user.lot_id       = 1
-			user.confirmed_at = DateTime.now
-		end
+		user = FactoryGirl.create(:user)
 
-		event_1 = Event.create! do |event|
-			event.name        = "Evento 1"
-			event.facilitator = "fac 1"
-			event.limit       = 50
-			event.start       = DateTime.now
-			event.end         = DateTime.now + 2.hours
-		end
-
-		event_2 = Event.create! do |event|
-			event.name        = "Evento 2"
-			event.facilitator = "fac 2"
-			event.limit       = 40
-			event.start       = DateTime.now + 2.hours
-			event.end         = DateTime.now + 3.hours
-		end
+		event_1 = FactoryGirl.create(:event, start_time: DateTime.now, 
+																				 end_time: DateTime.now + 2.hours)
+		event_2 = FactoryGirl.create(:event, start_time: DateTime.now + 2.hours, 
+																				 end_time: DateTime.now + 3.hours)
 
 		user.events << event_1
 
