@@ -12,6 +12,7 @@
         <Cell><Data ss:Type="String">EJ</Data></Cell>
         <Cell><Data ss:Type="String">Federecao</Data></Cell>
         <Cell><Data ss:Type="String">Estado</Data></Cell>
+        <Cell><Data ss:Type="String">Cidade</Data></Cell>
       </Row>
       <% @users.each do |user| %>
         <Row>
@@ -20,6 +21,7 @@
           <Cell><Data ss:Type="String"><%= user.junior_enterprise %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.federation %></Data></Cell>
           <Cell><Data ss:Type="String"><%= user.state %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= user.city || user.city1 %></Data></Cell>
         </Row>
       <% end %>
     </Table>
