@@ -187,4 +187,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Exit room
+  def exit_room!
+    self.room = nil
+    self.save!
+  end
 end
