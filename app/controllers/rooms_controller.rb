@@ -28,7 +28,8 @@ class RoomsController < ApplicationController
 	# GET
 	# Index rooms by hotel
 	def index
-		rooms = Room.select { |room| room.hotel.name == params[:hotel] }
+		hotel_id = params[:hotel_id]
+		rooms = Room.select { |room| room.hotel_id == hotel_id }
 		@rooms_with_users = []
 		
 		rooms.each do |room|
