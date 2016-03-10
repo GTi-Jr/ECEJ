@@ -41,7 +41,7 @@ RSpec.describe RoomsController, type: :controller do
 
 		get :index, { hotel: hotel.name }
 
-		assigns(:rooms_with_users).to eq([{room: room_1, users: [user_1, user_2]}, 
+		expect(assigns(:rooms_with_users)).to eq([{room: room_1, users: [user_1, user_2]}, 
 																			{room: room_2, users: [user_3]}])
 	end
 end
