@@ -6,7 +6,7 @@ class RoomsController < ApplicationController
 		room = Room.find(params[:id])
 
 		if room.full?
-			redirect_to authenticated_user_root_path, alert: "Quarto está cheio. Tente outro."
+			redirect_to :back, alert: "Quarto está cheio. Tente outro."
 		else
 			current_user.update(room_id: room.id)
 			redirect_to authenticated_user_root_path, notice: "Você está no quarto #{room.number} do hotel #{room.hotel}"
@@ -29,11 +29,18 @@ class RoomsController < ApplicationController
 	# Index rooms by hotel
 	def index
 		hotel_id = params[:hotel_id]
+
 		rooms = Room.select { |room| room.hotel_id == hotel_id }
+
 		@rooms_with_users = []
 		
 		rooms.each do |room|
 			@rooms_with_users << { room: room, users: room.users }
 		end
+	end
+
+	# GET
+	def show
+		@room = Room.find(params[:id])
 	end
 end
