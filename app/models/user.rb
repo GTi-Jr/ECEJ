@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  # The -> operator is equivalent to lambda
   scope :scope_disqualified, -> { where(active: false).order(:created_at) }
   scope :scope_waiting_list, -> { where(lot_id: nil, active: nil, completed: false).order(:created_at) }
   scope :scope_eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
