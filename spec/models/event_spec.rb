@@ -16,8 +16,8 @@ RSpec.describe Event, type: :model do
 		user_1 = FactoryGirl.create(:user)
 		user_2 = FactoryGirl.create(:user)
 
-		event.users << user_1
-		event.users << user_2
+		event.add user_1
+		event.add user_2
 
 		expect(Event.find(event.id).users).to eq([user_1, user_2])
 	end
@@ -28,8 +28,8 @@ RSpec.describe Event, type: :model do
 		user_1 = FactoryGirl.create(:user)
 		user_2 = FactoryGirl.create(:user)
 
-		event.users << user_1
-		event.users << user_2
+		event.add user_1
+		event.add user_2
 
 		expect(Subscription.all.count).to eq(2)
 	end
@@ -40,8 +40,24 @@ RSpec.describe Event, type: :model do
 		user_1 = FactoryGirl.create(:user)
 		user_2 = FactoryGirl.create(:user)
 
-		event.users << user_1
+		event.add user_1
 
 		expect(Subscription.first.user).to eq(user_1)
+	end
+
+	it "should remove its users properly" do
+		event = FactoryGirl.create(:event)
+
+		user_1 = FactoryGirl.create(:user)
+		user_2 = FactoryGirl.create(:user)
+
+		event.add user_1
+		event.add user_2
+
+		expect(event.users.first).to eq(user_1)
+
+		event.remove user_1
+
+		expect(event.users.first).to eq(user_2)
 	end
 end
