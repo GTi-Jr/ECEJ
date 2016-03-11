@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 	def enter_event
 		event = Event.find(params[:id])
 
-		if !event.nil? && !event.full?
+		if !event.nil? && event.full?
 			redirect_to :back, alert: "A programação chegou na sua capacidade máxima."
 		elsif !current_user.has_concurrent_event?(event)
 			redirect_to :back, alert: "Você possui outra programação no mesmo horário!"
