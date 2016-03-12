@@ -109,4 +109,7 @@ Rails.application.routes.draw do
 
   # set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
+
+
+  get 'rooms' => 'rooms#new', as: :new_rooms
 end
