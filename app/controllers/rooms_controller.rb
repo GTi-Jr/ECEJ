@@ -10,6 +10,8 @@ class RoomsController < ApplicationController
   end
 
   def create_alocation
+    room = Room.find(:id)
+    vacancies = room.capacity
   end
 
   private
