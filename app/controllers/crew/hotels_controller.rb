@@ -7,7 +7,7 @@ class Crew::HotelsController < ApplicationController
 	# GET
 	# Indexes all hotels
 	def index
-		@hotels = Hotel.all?
+		@hotels = Hotel.all
 	end
 
 	# GET

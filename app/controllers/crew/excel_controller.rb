@@ -21,8 +21,9 @@ class Crew::ExcelController < ApplicationController
     end
   end
 
-  def event_users_csv
+  def event_users
     @event = Event.find(params[:id])
+    @users = @event.users
 
     respond_to do |format|
       format.html

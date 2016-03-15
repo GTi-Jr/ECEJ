@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  # The -> operator is equivalent to lambda
+  scope :scope_disqualified, -> { where(active: false).order(:created_at) }
+  scope :scope_waiting_list, -> { where(lot_id: nil, active: nil, completed: false).order(:created_at) }
+  scope :scope_eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
+  scope :scope_allocated, -> { order(:created_at).select { |user| user.lot_id.is_a? Integer } }
+
   # Get attributes from addres string
   def city1
     addres ? addres.split(',')[0].lstrip : nil
@@ -44,21 +50,6 @@ class User < ActiveRecord::Base
     return false unless self.completed
     true
   end
-
-  # Lists
-  def self.disqualified
-    User.where(active: false).order(:created_at)
-  end
-  def self.waiting_list
-    User.where(lot_id: nil, active: nil, completed: false).order(:created_at)
-  end
-  def self.eligible
-    User.where(active: true, completed: true, lot_id: nil).order(:created_at)
-  end
-  def self.allocated
-    User.all.order(:created_at).select { |user| user.lot_id.is_a? Integer }
-  end
-  # end of lists
 
   # Generates a CSV from all users
   # To add any param to the CSV just do
@@ -187,4 +178,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Exit room
+  def exit_room!
+    self.room = nil
+    self.save!
+  end
 end

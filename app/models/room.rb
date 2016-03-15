@@ -1,7 +1,7 @@
 class Room < ActiveRecord::Base
   validates :number,
              uniqueness: { scope: :hotel, message: "Quarto já cadastrado nesse hotel." },
-             numericality: { greater_than: 0, message: "Nº do quarto deve ser maior q zero." }
+             numericality: { greater_than: 0, message: "Nº do quarto deve ser maior que zero." }
   validates :capacity,
              numericality: { greater_than: 0, message: "Capacidade deve ser maior que zero." }
 
@@ -15,7 +15,7 @@ class Room < ActiveRecord::Base
   end
 
   # Remove user from room
-  def remover_user(user)
+  def remove_user(user)
   	user.room = nil
   	user.save!
   end
