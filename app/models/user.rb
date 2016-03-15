@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   # The -> operator is equivalent to lambda
-  scope :scope_disqualified, -> { where(active: false).order(:created_at) }
-  scope :scope_waiting_list, -> { where(lot_id: nil, active: nil, completed: false).order(:created_at) }
-  scope :scope_eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
-  scope :scope_allocated, -> { order(:created_at).select { |user| user.lot_id.is_a? Integer } }
+  scope :disqualified, -> { where(active: false).order(:created_at) }
+  scope :waiting_list, -> { where(lot_id: nil, active: nil, completed: false).order(:created_at) }
+  scope :eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
+  scope :allocated, -> { order(:created_at).select { |user| user.lot_id.is_a? Integer } }
 
   # Get attributes from addres string
   def city1
