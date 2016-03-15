@@ -91,6 +91,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Checks if the user has another event that is happening at the same time
+  def has_concurrent_event?(event)
+    events.each do |user_event|
+      condition = (user_event.start_time >= event.start_time && user_event.start_time < event.end_time) ||
+                  (user_event.end_time > event.start_time && user_event.end_time <= event.end_time)
+      
+      return true if condition
+    end
+    false
+  end
+
   # Insert users into groups
   def insert_into_disqualified_list!
     self.update_attribute(:active, false)

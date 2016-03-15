@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
     resources :lots
+    resources :hotels
     resources :rooms
     resources :events
 
@@ -110,6 +111,8 @@ Rails.application.routes.draw do
   # set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
 
-
-  get 'rooms' => 'rooms#new', as: :new_rooms
+  # Rooms routes
+  get 'rooms/index' => 'rooms#index', as: :rooms
+  patch 'room/:id/insert_current_user' => 'rooms#insert_user_into_room', as: :insert_user_into_room
+  patch 'room/exit' => 'rooms#exit_room', as: :exit_room
 end
