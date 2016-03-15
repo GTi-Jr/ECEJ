@@ -1,5 +1,7 @@
 class RoomsController < ApplicationController
 	before_action :authenticate_user!
+
+	layout "dashboard"
 	# PATCH
 	# Insert current user into the selected room
 	def insert_user_into_room
