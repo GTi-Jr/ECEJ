@@ -1,2 +1,0 @@
-module Crew::HotelsHelper
-end

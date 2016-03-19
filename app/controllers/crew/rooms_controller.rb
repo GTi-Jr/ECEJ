@@ -13,12 +13,10 @@ class Crew::RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
-    @hotels = Hotel.all
   end
 
   # GET /rooms/1/edit
   def edit
-    @hotels = Hotel.all
   end
 
   # POST /rooms

@@ -42,7 +42,7 @@ class Crew::EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:name, :facilitator, :limit, :start_time, :end_time)
+      params.require(:event).permit(:name, :facilitator, :limit, :start, :end)
     end
 
     def load_event
