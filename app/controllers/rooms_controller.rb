@@ -30,7 +30,7 @@ class RoomsController < ApplicationController
 	def index
 		hotel_id = params[:hotel_id]
 
-		rooms = Room.select { |room| room.hotel_id == hotel_id }
+		rooms = Room.select { |room| room.hotel_id == hotel_id }.order(:number)
 
 		@rooms_with_users = []
 		
