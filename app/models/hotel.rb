@@ -30,4 +30,9 @@ class Hotel < ActiveRecord::Base
 		end
 		number_of_people
 	end
+
+	# OVERRIDE
+	def to_s
+		name
+	end
 end
