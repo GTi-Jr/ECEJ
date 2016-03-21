@@ -1,0 +1,50 @@
+<div id="card-widgets">
+  <div class="row">
+    <% @rooms.each do |room| %>
+      <div class="col s6 m6 l4">
+        <div class="product-card">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  pink accent-2"><%= room.number %></a>
+              <img src="/images/gallary/33.jpg" alt="product-img">
+            </div>
+            <ul class="card-action-buttons">
+              <% room.users.each do |user| %>
+                <li>
+                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= user.name %>"></a>
+                </li>
+              <% end %>
+              <% for i in 1..(room.capacity - room.users.count) %>
+                <li>
+                  <a class="btn-floating waves-effect waves-light green accent-4"></a>
+                </li>
+              <% end %>
+            </ul>
+            <div class="card-content">
+
+              <div class="row">
+                <div class="col s8">
+                  <p class="card-title grey-text text-darken-4">
+                    <a href="#" class="grey-text text-darken-4">
+                      <%= room.name %>
+                    </a>
+                  </p>
+                </div>
+                <div class="col s4 no-padding">
+                  <a href=""></a><img src="/images/amazon.jpg" alt="amazon" class="responsive-img">
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+              <% if current_user.in?(room.users) %>
+                <%= link_to "Sair", exit_room_path(@hotel_id), method: :patch%>
+              <% else %>
+                <%= link_to "Entrar", insert_user_into_room_path(@hotel_id, room), method: :patch%>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
