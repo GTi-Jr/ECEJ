@@ -13,7 +13,11 @@ class Crew::RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
-    @hotels = Hotel.all
+    @hotels = []
+
+    Hotel.order(:name).each do |hotel|
+      @hotels << hotel.name
+    end
   end
 
   # GET /rooms/1/edit
@@ -25,7 +29,8 @@ class Crew::RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
-
+    @room.hotel = Hotel.find_by_name(params[:room][:hotel])
+    
     respond_to do |format|
       if @room.save
         format.html { redirect_to crew_rooms_path, notice: 'Quarto foi criado com sucesso.' }
@@ -69,6 +74,6 @@ class Crew::RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:hotel, :number, :capacity, :extra_info)
+      params.require(:room).permit(:number, :capacity, :extra_info)
     end
 end
