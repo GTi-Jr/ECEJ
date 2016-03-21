@@ -71,4 +71,13 @@ class Crew::ExcelController < ApplicationController
       format.xls
     end
   end
+
+  def excel_handler
+    excel = ExcelHandler.new model: User
+    @rows = excel.get_rows(params)
+    
+    User.all.each { |user| @rows << { user: user } } if params[:user]
+    Payment.all.each { |payment| @rows {  } }
+
+  end
 end
