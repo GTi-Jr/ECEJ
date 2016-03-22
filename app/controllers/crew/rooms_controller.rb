@@ -7,7 +7,12 @@ class Crew::RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.order(:number)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @rooms }
+    end
   end
 
   # GET /rooms/new
