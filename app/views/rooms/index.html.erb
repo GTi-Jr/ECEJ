@@ -11,7 +11,9 @@
             <ul class="card-action-buttons">
               <% room.users.each do |user| %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= user.name %>"></a>
+                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= user.name %>">
+                    <i class="mdi-social-person-outline"></i>
+                  </a>
                 </li>
               <% end %>
               <% for i in 1..(room.capacity - room.users.count) %>
