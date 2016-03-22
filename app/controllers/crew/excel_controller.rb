@@ -112,6 +112,6 @@ class Crew::ExcelController < ApplicationController
 
     @users = User.
              order(:name).
-             select { |user| user.created_at <= params[:days_ago].to_i.days.ago }
+             select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
   end
 end
