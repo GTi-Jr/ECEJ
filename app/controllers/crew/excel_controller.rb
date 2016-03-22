@@ -105,4 +105,12 @@ class Crew::ExcelController < ApplicationController
       format.xls
     end
   end
+
+  def last_x_days_users
+    days = params[:days_ago].to_i
+
+    @users = User.
+             select { |user| user.created_at <= params[:days_ago].to_i.days.ago }.
+             sort_by { |user| user.name }
+  end
 end
