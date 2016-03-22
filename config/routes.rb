@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/waiting_list' => 'users#waiting_list', as: :users_waiting_list
 
     resources :lots
+    resources :hotels
     resources :rooms
     resources :events
 
@@ -108,6 +109,19 @@ Rails.application.routes.draw do
   get '/registration/lot/:id/:auth' => 'lots#subscribe_into_lot_early', as: :subscribe_into_lot_early
   patch '/registration/lot' => 'lots#subscribe_into_lot', as: :subscribe_into_lot
 
-  # set payment manually
+  # Set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
+
+  # # Hotels
+  # get 'hotels' => 'hotels#index', as: :hotels
+  #
+  # # Rooms routes
+  # get 'rooms' => 'rooms#index', as: :rooms
+  # patch 'room/:id/insert_current_user' => 'rooms#insert_user_into_room', as: :insert_user_into_room
+  # patch 'room/exit' => 'rooms#exit_room', as: :exit_room
+  #
+  # # Events routes
+  # get 'events' => 'events#index', as: :events
+  # patch 'events/:id/enter' => 'events#enter_event', as: :enter_event
+  # patch 'events/:id/exit' => 'events#exit_event', as: :exit_event
 end
