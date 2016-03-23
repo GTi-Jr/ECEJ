@@ -5,6 +5,7 @@ class Hotel < ActiveRecord::Base
 
 	has_many :rooms
 
+	# Returns the capcity of the hotel based on the sum of the capacity of its rooms
 	def capacity
 		capacity = 0
 		rooms.all.each do |room|
@@ -13,22 +14,20 @@ class Hotel < ActiveRecord::Base
 		capacity
 	end
 
-	def people
-		people = []
+	# Returns an array with all users inside the rooms of the hotel
+	def users
+		users = []
 		rooms.each do |room|
 			room.users.each do |user|
-				people << user
+				users << user
 			end
 		end
-		people
+		users
 	end
 
+	# Returns the number of people inside the hotel
 	def number_of_people
-		number_of_people = 0
-		rooms.each do |room|
-			number_of_people += room.users.count
-		end
-		number_of_people
+		users.length
 	end
 
 	# OVERRIDE
