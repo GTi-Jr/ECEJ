@@ -44,6 +44,6 @@ class RoomsController < ApplicationController
 
 	private
 		def get_hotel
-		  @hotel_id = params[:hotel_id]
+		  @hotel_id = params[:hotel_id].to_i
 		end
 end
