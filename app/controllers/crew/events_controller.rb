@@ -8,9 +8,10 @@ class Crew::EventsController < ApplicationController
   end
 
   def new
+    now = Time.now - Time.now.sec # Excluding the seconds so the time can be pretty
     @event = Event.new do |event|
-      event.start_time = Time.now - Time.now.sec
-      event.end_time = Time.now - Time.now.sec + 2.hours
+      event.start_time = now
+      event.end_time = now + 2.hours
     end
   end
 
