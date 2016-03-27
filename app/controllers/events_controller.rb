@@ -3,8 +3,10 @@ class EventsController < ApplicationController
 
 	# GET
 	# Lists all events ordered by the starting time
+	# Event.days returns an array of hashes. Each hash has a day and all of its events
+	# ordered by date
 	def index
-		@events = Event.order(:start_time)
+		@days = Event.days
 	end
 
 	# Patch
