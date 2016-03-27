@@ -4,7 +4,7 @@ class Crew::EventsController < ApplicationController
   layout 'admin_layout'
 
   def index
-    @events = Event.all.order(:start)
+    @events = Event.order(:start_time)
   end
 
   def new
