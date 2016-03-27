@@ -5,6 +5,9 @@ class Hotel < ActiveRecord::Base
 
 	has_many :rooms
 
+	mount_uploader :image, ImageUploader
+	mount_uploader :room_image, ImageUploader
+
 	# Returns the capcity of the hotel based on the sum of the capacity of its rooms
 	def capacity
 		capacity = 0
