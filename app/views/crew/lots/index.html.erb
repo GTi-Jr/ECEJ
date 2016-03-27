@@ -1,28 +1,54 @@
- <table class="highlight">
-  <thead>
-    <tr>
-      <th data-field="name">Nome</th>
-      <th data-field="number">Número</th>
-      <th data-field="limit">Limite</th>
-      <th data-field="begin">Início</th>
-      <th data-field="end">Término</th>
-      <th data-field="actions">Ações</th>
-    </tr>
-  </thead>
+<div>
+  <h4 class="header">Usuários</h4>
+  <div class="row">
+    <div class="col s12 m8 l9">
+      <table id="lots_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+            <th data-field="name">Nome</th>
+            <th data-field="number">Número</th>
+            <th data-field="limit">Limite</th>
+            <th data-field="begin">Início</th>
+            <th data-field="end">Término</th>
+            <th data-field="actions">Ações</th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% if !@lots.nil? %>
-      <% @lots.each do |lot| %>
-        <tr>
-          <td><%= link_to lot.name, crew_lot_path(lot) %></td>
-          <td><%= lot.number %></td>
-          <td><%= lot.limit %></td>
-          <td><%= lot.start_date %></td>
-          <td><%= lot.end_date %></td>
-          <td><%= link_to "Editar", edit_crew_lot_path(lot) %></td>
-          <td><%= link_to "Excluir", crew_lot_path(lot), method: :delete, data: { confirm: "Deseja realmente excluir o lote #{lot.number}" } %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+        <tfoot>
+            <tr>
+              <th data-field="name">Nome</th>
+              <th data-field="number">Número</th>
+              <th data-field="limit">Limite</th>
+              <th data-field="begin">Início</th>
+              <th data-field="lots">Término</th>
+              <th data-field="actions">Ações</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
+          <% if !@lots.nil? %>
+            <% @lots.each do |lot| %>
+              <tr>
+                <td><%= link_to lot.name, crew_lot_path(lot) %></td>
+                <td><%= lot.number %></td>
+                <td><%= lot.limit %></td>
+                <td><%= lot.start_date.strftime('%Y/%m/%d @ %H:%M ') %></td>
+                <td><%= lot.end_date.strftime('%Y/%m/%d @ %H:%M ') %></td>
+                <td>
+                  <%= link_to "Editar", edit_crew_lot_path(lot) %>
+                  |
+                  <%= link_to "Excluir", crew_lot_path(lot), method: :delete, data: { confirm: "Deseja realmente excluir o lote #{lot.number}" } %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+$('#lots_table').DataTable();
+</script>
+
+
