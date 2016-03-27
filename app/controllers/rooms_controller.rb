@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
 	layout "dashboard"
 	# PATCH
 	# Insert current user into the selected room
-	def insert_user_into_room
+	def insert_current_user_into_room
 		room = Room.find(params[:id])
 
 		if room.full?
@@ -31,13 +31,13 @@ class RoomsController < ApplicationController
 	# GET
 	# Index rooms by hotel
 	def index
-		hotel_id = params[:hotel_id]
+		rooms = Room.select { |room| room.hotel_id == @hotel_id }.sort_by { |room| room.number }
 
-		rooms = Room.select { |room| room.hotel_id == hotel_id }.sort_by { |room| room.number }
-
+		@room_image_url = Hotel.find(@hotel_id).room_image_url
+		
 		@rooms_with_users = []
 
-		@rooms.each do |room|
+		rooms.each do |room|
 			@rooms_with_users << { room: room, users: room.users }
 		end
 	end
