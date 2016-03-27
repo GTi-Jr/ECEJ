@@ -38,7 +38,7 @@
             </div>
             <div class="card-action">
               <% if current_user.room == room[:room] %>
-                <%= link_to "Sair", exit_room_path(@hotel_id), method: :patch %>
+                <%= link_to "Sair", exit_room_path(@hotel_id), method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
               <% else %>
                 <% if current_user.room.nil? %>
                   <%= link_to "Entrar", insert_current_user_into_room_path(@hotel_id, room[:room]), method: :patch %>
