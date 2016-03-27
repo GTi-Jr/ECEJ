@@ -8,7 +8,8 @@
               <%= link_to rooms_path(hotel), class:"btn-floating btn-large btn-price waves-effect waves-light  pink accent-2" do %>
                 <%= hotel.rooms.count %>
               <% end %>
-              <img src="/images/gallary/33.jpg" alt="product-img">
+              <!-- <img src="/images/gallary/33.jpg" alt="product-img"> -->
+              <%= image_tag hotel.image_url %>
               <span class="card-title"><%= hotel.name %></span>
             </div>
             <div class="card-content">
