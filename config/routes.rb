@@ -116,7 +116,7 @@ Rails.application.routes.draw do
 
   # Rooms routes
   get 'hotels/:hotel_id/rooms' => 'rooms#index', as: :rooms
-  patch 'hotels/:hotel_id/rooms/:id/insert_current_user' => 'rooms#insert_user_into_room', as: :insert_user_into_room
+  patch 'hotels/:hotel_id/rooms/:id/insert_current_user' => 'rooms#insert_current_user_into_room', as: :insert_current_user_into_room
   patch 'hotels/:hotel_id/rooms/exit' => 'rooms#exit_room', as: :exit_room
 
   # Events routes
