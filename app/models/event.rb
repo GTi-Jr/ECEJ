@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
     Event.all.each do |event|
       date = event.start_time.to_date
       unless date.in? days
-        days << { date: date, events: self.select { |event| event.start_time.to_date == date } }
+        days << { date: date, events: self.select { |event| event.start_time.to_date == date }.sort_by { |event| event.start_time } }
       end
     end
     days.sort_by { |day| day[:date] }

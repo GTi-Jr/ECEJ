@@ -4,7 +4,10 @@ class Crew::EventsController < ApplicationController
   layout 'admin_layout'
 
   def index
-    @events = Event.order(:start_time)
+    @rows = [] 
+    Event.order(:start_time).each do |event|
+      @rows << { event: event, user_count: event.users.count }
+    end
   end
 
   def new
