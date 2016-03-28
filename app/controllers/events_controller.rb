@@ -22,7 +22,11 @@ class EventsController < ApplicationController
 		else
 			event.add current_user
 
-			redirect_to :back, notice: "Você garantiu sua vaga no(a) #{event.name}"
+			if current_user.in? event.users
+				redirect_to :back, notice: "Você garantiu sua vaga no(a) #{event.name}!"
+			else
+				redirect_to :back, alert: "Não foi possível garantir sua vaga no(a) #{event.name}. Tente novamente"
+			end
 		end
 	end
 
@@ -32,5 +36,13 @@ class EventsController < ApplicationController
 		event = Event.find(params[:id])
 
 		event.remove current_user
+
+		if current_user.in? event.users
+			redirect_to :back, notice: "Não foi possível sair da programação."
+		else
+			redirect_to :back, notice: "Você saiu da programação."
+		end
+
+		
 	end
 end
