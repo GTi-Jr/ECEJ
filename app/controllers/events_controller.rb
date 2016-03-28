@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 	before_action :authenticate_user!
+	before_action :user_must_have_paid
 
 	# GET
 	# Lists all events ordered by the starting time
