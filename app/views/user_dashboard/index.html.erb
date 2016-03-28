@@ -29,12 +29,24 @@
               <div class="col s7 grey-text text-darken-4 right-align"><%= @user.job %></div>
             </div>
           </li>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-maps-hotel"></i> Quarto</div>
+              <% if @user.room.nil? %>
+                <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
+              <% else %>
+                <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
+              <% end %>
+              
+            </div>
+          </li>
           <li class="divider"></li>
           <li class="divider"></li>
           <li class="divider"></li>
         </ul>
         <!--/ Profile About Details  -->
       </div>
+
       <!-- profile-page-sidebar-->
       <div id="profile-page-wall" class="col s12 m8">
         <!-- profile-page-wall-share -->
