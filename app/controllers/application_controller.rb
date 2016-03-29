@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_must_have_paid
-    if current_user.payment.nil? || !current_user.payment.partially_paid
+    if current_user.payment.nil? || !current_user.payment.partially_paid?
       redirect_to authenticated_user_root_path, alert: "Por favor, efetue o pagamento."
     end
   end

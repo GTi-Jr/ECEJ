@@ -138,7 +138,7 @@
                       <p><%= event.facilitator %></p>
                     </div>
                     <div class="card-action">
-                      <%= link_to "Sair", exit_event_path(event) %>
+                      <%= link_to "Sair", exit_event_path(event), method: :patch, data: { confirm: "Ao sair do evento você pode não conseguir reaver sua vaga." } %>
                       <span class="right"><%= event.start_time.strftime('%H:%Mh') %></span>
                     </div>
                   </div>
@@ -147,8 +147,8 @@
             </div>
           <% end %>
         <% else %>
-          <div class="col s3">
-            Você nao se inscreveu em nenhuma programação.
+          <div class="col s12 center-align">
+            <h6 class="red-text darken-1">Você nao se inscreveu em nenhuma programação.</h6>
           </div>
         <% end %>
       </div> 
