@@ -1,10 +1,11 @@
 class EventsController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, :get_user
 
+	layout "dashboard"
 	# GET
 	# Lists all events ordered by the starting time
 	def index
-		@events = Event.order(:start_time)
+		@events = Event.order(:start)
 	end
 
 	# Patch

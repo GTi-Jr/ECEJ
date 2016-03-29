@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228191614) do
+ActiveRecord::Schema.define(version: 20160329055407) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20160228191614) do
     t.string   "name",        default: ""
     t.string   "facilitator", default: ""
     t.integer  "limit",       default: 1
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

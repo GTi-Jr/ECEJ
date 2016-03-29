@@ -19,9 +19,15 @@
 //= require plugins/jquery-validation/jquery.validate.min.js
 //= require plugins/jquery-validation/additional-methods.min.js
 //= require plugins/perfect-scrollbar/perfect-scrollbar.min.js
+//= require plugins/fullcalendar/lib/moment.min.js
+//= require plugins/fullcalendar/lib/jquery-ui.custom.min.js
+//= require plugins/fullcalendar/js/fullcalendar.min.js
+//= require plugins/fullcalendar/lang/pt-br.js
 //= require dropify.min.js
 //= require after_registration.js
 //= require user_dashboard.js
+//= require events.js
+
 $('.dropify').dropify({
     messages: {
         'default': 'Arraste a foto ou clique para enviar',
