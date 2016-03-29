@@ -9,7 +9,10 @@ class UserDashboardController < ApplicationController
     @today = DateTime.now
     @payment = @user.payment
     @lot = @user.lot if !@user.lot.nil?
+    @events_days = current_user.events.days
+
     @deadlines = Array.new
+
     if !@lot.nil?
       @deadlines << @lot.deadline_1
       @deadlines << @lot.deadline_2

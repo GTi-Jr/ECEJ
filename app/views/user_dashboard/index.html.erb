@@ -110,5 +110,48 @@
           </div>
         </div>
       </div>
+
+      <div class="col s12 center-align">
+        <h3>Minha programação</h3>
+      </div>
+      
+      <div class="row">
+        <% if !@events_days.empty? %>          
+          <div class="col s12">
+            <ul class="tabs">
+              <% @events_days.each do |day| %>
+                <li class="tab col s3">
+                  <a href="#<%= day[:date] %>">
+                    <%= day[:date].strftime('%d/%m/%y') %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <% @events_days.each do |day| %>
+            <div id="<%= day[:date] %>" class="col s12">
+              <% day[:events].each do |event| %>
+                <div class="col s12 m4">
+                  <div class="card blue-grey white-text text-lighten-1">
+                    <div class="card-content center-align">
+                      <span class="card-title"><%= event.name %></span>
+                      <p><%= event.facilitator %></p>
+                    </div>
+                    <div class="card-action">
+                      <%= link_to "Sair", exit_event_path(event) %>
+                      <span class="right"><%= event.start_time.strftime('%H:%Mh') %></span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="col s3">
+            Você nao se inscreveu em nenhuma programação.
+          </div>
+        <% end %>
+      </div> 
+      <!-- end of .row -->
     </div>
 </div>

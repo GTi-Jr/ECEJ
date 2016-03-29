@@ -41,8 +41,6 @@ class EventsController < ApplicationController
 			redirect_to :back, notice: "Não foi possível sair da programação."
 		else
 			redirect_to :back, notice: "Você saiu da programação."
-		end
-
-		
+		end		
 	end
 end
