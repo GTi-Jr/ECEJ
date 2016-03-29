@@ -49,7 +49,7 @@ gem 'wicked'
 
 gem "pagseguro-oficial", "~> 2.4.0"
 
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', :require => 'rack/cors'Aadad
 
 gem 'browser'
 
