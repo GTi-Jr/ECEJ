@@ -34,15 +34,18 @@ class Event < ActiveRecord::Base
   # and all of its events ordered by date.
   def self.days
     days = []
+    dates = []
+
     Event.all.each do |event|
-      dates = []
       date = event.start_time.to_date
-      dates << dates
       
       unless date.in? dates
         days << { date: date, events: self.select { |event| event.start_time.to_date == date }.sort_by { |event| event.start_time } }
       end
+
+      dates << date
     end
+    
     days.sort_by { |day| day[:date] }
   end
 
