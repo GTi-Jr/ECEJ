@@ -30,14 +30,17 @@ class Event < ActiveRecord::Base
     Event.select { |event| now < event.end && now > event.start }
   end
 
-  # Return the all dates that have, at least, one event with no duplicates and ordered
+  # Return an array of hashes with all the dates that have, at least, one event
+  # and all of its events ordered by date.
   def self.days
     days = []
     Event.all.each do |event|
       date = event.start.to_date
-      days << date unless days.include?(date)
+      unless date.in? days
+        days << { date: date, events: self.select { |event| event.start.to_date == date }.sort_by { |event| event.start } }
+      end
     end
-    days.sort
+    days.sort_by { |day| day[:date] }
   end
 
   # Add a user to the event

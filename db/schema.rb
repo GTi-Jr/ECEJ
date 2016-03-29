@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20160329055407) do
     t.string   "extra_info", default: ""
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "image"
+    t.string   "room_image"
   end
 
   create_table "lots", force: :cascade do |t|

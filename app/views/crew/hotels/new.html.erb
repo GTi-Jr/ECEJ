@@ -1,17 +1,17 @@
 <div id="" class="row">
   <div class="col s12 z-depth-4 card-panel">
-    <%= form_for @room, url: {action: "create"}, method: :post do |f| %>
+    <%= form_for @hotel, url: { action: "create" }, html: { multipart: true }, method: :post do |f| %>
       <div class="row">
         <div class="input-field col s12 center">
-          <p class="center login-form-text">Cadastro de quarto</p>
+          <p class="center login-form-text">Cadastro de hotel</p>
         </div>
       </div>
       
       <div class="row">
         <div class="input-field col s12 center">
-          <% if @room.errors.any? %>
+          <% if @hotel.errors.any? %>
             <ul>
-              <% @room.errors.full_messages.each do |error| %>
+              <% @hotel.errors.full_messages.each do |error| %>
                 <li><%= error %></li>
               <% end %>
             </ul>            
@@ -20,19 +20,19 @@
       </div>
 
       <div class="row margin">
-        <div class="col s3">
-            <%= f.label :hotel, "Hotel", class: "center-align" %>
-            <%= select_tag "room[hotel]", options_for_select(@hotels, @hotels.first) %>
+        <div class="col s12 m6 l4">
+          <%= f.label :name, "Nome", class: "center-align" %>
+          <%= f.text_field :name, id: 'name' %>
         </div>
 
         <div class="col s12 m6 l4">
-          <%= f.label :number, "Número", class: "center-align" %>
-          <%= f.number_field :number, id: 'number' %>
+          <%= f.label :image, "Foto do hotel (Tamanho recomendado: 934x180)", class: "center-align" %>
+          <%= f.file_field :image, id: 'image' %>
         </div>
 
         <div class="col s12 m6 l4">
-          <%= f.label :capacity, "Capacidade", class: "center-align" %>
-          <%= f.number_field :capacity, id: 'capacity' %>
+          <%= f.label :room_image, "Foto do quarto (Tamanho recomendado: 440x330)", class: "center-align" %>
+          <%= f.file_field :room_image, id: 'room_image' %>
         </div>
 
         <div class="col s12 ">
