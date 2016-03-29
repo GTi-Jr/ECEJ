@@ -210,6 +210,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -360,6 +363,7 @@ DEPENDENCIES
   google-analytics-rails (= 1.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   letter_opener
   mini_magick (= 3.8.0)
   pagseguro-oficial (~> 2.4.0)
