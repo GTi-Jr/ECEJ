@@ -19,7 +19,7 @@
               <% end %>
               <% for i in 1..(room[:room].capacity - room[:users].count) %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light green accent-4"></a>
+                  <a class="btn-floating waves-effect waves-light green accent-4 tooltipped" data-position="bottom" data-tooltip="Vazio"></a>
                 </li>
               <% end %>
             </ul>

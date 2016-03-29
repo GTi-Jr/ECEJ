@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
   # Returns the user's last name
   def last_name
-    name.split(' ').last   
+    name.split(' ').last
   end
 
   # Returns the first and last name
@@ -103,9 +103,8 @@ class User < ActiveRecord::Base
   # Checks if the user has another event that is happening at the same time
   def has_concurrent_event?(event)
     events.each do |user_event|
-      condition = (user_event.start_time >= event.start_time && user_event.start_time < event.end_time) ||
-                  (user_event.end_time > event.start_time && user_event.end_time <= event.end_time)
-      
+      condition = (user_event.start >= event.start && user_event.start < event.end_time) ||
+                  (user_event.end > event.start && user_event.end <= event.end)
       return true if condition
     end
     false

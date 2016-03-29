@@ -15,9 +15,15 @@
               <% day[:events].each do |event| %>
                 <li class="collection-item">
                   <div><%= "#{event.start.hour}-#{event.end.hour} #{event.name}" %>
-                  <%= link_to enter_event_path(event), class:"secondary-content" ,method: :patch do %>
-                    <i class="mdi-action-done"></i>
-                  <% end %>
+                    <% if event.in?(current_user.events) %>
+                      <%= link_to exit_event_path(event), class:"secondary-content-off" ,method: :patch do %>
+                        <i class="mdi-content-clear tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to enter_event_path(event), class:"secondary-content-on" ,method: :patch do %>
+                        <i class="mdi-action-done tooltipped" data-position="bottom" data-tooltip="Entrar nesse evento"></i>
+                      <% end %>
+                    <% end %>
                   </div>
                   <!-- <a href="#!" class="secondary-content"><i class="mdi-action-done"></i></a> -->
                 </li>
