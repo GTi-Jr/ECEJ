@@ -7,7 +7,7 @@ RSpec.describe Event, type: :model do
 		event_2 = FactoryGirl.create(:event, start_time: DateTime.now, 
 																				 end_time: DateTime.now + 3.hours)
 
-		expect(Event.days).to eq([Date.today, Date.tomorrow])
+		expect(Event.days).to eq([{date: Date.today, events: [event_2]}, {date: Date.tomorrow, events: [event_1]}])
 	end
 
 	it "should save its users" do
