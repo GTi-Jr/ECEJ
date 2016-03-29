@@ -4,93 +4,29 @@
   </div>
 
   <section class="plans-container" id="plans">
-    <article class="col s12 m12 l3">
-      <div class="card hoverable">
-        <div class="card-image cyan waves-effect">
-          <div class="card-title">Programação</div>
-          <div class="price">
-            28/04
+    <% @days.each_with_index do |day, index| %>
+      <article class="col s12 m12 l3">
+        <div class="card hoverable">
+          <div class="card-image cyan waves-effect">
+            <div class="card-title">Programação</div>
+            <div class="price">
+              <%= "#{day[:date].day}/#{day[:date].month}" %>
+            </div>
+            <div class="price-desc"><%= index +1 %>º dia de evento</div>
           </div>
-          <div class="price-desc">1º dia de evento</div>
-        </div>
-        <div class="card-content">
-          <ul class="collection">
-            <li class="collection-item">500 emails</li>
-            <li class="collection-item">unlimited data</li>
-            <li class="collection-item">1 users</li>
-            <li class="collection-item">first 15 day free</li>
-          </ul>
-        </div>
-        <div class="card-action center-align">
-          <button class="waves-effect waves-light  btn">Select Plan</button>
-        </div>
-      </div>
-    </article>
-    <article class="col s12 m12 l3">
-      <div class="card hoverable">
-        <div class="card-image cyan waves-effect">
-          <div class="card-title">Programação</div>
-          <div class="price">
-            29/04
+          <div class="card-content">
+            <ul class="collection">
+              <li class="collection-item">500 emails</li>
+              <li class="collection-item">unlimited data</li>
+              <li class="collection-item">1 users</li>
+              <li class="collection-item">first 15 day free</li>
+            </ul>
           </div>
-          <div class="price-desc">2º dia de evento</div>
-        </div>
-        <div class="card-content">
-          <ul class="collection">
-            <li class="collection-item">500 emails</li>
-            <li class="collection-item">unlimited data</li>
-            <li class="collection-item">1 users</li>
-            <li class="collection-item">first 15 day free</li>
-          </ul>
-        </div>
-        <div class="card-action center-align">
-          <button class="waves-effect waves-light  btn">Select Plan</button>
-        </div>
-      </div>
-    </article>
-    <article class="col s12 m12 l3">
-      <div class="card hoverable">
-        <div class="card-image cyan waves-effect">
-          <div class="card-title">Programação</div>
-          <div class="price">
-            30/04
-          </div>
-          <div class="price-desc">3º dia de evento</div>
-        </div>
-        <div class="card-content">
-          <div class="collection">
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
+          <div class="card-action center-align">
+            <button class="waves-effect waves-light btn">Select Plan</button>
           </div>
         </div>
-        <div class="card-action center-align">
-          <button class="waves-effect waves-light btn">Select Plan</button>
-        </div>
-      </div>
-    </article>
-    <article class="col s12 m12 l3">
-      <div class="card hoverable">
-        <div class="card-image cyan waves-effect">
-          <div class="card-title">Programação</div>
-          <div class="price">
-            31/04
-          </div>
-          <div class="price-desc">4º dia de evento</div>
-        </div>
-        <div class="card-content">
-          <ul class="collection">
-            <li class="collection-item">500 emails</li>
-            <li class="collection-item">unlimited data</li>
-            <li class="collection-item">1 users</li>
-            <li class="collection-item">first 15 day free</li>
-          </ul>
-        </div>
-        <div class="card-action center-align">
-          <button class="waves-effect waves-light  btn">Select Plan</button>
-        </div>
-      </div>
-    </article>
+      </article>
+    <% end %>
   </section>
 </div>
