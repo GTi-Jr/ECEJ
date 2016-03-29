@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_action :authenticate_user!, :get_user
-	before_action :user_must_have_paid
+	#before_action :user_must_have_paid
 
 	layout "dashboard"
 	# GET
@@ -16,10 +16,11 @@ class EventsController < ApplicationController
 	# Adds current user to event
 	def enter_event
 		event = Event.find(params[:id])
-
-		if !event.nil? && event.full?
+		if event.nil?
+			redirect_to :back, alert: "Erro."
+		elsif event.full?
 			redirect_to :back, alert: "A programação chegou na sua capacidade máxima."
-		elsif !current_user.has_concurrent_event?(event)
+		elsif current_user.has_concurrent_event?(event)
 			redirect_to :back, alert: "Você possui outra programação no mesmo horário!"
 		else
 			event.add current_user

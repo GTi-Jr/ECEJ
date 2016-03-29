@@ -37,7 +37,7 @@
               <% else %>
                 <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
               <% end %>
-              
+
             </div>
           </li>
           <li class="divider"></li>
@@ -114,9 +114,9 @@
       <div class="col s12 center-align">
         <h3>Minha programação</h3>
       </div>
-      
+
       <div class="row">
-        <% if !@events_days.empty? %>          
+        <% if !@events_days.empty? %>
           <div class="col s12">
             <ul class="tabs">
               <% @events_days.each do |day| %>
@@ -139,7 +139,7 @@
                     </div>
                     <div class="card-action">
                       <%= link_to "Sair", exit_event_path(event), method: :patch, data: { confirm: "Ao sair do evento você pode não conseguir reaver sua vaga." } %>
-                      <span class="right"><%= event.start_time.strftime('%H:%Mh') %></span>
+                      <span class="right"><%= event.start.strftime('%H:%Mh') %></span>
                     </div>
                   </div>
                 </div>
@@ -151,7 +151,7 @@
             <h6 class="red-text darken-1">Você nao se inscreveu em nenhuma programação.</h6>
           </div>
         <% end %>
-      </div> 
+      </div>
       <!-- end of .row -->
     </div>
 </div>
