@@ -3,7 +3,7 @@
     <%= form_for @room, url: {action: "update"}, method: :patch do |f| %>
       <div class="row">
         <div class="input-field col s12 center">
-          <p class="center login-form-text">Cadastro de quarto</p>
+          <p class="center login-form-text">Edição de quarto</p>
         </div>
       </div>
       
@@ -22,7 +22,7 @@
       <div class="row margin">
         <div class="col s12 m6 l4">
             <%= f.label :hotel, "Hotel", class: "center-align" %>
-            <%= select_tag "room[hotel]", options_for_select(["Jangadeiro", "Donana"], @room.hotel) %>
+            <%= select_tag "room[hotel]", options_for_select(@hotels, @hotels.first) %>
         </div>
 
         <div class="col s12 m6 l4">
@@ -43,7 +43,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
+          <%= f.submit "Editar", class: 'btn waves-light light-blue darken-1 col s12' %>
         </div>
       </div>
     <% end %>

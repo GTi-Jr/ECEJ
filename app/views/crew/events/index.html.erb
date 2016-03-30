@@ -31,8 +31,8 @@
               <tr>
                 <td><%= row[:event].name %></td>
                 <td><%= row[:event].facilitator %></td>
-                <td><%= row[:event].start_time.strftime('%Y/%m/%d @ %H:%M') %></td>
-                <td><%= row[:event].end_time.strftime('%Y/%m/%d @ %H:%M') %></td>
+                <td><%= row[:event].start.strftime('%Y/%m/%d @ %H:%M') %></td>
+                <td><%= row[:event].end.strftime('%Y/%m/%d @ %H:%M') %></td>
                 <td><%= "#{row[:user_count]} / #{row[:event].limit}" %></td>
                 <td>
                   <%= link_to "Editar", edit_crew_event_path(row[:event]) %>

@@ -12,7 +12,7 @@
             <ul class="card-action-buttons">
               <% room[:users].each do |user| %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= user.two_names %>">
+                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= "#{user.two_names} | #{user.junior_enterprise}" %>">
                     <i class="mdi-social-person-outline"></i>
                   </a>
                 </li>
