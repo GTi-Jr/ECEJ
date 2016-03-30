@@ -3,11 +3,16 @@ class Crew::RoomsController < ApplicationController
 
   before_action :authenticate_crew_admin!
   before_action :set_room, only: [:edit, :update, :destroy]
+  before_action :set_hotel_names, only: [:new, :edit]
 
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.order(:number)
+    @rooms_rows = []
+
+    Room.order(:number).each do |room|
+      @rooms_rows << { room: room, users: room.users, hotel: room.hotel }      
+    end
 
     respond_to do |format|
       format.html
@@ -18,16 +23,10 @@ class Crew::RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
-    @hotels = []
-
-    Hotel.order(:name).each do |hotel|
-      @hotels << hotel.name
-    end
   end
 
   # GET /rooms/1/edit
   def edit
-    @hotels = Hotel.all
   end
 
   # POST /rooms
@@ -41,7 +40,11 @@ class Crew::RoomsController < ApplicationController
         format.html { redirect_to crew_rooms_path, notice: 'Quarto foi criado com sucesso.' }
         format.json { render :edit, status: :created, location: @room }
       else
-        format.html { render :new }
+        format.html do
+          set_hotel_names
+          render :new  
+        end 
+
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +55,7 @@ class Crew::RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to edit_crew_room_path(@room), notice: 'Quarto atualizado com sucesso.' }
+        format.html { redirect_to crew_rooms_path, notice: 'Quarto atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit }
@@ -80,5 +83,13 @@ class Crew::RoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:number, :capacity, :extra_info)
+    end
+
+    def set_hotel_names
+      @hotels = []
+
+      Hotel.order(:name).each do |hotel|
+        @hotels << hotel.name
+      end
     end
 end
