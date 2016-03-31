@@ -8,6 +8,18 @@ class Hotel < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
 	mount_uploader :room_image, ImageUploader
 
+	# Create multiple rooms for the hotel.
+	def create_rooms(rooms_params)
+		rooms_params[:extra_info] ||= ""
+
+		rooms_params[:range].each do |number|
+			rooms << Room.create( number: number.to_i, 
+													  capacity: rooms_params[:capacity].to_i, 
+													  extra_info: rooms_params[:extra_info],
+													  name: rooms_params[:name] )
+		end
+	end
+
 	# Returns the capcity of the hotel based on the sum of the capacity of its rooms
 	def capacity
 		capacity = 0
