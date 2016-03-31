@@ -21,6 +21,12 @@ admin = Crew::Admin.new do |admin|
 end
 admin.save!
 
+hotel = Hotel.new do |hotel|
+  hotel.name = "Hotel 1"
+  hotel.extra_info = "Informação extra"
+end
+hotel.save!
+
 # Sara Lonngren, [13.01.16 19:26]
 # 1 lote - 20hrs de 13/01 até 20hrs de 14/01
 

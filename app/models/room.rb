@@ -23,4 +23,8 @@ class Room < ActiveRecord::Base
   def full?
   	self.users.count >= capacity
   end
+
+  def image_url
+    hotel.room_image_url
+  end
 end
