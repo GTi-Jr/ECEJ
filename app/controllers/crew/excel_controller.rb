@@ -114,4 +114,12 @@ class Crew::ExcelController < ApplicationController
              order(:name).
              select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
   end
+
+  def required_transportation_user
+    @users = User.where(transport_required: 'Sim')
+
+    respond_to do |format|
+      format.xls
+    end
+  end
 end
