@@ -6,7 +6,7 @@
           <div class="card-image cyan waves-effect">
             <div class="card-title">Programação</div>
             <div class="price">
-              <%= "#{day[:date].day}/#{day[:date].month}" %>
+              <%= day[:date].strftime('%d/%m') %>
             </div>
             <div class="price-desc"><%= index + 1 %>º dia de evento</div>
           </div>
@@ -15,7 +15,7 @@
               <% day[:events].each do |event| %>
                 <li class="collection-item">
                   <div><%= "#{event.start.hour}-#{event.end.hour} #{event.name}" %>
-                  <%= link_to enter_event_path(event), class:"secondary-content" ,method: :patch do %>
+                  <%= link_to enter_event_path(event), class:"secondary-content tooltipped" ,method: :patch, 'data-position': 'bottom', 'data-tooltip': 'Participar' do %>
                     <i class="mdi-action-done"></i>
                   <% end %>
                   </div>
