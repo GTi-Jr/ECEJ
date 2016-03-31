@@ -8,13 +8,13 @@
             <div class="price">
               <%= day[:date].strftime('%d/%m') %>
             </div>
-            <div class="price-desc"><%= index + 1 %>º dia de evento</div>
+            <div class="price-desc"><%= index + 1 %>º dia de programação</div>
           </div>
           <div class="card-content">
             <ul class="collection">
               <% day[:events].each do |event| %>
                 <li class="collection-item">
-                  <div><%= "#{event.start.hour}-#{event.end.hour} #{event.name}" %>
+                  <div><%= "#{event.start.strftime('%H:%M')}h às #{event.end.strftime('%H:%M')}h #{event.name}" %>
                   <%= link_to enter_event_path(event), class:"secondary-content tooltipped" ,method: :patch, 'data-position': 'bottom', 'data-tooltip': 'Participar' do %>
                     <i class="mdi-action-done"></i>
                   <% end %>
