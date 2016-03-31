@@ -3,16 +3,12 @@ class Crew::RoomsController < ApplicationController
 
   before_action :authenticate_crew_admin!
   before_action :set_room, only: [:edit, :update, :destroy]
-  before_action :set_hotel_names, only: [:new, :edit]
+  before_action :set_hotel_names, only: [:new, :edit, :new_rooms]
 
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms_rows = []
-
-    Room.order(:number).each do |room|
-      @rooms_rows << { room: room, users: room.users, hotel: room.hotel }      
-    end
+    @rooms = Room.includes(:hotel, :users).order('hotels.name ASC, number')
 
     respond_to do |format|
       format.html
@@ -72,6 +68,24 @@ class Crew::RoomsController < ApplicationController
       format.html { redirect_to crew_rooms_path, notice: 'Quarto foi apagado com sucesso.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /rooms/new_rooms
+  def new_rooms    
+  end
+
+  # POST /rooms/create_rooms
+  def create_rooms
+    hotel       = Hotel.find_by_name(params[:hotel])
+    upper_range = params[:upper_range]
+    down_range  = params[:down_range]
+
+    range = down_range..upper_range
+
+    hotel.create_rooms( { range: range, capacity: params[:capacity],
+                          extra_info: params[:extra_info]} )
+
+    redirect_to crew_rooms_path
   end
 
   private
