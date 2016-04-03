@@ -75,7 +75,8 @@ class ExcelHandler
 			'confirmation_sent_at',
 			'updated_at',
 			'avatar',
-			'user_id'
+			'user_id',
+			'paid_on'  #Gambs. Remove this later
 		]
 	end
 
