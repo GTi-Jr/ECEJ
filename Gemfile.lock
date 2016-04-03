@@ -47,6 +47,10 @@ GEM
     bcrypt (3.1.10)
     bcrypt (3.1.10-x64-mingw32)
     bcrypt-ruby (3.0.1)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     brI18n (3.3.0)
@@ -81,12 +85,16 @@ GEM
     brstring (3.3.0)
       activesupport (>= 3.0.0)
     builder (3.2.2)
+    bullet (5.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (8.2.1)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    coderay (1.1.1)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -332,6 +340,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -351,8 +360,10 @@ DEPENDENCIES
   airbrake (~> 5.0)
   bcrypt
   bcrypt-ruby (~> 3.0.0)
+  better_errors
   brazilian-rails
   browser
+  bullet
   byebug
   carrierwave
   devise
