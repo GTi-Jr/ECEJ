@@ -38,7 +38,7 @@ FactoryGirl.define do
 		sequence(:name) { |n| "Event ##{n}" }
 		facilitator "Facilitator"
 		limit 50
-		start_time { DateTime.now }
-		end_time { DateTime.now + 1.hour }
+		start { DateTime.now }
+		self.end { DateTime.now + 1.hour }
 	end
 end

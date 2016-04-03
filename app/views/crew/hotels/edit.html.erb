@@ -25,6 +25,16 @@
           <%= f.text_field :name, id: 'name' %>
         </div>
 
+        <div class="col s12 m6 l4">
+          <%= f.label :image, "Foto do hotel (Tamanho recomendado: 934x180)", class: "center-align" %>
+          <%= f.file_field :image, id: 'image' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :room_image, "Foto do quarto (Tamanho recomendado: 440x330)", class: "center-align" %>
+          <%= f.file_field :room_image, id: 'room_image' %>
+        </div>
+
         <div class="col s12 ">
           <%= f.label :extra_info, "Informação adicional", class: "center-align" %>
           <%= f.text_area :extra_info, id: 'extra_info' %>
@@ -33,7 +43,7 @@
 
       <div class="row">
         <div class="input-field col s12">
-          <%= f.submit "Editar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
+          <%= f.submit "Editar", class: 'btn waves-light light-blue darken-1 col s12' %>
         </div>
       </div>
     <% end %>

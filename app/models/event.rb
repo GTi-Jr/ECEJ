@@ -1,13 +1,13 @@
 class Event < ActiveRecord::Base
-  validates :name, 
+  validates :name,
             presence: true
   validates :facilitator,
             presence: true
   validates :limit,
             presence: true
-  validates :start_time,
+  validates :start,
             presence: true
-  validates :end_time,
+  validates :end,
             presence: true
   validate :start_must_be_smaller_than_end
 
@@ -16,36 +16,36 @@ class Event < ActiveRecord::Base
 
   # Returns all past events
   def self.past
-    Event.select { |event| DateTime.now > event.end_time }
+    Event.select { |event| DateTime.now > event.end }
   end
 
   # Returns all future events
   def self.future
-    Event.select { |event| DateTime.now < event.start_time }
+    Event.select { |event| DateTime.now < event.start}
   end
 
   # Returns all events tha are happening at the moment
   def self.happening
     now = DateTime.now
-    Event.select { |event| now < event.end_time && now > event.start_time } 
+    Event.select { |event| now < event.end && now > event.start }
   end
 
-  # Return an array of hashes with all the dates that have, at least, one event 
+  # Return an array of hashes with all the dates that have, at least, one event
   # and all of its events ordered by date.
   def self.days
     days = []
     dates = []
 
     Event.all.each do |event|
-      date = event.start_time.to_date
-      
+      date = event.start.to_date
+
       unless date.in? dates
-        days << { date: date, events: self.select { |event| event.start_time.to_date == date }.sort_by { |event| event.start_time } }
+        days << { date: date, events: self.select { |event| event.start.to_date == date }.sort_by { |event| event.start } }
       end
 
       dates << date
     end
-    
+
     days.sort_by { |day| day[:date] }
   end
 
@@ -67,11 +67,11 @@ class Event < ActiveRecord::Base
   # Checks if the events is happening at the moment
   def is_happening_now?
     now = DateTime.now
-    now > self.start_time && now < self.end
+    now > self.start && now < self.end
   end
 
   # Validator method
   def start_must_be_smaller_than_end
-    errors.add(:start_time, "deve ser menor que a data de término") if self.start_time > self.end_time
+    errors.add(:start, "deve ser menor que a data de término") if self.start > self.end
   end
 end

@@ -1,9 +1,9 @@
 class Room < ActiveRecord::Base
   validates :number,
              uniqueness: { scope: :hotel, message: "Quarto já cadastrado nesse hotel." },
-             numericality: { greater_than: 0, message: "Nº do quarto deve ser maior que zero." }
+             numericality: { greater_than: 0, message: "deve ser maior que zero." }
   validates :capacity,
-             numericality: { greater_than: 0, message: "Capacidade deve ser maior que zero." }
+             numericality: { greater_than: 0, message: "deve ser maior que zero." }
 
   belongs_to :hotel
   has_many :users
