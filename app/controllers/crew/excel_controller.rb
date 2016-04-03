@@ -114,4 +114,15 @@ class Crew::ExcelController < ApplicationController
              order(:name).
              select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
   end
+
+  def excel_handler
+    excel = ExcelHandler.new model: User
+    @possible_columns = excel.possible_columns
+  end
+
+  def generate_xls
+    excel = ExcelHandler.new model: User
+    @columns = excel.get_selected_columns_from_params(params, :selected_columns)
+    @users = User.all
+  end
 end
