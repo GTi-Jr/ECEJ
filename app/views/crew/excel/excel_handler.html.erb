@@ -1,0 +1,23 @@
+<div class="row">
+	<%= form_tag "#{crew_generate_xls_path}", format: :xls, method: :get do %>
+		<div class="col s12 m3 push-m9 right-align">
+			Filtrar colunas:
+			<ul>
+				<% @possible_columns.each do |possible_column| %>
+					<div class="switch">
+						<label>
+							<%= label_tag possible_column %>
+							<%= check_box_tag "selected_columns[#{possible_column}]" %>
+							<span class="lever"></span>
+						</label>
+						
+					</div>					
+				<% end %>
+			</ul>
+		</div>
+
+
+		<%= submit_tag "Gerar planilha", class: "btn waves-light light-blue darken-1 col s12" %>
+	<% end %>
+</div>
+
