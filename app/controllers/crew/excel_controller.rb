@@ -1,5 +1,6 @@
 class Crew::ExcelController < ApplicationController
   before_action :authenticate_crew_admin!
+
   def users
     @users = User.all.order(:name)
 
@@ -74,10 +75,11 @@ class Crew::ExcelController < ApplicationController
 
   def excel_handler
     excel = ExcelHandler.new model: User
-    @rows = excel.get_rows(params)
+    @rows = excel.possible_columns
     
-    User.all.each { |user| @rows << { user: user } } if params[:user]
-    Payment.all.each { |payment| @rows {  } }
+  end
 
+  def generate_xls
+    
   end
 end

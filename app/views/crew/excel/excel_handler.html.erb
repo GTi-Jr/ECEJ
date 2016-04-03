@@ -1,0 +1,25 @@
+<div class="row">
+	<%= form_tag crew_generate_xls_path, method: :get do %>
+		<div class="col s12 ">
+			<p>FILTROS</p>
+			<ul>
+				<% @rows.each do |row| %>
+					<div class="switch">
+						<label>
+							Não
+							<%= label_tag row %>
+							<%= check_box_tag "filter[#{row}]" %>
+							<span class="lever"></span>
+							Sim
+						</label>
+						
+					</div>						
+				<% end %>
+			</ul>
+		</div>
+
+
+		<%= submit_tag "Gerar planilha", class: "btn waves-light light-blue darken-1 col s12" %>
+	<% end %>
+</div>
+

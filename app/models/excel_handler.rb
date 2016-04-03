@@ -21,7 +21,7 @@ class ExcelHandler
 	 	rows = []
 	 	
 	 	# Assigns a user to each row
-	 	User.all.order(model_order) do |user|
+	 	User.order(model_order) do |user|
 	 		rows << { user: user }
 	 	end
 
@@ -71,6 +71,7 @@ class ExcelHandler
 			'confirmation_token',
 			'confirmed_at',
 			'confirmation_sent_at',
+			'updated_at',
 			'avatar',
 			'lot_id',
 			'user_id'
