@@ -569,9 +569,13 @@ td, th{
 
 }
 // Made less specific to allow easier overriding
-.secondary-content {
+.secondary-content-on{
   float: right;
-  color: $secondary-color;
+  color: green;
+}
+.secondary-content-off{
+  float: right;
+  color: red;
 }
 .collapsible .collection {
   margin: 0;
