@@ -8,7 +8,7 @@
 	<tbody>
 		<% @users.each do |user| %>
 			<% @columns.each do |column| %>
-				<td><%= user[column.to_symbol] %></td>
+				<td><%= user.send(column.to_symbol) %></td>
 			<% end %>
 		<% end %>
 	</tbody>
