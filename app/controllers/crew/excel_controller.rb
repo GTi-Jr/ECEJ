@@ -73,15 +73,6 @@ class Crew::ExcelController < ApplicationController
     end
   end
 
-  def excel_handler
-    excel = ExcelHandler.new model: User
-    @rows = excel.possible_columns
-    
-  end
-
-  def generate_xls
-  end
-
   def users_federation
     @users = User.all.order(:federation)
 
@@ -130,5 +121,14 @@ class Crew::ExcelController < ApplicationController
     respond_to do |format|
       format.xls
     end
+  end
+
+  def excel_handler
+    excel = ExcelHandler.new model: User
+    @rows = excel.possible_columns
+    
+  end
+
+  def generate_xls5
   end
 end
