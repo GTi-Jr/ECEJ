@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
     # Excel
+    get 'excel' => 'excel#excel_handler', as: :excel_handler
+    get 'excel/generate_xls' => 'excel#generate_xls', as: :generate_xls, format: :xls
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
