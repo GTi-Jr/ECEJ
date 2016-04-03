@@ -56,9 +56,10 @@
                                     <%= select_tag "option", options_for_select([ "À vista", "Duas vezes", "Três vezes", "Quatro vezes"], "À vista") %>
                                   </div>
                                   <div class="card-action center-align">
-                                    <%= button_tag type: 'submit', class: 'waves-effect waves-light btn' do %>
+                                    <%= button_tag type: 'submit', class: 'waves-effect waves-light btn', disabled: true do %>
                                       <%= content_tag(:strong, 'Gerar boletos') %>
                                     <% end %>
+                                    <p>O sistema não está mais gerando boletos devido aos vencimentos dos mesmos. Caso queira gerar novos boletos, favor entrar em contato com <i>financeira.ecej@gmail.com</i> </p>
                                   </div>
                                 <% end %>
                               </div>

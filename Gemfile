@@ -49,7 +49,7 @@ gem 'wicked'
 
 gem "pagseguro-oficial", "~> 2.4.0"
 
-gem 'rack-cors', :require => 'rack/cors'
+#gem 'rack-cors', :require => 'rack/cors'
 
 gem 'browser'
 
@@ -60,6 +60,8 @@ gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 
 gem 'google-analytics-rails', '1.0.0'
+
+gem 'kaminari'
 
 #gem for Windows development - comment in linux
 

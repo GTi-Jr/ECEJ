@@ -29,12 +29,24 @@
               <div class="col s7 grey-text text-darken-4 right-align"><%= @user.job %></div>
             </div>
           </li>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-maps-hotel"></i> Quarto</div>
+              <% if @user.room.nil? %>
+                <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
+              <% else %>
+                <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
+              <% end %>
+              
+            </div>
+          </li>
           <li class="divider"></li>
           <li class="divider"></li>
           <li class="divider"></li>
         </ul>
         <!--/ Profile About Details  -->
       </div>
+
       <!-- profile-page-sidebar-->
       <div id="profile-page-wall" class="col s12 m8">
         <!-- profile-page-wall-share -->
@@ -98,5 +110,48 @@
           </div>
         </div>
       </div>
+
+      <div class="col s12 center-align">
+        <h3>Minha programação</h3>
+      </div>
+      
+      <div class="row">
+        <% if !@events_days.empty? %>          
+          <div class="col s12">
+            <ul class="tabs">
+              <% @events_days.each do |day| %>
+                <li class="tab col s3">
+                  <a href="#<%= day[:date] %>">
+                    <%= day[:date].strftime('%d/%m/%y') %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <% @events_days.each do |day| %>
+            <div id="<%= day[:date] %>" class="col s12">
+              <% day[:events].each do |event| %>
+                <div class="col s12 m4">
+                  <div class="card blue-grey white-text text-lighten-1">
+                    <div class="card-content center-align">
+                      <span class="card-title"><%= event.name %></span>
+                      <p><%= event.facilitator %></p>
+                    </div>
+                    <div class="card-action">
+                      <%= link_to "Sair", exit_event_path(event), method: :patch, data: { confirm: "Ao sair do evento você pode não conseguir reaver sua vaga." } %>
+                      <span class="right"><%= event.start_time.strftime('%H:%Mh') %></span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="col s12 center-align">
+            <h6 class="red-text darken-1">Você nao se inscreveu em nenhuma programação.</h6>
+          </div>
+        <% end %>
+      </div> 
+      <!-- end of .row -->
     </div>
 </div>

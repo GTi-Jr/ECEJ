@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   scope :eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
   scope :allocated, -> { order(:created_at).select { |user| user.lot_id.is_a? Integer } }
 
+  # TODO Remove those methods when the project is completed and the ECEJ event has ended
   # Get attributes from addres string
   def city1
     addres ? addres.split(',')[0].lstrip : nil
@@ -39,6 +40,23 @@ class User < ActiveRecord::Base
     addres ? addres.split(',')[3].lstrip : nil
   end
   # end of attributes
+
+  # Returns the user's first name
+  def first_name
+    name.split(' ').first
+  end
+
+  # Returns the user's last name
+  def last_name
+    name.split(' ').last   
+  end
+
+  # Returns the first and last name
+  # user.name = "Bruce Freaking Dickinson"
+  # user.two_names #=> "Bruce Dickinson"
+  def two_names
+    name.split(' ').length == 1 ? first_name : "#{first_name} #{last_name}"
+  end
 
   # Returns true if there's anything in federation.
   def is_fed?

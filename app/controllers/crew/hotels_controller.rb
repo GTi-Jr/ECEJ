@@ -60,7 +60,7 @@ class Crew::HotelsController < ApplicationController
 	private
 		# Strong params
 		def hotel_params
-			params.require(:hotel).permit(:name, :extra_info)
+			params.require(:hotel).permit(:name, :extra_info, :image, :room_image)
 		end
 
 		def load_hotel

@@ -4,11 +4,18 @@ class Crew::EventsController < ApplicationController
   layout 'admin_layout'
 
   def index
-    @events = Event.all.order(:start)
+    @rows = [] 
+    Event.order(:start_time).each do |event|
+      @rows << { event: event, user_count: event.users.count }
+    end
   end
 
   def new
-    @event = Event.new
+    now = Time.now - Time.now.sec # Excluding the seconds so the time can be pretty
+    @event = Event.new do |event|
+      event.start_time = now
+      event.end_time = now + 2.hours
+    end
   end
 
   def create
