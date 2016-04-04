@@ -6,9 +6,9 @@
           <div class="card-image cyan waves-effect">
             <div class="card-title">Programação</div>
             <div class="price">
-              <%= "#{day[:date].day}/#{day[:date].month}" %>
+              <%= day[:date].strftime('%d/%m') %>
             </div>
-            <div class="price-desc"><%= index + 1 %>º dia de evento</div>
+            <div class="price-desc"><%= index + 1 %>º dia de programação</div>
           </div>
           <div class="card-content">
             <ul class="collection">
@@ -39,7 +39,6 @@
                       <% end %>
                     <% end %>
                   </div>
-                  <!-- <a href="#!" class="secondary-content"><i class="mdi-action-done"></i></a> -->
                 </li>
               <% end %>
             </ul>

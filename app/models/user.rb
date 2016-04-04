@@ -105,6 +105,7 @@ class User < ActiveRecord::Base
     events.each do |user_event|
       condition = (user_event.start >= event.start && user_event.start < event.end) ||
                   (user_event.end > event.start && user_event.end <= event.end)
+                  
       return true if condition
     end
     false
