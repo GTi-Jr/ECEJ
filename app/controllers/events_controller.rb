@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_action :authenticate_user!, :get_user
-	#before_action :user_must_have_paid
+	before_action :user_must_have_paid
 
 	layout "dashboard"
 	# GET
