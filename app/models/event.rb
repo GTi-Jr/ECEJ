@@ -61,7 +61,7 @@ class Event < ActiveRecord::Base
 
   # Checks if the event is full
   def full?
-    users.count > limit
+    users.count >= limit
   end
 
   # Checks if the events is happening at the moment
