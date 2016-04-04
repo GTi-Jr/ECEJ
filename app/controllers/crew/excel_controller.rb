@@ -1,5 +1,6 @@
 class Crew::ExcelController < ApplicationController
   before_action :authenticate_crew_admin!
+
   def users
     @users = User.all.order(:name)
 
@@ -72,7 +73,6 @@ class Crew::ExcelController < ApplicationController
     end
   end
 
-
   def users_federation
     @users = User.all.order(:federation)
 
@@ -124,5 +124,13 @@ class Crew::ExcelController < ApplicationController
     excel = ExcelHandler.new model: User
     @columns = excel.get_selected_columns_from_params(params, :selected_columns)
     @users = User.all
+  end
+
+  def required_transportation_users
+    @users = User.where(transport_required: 'Sim')
+
+    respond_to do |format|
+      format.xls
+    end
   end
 end
