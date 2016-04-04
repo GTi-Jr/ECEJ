@@ -27,4 +27,9 @@ class Room < ActiveRecord::Base
   def image_url
     hotel.room_image_url
   end
+
+  # OVERRIDE
+  def to_s
+    "#{number} | #{hotel}"
+  end
 end

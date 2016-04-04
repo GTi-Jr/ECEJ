@@ -1,0 +1,16 @@
+<table>
+	<thead>
+		<% @columns.each do |column| %>
+			<th><%= column %></th>
+		<% end %>
+	</thead>
+
+	<tbody>
+		<% @users.each do |user| %>
+			<% @columns.each do |column| %>
+				<td><%= user.send(column.to_symbol) %></td>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+

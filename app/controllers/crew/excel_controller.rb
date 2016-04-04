@@ -1,5 +1,6 @@
 class Crew::ExcelController < ApplicationController
   before_action :authenticate_crew_admin!
+
   def users
     @users = User.all.order(:name)
 
@@ -72,7 +73,6 @@ class Crew::ExcelController < ApplicationController
     end
   end
 
-
   def users_federation
     @users = User.all.order(:federation)
 
@@ -113,5 +113,24 @@ class Crew::ExcelController < ApplicationController
     @users = User.
              order(:name).
              select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
+  end
+
+  def excel_handler
+    excel = ExcelHandler.new model: User
+    @possible_columns = excel.possible_columns
+  end
+
+  def generate_xls
+    excel = ExcelHandler.new model: User
+    @columns = excel.get_selected_columns_from_params(params, :selected_columns)
+    @users = User.all
+  end
+
+  def required_transportation_users
+    @users = User.where(transport_required: 'Sim')
+
+    respond_to do |format|
+      format.xls
+    end
   end
 end
