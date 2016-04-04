@@ -46,5 +46,6 @@ class RoomsController < ApplicationController
 	private
 		def get_hotel
 		  @hotel_id = params[:hotel_id].to_i
+		  @hotel = Hotel.find(@hotel_id)
 		end
 end
