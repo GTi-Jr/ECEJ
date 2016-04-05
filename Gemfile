@@ -47,13 +47,11 @@ gem 'brazilian-rails'
 
 gem 'wicked'
 
-gem "pagseguro-oficial", "~> 2.4.0"
+gem 'pagseguro-oficial', '~> 2.4.0'
 
 #gem 'rack-cors', :require => 'rack/cors'
 
 gem 'browser'
-
-gem 'airbrake', '~> 5.0'
 
 gem 'pdfkit'
 # Dependencia for wicked_pdf
@@ -63,9 +61,9 @@ gem 'google-analytics-rails', '1.0.0'
 
 gem 'kaminari'
 
-#gem for Windows development - comment in linux
+# Gem for Windows development - comment in linux
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 gem 'bcrypt'
@@ -77,7 +75,7 @@ group :development, :test do
   gem 'sqlite3'
   # Testing
   gem 'rspec-rails', '~> 3.0'
-  gem "factory_girl_rails", "~> 4.0"
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'rubocop', require: false
 end
 
@@ -89,13 +87,12 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem "bullet"
-  gem "better_errors"
+  gem 'better_errors'
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'sendgrid'
-
+  gem 'airbrake', '~> 5.2'
 end
