@@ -49,6 +49,10 @@ class Lot < ActiveRecord::Base
     end
   end
 
+  def to_s
+    number
+  end
+
   # Validator methods
   def start_date_must_be_smaller
     errors.add(:start_date, "deve ser menor que a data de término") if self.start_date > self.end_date

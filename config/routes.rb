@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
     # Excel
+    get 'excel' => 'excel#excel_handler', as: :excel_handler
+    get 'excel/generate_xls' => 'excel#generate_xls', as: :generate_xls, format: :xls
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
     get 'excel/users/federation' => 'excel#users_federation', as: :download_users_federation
     get 'excel/current_payments' => 'excel#current_payments', as: :download_current_payments_excel
     get 'excel/users/last_x_days' => 'excel#last_x_days_users', as: :download_last_x_days_users
+    get 'excel/users/transport_required' => 'excel#required_transportation_users', as: :download_transport_required_users
 
     # Admin user routes
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
