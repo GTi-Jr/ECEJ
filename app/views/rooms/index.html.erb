@@ -16,8 +16,9 @@
             <ul class="card-action-buttons">
               <% room.users.each do |user| %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= "#{user.two_names} | #{user.junior_enterprise}" %>">
-                    <i class="mdi-social-person-outline"></i>
+                  <a class="btn-floating tooltipped" data-position="bottom" data-tooltip="<%= "#{user.two_names} | #{user.junior_enterprise}" %>">
+                    <%= image_tag(user.avatar_url(:thumb), class:'circle responsive-img valign', width:'250') if user.avatar? %>
+                    <%= image_tag('jack-avatar.jpg', class:'circle responsive-img', width:'250') if !user.avatar? %>
                   </a>
                 </li>
               <% end %>
@@ -36,13 +37,10 @@
                       <%= room.name %>
                     </a>
                   </p>
-                </div>
-                <!-- <div class="col s4 no-padding">
-                  <a href=""></a><img src="/images/amazon.jpg" alt="amazon" class="responsive-img">
-                </div> -->
+                </div>  
               </div>
             </div>
-            <div class="card-action">
+            <div class="card-action" style="text-align: right;">
               <% if current_user.room == room %>
                 <%= link_to "Sair", exit_room_path(@hotel.id), method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
               <% else %>
