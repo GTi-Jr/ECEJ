@@ -119,22 +119,24 @@
           <ul id="projects-collection" class="collection">
             <li class="collection-item avatar">
               <i class="mdi-action-view-list circle light-blue darken-2"></i>
-              <span class="collection-header"><%= "#{index + 1}° Dia" %></span>
-              <p><%= day[:date].strftime('%d/%m/%y') %></p>
-              <a href="#" class="secondary-content"><i class="mdi-av-timer"></i></a>
+              <span class="collection-header"><%= day[:date].strftime('%d/%m/%y') %></span>
+              <p>Meus eventos</p>
+              <a href="#" class="secondary-content"><i class="fa fa-clock-o"></i></a>
             </li>
             <% day[:events].each do |event| %>
-            <li class="collection-item">
+            <li class="collection-item dismissable">
               <div class="row">
                 <div class="col s6">
                   <p class="collections-title"><%= event.name %></p>
                   <p class="collections-content"><strong><%= event.facilitator %></strong></p>
                 </div>
-                <div class="col s3">
+                <div class="col s4">
                   <span class="task-cat cyan"><%= event.start.strftime('%H:%M') %></span>
                 </div>
-                <div class="col s3">
-                  <div id="project-line-1"><canvas width="104" height="30" style="display: inline-block; width: 104px; height: 30px; vertical-align: top;"></canvas></div>
+                <div class="col s2">
+                  <%= link_to exit_event_path(event),method: :patch do %>
+                    <i class="fa fa-trash-o tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                  <% end %>
                 </div>
               </div>
             </li>

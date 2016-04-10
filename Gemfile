@@ -61,6 +61,8 @@ gem 'google-analytics-rails', '1.0.0'
 
 gem 'kaminari'
 
+gem 'font-awesome-sass'
+
 # Gem for Windows development - comment in linux
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
