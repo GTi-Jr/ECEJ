@@ -22,16 +22,11 @@ class ExcelHandler
 	 	# Selects the desired order
 	 	order = model_order(params[options[:order]])
 
-	 	rows = []
-	 	
-	 	@records = get_records(params, options) if params[options[:selected_values]]
-
-	 	# # Assigns a user to each row
-	 	# User.order(order).each do |user|
-	 	# 	rows << { user: user }
-	 	# end
-
-	 	# rows
+	 	if params[options[:selected_values]]
+	 		@records = get_records(params, options)
+	 	else
+	 		@records = @model.order(order)
+	 	end
 	end
 
 	# Returns an array with the selected columns from the parameters
@@ -56,7 +51,7 @@ class ExcelHandler
 	end
 
 	# Filters the records according to selected values
-	def get_records(params, options = {})
+	def get_records(params, options = {})		
 		@model.find_by_sql(query_string(params[options[:selected_columns]], 
 																	  params[options[:selected_values]], 
 																	  params[options[:strictness]]))
@@ -65,7 +60,7 @@ class ExcelHandler
 	# Returns a query string for SQL query
 	def query_string(selected_columns, selected_values, strictness)
 		sql = ""
-		sql << " SELECT "
+		sql << " SELECT"
 		sql << select_query(selected_columns)
 		sql << " FROM #{table_name}"
 
