@@ -105,6 +105,53 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="divider"></div>
+  <div class="divider"></div>
+
+  <div class="col s12 m12 l12">
+    <div class="col s12 center-align">
+      <h3>Minha programação</h3>
+    </div>
+    <% if !@events_days.empty? %>
+    <div id="work-collections">
+      <div class="row">
+        <% @events_days.each_with_index do |day, index| %>
+        <div class="col s12 m6 l3">
+          <ul id="projects-collection" class="collection">
+            <li class="collection-item avatar">
+              <i class="mdi-action-view-list circle light-blue darken-2"></i>
+              <span class="collection-header"><%= day[:date].strftime('%d/%m/%y') %></span>
+              <p>Meus eventos</p>
+              <a href="#" class="secondary-content"><i class="fa fa-clock-o"></i></a>
+            </li>
+            <% day[:events].each do |event| %>
+            <li class="collection-item dismissable">
+              <div class="row">
+                <div class="col s6">
+                  <p class="collections-title"><%= event.name %></p>
+                  <p class="collections-content"><strong><%= event.facilitator %></strong></p>
+                </div>
+                <div class="col s4">
+                  <span class="task-cat cyan"><%= event.start.strftime('%H:%M') %></span>
+                </div>
+                <div class="col s2">
+                  <%= link_to exit_event_path(event),method: :patch do %>
+                    <i class="fa fa-trash-o tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+    <div class="col s12 center-align">
+      <h6 class="red-text darken-1">Você nao se inscreveu em nenhuma programação.</h6>
+    </div>
+    <% end %>
+    <!-- end of .row -->
+  </div>
+</div>

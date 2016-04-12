@@ -1,48 +1,53 @@
 <div class="row">
-  <section class="plans-container" id="plans">
-    <% @days.each_with_index do |day, index| %>
-      <article class="col s12 m12 l3">
-        <div class="card hoverable">
-          <div class="card-image cyan waves-effect">
-            <div class="card-title">Programação</div>
-            <div class="price">
-              <%= day[:date].strftime('%d/%m') %>
-            </div>
-            <div class="price-desc"><%= index + 1 %>º dia de programação</div>
-          </div>
-          <div class="card-content">
-            <ul class="collection">
-              <% day[:events].each do |event| %>
-                <li class="collection-item">
-                  <div>
-                    <a class="modal-trigger tooltipped" data-position="left" data-tooltip="Clique para saber mais" href="#modal_event_detail">
-                      <%= "#{event.start.hour}-#{event.end.hour} #{event.name}" %>
-                    </a>
-                    <div id="modal_event_detail" class="modal" style="display: none; opacity: 1; top: 0px;">
-                      <div class="modal-content">
-                        <p> Facilitador do evento: <%= event.facilitator %> </p>
-                        <p> Evento com <%= event.limit %> vagas.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Fechar</a>
-                      </div>
+  <div class="col s12 m12 l12">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs tab-demo z-depth-1" style="width: 100%;">
+          <% @days.each_with_index do |day, index| %>
+            <li class="tab col s3" style="width: 25%;">
+              <a class="active" href="#dia<%= index + 1 %>">
+                <%= "Dia #{index +1} - #{day[:date].strftime('%d/%m')}" %>
+              </a>
+            </li>
+          <% end %>
+          <div class="indicator" style="right: 224px; left: 0px;"></div>
+          <div class="indicator" style="right: 224px; left: 0px;"></div>
+        </ul>
+      </div>
+      <div class="col s12">
+        <% @days.each_with_index do |day, index| %>
+          <div id="dia<%= index + 1 %>" class="col s12" style="display: block;">
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <% day[:events].each do |event| %>
+                  <li class="">
+                    <div class="collapsible-header">
+                      <%= event.name %>
+                      <i class="mdi-av-timer"></i>
+                      <span class="task-cat cyan">
+                        <%= "#{event.start.strftime('%H:%M')}  -  #{event.end.strftime('%H:%M')}"%>
+                      </span>
                     </div>
-                    <% if event.in?(current_user.events) %>
-                      <%= link_to exit_event_path(event), class:"secondary-content-off" ,method: :patch do %>
-                        <i class="mdi-content-clear tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
-                      <% end %>
-                    <% else %>
-                      <%= link_to enter_event_path(event), class:"secondary-content-on" ,method: :patch do %>
-                        <i class="mdi-action-done tooltipped" data-position="bottom" data-tooltip="Entrar nesse evento"></i>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
+                    <div class="collapsible-body" style="display: none;">
+                      <p> Facilitador do evento: <%= event.facilitator %> </p>
+                      <p> Evento com <%= event.limit %> vagas.</p>
+                      <p style="text-align: right;">
+                        <% if event.in?(current_user.events) %>
+                          <%= link_to exit_event_path(event), class:"btn-floating btn-large waves-effect waves-light red" ,method: :patch do %>
+                            <i class="mdi-content-clear tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                          <% end %>
+                        <% else %>
+                          <%= link_to enter_event_path(event), class:"btn-floating btn-large waves-effect waves-light green" ,method: :patch do %>
+                            <i class="mdi-action-done tooltipped" data-position="bottom" data-tooltip="Entrar nesse evento"></i>
+                          <% end %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </li>
+                <% end %>
+                </ul>
           </div>
-        </div>
-      </article>
-    <% end %>
-  </section>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
