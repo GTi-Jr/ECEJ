@@ -31,18 +31,58 @@ RSpec.describe ExcelHandler, type: :model do
 
 	it 'should use the parameters to get the columns' do
 		excel = ExcelHandler.new model: User
-<<<<<<< HEAD
 		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
 																												  "Name"=> "1"}, 
 																								order: "Name" })
 
-		excel.get_rows(params, :filter)
+		columns = excel.get_selected_columns_from_params(params, :filter)
 
-		expect(excel.columns).to eq(['Lot', 'Name'])
-=======
-		params = ActionController::Parameters.new({ "Lot"=> true, "Name"=>true })
+		expect(columns).to eq(['Lot', 'Name'])
+	end
 
-		excel.get_rows(params)
->>>>>>> 0bd664f7e088d1ee05a0be1275ab0d36dbcce97a
+	it 'should order records' do
+		excel = ExcelHandler.new model: User
+		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
+																												  "Name"=> "1"}, 
+																								order: "Name" })
+
+		user_1 = FactoryGirl.create :user, name: 'Caio'
+		user_2 = FactoryGirl.create :user, name: 'Lucas'
+		user_3 = FactoryGirl.create :user, name: 'John'
+
+		rows = excel.get_rows(params, selected_columns: :filter, order: :order)
+
+		expect(rows).to eq([user_1, user_3, user_2])
+	end
+
+	it 'should order records by id if no order is defined' do
+		excel = ExcelHandler.new model: User
+		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
+																												  "Name"=> "1"}})
+
+		user_1 = FactoryGirl.create :user, name: 'Caio'
+		user_2 = FactoryGirl.create :user, name: 'Lucas'
+		user_3 = FactoryGirl.create :user, name: 'John'
+
+		rows = excel.get_rows(params, selected_columns: :filter)
+
+		expect(rows).to eq([user_1, user_2, user_3])
+	end
+
+	it 'should filter values' do
+		excel = ExcelHandler.new model: User
+		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
+																												  "Name"=> "1"}})
+
+		user_1 = FactoryGirl.create :user, name: 'Caio'
+		user_2 = FactoryGirl.create :user, name: 'Lucas'
+		user_3 = FactoryGirl.create :user, name: 'John'
+
+		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
+																												  "Name"=> "1"}, 
+																								order:  "Name",
+																								values: { 'name' => 'caio'}})
+		
+		expect(rows).to eq([user_1])
 	end
 end
