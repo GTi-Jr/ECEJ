@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
     @days ||= (start.to_date)..(self.end.to_date)
   end
 
-  def occuring_hours
+  def occurring_hours
     val = []
     
     # If it is a one day event, its hours are just the range between

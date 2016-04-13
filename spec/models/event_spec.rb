@@ -113,14 +113,14 @@ RSpec.describe Event, type: :model do
 		event_3 = FactoryGirl.create(:event, start: 1.second.from_now, 
 																				 end:   30.hours.from_now)
 
-		expect(event_1.occuring_hours).to eq([{ day: Date.today, hours: [event_1.start.hour] }])
+		expect(event_1.occurring_hours).to eq([{ day: Date.today, hours: [event_1.start.hour] }])
 
-		expect(event_2.occuring_hours).to eq([{ day: Date.today,             hours: (event_2.start.hour..23).to_a },
+		expect(event_2.occurring_hours).to eq([{ day: Date.today,             hours: (event_2.start.hour..23).to_a },
 																					{ day: Date.tomorrow,          hours: (0..23).to_a },
 																					{ day: Date.tomorrow.tomorrow, hours: (0..event_2.end.hour).to_a }
 																				 ])
 
-		expect(event_3.occuring_hours).to eq([{ day: Date.today,    hours: (event_3.start.hour..23).to_a },
+		expect(event_3.occurring_hours).to eq([{ day: Date.today,    hours: (event_3.start.hour..23).to_a },
 																					{ day: Date.tomorrow, hours: (0..event_3.end.hour).to_a }
 																				 ])
 	end
