@@ -78,11 +78,16 @@ RSpec.describe ExcelHandler, type: :model do
 		user_2 = FactoryGirl.create :user, name: 'Lucas'
 		user_3 = FactoryGirl.create :user, name: 'John'
 
-		params = ActionController::Parameters.new({ filter: { "Lot"=> "1", 
-																												  "Name"=> "1"}, 
-																								order:  "Name",
+		params = ActionController::Parameters.new({ filter: { 'Email' => '1',
+																												  'Name'  => '1'}, 
+																								order:  'Name',
 																								values: { 'name' => 'caio'}})
 		
-		expect(rows).to eq([user_1])
+		rows = excel.get_rows(params, selected_columns: :filter,
+																		 order: :order,
+																		 selected_values: :values)
+
+		expect(excel.records.first)
+		.to eq(User.where("name LIKE '%caio%'").order(:name).first)
 	end
 end
