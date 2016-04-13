@@ -52,22 +52,17 @@ class ExcelHandler
 
 	# Filters the records according to selected values
 	def get_records(params, options = {})		
-		@model.find_by_sql(query_string(params[options[:selected_columns]], 
-																	  params[options[:selected_values]], 
+		@model.where(query_string(params[options[:selected_values]], 
 																	  params[options[:strictness]]))
 	end
 
 	# Returns a query string for SQL query
-	def query_string(selected_columns, selected_values, strictness)
+	def query_string(selected_values, strictness)
 		sql = ""
-		sql << " SELECT"
-		sql << select_query(selected_columns)
-		sql << " FROM #{table_name}"
 
 		if selected_values
-			sql << " WHERE"
 			selected_values.each do |key, value|
-				sql << " #{key} LIKE ? '%#{value}%' "
+				sql << " #{key} LIKE '%#{value}%' "
 
 				sql << query_join_strict(strictness) unless key.downcase == @columns.last.downcase
 			end
@@ -81,7 +76,7 @@ class ExcelHandler
 	end
 
 	def select_query(selected_columns)
-		selected_columns ? selected_columns.join(',').concat(' ') : ' * '
+		selected_columns ? selected_columns.join(', ').concat(' ') : ' * '
 	end
 
 	# Method used in #query_string to define the aggregation logic
