@@ -1,3 +1,89 @@
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="row">
+        <div class="col s12">
+          <div id="day1" style="display:none;">
+            <table class="responsive-table">
+              <tbody>
+                <tr>
+                  <td>Alvin</td>
+                  <td>Eclair</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="day2" style="display:none;">
+            <table class="responsive-table">
+              <tbody>
+                <tr>
+                  <td>Day 2</td>
+                  <td>Eclair</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="day3" style="display:none;">
+            <table class="responsive-table">
+              <tbody>
+                <tr>
+                  <td>Day 3</td>
+                  <td>Eclair</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="center-align row">
+            <a class="btn-floating btn-large" onclick="showDiv('day1')">1</a>
+            <a class="btn-floating btn-large" onclick="showDiv('day2')">2</a>
+            <a class="btn-floating btn-large" onclick="showDiv('day3')">3</a>
+            <a class="btn-floating btn-large" onclick="showDiv('day4')">4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  function showDiv(toggle){
+    document.getElementById(toggle).style.display = 'block';
+  }
+</script>
+<!-- 
 <div class="row">
   <div class="col s12 m12 l12">
     <div class="row">
@@ -44,10 +130,10 @@
                     </div>
                   </li>
                 <% end %>
-                </ul>
+              </ul>
           </div>
         <% end %>
       </div>
     </div>
   </div>
-</div>
+</div> -->
