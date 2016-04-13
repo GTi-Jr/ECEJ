@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
   has_many :subscriptions
   has_many :users, through: :subscriptions
 
+  @@hours = 0..23
+
   # Returns all past events
   def self.past
     Event.select { |event| DateTime.now > event.end }
@@ -33,7 +35,7 @@ class Event < ActiveRecord::Base
   # Return an array of hashes with all the dates that have, at least, one event
   # and all of its events ordered by date.
   def self.days
-    days = []
+    days  = []
     dates = []
 
     Event.all.each do |event|
@@ -47,6 +49,10 @@ class Event < ActiveRecord::Base
     end
 
     days.sort_by { |day| day[:date] }
+  end
+
+  def occurring_days
+    @days ||= (start.to_date)..(self.end.to_date)
   end
 
   # Add a user to the event

@@ -94,4 +94,14 @@ RSpec.describe Event, type: :model do
 
 		expect(user.has_concurrent_event? event_2).to eq(false)
 	end
+
+	it 'should return its days' do
+		event_1 = FactoryGirl.create(:event, start: 1.second.from_now, 
+																				 end:   3.seconds.from_now)
+		event_2 = FactoryGirl.create(:event, start: 1.second.from_now, 
+																				 end:   50.hours.from_now)
+
+		expect(event_1.occurring_days.to_a).to eq([Date.today])
+		expect(event_2.occurring_days).to eq(Date.today..Date.tomorrow.tomorrow)
+	end
 end
