@@ -115,12 +115,12 @@ RSpec.describe Event, type: :model do
 
 		expect(event_1.occurring_hours).to eq([{ day: Date.today, hours: [event_1.start.hour] }])
 
-		expect(event_2.occurring_hours).to eq([{ day: Date.today,             hours: (event_2.start.hour..23).to_a },
+		expect(event_2.occurring_hours).to eq([{ day: Date.today,            hours: (event_2.start.hour..23).to_a },
 																					{ day: Date.tomorrow,          hours: (0..23).to_a },
 																					{ day: Date.tomorrow.tomorrow, hours: (0..event_2.end.hour).to_a }
 																				 ])
 
-		expect(event_3.occurring_hours).to eq([{ day: Date.today,    hours: (event_3.start.hour..23).to_a },
+		expect(event_3.occurring_hours).to eq([{ day: Date.today,   hours: (event_3.start.hour..23).to_a },
 																					{ day: Date.tomorrow, hours: (0..event_3.end.hour).to_a }
 																				 ])
 	end
