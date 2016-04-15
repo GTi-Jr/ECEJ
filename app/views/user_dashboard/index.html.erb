@@ -1,117 +1,157 @@
-  <!-- profile-page-header -->
-  <div id="profile-page-header" class="card">
-    <div class="card-image waves-effect waves-block waves-light">
-      <%= image_tag 'capa.jpg', class: 'activator', alt: 'user background' %>
-      <!-- <img class="activator" src="images/user-profile-bg.png" alt="user background"> -->
+<!-- profile-page-header -->
+<div id="profile-page-header" class="card">
+  <div class="card-image waves-effect waves-block waves-light">
+    <%= image_tag 'capa.jpg', class: 'activator', alt: 'user background' %>
+  </div>
+  <div class="row">
+    <div class="col s3 offset-s2">
+      <figure class="card-profile-image">
+        <%= image_tag(@user.avatar_url(:medium), class:'circle responsive-img valign profile-image') if @user.avatar? %>
+        <%= image_tag('jack-avatar.jpg', class:'circle responsive-img valign profile-image') if !@user.avatar? %>
+      </figure>
+      <h4 class="card-title grey-text text-darken-4"><%= @user.name %></h4>
+      <p class="medium grey-text"><%= @user.junior_enterprise %>  <%= @user.federation %></p>
     </div>
-    <div class="row">
-      <div class="col s3 offset-s2">
-        <figure class="card-profile-image">
-          <%= image_tag(@user.avatar_url(:medium), class:'circle responsive-img valign profile-image') if @user.avatar? %>
-        </figure>
-        <h4 class="card-title grey-text text-darken-4"><%= @user.name %></h4>
-        <p class="medium-small grey-text"><%= @user.junior_enterprise %> - <%= @user.federation %></p>
+  </div>
+</div>
+<!--/ profile-page-header -->
+<!-- profile-page-content -->
+<div id="profile-page-content" class="row">
+  <!-- profile-page-sidebar-->
+  <div id="profile-page-sidebar" class="col s12 m12 l4">
+    <!-- Profile About Details  -->
+    <ul id="profile-page-about-details" class="collection z-depth-1">
+      <li class="collection-item">
+        <div class="row">
+          <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Cargo</div>
+          <div class="col s7 grey-text text-darken-4 right-align"><%= @user.job %></div>
+        </div>
+      </li>
+      <li class="collection-item">
+        <div class="row">
+          <div class="col s5 grey-text darken-1"><i class="mdi-maps-hotel"></i> Quarto</div>
+          <% if @user.room.nil? %>
+            <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
+          <% else %>
+            <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+    <!--/ Profile About Details  -->
+  </div>
+
+  <!-- profile-page-sidebar-->
+  <div id="profile-page-wall" class="col s12 m12 l8">
+    <!-- profile-page-wall-share -->
+    <div id="profile-page-wall-share" class="row">
+      <div class="col s12">
+        <% if @user.payment.nil? %>
+          <div id="card-alert" class="card pink lighten-5">
+          
+          <%= link_to payment_path do %>
+            <div class="card-content pink-text darken-1">
+              <span class="card-title pink-text darken-1">
+                <i class="mdi-action-info-outline"></i>
+                Você ainda não efetuou o pagamento
+              </span>
+              <p> Clique aqui e efetue o pagamento para garantir sua vaga</p>
+            </div>
+          <% end %>
+          </div>
+        <% elsif !@user.payment.nil? && !@user.payment.paid? %>
+          <div id="card-alert" class="card light-blue darken-2">
+            <div class="card-content white-text">
+              <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
+              <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
+              <% if @user.payment.method == "Boleto" %>
+                <br>
+                Parcelas pagas:
+                <% if @user.payment.portion_paid == 0 %>
+                  <strong>nenhuma parcela paga</strong>
+                <% else %>
+                  <strong><%= "#{@user.payment.portion_paid}/#{@user.payment.portions}"  %></strong>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% elsif !@payment.nil? && @payment.paid? %>
+          <div id="card-alert" class="card light-blue darken-2">
+            <div class="card-content white-text">
+              <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
+              <p>Pago</p>
+            </div>
+          </div>
+        <% end %>
+
+        <% if !@payment.nil? %>
+          <% if @payment.method == "Boleto" %>
+            <% count = 0 %>
+            <% @billets_links.each do |link|%>
+              <% if count == 0  %>
+                  <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
+                  <br><br>
+              <% elsif @today > @deadlines[count-1] %>
+                <%= link_to "Parcela #{count+1}", link , class: 'waves-effect waves-light btn light-blue darken-2' %>
+                <br><br>
+              <% else %>
+                <%= link_to "Parcela #{count+1} disponível apenas em #{@deadlines[count].strftime("%d/%m/%Y")}", '#', class: 'waves-effect waves-light btn light-red darken-2' %>
+                <br><br>
+              <% end %>
+              <% count += 1 %>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
-    <!--/ profile-page-header -->
 
-    <!-- profile-page-content -->
-    <div id="profile-page-content" class="row">
-      <!-- profile-page-sidebar-->
-      <div id="profile-page-sidebar" class="col s12 m4">
+  <div class="divider"></div>
 
-        <!-- Profile About Details  -->
-        <ul id="profile-page-about-details" class="collection z-depth-1">
-          <li class="collection-item">
-            <div class="row">
-              <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Cargo</div>
-              <div class="col s7 grey-text text-darken-4 right-align"><%= @user.job %></div>
-            </div>
-          </li>
-          <li class="collection-item">
-            <div class="row">
-              <div class="col s5 grey-text darken-1"><i class="mdi-maps-hotel"></i> Quarto</div>
-              <% if @user.room.nil? %>
-                <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
-              <% else %>
-                <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
-              <% end %>
-              
-            </div>
-          </li>
-          <li class="divider"></li>
-          <li class="divider"></li>
-          <li class="divider"></li>
-        </ul>
-        <!--/ Profile About Details  -->
-      </div>
-
-      <!-- profile-page-sidebar-->
-      <div id="profile-page-wall" class="col s12 m8">
-        <!-- profile-page-wall-share -->
-        <div id="profile-page-wall-share" class="row">
-          <div class="col s12">
-            <% if @user.payment.nil? %>
-              <div id="card-alert" class="card pink lighten-5">
-                <%= link_to payment_path do %>
-                  <div class="card-content pink-text darken-1">
-                    <span class="card-title pink-text darken-1">
-                      <i class="mdi-action-info-outline"></i>
-                      Você ainda não efetuou o pagamento
-                    </span>
-                      <p> Clique aqui e efetue o pagamento para garantir sua vaga</p>
-                  </div>
-                <% end %>
-              </div>
-            <% elsif !@user.payment.nil? && !@user.payment.paid? %>
-              <div id="card-alert" class="card light-blue darken-2">
-                <div class="card-content white-text">
-                  <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
-                  <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
-                  <% if @user.payment.method == "Boleto" %>
-                    <br>
-                    Parcelas pagas:
-                    <% if @user.payment.portion_paid == 0 %>
-                      <strong>nenhuma parcela paga</strong>
-                    <% else %>
-                      <strong><%= "#{@user.payment.portion_paid}/#{@user.payment.portions}"  %></strong>
-                    <% end %>
-
-                  <% end %>
-                </div>
-              </div>
-            <% elsif !@payment.nil? && @payment.paid? %>
-              <div id="card-alert" class="card light-blue darken-2">
-                <div class="card-content white-text">
-                  <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
-                  <p>Pago</p>
-                </div>
-              </div>
-            <% end %>
-            <% if !@payment.nil? %>
-              <% if @payment.method == "Boleto" %>
-                <% count = 0 %>
-                <% @billets_links.each do |link|%>
-                  <% if count == 0  %>
-                    <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
-                    <br><br>
-                  <% elsif @today > @deadlines[count-1] %>
-                    <%= link_to "Parcela #{count+1}", link , class: 'waves-effect waves-light btn light-blue darken-2' %>
-                    <br><br>
-                  <% else %>
-                    <%= link_to "Parcela #{count+1} disponível apenas em #{@deadlines[count].strftime("%d/%m/%Y")}", '#', class: 'waves-effect waves-light btn light-red darken-2' %>
-                    <br><br>
-                  <% end %>
-                  <% count += 1 %>
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      
-      <!-- end of .row -->
+  <div class="col s12 m12 l12">
+    <div class="col s12 center-align">
+      <h3>Minha programação</h3>
     </div>
+    <% if !@events_days.empty? %>
+    <div id="work-collections">
+      <div class="row">
+        <% @events_days.each_with_index do |day, index| %>
+        <div class="col s12 m6 l3">
+          <ul id="projects-collection" class="collection">
+            <li class="collection-item avatar">
+              <i class="mdi-action-view-list circle light-blue darken-2"></i>
+              <span class="collection-header"><%= day[:date].strftime('%d/%m/%y') %></span>
+              <p>Meus eventos</p>
+              <a href="#" class="secondary-content"><i class="fa fa-clock-o"></i></a>
+            </li>
+            <% day[:events].each do |event| %>
+            <li class="collection-item dismissable">
+              <div class="row">
+                <div class="col s6">
+                  <p class="collections-title"><%= event.name %></p>
+                  <p class="collections-content"><strong><%= event.facilitator %></strong></p>
+                </div>
+                <div class="col s4">
+                  <span class="task-cat cyan"><%= event.start.strftime('%H:%M') %></span>
+                </div>
+                <div class="col s2">
+                  <%= link_to exit_event_path(event),method: :patch do %>
+                    <i class="fa fa-trash-o tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+    <div class="col s12 center-align">
+      <h6 class="red-text darken-1">Você nao se inscreveu em nenhuma programação.</h6>
+    </div>
+    <% end %>
+    <!-- end of .row -->
+  </div>
 </div>

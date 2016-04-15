@@ -14,12 +14,17 @@
  *= require checkout.css
  *= require hotels.scss
  *= require rooms.scss
+ *= require events.scss
  */
  @import "materialize";
  @import "style";
  @import "plugins/perfect-scrollbar/perfect-scrollbar.css";
  @import "plugins/prism/prism.css";
  @import "dropify.min.css";
+ @import "plugins/fullcalendar.min.css";
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+ //@import "plugins/fullcalendar.print.css";
  body {
     display: flex;
     min-height: 100vh;

@@ -37,4 +37,14 @@ RSpec.describe Hotel, type: :model do
 
 		expect(hotel.number_of_people).to eq(4)
 	end
+
+	it "should create many rooms" do
+		hotel = FactoryGirl.create :hotel
+		range = '1'..'3'
+
+
+		hotel.create_rooms(range: range, capacity: '5')
+
+		expect(hotel.rooms).to eq(Room.find(range.to_a))
+	end
 end
