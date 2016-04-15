@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329055407) do
+ActiveRecord::Schema.define(version: 20160414223529) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -38,13 +38,15 @@ ActiveRecord::Schema.define(version: 20160329055407) do
   add_index "crew_admins", ["reset_password_token"], name: "index_crew_admins_on_reset_password_token", unique: true
 
   create_table "events", force: :cascade do |t|
-    t.string   "name",        default: ""
-    t.string   "facilitator", default: ""
-    t.integer  "limit",       default: 1
+    t.string   "name",              default: ""
+    t.string   "facilitator",       default: ""
+    t.integer  "limit",             default: 1
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.text     "description",       default: ""
+    t.string   "facilitator_image"
   end
 
   create_table "hotels", force: :cascade do |t|

@@ -1,6 +1,8 @@
 class Crew::ExcelController < ApplicationController
   before_action :authenticate_crew_admin!
 
+  layout 'admin_layout'
+
   def users
     @users = User.all.order(:name)
 
