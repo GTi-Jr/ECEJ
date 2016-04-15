@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
   has_many :subscriptions
   has_many :users, through: :subscriptions
 
+  mount_uploader :facilitator_image, AvatarUploader
+
   @@hours = 0..23
 
   # Returns all past events
