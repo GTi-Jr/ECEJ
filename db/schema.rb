@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160414223529) do
     t.datetime "end"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.text     "description"
+    t.text     "description",       default: ""
     t.string   "facilitator_image"
   end
 
