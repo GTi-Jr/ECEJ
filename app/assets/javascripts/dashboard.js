@@ -24,6 +24,7 @@
 //= require plugins/fullcalendar/js/fullcalendar.min.js
 //= require plugins/fullcalendar/lang/pt-br.js
 //= require dropify.min.js
+//= require masonry.pkgd.min.js
 //= require after_registration.js
 //= require user_dashboard.js
 //= require events.js

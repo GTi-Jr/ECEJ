@@ -11,6 +11,7 @@ class EventsController < ApplicationController
 	def index
 		@events = Event.order(:start)
 		@days = Event.days
+		@days_hours = Event.hours
 		@now = DateTime.now
 	end
 

@@ -1,85 +1,63 @@
   <div class="row">
-    <div class="col s12 m12 l12">
-      <div class="row">
-        <div class="col s12">
-          <div id="day1" style="display:none;">
-            <table class="responsive-table">
-              <tbody>
-                <tr>
-                  <td>Alvin</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="day2" style="display:none;">
-            <table class="responsive-table">
-              <tbody>
-                <tr>
-                  <td>Day 2</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="day3" style="display:none;">
-            <table class="responsive-table">
-              <tbody>
-                <tr>
-                  <td>Day 3</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="container">
+        <% @days.each_with_index do |day, index| %>
+          <div class="custom_tab" id='<%= "day#{index}" %>' style="display:none;">
+            <% @days_hours.each_with_index do |day_hours, index| %>
+              <% if day_hours[:date] == day[:date].strftime('%d/%m')%>
+              <div class="col s6 m4 l3">
+                <div class="section">
+                  <% day_hours[:hours].each do |hour| %>
+                    <h4 style="height:136px;"><%= hour %></h4>
+                  <% end %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+            <div class="col s8 m8 l9">
+            <% day[:events].each_with_index do |event, i| %>
+              <div class="row" style="line-height: <%= 48*event.occurring_hours.first[:hours].count%>px;">
+              <% if next_event = day[:events][i+1] %>
+                <% if event.start == next_event.start %>
+                  <div class="col s6 card-panel center-align" style="position: relative; padding: 20px !important;">
+                    <span><%= event.name %></span>
+                    <a style="position: absolute; bottom: 10px; right: 10px;" class="btn-floating waves-effect waves-light "><i class="mdi-content-add"></i></a>
+                  </div>
+                  <div class="col s6 card-panel center-align" style="padding: 20px !important;">
+                    <span><%= next_event.name %> - <%= next_event.start %></span>
+                  </div>
+                <% else %>
+                  <div class="card-panel center-align" style="padding: 0px !important;">
+                    <span><%= event.name %> - <%= event.start %></span>
+                  </div>
+                <% end %>
+              <% else %>
+                  <div class="card-panel center-align" style="padding: 0px !important;">
+                    <span><%= event.name %> - <%= event.start %></span>
+                  </div>
+              <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
-        <div class="col s12">
-          <div class="center-align row">
-            <a class="btn-floating btn-large" onclick="showDiv('day1')">1</a>
-            <a class="btn-floating btn-large" onclick="showDiv('day2')">2</a>
-            <a class="btn-floating btn-large" onclick="showDiv('day3')">3</a>
-            <a class="btn-floating btn-large" onclick="showDiv('day4')">4</a>
-          </div>
+        <% end %>
         </div>
-      </div>
+  </div>
+  <div class="col s12">
+    <div class="center-align row">
+      <% @days.each_with_index do |day, index| %>
+        <a class="btn-floating btn-large blue-grey" onclick="showDiv('<%= "day#{index}" %>')"> <%= day[:date].strftime('%d/%m') %></a>
+      <% end %>
     </div>
   </div>
 
 <script type="text/javascript">
+  document.getElementsByClassName("custom_tab")[0].style.display = 'block';
+
   function showDiv(toggle){
+    var tabs = document.getElementsByClassName("custom_tab");
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].style.display = 'none'
+    }
     document.getElementById(toggle).style.display = 'block';
   }
 </script>

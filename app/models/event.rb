@@ -53,6 +53,34 @@ class Event < ActiveRecord::Base
     days.sort_by { |day| day[:date] }
   end
 
+  def self.hours
+    days  = []
+    dates = []
+    day_hours = []
+
+    Event.all.each do |event|
+      date = event.start.to_date
+
+      unless date.in? dates
+        days << { date: date, events: self.select { |event| event.start.to_date == date }.sort_by { |event| event.start } }
+      end
+
+      dates << date
+    end
+
+
+    days.each do |day|
+      hours = []
+      day[:events].each do |event|
+        hours << event.start.strftime('%H:%M')
+        hours = hours.uniq
+      end
+      day_hours << {date: day[:date].strftime('%d/%m'), hours: hours}
+    end
+
+    day_hours
+  end
+
   # Returns all days that the event is inserted
   def occurring_days
     @days ||= (start.to_date)..(self.end.to_date)
