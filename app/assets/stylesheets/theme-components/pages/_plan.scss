@@ -5,23 +5,23 @@
 	.collection {
 		border: none;
 		.collection-item {
-			border-bottom: none;
+			border-bottom: 2px solid #e0e0e0;
 			text-align: center;
 			font-size: 1.07rem;
 			line-height: 1.6em;
-			&:before {
-				font-size: 1.28rem;
-				line-height: 1.6em;
-				color: $color_forest_green_approx;
-				speak: none;
-				font-style: normal;
-				font-weight: normal;
-				font-variant: normal;
-				text-transform: none;
-				-webkit-font-smoothing: antialiased;
-				content: "\e623";
-				margin-right: 10px;
-			}
+			// &:before {
+			// 	font-size: 1.28rem;
+			// 	line-height: 1.6em;
+			// 	color: $color_forest_green_approx;
+			// 	speak: none;
+			// 	font-style: normal;
+			// 	font-weight: normal;
+			// 	font-variant: normal;
+			// 	text-transform: none;
+			// 	-webkit-font-smoothing: antialiased;
+			// 	content: "\e623";
+			// 	margin-right: 10px;
+			// }
 		}
 	}
 	.card {

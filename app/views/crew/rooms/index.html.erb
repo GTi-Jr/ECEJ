@@ -28,13 +28,13 @@
             <% @rooms.each do |room| %>
               <tr>
                 <td><%= room.hotel %></td>
-                <td><%= room.name %></td>
                 <td><%= room.number %></td>
-                <td><%= room.capacity %></td>
+                <td><%= room.name %></td>
+                <td><%= "#{room.users.count} / #{room.capacity}" %></td>
                 <td>
                   <%= link_to "Editar", edit_crew_room_path(room) %>
                   |
-                  <%= link_to "Excluir", crew_room_path(room), method: :delete, data: { confirm: "Deseja realmente apagar o quarto #{room.number} do #{room.hotel}" } %>
+                  <%= link_to "Excluir", crew_room_path(room), method: :delete, data: { confirm: "Caso hajam pessoas dentro do quarto, ao excluí-lo, essas pessoas ficarão sem acomodações. Deseja realmente apagar o quarto #{ room.number } do #{ room.hotel }" } %>
                 </td>
               </tr>
             <% end %>
