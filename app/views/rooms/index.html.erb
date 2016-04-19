@@ -46,7 +46,7 @@
                 </div>  
               </div>
             </div>
-            <div class="card-action" style="text-align: right;">
+            <div class="card-action tooltipped" style="text-align: right;" data-position="bottom" data-tooltip="<%= room.extra_info %>">
               <% if current_user.room == room %>
                 <%= link_to "Sair", exit_room_path(@hotel.id), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
               <% else %>
