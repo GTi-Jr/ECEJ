@@ -81,3 +81,8 @@ ul li#profile-name {
    color: $primary-color;
    font: 14px;
 }
+
+#card-widgets div > div > a > div > img {
+  max-height: 100%;
+  max-width: 100%;
+}
