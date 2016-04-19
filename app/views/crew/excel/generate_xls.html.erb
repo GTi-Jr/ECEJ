@@ -6,10 +6,13 @@
 	</thead>
 
 	<tbody>
+
 		<% @users.each do |user| %>
-			<% @columns.each do |column| %>
-				<td><%= user.send(column.to_symbol) %></td>
-			<% end %>
+			<tr>
+				<% @columns.each do |column| %>
+					<td><%= user.send(column.to_symbol) %></td>
+				<% end %>
+			</tr>
 		<% end %>
 	</tbody>
 </table>

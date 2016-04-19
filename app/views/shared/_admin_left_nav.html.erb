@@ -103,12 +103,19 @@
             <ul>
               <li><%= link_to 'Cadastrar', new_crew_room_path %>
               </li>
+              <li><%= link_to 'Cadastrar vários', crew_new_rooms_path %>
+              </li>
               <li><%= link_to 'Lista', crew_rooms_path %>
               </li>
             </ul>
           </div>
         </li>
       </ul>
+    </li>
+    <li class="bold">
+      <%= link_to crew_excel_handler_path, class: 'waves-effect waves-cyan' do %>
+        <i class="mdi-action-dashboard"></i> Planilhas (beta)
+      <% end %>
     </li>
   </ul>
   <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
