@@ -67,8 +67,8 @@ gem 'font-awesome-sass'
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
-gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
-gem 'bcrypt'
+# gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
+# gem 'bcrypt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

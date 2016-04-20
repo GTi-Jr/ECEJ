@@ -47,7 +47,6 @@ GEM
     ast (2.2.0)
     bcrypt (3.1.10)
     bcrypt (3.1.10-x64-mingw32)
-    bcrypt-ruby (3.0.1)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -378,8 +377,6 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake (~> 5.2)
-  bcrypt
-  bcrypt-ruby (~> 3.0.0)
   better_errors
   brazilian-rails
   browser
