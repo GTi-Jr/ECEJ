@@ -43,17 +43,21 @@
                       <%= room.name %>
                     </a>
                   </p>
-                </div>  
+                </div>
               </div>
             </div>
             <div class="card-action <%= 'tooltipped' unless room.extra_info.empty? %>" style="text-align: right;" data-position="bottom" data-tooltip="<%= room.extra_info %>">
               <% if current_user.room == room %>
                 <%= link_to "Sair", exit_room_path(@hotel.id), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
               <% else %>
-                <% if current_user.room.nil? %>
-                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch %>
+                <% if room.full? %>
+                  <a class="btn waves-effect waves-light"> Fechado</a>
                 <% else %>
-                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } %>
+                  <% if current_user.room.nil? %>
+                    <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch %>
+                  <% else %>
+                    <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } %>
+                  <% end %>
                 <% end %>
               <% end %>
             </div>
