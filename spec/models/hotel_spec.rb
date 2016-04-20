@@ -21,7 +21,7 @@ RSpec.describe Hotel, type: :model do
 		user_3 = FactoryGirl.create(:user, room: room_2)
 		user_4 = FactoryGirl.create(:user, room: room_2)
 
-		expect(hotel.people).to eq([user_1, user_2, user_3, user_4])
+		expect(hotel.users).to eq([user_1, user_2, user_3, user_4])
 	end
 
 	it "Hotel people number must be the sum of its rooms' people number" do
@@ -36,5 +36,15 @@ RSpec.describe Hotel, type: :model do
 		user_4 = FactoryGirl.create(:user, room: room_2)
 
 		expect(hotel.number_of_people).to eq(4)
+	end
+
+	it "should create many rooms" do
+		hotel = FactoryGirl.create :hotel
+		range = '1'..'3'
+
+
+		hotel.create_rooms(range: range, capacity: '5')
+
+		expect(hotel.rooms).to eq(Room.find(range.to_a))
 	end
 end

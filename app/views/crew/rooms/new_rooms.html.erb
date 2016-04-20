@@ -1,0 +1,46 @@
+<div id="" class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    <%= form_tag crew_create_rooms_path do |f| %>
+      <div class="row">
+        <div class="input-field col s12 center">
+          <p class="center login-form-text">Cadastro de vários quartos</p>
+        </div>
+      </div>
+      
+      <div class="row margin">
+        <div class="col s12 m6 l3">
+          <%= label_tag :hotel, "Hotel", class: "center-align" %>
+          <%= select_tag :hotel, options_for_select(@hotels, @hotels.first) %>
+        </div>
+
+        <div class="col s12 m6 l3">
+          <%= label_tag :down_range, "Limite inferior dos números", class: "center-align" %>
+          <%= number_field_tag :down_range, 1, id: 'down_range' %>
+        </div>
+
+        <div class="col s12 m6 l3">
+          <%= label_tag :upper_range, "Limite superior dos números", class: "center-align" %>
+          <%= number_field_tag :upper_range, 2, id: 'upper_range' %>
+        </div>
+
+        <div class="col s12 m6 l3">
+          <%= label_tag :capacity, "Capacidade", class: "center-align" %>
+          <%= number_field_tag :capacity, 4, id: 'capacity' %>
+        </div>
+
+        <div class="col s12 ">
+          <%= label_tag :extra_info, "Informação adicional", class: "center-align" %>
+          <%= text_area_tag :extra_info, "Informação adicional", id: 'extra_info' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= submit_tag "Cadastrar", class: 'btn waves-light light-blue darken-1 col s12' %>
+        </div>
+      </div>
+    <% end %>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+  </div>
+</div>

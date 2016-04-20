@@ -33,13 +33,17 @@ Rails.application.routes.draw do
       end
     end
 
-    get 'payments' => 'payments#index'
+    # Admin rooms routes
+    get 'room/new_rooms' => 'rooms#new_rooms', as: :new_rooms
+    post 'rooms/create_rooms' => 'rooms#create_rooms', as: :create_rooms
 
     # PDF
     get '/pdf/users' => 'pdfs#users', as: :download_users_pdf
     get '/pdf/event/:id' => 'pdfs#event_users', as: :download_event_users_pdf
 
     # Excel
+    get 'excel' => 'excel#excel_handler', as: :excel_handler
+    get 'excel/generate_xls' => 'excel#generate_xls', as: :generate_xls, format: :xls
     get 'excel/users' => 'excel#users', as: :download_users_excel
     get 'excel/event/users/:id' => 'excel#event_users', as: :download_event_users_excel
     get 'excel/lot/users/:id' => 'excel#lot_users', as: :download_lot_users_excel
@@ -49,15 +53,19 @@ Rails.application.routes.draw do
     get 'excel/users/federation' => 'excel#users_federation', as: :download_users_federation
     get 'excel/current_payments' => 'excel#current_payments', as: :download_current_payments_excel
     get 'excel/users/last_x_days' => 'excel#last_x_days_users', as: :download_last_x_days_users
+    get 'excel/users/transport_required' => 'excel#required_transportation_users', as: :download_transport_required_users
+    get 'excel/users/paid_and_transport' => 'excel#paid_and_transport', as: :download_paid_and_transport
 
-    # Admin methods
+    # Admin user routes
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
+    patch 'move_user_to_lot/:user_id/:lot_id' => 'admins_methods#move_user_to_lot', as: :move_user_to_lot
+
+    # Admin payment routes
+    get 'payments' => 'payments#index'
     patch 'change_payment_method/:id/:method/:portions' => 'admins_methods#change_payment_method', as: :change_payment_method
     patch 'change_payment_status/:id/:status' => 'admins_methods#change_payment_status', as: :change_payment_status
     patch 'set_billet_portion_paid/:id/:portion_paid' => 'admins_methods#billet_portion_paid', as: :set_billet_portion_paid
-    patch 'move_user_to_lot/:user_id/:lot_id' => 'admins_methods#move_user_to_lot', as: :move_user_to_lot
-
   end
 
   #routes for :users
@@ -112,16 +120,16 @@ Rails.application.routes.draw do
   # Set payment manually
   patch '/user_payment/:id/:payment_status' => 'crew/payments#set_user_payment', as: :set_user_payment
 
-  # # Hotels
-  # get 'hotels' => 'hotels#index', as: :hotels
+  # Hotels
+  get 'hotels' => 'hotels#index', as: :hotels
 
-  # # Rooms routes
-  # get 'hotels/:hotel_id/rooms' => 'rooms#index', as: :rooms
-  # patch 'hotels/:hotel_id/rooms/:id/insert_current_user' => 'rooms#insert_user_into_room', as: :insert_user_into_room
-  # patch 'hotels/:hotel_id/rooms/exit' => 'rooms#exit_room', as: :exit_room
-  #
-  # # Events routes
-  # get 'events' => 'events#index', as: :events
-  # patch 'events/:id/enter' => 'events#enter_event', as: :enter_event
-  # patch 'events/:id/exit' => 'events#exit_event', as: :exit_event
+  # Rooms routes
+  get 'hotels/:hotel_id/rooms' => 'rooms#index', as: :rooms
+  patch 'hotels/:hotel_id/rooms/:id/insert_current_user' => 'rooms#insert_current_user_into_room', as: :insert_current_user_into_room
+  patch 'hotels/:hotel_id/rooms/exit' => 'rooms#exit_room', as: :exit_room
+
+  # Events routes
+  get 'events' => 'events#index', as: :events
+  patch 'events/:id/enter' => 'events#enter_event', as: :enter_event
+  patch 'events/:id/exit' => 'events#exit_event', as: :exit_event
 end

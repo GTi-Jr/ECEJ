@@ -3,35 +3,44 @@ class Crew::RoomsController < ApplicationController
 
   before_action :authenticate_crew_admin!
   before_action :set_room, only: [:edit, :update, :destroy]
+  before_action :set_hotel_names, only: [:new, :edit, :new_rooms]
 
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.includes(:hotel, :users).order('hotels.name ASC, number')
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @rooms }
+    end
   end
 
   # GET /rooms/new
   def new
     @room = Room.new
-    @hotels = Hotel.all
   end
 
   # GET /rooms/1/edit
   def edit
-    @hotels = Hotel.all
   end
 
   # POST /rooms
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
-
+    @room.hotel = Hotel.find_by_name(params[:room][:hotel])
+    
     respond_to do |format|
       if @room.save
         format.html { redirect_to crew_rooms_path, notice: 'Quarto foi criado com sucesso.' }
         format.json { render :edit, status: :created, location: @room }
       else
-        format.html { render :new }
+        format.html do
+          set_hotel_names
+          render :new  
+        end 
+
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
@@ -42,7 +51,7 @@ class Crew::RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to edit_crew_room_path(@room), notice: 'Quarto atualizado com sucesso.' }
+        format.html { redirect_to crew_rooms_path, notice: 'Quarto atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit }
@@ -61,6 +70,24 @@ class Crew::RoomsController < ApplicationController
     end
   end
 
+  # GET /rooms/new_rooms
+  def new_rooms    
+  end
+
+  # POST /rooms/create_rooms
+  def create_rooms
+    hotel       = Hotel.find_by_name(params[:hotel])
+    upper_range = params[:upper_range]
+    down_range  = params[:down_range]
+
+    range = down_range..upper_range
+
+    hotel.create_rooms( { range: range, capacity: params[:capacity],
+                          extra_info: params[:extra_info]} )
+
+    redirect_to crew_rooms_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
@@ -69,6 +96,14 @@ class Crew::RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:hotel, :number, :capacity, :extra_info)
+      params.require(:room).permit(:number, :capacity, :extra_info)
+    end
+
+    def set_hotel_names
+      @hotels = []
+
+      Hotel.order(:name).each do |hotel|
+        @hotels << hotel.name
+      end
     end
 end

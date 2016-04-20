@@ -7,7 +7,7 @@ class Crew::HotelsController < ApplicationController
 	# GET
 	# Indexes all hotels
 	def index
-		@hotels = Hotel.all
+		@hotels = Hotel.order(:name)
 	end
 
 	# GET
@@ -60,7 +60,7 @@ class Crew::HotelsController < ApplicationController
 	private
 		# Strong params
 		def hotel_params
-			params.require(:hotel).permit(:name, :extra_info)
+			params.require(:hotel).permit(:name, :extra_info, :image, :room_image)
 		end
 
 		def load_hotel

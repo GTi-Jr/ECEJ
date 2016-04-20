@@ -34,5 +34,6 @@ module Ecej2016
 
     # Use this to join those files to the project
     Dir[File.join(Rails.root, "lib", "core_ext", "*.rb")].each {|l| require l }
+    Dir[File.join(Rails.root, "lib", "classes",  "*.rb")].each {|l| require l }
   end
 end

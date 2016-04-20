@@ -111,4 +111,22 @@ namespace :user do
     end
     puts "EMAILS SENT: #{counter}"
   end
+
+  task remember_payment_5: :environment do
+    counter = 0
+    User.all.each do |user|
+      UsersLotMailer.remember_payment_5(user).deliver_now
+      counter += 1
+    end
+    puts "EMAILS SENT: #{counter}"
+  end
+
+  task calma_navegantes: :environment do
+    counter = 0
+    User.all.each do |user|
+      UsersLotMailer.calma_navegantes(user).deliver_now
+      counter += 1
+    end
+    puts "EMAILS SENT: #{counter}"
+  end
 end

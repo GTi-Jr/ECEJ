@@ -1,0 +1,43 @@
+<div>
+  <h4 class="header">Usuários</h4>
+  <div class="row">
+    <div class="col s12 m8 l9">
+      <table id="hotels_table" class="responsive-table display highlight" cellspacing="0" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Informação adicional</th>
+              <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+              <th>Nome</th>
+              <th>Informação adicional</th>
+              <th>Ações</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
+          <% if !@hotels.nil? %>
+            <% @hotels.each do |hotel| %>
+              <tr>
+                <td><%= hotel.name %></td>
+                <td><%= hotel.extra_info %></td>
+                <td>
+                  <%= link_to "Editar", edit_crew_hotel_path(hotel) %>
+                  |
+                  <%= link_to "Excluir", crew_hotel_path(hotel), method: :delete, data: { confirm: "Ao excluir esse hotel todos os QUARTOS associados a ele serão APAGADOS e os usuários que neles estiverem perderão suas acomodações." } %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+$('#hotels_table').DataTable();
+</script>
