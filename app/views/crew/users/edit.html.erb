@@ -31,6 +31,12 @@
         <div class="input-field col s12">
           <div class="col s12 center-align">
             <% if !@payment.nil? %>
+              <%= @payment.method %>:
+              <% if @payment.boleto? %>
+                <%= "#{@payment.portion_paid} / #{@payment.portions}" %>
+              <% else %>
+                <%= @payment.paid? ? 'Pago' : 'Não pago' %>
+              <% end %>
               <a href="javascript:void(0);" class="dropdown-button btn waves-effect waves-light active" data-activates="actions1-dropdown">Pagamento
                 <i class="mdi-navigation-arrow-drop-down right"></i>
               </a>

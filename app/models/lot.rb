@@ -60,11 +60,13 @@ class Lot < ActiveRecord::Base
 
   def dates_cant_overlap
     Lot.all.each do |lot|
-      if start_date > lot.start_date && start_date < lot.end_date
-        errors.add(:start_date, "está entre as datas do lote nº #{lot.number}")
-      end
-      if end_date > lot.start_date && end_date < lot.end_date
-        errors.add(:end_date, "está entre as datas do lote nº #{lot.number}")
+      unless lot == self
+        if start_date > lot.start_date && start_date < lot.end_date
+          errors.add(:start_date, "está entre as datas do lote nº #{lot.number}")
+        end
+        if end_date > lot.start_date && end_date < lot.end_date
+          errors.add(:end_date, "está entre as datas do lote nº #{lot.number}")
+        end
       end
     end
   end
