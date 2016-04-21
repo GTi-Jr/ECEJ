@@ -1,25 +1,36 @@
+<div class="col s2">
+  <%= link_to hotels_path, class:"btn-floating btn-large waves-effect waves-light blue-grey" do %>
+    <i class="mdi-hardware-keyboard-backspace" data-position="bottom" data-tooltip="Voltar">
+    </i>
+  <% end %>
+</div>
+<div class="col s10 center-align">
+      <h3>Quartos em <%= @hotel.name %></h3>
+</div>
+<div class="divider"></div>
 <div id="card-widgets">
   <div class="row">
-    <% @rooms_with_users.each do |room| %>
+    <% @rooms.each do |room| %>
       <div class="col s6 m6 l4">
         <div class="product-card">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  pink accent-2"><%= room[:room].number %></a>
-              <!-- <img src="/images/gallary/33.jpg" alt="product-img"> -->
+              <!-- blue-grey base -->
+              <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light blue-grey base">nº <%= room.number %></a>
               <%= image_tag @room_image_url %>
             </div>
             <ul class="card-action-buttons">
-              <% room[:users].each do |user| %>
+              <% room.users.each do |user| %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light red accent-4 tooltipped" data-position="bottom" data-tooltip="<%= user.two_names %>">
-                    <i class="mdi-social-person-outline"></i>
+                  <a class="btn-floating tooltipped" data-position="bottom" data-tooltip="<%= "#{user.two_names} | #{user.junior_enterprise}" %>">
+                    <%= image_tag(user.avatar_url(:thumb), class:'circle responsive-img valign', width:'250') if user.avatar? %>
+                    <%= image_tag('jack-avatar.jpg', class:'circle responsive-img', width:'250') if !user.avatar? %>
                   </a>
                 </li>
               <% end %>
-              <% for i in 1..(room[:room].capacity - room[:users].count) %>
+              <% for i in 1..(room.capacity - room.users.count) %>
                 <li>
-                  <a class="btn-floating waves-effect waves-light green accent-4"></a>
+                  <a class="btn-floating waves-effect waves-light green accent-4 tooltipped" data-position="bottom" data-tooltip="Vazio"></a>
                 </li>
               <% end %>
             </ul>
@@ -29,28 +40,30 @@
                 <div class="col s8">
                   <p class="card-title grey-text text-darken-4">
                     <a href="#" class="grey-text text-darken-4">
-                      <%= room[:room].name %>
+                      <%= room.name %>
                     </a>
                   </p>
-                </div>
-                <div class="col s4 no-padding">
-                  <a href=""></a><img src="/images/amazon.jpg" alt="amazon" class="responsive-img">
-                </div>
+                </div>  
               </div>
             </div>
-            <div class="card-action">
-              <% if current_user.room == room[:room] %>
-                <%= link_to "Sair", exit_room_path(@hotel_id), method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
+            <div class="card-action" style="text-align: right;">
+              <% if current_user.room == room %>
+                <%= link_to "Sair", exit_room_path(@hotel.id), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } %>
               <% else %>
                 <% if current_user.room.nil? %>
-                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel_id, room[:room]), method: :patch %>
+                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch %>
                 <% else %>
-                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel_id, room[:room]), method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } %>
+                  <%= link_to "Entrar", insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light blue-grey", method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } %>
                 <% end %>
               <% end %>
             </div>
           </div>
         </div>
+      </div>
+    <% end %>
+    <% if @rooms.empty? %>
+      <div class="col s12 center-align">
+        <h6 class="red-text darken-1">Nenhum quarto cadastrado para esse hotel.</h6>
       </div>
     <% end %>
   </div>

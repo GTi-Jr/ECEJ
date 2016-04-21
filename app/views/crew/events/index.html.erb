@@ -26,18 +26,18 @@
         </tfoot>
 
         <tbody>
-          <% if !@rows.nil? %>
-            <% @rows.each do |row| %>
+          <% if !@events.nil? %>
+            <% @events.each do |event| %>
               <tr>
-                <td><%= row[:event].name %></td>
-                <td><%= row[:event].facilitator %></td>
-                <td><%= row[:event].start_time.strftime('%Y/%m/%d @ %H:%M') %></td>
-                <td><%= row[:event].end_time.strftime('%Y/%m/%d @ %H:%M') %></td>
-                <td><%= "#{row[:user_count]} / #{row[:event].limit}" %></td>
+                <td><%= event.name %></td>
+                <td><%= event.facilitator %></td>
+                <td><%= event.start.strftime('%Y/%m/%d @ %H:%M') %></td>
+                <td><%= event.end.strftime('%Y/%m/%d @ %H:%M') %></td>
+                <td><%= "#{event.users.count} / #{event.limit}" %></td>
                 <td>
-                  <%= link_to "Editar", edit_crew_event_path(row[:event]) %>
-                  <%= link_to "Excluir", crew_event_path(row[:event]), method: :delete, data: { confirm: "Deseja realmente excluir #{row[:event].name}"} %>
-                  <%= link_to "Planilha", crew_download_event_users_excel_path(row[:event], format: :xls) %>
+                  <%= link_to "Editar", edit_crew_event_path(event) %>
+                  <%= link_to "Excluir", crew_event_path(event), method: :delete, data: { confirm: "Deseja realmente excluir #{event.name}"} %>
+                  <%= link_to "Planilha", crew_download_event_users_excel_path(event, format: :xls) %>
                 </td>
               </tr>
             <% end %>

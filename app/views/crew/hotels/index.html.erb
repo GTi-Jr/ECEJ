@@ -28,7 +28,7 @@
                 <td>
                   <%= link_to "Editar", edit_crew_hotel_path(hotel) %>
                   |
-                  <%= link_to "Excluir", crew_hotels_path(hotel), method: :delete, data: { confirm: "Ao excluir esse hotel todos os QUARTOS associados a ele serão APAGADOS e os usuários que neles estiverem perderão suas acomodações." } %>
+                  <%= link_to "Excluir", crew_hotel_path(hotel), method: :delete, data: { confirm: "Ao excluir esse hotel todos os QUARTOS associados a ele serão APAGADOS e os usuários que neles estiverem perderão suas acomodações." } %>
                 </td>
               </tr>
             <% end %>

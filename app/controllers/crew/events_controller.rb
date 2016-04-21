@@ -4,17 +4,14 @@ class Crew::EventsController < ApplicationController
   layout 'admin_layout'
 
   def index
-    @rows = [] 
-    Event.order(:start_time).each do |event|
-      @rows << { event: event, user_count: event.users.count }
-    end
+    @events = Event.includes(:users).order(:start)
   end
 
   def new
     now = Time.now - Time.now.sec # Excluding the seconds so the time can be pretty
     @event = Event.new do |event|
-      event.start_time = now
-      event.end_time = now + 2.hours
+      event.start = now
+      event.end = now + 2.hours
     end
   end
 
@@ -49,7 +46,8 @@ class Crew::EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:name, :facilitator, :limit, :start_time, :end_time)
+      params.require(:event).permit(:name, :facilitator, :facilitator_image, 
+                                    :description, :limit, :start, :end)
     end
 
     def load_event
