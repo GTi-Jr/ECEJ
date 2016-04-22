@@ -18,7 +18,7 @@ class Crew::EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
 
-    if @event.save!
+    if @event.save
       redirect_to crew_events_path, notice: "Evento criado com sucesso."
     else
       render :new

@@ -11,13 +11,13 @@ class Room < ActiveRecord::Base
   # Insert user into room
   def insert_user(user)
   	user.room = self
-  	user.save!
+  	user.save
   end
 
   # Remove user from room
   def remove_user(user)
   	user.room = nil
-  	user.save!
+  	user.save
   end
 
   def full?
