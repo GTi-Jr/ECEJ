@@ -117,18 +117,23 @@ RSpec.describe Event, type: :model do
 
 		expect(event_2.occurring_hours).to eq([{ day: Date.today,             hours: (event_2.start.hour..23).to_a },
 																					 { day: Date.tomorrow,          hours: (0..23).to_a },
-																					 { day: Date.tomorrow.tomorrow, hours: (0..event_2.end.hour).to_a }
+																					 { day: Date.tomorrow.tomorrow, hours: (0..(event_2.end.hour)).to_a }
 																				  ])
-
-		expect(event_3.occurring_hours).to eq([{ day: Date.today,             hours: (event_3.start.hour..23).to_a },
-																					 { day: Date.tomorrow.tomorrow, hours: (0..event_3.end.hour).to_a}
-																				  ])
+		if Time.zone.now.hour < 19 #hours
+			expect(event_3.occurring_hours).to eq([{ day: Date.today,             hours: (event_3.start.hour..23).to_a },
+																						 { day: Date.tomorrow, hours: (0..(event_3.end.hour)).to_a}
+																					  ])
+		else
+			expect(event_3.occurring_hours).to eq([{ day: Date.today,             hours: (event_3.start.hour..23).to_a },
+																						 { day: Date.tomorrow.tomorrow, hours: (0..(event_3.end.hour)).to_a}
+																					  ])
+		end
 	end
 
 	it 'sould separate events by days' do
 		# It should return something like this
 		# [
-		# 	{ 
+		# 	{
 		# 		date: DATA,
 		# 		hours:  [
 		# 							{

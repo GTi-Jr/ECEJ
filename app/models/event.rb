@@ -107,11 +107,19 @@ class Event < ActiveRecord::Base
         # If it is the first day, the hours are the range between the start time
         # and the end of the first day
         if day == occurring_days.first
-          hours.concat(((self.start.hour)..(@@hours.last)).to_a)
+          if self.end.to_datetime.minute == 0
+            hours.concat(((self.start.hour)..(@@hours.last - 1)).to_a)
+          else
+            hours.concat(((self.start.hour)..(@@hours.last)).to_a)
+          end
         # If it is the last day, the hours are the range between the start of the day
         # and the ending time
         elsif day == occurring_days.last
-          hours.concat(((@@hours.first)..(self.end.hour)).to_a)
+          if self.end.to_datetime.minute == 0
+            hours.concat(((@@hours.first)..(self.end.hour - 1)).to_a)
+          else
+            hours.concat(((@@hours.first)..(self.end.hour)).to_a)
+          end
         # If it is a day in the middle of many, the hours are the whole day
         else
           hours.concat(((@@hours.first)..(@@hours.last)).to_a)
