@@ -10,14 +10,12 @@ class EventsController < ApplicationController
 	# ordered by date
 	def index
 		@days = Event.join_events_by_time
-		@now = DateTime.now
 	end
 
 	# Patch
 	# Adds current user to event
 	def enter_event
 		event = Event.find(params[:id])
-		more_one_day_events = Event.where(name: event.name)
 
 		if event.nil?
 			redirect_to :back, alert: "Erro."
@@ -27,15 +25,6 @@ class EventsController < ApplicationController
 			redirect_to :back, alert: "Você possui outra programação no mesmo horário!"
 		else
 			event.add current_user
-
-			more_one_day_events.each do |eq_event|
-				if eq_event.full?
-					redirect_to :back, alert: "A programação chegou na sua capacidade máxima."
-				else
-					eq_event.add current_user
-				end
-			  
-			end
 
 			if current_user.in? event.users
 				redirect_to :back, notice: "Você garantiu sua vaga no(a) #{event.name}!"
@@ -49,13 +38,8 @@ class EventsController < ApplicationController
 	# Excludes the current user from the event
 	def exit_event
 		event = Event.find(params[:id])
-		more_one_day_events = Event.where(name: event.name)
 
 		event.remove current_user
-
-		more_one_day_events.each do |eq_event|
-			eq_event.remove current_user
-		end
 
 		if current_user.in? event.users
 			redirect_to :back, notice: "Não foi possível sair da programação."
