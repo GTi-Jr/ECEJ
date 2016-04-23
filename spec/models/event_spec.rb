@@ -15,7 +15,7 @@ RSpec.describe Event, type: :model do
 														])
 	end
 
-	it "should save its users" do
+	it 'should save its users' do
 		event = FactoryGirl.create(:event)
 
 		user_1 = FactoryGirl.create(:user)
@@ -27,7 +27,7 @@ RSpec.describe Event, type: :model do
 		expect(Event.find(event.id).users).to eq([user_1, user_2])
 	end
 
-	it "should generate subscription when user register into events" do
+	it 'should generate subscription when user register into events' do
 		event = FactoryGirl.create(:event)
 
 		user_1 = FactoryGirl.create(:user)
@@ -39,7 +39,7 @@ RSpec.describe Event, type: :model do
 		expect(Subscription.all.count).to eq(2)
 	end
 
-	it "should generate subscription when user register into events matching its users" do
+	it 'should generate subscription when user register into events matching its users' do
 		event = FactoryGirl.create(:event)
 
 		user_1 = FactoryGirl.create(:user)
@@ -50,7 +50,7 @@ RSpec.describe Event, type: :model do
 		expect(Subscription.first.user).to eq(user_1)
 	end
 
-	it "should remove its users properly" do
+	it 'should remove its users properly' do
 		event = FactoryGirl.create(:event)
 
 		user_1 = FactoryGirl.create(:user)
@@ -66,23 +66,31 @@ RSpec.describe Event, type: :model do
 		expect(event.users.first).to eq(user_2)
 	end
 
-	it "user can't go to concurrent events" do
+	it 'user can\'t go to concurrent events' do
 		user = FactoryGirl.create(:user)
 
-		event_1 = FactoryGirl.create(:event, start: 2.hour.from_now, 
+		event_1 = FactoryGirl.create(:event, name: 'test',
+																				 start: 2.hour.from_now, 
 																				 end:   4.hours.from_now)
 		event_2 = FactoryGirl.create(:event, start: 3.hours.from_now, 
 																				 end:   5.hours.from_now)
 		event_3 = FactoryGirl.create(:event, start: 1.hours.from_now, 
+																				 end:   10.hours.from_now)
+		event_4 = FactoryGirl.create(:event, name: 'test',
+																				 start: 1.hours.from_now, 
+																				 end:   10.hours.from_now)
+		event_5 = FactoryGirl.create(:event, start: 5.hours.from_now, 
 																				 end:   10.hours.from_now)
 
 		user.events << event_1
 
 		expect(user.has_concurrent_event? event_2).to eq(true)
 		expect(user.has_concurrent_event? event_3).to eq(true)
+		expect(user.has_concurrent_event? event_4).to eq(true)
+		expect(user.has_concurrent_event? event_5).to eq(false)
 	end
 
-	it "user can go to consecutive events" do
+	it 'user can go to consecutive events' do
 		user = FactoryGirl.create(:user)
 
 		event_1 = FactoryGirl.create(:event, start: DateTime.now, 
@@ -184,5 +192,53 @@ RSpec.describe Event, type: :model do
 											 ]
 							}
 					 ])
+	end
+
+	it 'should return its equivalents' do
+		event_1 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   1.hour.from_now)
+
+		event_2 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 3,
+																				 start: 1.second.from_now, 
+																				 end:   2.hours.from_now)
+
+		event_3 = FactoryGirl.create(:event, start: 24.hours.from_now, 
+																				 end:   26.hours.from_now)
+
+		expect(event_1.equivalents).to eq([event_2])
+		expect(event_2.equivalents).to eq([event_1])
+	end
+
+	it 'should check if its equivalents are full' do
+		event_1 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   1.hour.from_now)
+
+		event_2 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   2.hours.from_now)
+
+		event_3 = FactoryGirl.create(:event, start: 24.hours.from_now, 
+																				 end:   26.hours.from_now)
+
+		user_1 = FactoryGirl.create(:user)
+		user_2 = FactoryGirl.create(:user)
+		user_3 = FactoryGirl.create(:user)
+
+		user_1.events << event_1
+		user_2.events << event_1
+
+		event_3.users << user_1
+		event_3.users << user_2
+		event_3.users << user_3
+
+		expect(event_1.full?).to eq(true)
+		expect(event_2.full?).to eq(true)
+		expect(event_3.full?).to eq(false)
 	end
 end
