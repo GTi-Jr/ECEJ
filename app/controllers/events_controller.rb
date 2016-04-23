@@ -31,7 +31,12 @@ class EventsController < ApplicationController
 			event.add current_user
 
 			more_one_day_events.each do |eq_event|
-			  eq_event.add current_user
+				if eq_event.full?
+					redirect_to :back, alert: "A programação chegou na sua capacidade máxima."
+				else
+					eq_event.add current_user
+				end
+			  
 			end
 
 			if current_user.in? event.users
