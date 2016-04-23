@@ -12,3 +12,23 @@
 .collapsible-header.active:after {
     content: "\002D";
 }
+
+.card.small .card-content .btn-price {
+    width: 65px;
+    height: 65px;
+    font-weight: 600;
+    font-size: 1.0rem;
+    line-height: 65px;
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    letter-spacing: 0;
+}
+
+.card.small .card-image .custom-chip {
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
