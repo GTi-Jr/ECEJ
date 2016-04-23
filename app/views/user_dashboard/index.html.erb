@@ -1,16 +1,20 @@
 <!-- profile-page-header -->
-<div id="profile-page-header" class="card">
+<div class="card">
   <div class="card-image waves-effect waves-block waves-light">
     <%= image_tag 'capa.jpg', class: 'activator', alt: 'user background' %>
   </div>
   <div class="row">
-    <div class="col s3 offset-s2">
-      <figure class="card-profile-image">
-        <%= image_tag(@user.avatar_url(:medium), class:'circle responsive-img valign profile-image') if @user.avatar? %>
-        <%= image_tag('jack-avatar.jpg', class:'circle responsive-img valign profile-image') if !@user.avatar? %>
-      </figure>
-      <h4 class="card-title grey-text text-darken-4"><%= @user.name %></h4>
-      <p class="medium grey-text"><%= @user.junior_enterprise %>  <%= @user.federation %></p>
+    <div class="col s12">
+      <div class="col s6 m4 l3">
+        <figure class="card-profile-image">
+          <%= image_tag(@user.avatar_url(:medium), class:'circle responsive-img valign profile-image', style:'max-width: 100px;') if @user.avatar? %>
+          <%= image_tag('jack-avatar.jpg', class:'circle responsive-img valign profile-image', style:'max-width: 100px;') if !@user.avatar? %>
+        </figure>
+      </div>
+      <div class="col s6 m8 l9">
+        <h4 class="card-title grey-text text-darken-4"><%= @user.name %></h4>
+        <p class="medium grey-text"><%= @user.junior_enterprise %> - <%= @user.federation %></p>
+      </div>
     </div>
   </div>
 </div>
@@ -31,9 +35,9 @@
         <div class="row">
           <div class="col s5 grey-text darken-1"><i class="mdi-maps-hotel"></i> Quarto</div>
           <% if @user.room.nil? %>
-          <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
+            <div class="col s7 grey-text text-darken-4 right-align">Sem quarto</div>
           <% else %>
-          <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
+            <div class="col s7 grey-text text-darken-4 right-align"><%= "nº #{@user.room.number} | #{@user.room.hotel}" %></div>
           <% end %>
         </div>
       </li>
@@ -47,60 +51,61 @@
     <div id="profile-page-wall-share" class="row">
       <div class="col s12">
         <% if @user.payment.nil? %>
-        <div id="card-alert" class="card pink lighten-5">
+          <div id="card-alert" class="card pink lighten-5">
+
           <%= link_to payment_path do %>
-          <div class="card-content pink-text darken-1">
-            <span class="card-title pink-text darken-1">
-              <i class="mdi-action-info-outline"></i>
-              Você ainda não efetuou o pagamento
-            </span>
-            <p> Clique aqui e efetue o pagamento para garantir sua vaga</p>
-          </div>
+            <div class="card-content pink-text darken-1">
+              <span class="card-title pink-text darken-1">
+                <i class="mdi-action-info-outline"></i>
+                Você ainda não efetuou o pagamento
+              </span>
+              <p> Clique aqui e efetue o pagamento para garantir sua vaga</p>
+            </div>
           <% end %>
-        </div>
+          </div>
         <% elsif !@user.payment.nil? && !@user.payment.paid? %>
-        <div id="card-alert" class="card light-blue darken-2">
-          <div class="card-content white-text">
-            <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
-            <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
+          <div id="card-alert" class="card light-blue darken-2">
+            <div class="card-content white-text">
+              <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
+              <p>Vimos que você optou pelo método de pagamento <strong><%= @user.payment.method %></strong>. Caso já tenha pago, aguarde a nossa confirmação. Caso contrário, clique em pagamento para <%= @method_message %>
               <% if @user.payment.method == "Boleto" %>
-              <br>
-              Parcelas pagas:
-              <% if @user.payment.portion_paid == 0 %>
-              <strong>nenhuma parcela paga</strong>
-              <% else %>
-              <strong><%= "#{@user.payment.portion_paid}/#{@user.payment.portions}"  %></strong>
-              <% end %>
+                <br>
+                Parcelas pagas:
+                <% if @user.payment.portion_paid == 0 %>
+                  <strong>nenhuma parcela paga</strong>
+                <% else %>
+                  <strong><%= "#{@user.payment.portion_paid}/#{@user.payment.portions}"  %></strong>
+                <% end %>
               <% end %>
             </div>
           </div>
-          <% elsif !@payment.nil? && @payment.paid? %>
+        <% elsif !@payment.nil? && @payment.paid? %>
           <div id="card-alert" class="card light-blue darken-2">
             <div class="card-content white-text">
               <span class="card-title white-text darken-1"><i class="mdi-social-notifications"></i> Status do pagamento</span>
               <p>Pago</p>
             </div>
           </div>
-          <% end %>
-          <% if !@payment.nil? %>
+        <% end %>
+
+        <% if !@payment.nil? %>
           <% if @payment.method == "Boleto" %>
-          <% count = 0 %>
-          <% @billets_links.each do |link|%>
-          <% if count == 0  %>
-          <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
-          <br><br>
-          <% elsif @today > @deadlines[count-1] %>
-          <%= link_to "Parcela #{count+1}", link , class: 'waves-effect waves-light btn light-blue darken-2' %>
-          <br><br>
-          <% else %>
-          <%= link_to "Parcela #{count+1} disponível apenas em #{@deadlines[count].strftime("%d/%m/%Y")}", '#', class: 'waves-effect waves-light btn light-red darken-2' %>
-          <br><br>
+            <% count = 0 %>
+            <% @billets_links.each do |link|%>
+              <% if count == 0  %>
+                  <%= link_to "Parcela #{count+1}", link, class: 'waves-effect waves-light btn light-blue darken-2' %>
+                  <br><br>
+              <% elsif @today > @deadlines[count-1] %>
+                <%= link_to "Parcela #{count+1}", link , class: 'waves-effect waves-light btn light-blue darken-2' %>
+                <br><br>
+              <% else %>
+                <%= link_to "Parcela #{count+1} disponível apenas em #{@deadlines[count].strftime("%d/%m/%Y")}", '#', class: 'waves-effect waves-light btn light-red darken-2' %>
+                <br><br>
+              <% end %>
+              <% count += 1 %>
+            <% end %>
           <% end %>
-          <% count += 1 %>
-          <% end %>
-          <% end %>
-          <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -120,7 +125,6 @@
             <li class="collection-item avatar">
               <i class="mdi-action-view-list circle light-blue darken-2"></i>
               <span class="collection-header"><%= day[:date].strftime('%d/%m/%y') %></span>
-              <p>Meus eventos</p>
               <a href="#" class="secondary-content"><i class="fa fa-clock-o"></i></a>
             </li>
             <% day[:events].each do |event| %>

@@ -4,12 +4,12 @@ class UserDashboardController < ApplicationController
   before_action :verify_register_conclusion
 
   layout "dashboard"
-  
+
   def index
     @today = DateTime.now
     @payment = @user.payment
     @lot = @user.lot if !@user.lot.nil?
-    @events_days = current_user.events.days
+    @events_days = @user.events.event_days
 
     @deadlines = Array.new
 
@@ -28,7 +28,7 @@ class UserDashboardController < ApplicationController
         @method_message = "receber um novo email com os boletos"
         @billets_links = @payment.billets_links
       when "Dinheiro"
-        @method_message = "rever os dados da conta"      
+        @method_message = "rever os dados da conta"
       end
     end
   end

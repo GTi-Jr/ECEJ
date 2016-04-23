@@ -1,6 +1,8 @@
 class Crew::ExcelController < ApplicationController
   before_action :authenticate_crew_admin!
 
+  layout 'admin_layout'
+
   def users
     @users = User.all.order(:name)
 
@@ -129,6 +131,16 @@ class Crew::ExcelController < ApplicationController
   def required_transportation_users
     @users = User.where(transport_required: 'Sim').includes(:payment).select do |user|
       !user.payment.nil? && user.payment.partially_paid?
+    end
+
+    respond_to do |format|
+      format.xls
+    end
+  end
+
+  def paid_and_transport
+    @users = User.includes(:payment).select do |user| 
+      !user.payment.nil? && user.payment.paid? && user.transport_required == "Sim"
     end
 
     respond_to do |format|

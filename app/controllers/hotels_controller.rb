@@ -8,6 +8,7 @@ class HotelsController < ApplicationController
 	# GET /hotels
 	# Lists all hotels ordered by name
 	def index
+		flash[:notice] = "Você já respondeu nossa pesquisa?"
 		@hotels = Hotel.order(:name)
 	end
 end

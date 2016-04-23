@@ -1,0 +1,28 @@
+<ul class="collapsible popout" data-collapsible="accordion">
+	<% day[:events].each do |event| %>
+	<li class="">
+		<div class="collapsible-header">
+			<%= event.name %>
+			<i class="mdi-av-timer"></i>
+			<span class="task-cat cyan">
+				<%= "#{event.start.strftime('%H:%M')}  -  #{event.end.strftime('%H:%M')}"%>
+			</span>
+		</div>
+		<div class="collapsible-body" style="display: none;">
+			<p> Facilitador do evento: <%= event.facilitator %> </p>
+			<p> Evento com <%= event.limit %> vagas.</p>
+			<p style="text-align: right;">
+				<% if event.in?(current_user.events) %>
+					<%= link_to exit_event_path(event), class:"btn-floating btn-large waves-effect waves-light red" ,method: :patch do %>
+						<i class="mdi-content-clear tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+					<% end %>
+				<% else %>
+					<%= link_to enter_event_path(event), class:"btn-floating btn-large waves-effect waves-light green" ,method: :patch do %>
+						<i class="mdi-action-done tooltipped" data-position="bottom" data-tooltip="Entrar nesse evento"></i>
+					<% end %>
+				<% end %>
+			</p>
+		</div>
+	</li>
+	<% end %>
+</ul>
