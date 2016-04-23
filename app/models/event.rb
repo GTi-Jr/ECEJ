@@ -152,22 +152,34 @@ class Event < ActiveRecord::Base
   # Add a user to the event
   def add(user)
     users << user
+    equivalents.each { |event| event.users << user }
   end
 
   # Remove the user from the event
   def remove(user)
-    users.delete user
+    users.delete(user)
+    equivalents.each { |event| event.user.delete(user) }
   end
 
   # Checks if the event is full
   def full?
-    users.count >= limit
+    users.count >= limit || any_equivalent_full?
+  end
+
+  def any_equivalent_full?
+    equivalents.each { |event| return true if event.users.count >= event.limit }
+    false
   end
 
   # Checks if the events is happening at the moment
   def is_happening_now?
     now = DateTime.now
     now > self.start && now < self.end
+  end
+
+  # A event can have an equivalent one. They will have the same name.
+  def equivalents
+    Event.select { |event| event.name == name && event != self }.sort_by { |event| event.start }
   end
 
   # Validator method
