@@ -2,79 +2,49 @@
   <div class="container">
     <% @days.each_with_index do |day, index| %>
     <div class="custom_tab" id='<%= "day#{index}" %>' style="display:none;">
-      <h3 class="center-align header">Eventos no dia
-        <%= day[:date].strftime('%d/%m')%></h3>
+      <h3 class="center-align header">Eventos no dia <%= day[:date].strftime('%d/%m')%></h3>
       <div class="section">
-        <% day[:events].each_with_index do |event, i| %>
-        <!-- <div class="row"> -->
-          <% if last_event = day[:events][i-1] %>
-            <% if event.start == last_event.start  %>
-                <div class="col s6">
-                  <div class="card small">
-                    <div class="card-image waves-effect waves-block waves-light">
-                      <img class="activator" src="images/office.jpg" alt="office">
-                    </div>
-                    <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4"><%= event.name %>
-                        <i class="mdi-navigation-more-vert right"></i>
-                      </span>
-                    </div>
-                    <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4"><%= event.name %>
-                        <i class="mdi-navigation-close right"></i>
-                      </span>
-                      <p><%= event.description %></p>
-                      <p><i class="fa fa-users left"></i><%= event.facilitator %></p>
-                    </div>
-                  </div>
-                </div>
-            <% else %>
-              <h4><%= event.start.strftime('%H:%M') %></h4>
-                <div class="col s6">
-                  <div class="card small">
-                    <div class="card-image waves-effect waves-block waves-light">
-                      <img class="activator" src="images/office.jpg" alt="office">
-                    </div>
-                    <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4"><%= event.name %>
-                        <i class="mdi-navigation-more-vert right"></i>
-                      </span>
-                    </div>
-                    <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4"><%= event.name %>
-                        <i class="mdi-navigation-close right"></i>
-                      </span>
-                      <p><%= event.description %></p>
-                      <p><i class="fa fa-users left"></i><%= event.facilitator %></p>
-                    </div>
-                  </div>
-                </div>
-            <% end %>
-          <% else %>
-            <h4><%= event.start.strftime('%H:%M') %></h4>
-            <div class="row">
-              <div class="col">
+        <% day[:hours].each do |hour| %>
+          <h4><%= "#{hour[:time]}:00" %></h4>
+          <div class="row">
+            <% hour[:events].each do |event| %>
+              <div class='<%= "col s12 m#{12/hour[:events].count} l#{12/hour[:events].count}" %>'>
                 <div class="card small">
                   <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg" alt="office">
+                    <%= image_tag(event.facilitator_image_url) %>
+                    <% if event.users.include? @user %>
+                      <%= link_to exit_event_path(event), method: :patch do %>
+                        <div class="chip red white-text custom-chip">
+                          Sair da programação
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <%= link_to enter_event_path(event), method: :patch do %>
+                        <div class="chip green white-text custom-chip">
+                          Entrar na programação
+                        </div>
+                      <% end %>
+                    <% end %>
                   </div>
                   <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4"><%= event.name %>
-                      <i class="mdi-navigation-more-vert right"></i>
+                      <i class="mdi-action-info-outline left"></i>
                     </span>
+                    <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light blue-grey">
+                      <%= "#{event.users.count}/#{event.limit}" %>
+                    </a>
                   </div>
                   <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4"><%= event.name %>
                       <i class="mdi-navigation-close right"></i>
                     </span>
                     <p><%= event.description %></p>
-                    <p><i class="fa fa-users left"></i><%= event.facilitator %></p>
+                    <p><i class="fa fa-users"></i><%= event.facilitator %></p>
                   </div>
                 </div>
               </div>
-            </div>
-          <% end %>
-        <!-- </div> -->
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>
@@ -105,57 +75,3 @@
     }, "slow");
   }
 </script>
-<!--
-<div class="row">
-  <div class="col s12 m12 l12">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs tab-demo z-depth-1" style="width: 100%;">
-          <% @days.each_with_index do |day, index| %>
-            <li class="tab col s3" style="width: 25%;">
-              <a class="active" href="#dia<%= index + 1 %>">
-                <%= "Dia #{index +1} - #{day[:date].strftime('%d/%m')}" %>
-              </a>
-            </li>
-          <% end %>
-          <div class="indicator" style="right: 224px; left: 0px;"></div>
-          <div class="indicator" style="right: 224px; left: 0px;"></div>
-        </ul>
-      </div>
-      <div class="col s12">
-        <% @days.each_with_index do |day, index| %>
-          <div id="dia<%= index + 1 %>" class="col s12" style="display: block;">
-            <ul class="collapsible popout" data-collapsible="accordion">
-                <% day[:events].each do |event| %>
-                  <li class="">
-                    <div class="collapsible-header">
-                      <%= event.name %>
-                      <i class="mdi-av-timer"></i>
-                      <span class="task-cat cyan">
-                        <%= "#{event.start.strftime('%H:%M')}  -  #{event.end.strftime('%H:%M')}"%>
-                      </span>
-                    </div>
-                    <div class="collapsible-body" style="display: none;">
-                      <p> Facilitador do evento: <%= event.facilitator %> </p>
-                      <p> Evento com <%= event.limit %> vagas.</p>
-                      <p style="text-align: right;">
-                        <% if event.in?(current_user.events) %>
-                          <%= link_to exit_event_path(event), class:"btn-floating btn-large waves-effect waves-light red" ,method: :patch do %>
-                            <i class="mdi-content-clear tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
-                          <% end %>
-                        <% else %>
-                          <%= link_to enter_event_path(event), class:"btn-floating btn-large waves-effect waves-light green" ,method: :patch do %>
-                            <i class="mdi-action-done tooltipped" data-position="bottom" data-tooltip="Entrar nesse evento"></i>
-                          <% end %>
-                        <% end %>
-                      </p>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div> -->

@@ -10,8 +10,8 @@ class EventsController < ApplicationController
 	# ordered by date
 	def index
 		@events = Event.order(:start)
-		@days = Event.days
-		@days_hours = Event.hours
+		@days = Event.join_events_by_time
+
 		@now = DateTime.now
 	end
 
@@ -19,6 +19,8 @@ class EventsController < ApplicationController
 	# Adds current user to event
 	def enter_event
 		event = Event.find(params[:id])
+		# more_one_day_events = Event.where(name: event.name)
+
 		if event.nil?
 			redirect_to :back, alert: "Erro."
 		elsif event.full?

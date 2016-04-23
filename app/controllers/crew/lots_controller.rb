@@ -30,7 +30,7 @@ class Crew::LotsController < ApplicationController
   end
 
   def update
-    if @lot.update_attributes(lot_params)
+    if @lot.update(lot_params)
       redirect_to edit_crew_lot_path(@lot), notice: "Lote editado com sucesso."
     else
       redirect_to edit_crew_lot_path(@lot), alert: "Não foi possível alterar lote."
