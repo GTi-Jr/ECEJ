@@ -128,8 +128,8 @@ Rails.application.routes.draw do
   patch 'hotels/:hotel_id/rooms/:id/insert_current_user' => 'rooms#insert_current_user_into_room', as: :insert_current_user_into_room
   patch 'hotels/:hotel_id/rooms/exit' => 'rooms#exit_room', as: :exit_room
 
-  # # Events routes
-  # get 'events' => 'events#index', as: :events
-  # patch 'events/:id/enter' => 'events#enter_event', as: :enter_event
-  # patch 'events/:id/exit' => 'events#exit_event', as: :exit_event
+  # Events routes
+  get 'events' => 'events#index', as: :events
+  patch 'events/:id/enter' => 'events#enter_event', as: :enter_event
+  patch 'events/:id/exit' => 'events#exit_event', as: :exit_event
 end
