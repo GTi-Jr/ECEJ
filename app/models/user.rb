@@ -200,6 +200,6 @@ class User < ActiveRecord::Base
   # Exit room
   def exit_room!
     self.room = nil
-    self.save!
+    self.save
   end
 end
