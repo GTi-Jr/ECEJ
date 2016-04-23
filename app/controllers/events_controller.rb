@@ -9,9 +9,7 @@ class EventsController < ApplicationController
 	# Event.days returns an array of hashes. Each hash has a day and all of its events
 	# ordered by date
 	def index
-		@events = Event.order(:start)
 		@days = Event.join_events_by_time
-
 		@now = DateTime.now
 	end
 
