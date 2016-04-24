@@ -8,7 +8,11 @@
           <h4><%= "#{hour[:time]}:00" %></h4>
           <div class="row">
             <% hour[:events].each do |event| %>
-              <% if hour[:events].count >= 2 %>
+              <% if hour[:events].count >= 4 %>
+                <div class="col s12 m6 l3">
+              <% elsif hour[:events].count >= 3 %>
+                <div class="col s12 m6 l4">
+              <% elsif hour[:events].count < 3 && hour[:events].count > 1%>
                 <div class="col s12 m6 l6">
               <% else %>
                 <div class="col s12 m12 l12">
