@@ -84,6 +84,8 @@ RSpec.describe Event, type: :model do
 		event_6 = FactoryGirl.create(:event, start: 7.hours.from_now, 
 																				 end:   10.hours.from_now)
 
+		expect(user.has_concurrent_event? event_2).to eq(false)
+
 		user.events << event_1
 
 		expect(user.has_concurrent_event? event_2).to eq(true)

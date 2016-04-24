@@ -115,8 +115,9 @@ class User < ActiveRecord::Base
         end
       end
                   
-      return condition
+      return true if condition
     end
+    false
   end
 
   # Insert users into groups
