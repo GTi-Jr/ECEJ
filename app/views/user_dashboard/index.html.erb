@@ -120,7 +120,11 @@
     <div id="work-collections">
       <div class="row">
         <% @events_days.each_with_index do |day, index| %>
-        <div class="col s12 m6 l3">
+        <% if @events_days.count <= 2 %>
+          <div class="col s12 m6 l6">
+        <% else %>
+          <div class="col s12 m6 l4">
+        <% end %>
           <ul id="projects-collection" class="collection">
             <li class="collection-item avatar">
               <i class="mdi-action-view-list circle light-blue darken-2"></i>
