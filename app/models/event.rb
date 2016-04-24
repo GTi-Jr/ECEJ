@@ -158,7 +158,7 @@ class Event < ActiveRecord::Base
   # Remove the user from the event
   def remove(user)
     users.delete(user)
-    equivalents.each { |event| event.user.delete(user) }
+    equivalents.each { |event| event.users.delete(user) }
   end
 
   # Checks if the event is full
@@ -180,6 +180,12 @@ class Event < ActiveRecord::Base
   # A event can have an equivalent one. They will have the same name.
   def equivalents
     Event.select { |event| event.name == name && event != self }.sort_by { |event| event.start }
+  end
+
+  def contains?(user)
+    return true if user.in?(users)
+    equivalents.each { |event| return true if user.in?(event.users) }
+    false
   end
 
   # Validator method
