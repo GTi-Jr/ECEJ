@@ -166,11 +166,6 @@ class Event < ActiveRecord::Base
     users.count >= limit || any_equivalent_full?
   end
 
-  def any_equivalent_full?
-    equivalents.each { |event| return true if event.users.count >= event.limit }
-    false
-  end
-
   # Checks if the events is happening at the moment
   def is_happening_now?
     now = DateTime.now
@@ -180,6 +175,15 @@ class Event < ActiveRecord::Base
   # A event can have an equivalent one. They will have the same name.
   def equivalents
     Event.select { |event| event.name == name && event != self }.sort_by { |event| event.start }
+  end
+
+  def any_equivalent_full?
+    equivalents.each { |event| return true if event.users.count >= event.limit }
+    false
+  end
+
+  def has_any_equivalent?
+    !equivalents.empty?
   end
 
   def contains?(user)

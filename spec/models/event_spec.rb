@@ -274,4 +274,24 @@ RSpec.describe Event, type: :model do
 		expect(event_3.contains?(user_1)).to eq(false)
 		expect(event_3.contains?(user_2)).to eq(false)
 	end
+
+	it 'should know if there are any equivalent event' do
+		event_1 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   1.hour.from_now)
+
+		event_2 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   2.hours.from_now)
+
+		event_3 = FactoryGirl.create(:event, start: 24.hours.from_now, 
+																				 end:   26.hours.from_now)
+
+		expect(event_1.has_any_equivalent?).to eq(true)
+		expect(event_2.has_any_equivalent?).to eq(true)
+		expect(event_3.has_any_equivalent?).to eq(false)
+
+	end
 end
