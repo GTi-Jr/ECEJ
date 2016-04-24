@@ -133,6 +133,7 @@ RSpec.describe Event, type: :model do
 																					  ])
 		else
 			expect(event_3.occurring_hours).to eq([{ day: Date.today,             hours: (event_3.start.hour..23).to_a },
+																						 { day: Date.tomorrow,          hours: (0..23).to_a },
 																						 { day: Date.tomorrow.tomorrow, hours: (0..(event_3.end.hour)).to_a}
 																					  ])
 		end
@@ -240,5 +241,37 @@ RSpec.describe Event, type: :model do
 		expect(event_1.full?).to eq(true)
 		expect(event_2.full?).to eq(true)
 		expect(event_3.full?).to eq(false)
+	end
+
+	it 'should contain users from equivalent events' do
+		event_1 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   1.hour.from_now)
+
+		event_2 = FactoryGirl.create(:event, name:  'test#1',
+																				 limit: 2,
+																				 start: 1.second.from_now, 
+																				 end:   2.hours.from_now)
+
+		event_3 = FactoryGirl.create(:event, start: 24.hours.from_now, 
+																				 end:   26.hours.from_now)
+
+		user_1 = FactoryGirl.create(:user)
+		user_2 = FactoryGirl.create(:user)
+		user_3 = FactoryGirl.create(:user)
+
+		event_1.users << user_1
+		event_2.users << user_2
+		event_3.users << user_3
+
+		expect(event_1.contains?(user_2)).to eq(true)
+		expect(event_2.contains?(user_1)).to eq(true)
+		expect(event_3.contains?(user_3)).to eq(true)
+
+		expect(event_1.contains?(user_3)).to eq(false)
+		expect(event_2.contains?(user_3)).to eq(false)
+		expect(event_3.contains?(user_1)).to eq(false)
+		expect(event_3.contains?(user_2)).to eq(false)
 	end
 end
