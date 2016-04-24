@@ -103,21 +103,20 @@ class User < ActiveRecord::Base
   # Checks if the user has another event that is happening at the same time
   def has_concurrent_event?(event)
     events.each do |user_event|
-      condition = false
-
       condition = (user_event.start >= event.start && user_event.start < event.end) ||
                   (user_event.end > event.start && user_event.end <= event.end) ||
                   (user_event.start <= event.start && user_event.end >= event.end)
 
       unless condition
-        event.equivalents.each do |eq|
-          condition = user.has_concurrent_event(eq)
+        user_event.equivalents.each do |eq|
+          return true if (eq.start >= event.start && eq.start < event.end) ||
+                         (eq.end > event.start && eq.end <= event.end) ||
+                         (eq.start <= event.start && eq.end >= event.end)
         end
       end
                   
-      return true if condition
+      return condition
     end
-    false
   end
 
   # Insert users into groups

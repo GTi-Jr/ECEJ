@@ -77,9 +77,11 @@ RSpec.describe Event, type: :model do
 		event_3 = FactoryGirl.create(:event, start: 1.hours.from_now, 
 																				 end:   10.hours.from_now)
 		event_4 = FactoryGirl.create(:event, name: 'test',
-																				 start: 1.hours.from_now, 
+																				 start: 8.hours.from_now, 
 																				 end:   10.hours.from_now)
-		event_5 = FactoryGirl.create(:event, start: 5.hours.from_now, 
+		event_5 = FactoryGirl.create(:event, start: 10.hours.from_now, 
+																				 end:   11.hours.from_now)
+		event_6 = FactoryGirl.create(:event, start: 7.hours.from_now, 
 																				 end:   10.hours.from_now)
 
 		user.events << event_1
@@ -88,6 +90,7 @@ RSpec.describe Event, type: :model do
 		expect(user.has_concurrent_event? event_3).to eq(true)
 		expect(user.has_concurrent_event? event_4).to eq(true)
 		expect(user.has_concurrent_event? event_5).to eq(false)
+		expect(user.has_concurrent_event? event_6).to eq(true) # 6 is concurrent to 4. Which is equivalent to 1.
 	end
 
 	it 'user can go to consecutive events' do
