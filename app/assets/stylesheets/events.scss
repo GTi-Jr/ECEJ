@@ -26,6 +26,23 @@
     letter-spacing: 0;
 }
 
+.card.small .card-content .icon-info {
+    //font-size: 0.8rem;
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    letter-spacing: 0;
+}
+
+.card.small .card-reveal .icon-exit {
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    letter-spacing: 0;
+}
+
 .card.small .card-image .custom-chip {
     margin: 10px;
     position: absolute;
@@ -42,6 +59,6 @@
 }
 
 .card .card-title {
-    font-size: 18px !important;
+    //font-size: 18px !important;
     font-weight: 300;
 }
