@@ -54,11 +54,21 @@
 .card.small .card-image .hour-chip {
     margin: 10px;
     position: absolute;
-    top: 0;
     right: 0;
+    bottom: 0;
 }
 
 .card .card-title {
     //font-size: 18px !important;
     font-weight: 300;
 }
+
+// .custom_tab h3.header {
+//     position: fixed;
+//     top: 50px;
+//     z-index: 100;
+// }
+
+// .custom_tab section {
+//    margin-top: 200px;
+// }

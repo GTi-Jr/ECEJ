@@ -152,22 +152,64 @@ class Event < ActiveRecord::Base
   # Add a user to the event
   def add(user)
     users << user
+    # equivalents.each { |event| event.users << user }
   end
 
   # Remove the user from the event
   def remove(user)
-    users.delete user
+    users.delete(user)
+    # equivalents.each { |event| event.users.delete(user) }
   end
 
   # Checks if the event is full
   def full?
-    users.count >= limit
+    users.count >= limit #|| any_equivalent_full?
   end
 
   # Checks if the events is happening at the moment
   def is_happening_now?
     now = DateTime.now
     now > self.start && now < self.end
+  end
+
+  # A event can have an equivalent one. They will have the same name.
+  def equivalents
+    Event.select { |event| event.name == name && event != self }.sort_by { |event| event.start }
+  end
+
+  def any_equivalent_full?
+    equivalents.each { |event| return true if event.users.count >= event.limit }
+    false
+  end
+
+  def has_any_equivalent?
+    !equivalents.empty?
+  end
+
+  def contains?(user)
+    return true if user.in?(users)
+    # equivalents.each { |event| return true if user.in?(event.users) }
+    false
+  end
+
+  def concurrents(user = nil)
+    user.nil? ? events = Event : events = user.events
+    
+    events.select do |event|
+      event != self &&
+      ((event.start >= self.start && event.start < self.end) ||
+      (event.end > self.start && event.end <= self.end) ||
+      (event.start <= self.start && event.end >= self.end))
+    end
+  end
+
+  def any_concurrent_equivalent?(event)
+    equivalents.each do |eq|
+      return true unless (eq.end <= event.start) || 
+                         (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                         (eq.start >= event.end) ||
+                         (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
+    end
   end
 
   # Validator method

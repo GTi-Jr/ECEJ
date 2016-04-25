@@ -3,12 +3,25 @@
     <% @days.each_with_index do |day, index| %>
     <div class="custom_tab" id='<%= "day#{index}" %>' style="display:none;">
       <h3 class="center-align header">Eventos no dia <%= day[:date].strftime('%d/%m')%></h3>
+      <div class="row">
+        <div class="col s12 center-align">
+          <div id="card-alert" class="card orange ">
+            <div class="card-content white-text">
+              <p><i class="mdi-alert-warning"></i> Atenção: Quem se inscrever no DESAFIO CSP no dia 29/04, não poderá se inscrever em nenhuma programação no dia 30/04 entre 09:00 e 10:55 ( O desafio durará dois dias ). Se você se inscrever no DESAFIO CSP no 29/04 e se inscrever em programações que pegam o mesmo horário, você será desclassificado das programações. Por exemplo: Me inscrevi no desafio CSP no dia 29/04 mas me inscrevi na palestra Papo de Almirante no dia 30/04, que pega das 9h as 9:55. Você será desclassificado do Papo de Almirante. Estamos dando prioridade ao Desafio CSP.</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="section">
         <% day[:hours].each do |hour| %>
           <h4><%= "#{hour[:time]}:00" %></h4>
           <div class="row">
             <% hour[:events].each do |event| %>
-              <% if hour[:events].count >= 2 %>
+              <% if hour[:events].count >= 4 %>
+                <div class="col s12 m6 l3">
+              <% elsif hour[:events].count >= 3 %>
+                <div class="col s12 m6 l4">
+              <% elsif hour[:events].count < 3 && hour[:events].count > 1%>
                 <div class="col s12 m6 l6">
               <% else %>
                 <div class="col s12 m12 l12">
@@ -24,11 +37,18 @@
                           </div>
                         <% end %>
                       <% else %>
-                        <%= link_to enter_event_path(event), method: :patch do %>
-                          <div class="chip green white-text custom-chip">
-                            <i class="fa fa-sign-in"></i>
-                            Entrar na programação
+                        <% if event.full? %>
+                          <div class="chip red white-text custom-chip">
+                            <i class="fa fa-sign-out"></i>
+                            LOTADO
                           </div>
+                        <% else %>
+                          <%= link_to enter_event_path(event), method: :patch do %>
+                            <div class="chip green white-text custom-chip">
+                              <i class="fa fa-sign-in"></i>
+                              Entrar na programação
+                            </div>
+                          <% end %>
                         <% end %>
                       <% end %>
                       <div class="chip hour-chip">
