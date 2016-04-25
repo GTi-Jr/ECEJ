@@ -109,9 +109,18 @@ class User < ActiveRecord::Base
                   (user_event.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
                   (user_event.start > event.end) ||
                   (user_event.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
-
+      p "#{event.name}: #{condition}"
+      p "#{(user_event.end < event.start)}: (#{user_event.end} < #{event.start})"
+      p "#{(user_event.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S'))}: (#{user_event.end.strftime('%Y/%m/%d %H:%M:%S')} == #{event.start.strftime('%Y/%m/%d %H:%M:%S')})"
+      p "#{(user_event.start > event.end)}: (#{user_event.start} > #{event.end})"
+      p "#{(user_event.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))}: (#{user_event.start.strftime('%Y/%m/%d %H:%M:%S')} == #{event.end.strftime('%Y/%m/%d %H:%M:%S')})"
       if condition
         user_event.equivalents.each do |eq|
+          p "EQ: #{eq.name}"
+          p "1111111 + #{event.name}" unless (eq.end <= event.start) ||
+                             (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                             (eq.start >= event.end) ||
+                             (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
           return true unless (eq.end <= event.start) || 
                              (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
                              (eq.start >= event.end) ||
