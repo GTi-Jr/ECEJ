@@ -203,6 +203,15 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def any_concurrent_equivalent?(event)
+    equivalents.each do |eq|
+      return true unless (eq.end <= event.start) || 
+                         (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                         (eq.start >= event.end) ||
+                         (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
+    end
+  end
+
   # Validator method
   def start_must_be_smaller_than_end
     errors.add(:start, "deve ser menor que a data de término") if self.start > self.end
