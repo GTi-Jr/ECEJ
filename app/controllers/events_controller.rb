@@ -22,7 +22,8 @@ class EventsController < ApplicationController
 		elsif event.full?
 			redirect_to :back, alert: "A programação chegou na sua capacidade máxima."
 		elsif current_user.has_concurrent_event?(event)
-			redirect_to :back, alert: "Você possui outra programação no mesmo horário!"
+			concurrents_names = event.concurrents(current_user).map { |event| event.name }.join(' | ')
+			redirect_to :back, alert: "Você possui outra(s) programação(ões) no mesmo horário! - #{concurrents_names}"
 		else
 			event.add current_user
 
