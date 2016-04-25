@@ -192,6 +192,17 @@ class Event < ActiveRecord::Base
     false
   end
 
+  def concurrents(user = nil)
+    user.nil? ? events = Event : events = user.events
+    
+    events.select do |event|
+      event != self &&
+      ((event.start >= self.start && event.start < self.end) ||
+      (event.end > self.start && event.end <= self.end) ||
+      (event.start <= self.start && event.end >= self.end))
+    end
+  end
+
   # Validator method
   def start_must_be_smaller_than_end
     errors.add(:start, "deve ser menor que a data de término") if self.start > self.end
