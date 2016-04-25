@@ -188,7 +188,7 @@ class Event < ActiveRecord::Base
 
   def contains?(user)
     return true if user.in?(users)
-    equivalents.each { |event| return true if user.in?(event.users) }
+    # equivalents.each { |event| return true if user.in?(event.users) }
     false
   end
 
