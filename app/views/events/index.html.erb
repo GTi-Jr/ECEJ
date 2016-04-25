@@ -28,11 +28,18 @@
                           </div>
                         <% end %>
                       <% else %>
-                        <%= link_to enter_event_path(event), method: :patch do %>
-                          <div class="chip green white-text custom-chip">
-                            <i class="fa fa-sign-in"></i>
-                            Entrar na programação
+                        <% if event.full? %>
+                          <div class="chip red white-text custom-chip">
+                            <i class="fa fa-sign-out"></i>
+                            LOTADO
                           </div>
+                        <% else %>
+                          <%= link_to enter_event_path(event), method: :patch do %>
+                            <div class="chip green white-text custom-chip">
+                              <i class="fa fa-sign-in"></i>
+                              Entrar na programação
+                            </div>
+                          <% end %>
                         <% end %>
                       <% end %>
                       <div class="chip hour-chip">
