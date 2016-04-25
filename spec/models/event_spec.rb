@@ -78,24 +78,31 @@ RSpec.describe Event, type: :model do
 																				 end:   10.hours.from_now)
 
 		# Antes e no meio do evento
-		event_1 = FactoryGirl.create(:event, start: 1.hours.from_now, 
-																				 end:   3.hours.from_now)
+		event_1 = FactoryGirl.create(:event, start: 1.hour.from_now, 
+																				 end:   3.hour.from_now)
 		# Entre o evento
-		event_2 = FactoryGirl.create(:event, start: 3.hours.from_now, 
-																				 end:   3.hours.from_now + 30.minutes)
+		event_2 = FactoryGirl.create(:event, start: event_1.end,
+																				 end:   event_1.end + 30.minutes,
+																				 name:  'evento 2')
 		# No meio e depois do evento
-		event_3 = FactoryGirl.create(:event, start: 3.hours.from_now, 
-																				 end:   5.hours.from_now)
+		event_3 = FactoryGirl.create(:event, start: event.start + 1.hour, 
+																				 end:   event.end + 1.hour)
 		
 		# Antes e no meio do eq
-		event_4 = FactoryGirl.create(:event, start: 7.hours.from_now, 
-																				 end:   9.hours.from_now)
+		event_4 = FactoryGirl.create(:event, start: event_eq.start - 1.hour, 
+																				 end:   event_eq.end - 1.hour)
 		# Entre o equivalente
-		event_5 = FactoryGirl.create(:event, start: 9.hours.from_now, 
-																				 end:   9.hours.from_now + 30.minutes)
+		event_5 = FactoryGirl.create(:event, start: event_eq.start + 1.hour, 
+																				 end:   event_eq.start + 1.hour + 30.minutes)
 		# No meio e depois do equivalente
-		event_6 = FactoryGirl.create(:event, start: 9.hours.from_now, 
-																				 end:   11.hours.from_now)
+		event_6 = FactoryGirl.create(:event, start: event_eq.start + 1.hour, 
+																				 end:   event_eq.end + 1.hour)
+		# Antes e no final do equivalente
+		event_11 = FactoryGirl.create(:event, start: event_eq.start - 1.hour,
+																				  end:   event_eq.end)
+		# No começo e depois do equivalente
+		event_12 = FactoryGirl.create(:event, start: event_eq.start ,
+																				  end:   event_eq.end + 1.hour)
 
 		########################################## Non conflicting events. These below should return false
 		# Antes do evento
@@ -109,14 +116,13 @@ RSpec.describe Event, type: :model do
 																				  end:   event_eq.start - 1.second)
 		# Após o equivalente
 		event_10 = FactoryGirl.create(:event, start: event_eq.end + 1.second,
-																				  end:   event_eq.end + 1.hour)
+																				  end:   event_eq.end + 1.hour)		
 
 
 		expect(user.has_concurrent_event? event_1).to eq(false)
 
 		user.events << event
-
-		# expect(user.has_concurrent_event? event_eq).to  eq(true)
+		user.events << event_eq
 
 		expect(user.has_concurrent_event? event_1).to  eq(true)
 		expect(user.has_concurrent_event? event_2).to  eq(true)
@@ -128,6 +134,17 @@ RSpec.describe Event, type: :model do
 		expect(user.has_concurrent_event? event_8).to  eq(false)
 		expect(user.has_concurrent_event? event_9).to  eq(false)
 		expect(user.has_concurrent_event? event_10).to eq(false)
+		expect(user.has_concurrent_event? event_11).to eq(true)
+		expect(user.has_concurrent_event? event_12).to eq(true)
+
+		expect(user.events.count).to eq(2)
+		event.remove user
+		expect(user.events.count).to eq(0)
+		event_1.add user
+
+		expect(user.has_concurrent_event? event_eq).to eq(true)
+		expect(user.has_concurrent_event? event).to eq(true)
+		expect(user.has_concurrent_event? event_2).to eq(false)
 	end
 
 	it 'user can go to consecutive events' do
