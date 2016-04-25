@@ -103,19 +103,24 @@ class User < ActiveRecord::Base
   # Checks if the user has another event that is happening at the same time
   def has_concurrent_event?(event)
     events.each do |user_event|
-      condition = (user_event.start >= event.start && user_event.start < event.end) ||
-                  (user_event.end > event.start && user_event.end <= event.end) ||
-                  (user_event.start <= event.start && user_event.end >= event.end)
+      # By default, event.start must be greater than event.end.
+      # Condition for the event not being concurrent
+      condition = (user_event.end < event.start) ||
+                  (user_event.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                  (user_event.start > event.end) ||
+                  (user_event.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
 
-      unless condition
+      if condition
         user_event.equivalents.each do |eq|
-          return true if (eq.start >= event.start && eq.start < event.end) ||
-                         (eq.end > event.start && eq.end <= event.end) ||
-                         (eq.start <= event.start && eq.end >= event.end)
+          return true unless (eq.end <= event.start) || 
+                             (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                             (eq.start >= event.end) ||
+                             (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
+
         end
       end
-                  
-      return true if condition
+        
+      return true unless condition
     end
     false
   end
