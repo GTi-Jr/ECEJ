@@ -49,6 +49,8 @@ class Crew::RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
+    @room.hotel = Hotel.find_by_name(params[:room][:hotel])
+    
     respond_to do |format|
       if @room.update(room_params)
         format.html { redirect_to crew_rooms_path, notice: 'Quarto atualizado com sucesso.' }
