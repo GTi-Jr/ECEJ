@@ -133,12 +133,11 @@ class User < ActiveRecord::Base
     # end
     # false
     events.each do |user_event|
-      condition = (user_event.end < event.start) ||
-                  (user_event.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
-                  (user_event.start > event.end) ||
-                  (user_event.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
-
-      return true if !condition || event.in?(user_event.concurrents)
+      condition =   (user_event.end < event.start) ||
+                    (user_event.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
+                    (user_event.start > event.end) ||
+                    (user_event.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
+      return true unless condition
     end
     false
   end
