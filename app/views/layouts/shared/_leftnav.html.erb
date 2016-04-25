@@ -16,6 +16,11 @@
       <i class="mdi-maps-hotel"></i> Acomodações
       <% end %>
     </li>
+    <li class="bold">
+      <%= link_to events_path do %>
+      <i class="mdi-maps-hotel"></i> Programações
+      <% end %>
+    </li>
     <li class="no-padding hide-on-large-only">
       <ul class="collapsible collapsible-accordion">
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><%= @user.name.nil? ? "Usuário" : @user.name %></a>
