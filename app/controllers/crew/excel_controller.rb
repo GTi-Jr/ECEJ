@@ -147,4 +147,14 @@ class Crew::ExcelController < ApplicationController
       format.xls
     end
   end
+
+  def paid
+    @users = User.includes(:payment).select do |user|
+      !user.payment.nil? && user.payment.paid?
+    end
+    
+    respond_to do |format|
+      format.xls
+    end
+  end
 end

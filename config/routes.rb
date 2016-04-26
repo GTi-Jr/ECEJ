@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     get 'excel/users/last_x_days' => 'excel#last_x_days_users', as: :download_last_x_days_users
     get 'excel/users/transport_required' => 'excel#required_transportation_users', as: :download_transport_required_users
     get 'excel/users/paid_and_transport' => 'excel#paid_and_transport', as: :download_paid_and_transport
+    get 'excel/users/paid' => 'excel#paid', as: :download_paid_users
 
     # Admin user routes
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
