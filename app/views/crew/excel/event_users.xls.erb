@@ -9,8 +9,8 @@
       <Row>
         <Cell><Data ss:Type="String"><%= @event.name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= @event.facilitator %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= @event.start_time.strftime('%Y/%m/%d @ %H:%M') %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= @event.end_time.strftime('%Y/%m/%d @ %H:%M') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @event.start.strftime('%Y/%m/%d @ %H:%M') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @event.end.strftime('%Y/%m/%d @ %H:%M') %></Data></Cell>
       </Row>
       <Row>
         
