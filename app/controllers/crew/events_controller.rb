@@ -25,12 +25,12 @@ class Crew::EventsController < ApplicationController
     end
   end
 
-  def edit    
+  def edit
   end
 
   def update
     if @event.update(event_params)
-      redirect_to edit_crew_event_path(@event), notice: "Evento editado com sucesso."
+      redirect_to edit_crew_event_path(@event), notice: 'Evento editado com sucesso.'
     else
       render :edit
     end
@@ -44,13 +44,28 @@ class Crew::EventsController < ApplicationController
     end
   end
 
-  private
-    def event_params
-      params.require(:event).permit(:name, :facilitator, :facilitator_image, 
-                                    :description, :limit, :start, :end)
-    end
+  def show
+    @event = Event.find(params[:id])
+    @users = @event.users
+  end
 
-    def load_event
-      @event = Event.find(params[:id])
-    end
+  def remove_user
+    user  = User.find(params[:user_id])
+    event = Event.find(params[:id])
+
+    event.remove(user)
+
+    redirect_to :back, notice: "#{user.email} foi removido de #{event.name}."
+  end
+
+  private
+
+  def event_params
+    params.require(:event).permit(:name, :facilitator, :facilitator_image, 
+                                  :description, :limit, :start, :end)
+  end
+
+  def load_event
+    @event = Event.find(params[:id])
+  end
 end

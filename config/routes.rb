@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       end
     end
 
+    # Events
+    delete '/events/:id/remove/:user_id' => 'events#remove_user', as: :remove_event_user
+
     # Admin rooms routes
     get 'room/new_rooms' => 'rooms#new_rooms', as: :new_rooms
     post 'rooms/create_rooms' => 'rooms#create_rooms', as: :create_rooms

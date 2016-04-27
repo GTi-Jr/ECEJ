@@ -29,7 +29,7 @@
           <% if !@events.nil? %>
             <% @events.each do |event| %>
               <tr>
-                <td><%= event.name %></td>
+                <td><%= link_to event.name, crew_event_path(event) %></td>
                 <td><%= event.facilitator %></td>
                 <td><%= event.start.strftime('%Y/%m/%d @ %H:%M') %></td>
                 <td><%= event.end.strftime('%Y/%m/%d @ %H:%M') %></td>
