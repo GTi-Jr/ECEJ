@@ -30,5 +30,4 @@ class ApplicationController < ActionController::Base
       redirect_to authenticated_user_root_path, alert: "Por favor, efetue o pagamento."
     end
   end
-
 end

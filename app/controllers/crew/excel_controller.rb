@@ -110,11 +110,9 @@ class Crew::ExcelController < ApplicationController
   end
 
   def last_x_days_users
-    days = params[:days_ago].to_i
-
-    @users = User.
-             order(:name).
-             select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
+    @users = User
+             .order(:name)
+             .select { |user| user.created_at >= params[:days_ago].to_i.days.ago }
   end
 
   def excel_handler
@@ -139,8 +137,8 @@ class Crew::ExcelController < ApplicationController
   end
 
   def paid_and_transport
-    @users = User.includes(:payment).select do |user| 
-      !user.payment.nil? && user.payment.paid? && user.transport_required == "Sim"
+    @users = User.includes(:payment).select do |user|
+      !user.payment.nil? && user.payment.paid? && user.transport_required == 'Sim'
     end
 
     respond_to do |format|
@@ -152,9 +150,15 @@ class Crew::ExcelController < ApplicationController
     @users = User.includes(:payment).select do |user|
       !user.payment.nil? && user.payment.paid?
     end
-    
+
     respond_to do |format|
       format.xls
+    end
+  end
+
+  def rooms_users
+    @hotels = Hotel.includes(rooms: [:users]).order(:name).each do |hotel|
+      hotel.rooms = hotel.rooms.order(:number)
     end
   end
 end
