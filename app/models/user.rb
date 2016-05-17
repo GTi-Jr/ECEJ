@@ -121,14 +121,14 @@ class User < ActiveRecord::Base
     #                          (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
     #                          (eq.start >= event.end) ||
     #                          (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
-    #       return true unless (eq.end <= event.start) || 
+    #       return true unless (eq.end <= event.start) ||
     #                          (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
     #                          (eq.start >= event.end) ||
     #                          (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
 
     #     end
     #   end
-        
+
     #   return true unless condition
     # end
     # false

@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20160414223529) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "number"
-    t.integer  "capacity"
+    t.integer  "capacity",   default: 4
     t.text     "extra_info", default: ""
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false

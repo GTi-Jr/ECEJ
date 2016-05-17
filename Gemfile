@@ -65,6 +65,9 @@ gem 'kaminari'
 
 gem 'font-awesome-sass'
 
+gem 'faker'
+gem "cpf_cnpj"
+
 # Gem for Windows development - comment in linux
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
