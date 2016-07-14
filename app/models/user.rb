@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   usar_como_cpf :cpf
   has_one :payment
@@ -21,25 +20,6 @@ class User < ActiveRecord::Base
   scope :waiting_list, -> { where(lot_id: nil, active: nil, completed: false).order(:created_at) }
   scope :eligible, -> { where(active: true, completed: true, lot_id: nil).order(:created_at) }
   scope :allocated, -> { order(:created_at).select { |user| user.lot_id.is_a? Integer } }
-
-  # TODO Remove those methods when the project is completed and the ECEJ event has ended
-  # Get attributes from addres string
-  def city1
-    addres ? addres.split(',')[0].lstrip : nil
-  end
-
-  def cep1
-    addres ? addres.split(',')[1].lstrip : nil
-  end
-
-  def street1
-    addres ? addres.split(',')[2].lstrip : nil
-  end
-
-  def complement
-    addres ? addres.split(',')[3].lstrip : nil
-  end
-  # end of attributes
 
   # Returns the user's first name
   def first_name
@@ -121,14 +101,14 @@ class User < ActiveRecord::Base
     #                          (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
     #                          (eq.start >= event.end) ||
     #                          (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
-    #       return true unless (eq.end <= event.start) || 
+    #       return true unless (eq.end <= event.start) ||
     #                          (eq.end.strftime('%Y/%m/%d %H:%M:%S') == event.start.strftime('%Y/%m/%d %H:%M:%S')) ||
     #                          (eq.start >= event.end) ||
     #                          (eq.start.strftime('%Y/%m/%d %H:%M:%S') == event.end.strftime('%Y/%m/%d %H:%M:%S'))
 
     #     end
     #   end
-        
+
     #   return true unless condition
     # end
     # false
