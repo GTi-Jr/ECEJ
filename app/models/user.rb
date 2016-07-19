@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  usar_como_cpf :cpf
   has_one :payment
   has_many :subscriptions
   has_many :events, through: :subscriptions
