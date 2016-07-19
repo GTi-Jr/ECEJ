@@ -16,11 +16,4 @@ module PaymentModule
     PAGSEGURO_PRICE_1_UNFED = 417.04
     PAGSEGURO_PRICE_2_UNFED = 427.46
     PAGSEGURO_PRICE_3_UNFED = 437.88
-
-    UNICRED_ACCOUNT = {
-        name: 'Associação - Associação Cearense de Junior Empresas',
-        bank: 'Unicred' ,
-        agency: '2301',
-        number: '21940-1'
-    }
 end
