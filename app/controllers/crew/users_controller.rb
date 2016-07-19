@@ -80,7 +80,7 @@ class Crew::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :general_register, :cpf, :birthday, :gender,
-                                 :avatar, :phone, :special_needs, :federation,
+                                 :avatar, :phone, :special_needs, :federated, :federation,
                                  :junior_enterprise, :job, :enterprise_office, :university,
                                  :city, :street, :postal_code, :complement, :payment_status, :transport_required,
                                  :city, :street, :cep, :state)
