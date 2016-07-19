@@ -20,10 +20,13 @@ class Crew::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.active = true
+    @user.payment = Payment.new(method: 'PagSeguro')
     @user.password = "ecej2016"
     @user.password_confirmation = "ecej2016"
+
     lot = Lot.active_lot
     @user.lot = lot if !lot.nil? && !lot.is_full?
+
     if @user.save
       redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else
