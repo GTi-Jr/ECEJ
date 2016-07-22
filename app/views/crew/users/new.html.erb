@@ -43,9 +43,9 @@
           </div>
           <div class="input-field col s6">
             <% if browser.firefox? %>
-            <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento DD/MM/AAAA'%>
+              <%= f.date_field :birthday, id: 'birthday', placeholder: 'Data de nascimento DD/MM/AAAA' %>
             <% else %>
-            <%= f.date_field :birthday, :id =>'birthday', placeholder: 'Data de nascimento', class: 'datepicker'%>
+              <%= f.text_field :birthday, id: 'birthday', placeholder: 'Data de nascimento DD/MM/AAAA' %>
             <% end %>
           </div>
 
@@ -115,8 +115,16 @@
         </div>
       </div>
 
-      <div class="input-field col s4 center-align">
-        <%= f.submit "Cadastrar", class: 'btn waves-effect waves-light light-blue darken-1 col s12' %>
+      <div class="col s12 z-depth-4 card-panel">
+        <div class="row">
+          <div class="input-field col s12">
+            <div class="col s12 center-align">
+              <%= button_tag(type:"submit", class: 'btn waves-effect waves-light') do %>
+                <strong>Salvar</strong>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

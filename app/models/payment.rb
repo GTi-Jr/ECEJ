@@ -40,7 +40,7 @@ class Payment < ActiveRecord::Base
   end
 
   def paid?
-    self.portion_paid == self.portions
+    paid
   end
 
   def money_amount
@@ -66,25 +66,11 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def billets_links
-    billet_links = Array.new
-    if self.method == "Boleto"
-      billet_links << self.link_1 unless self.link_1.nil?
-      billet_links << self.link_2 unless self.link_2.nil?
-      billet_links << self.link_3 unless self.link_3.nil?
-      billet_links << self.link_4 unless self.link_4.nil?
-    end
-    billet_links
-  end
-
   def change_method(method, portions = 1)
     case method.to_s.humanize.downcase
     when "pagseguro"
       self.method = "PagSeguro"
       self.portions = 1
-    when "boleto"
-      self.method = "Boleto"
-      self.portions = portions
     when "dinheiro"
       self.method = "Dinheiro"
       self.portions = 1
@@ -96,8 +82,10 @@ class Payment < ActiveRecord::Base
     case status.to_s.humanize.downcase
     when 'paid'
       self.portion_paid = self.portions
+      self.paid = true
     when 'non paid'
       self.portion_paid = 0
+      self.paid = false
     end
     save
   end
@@ -111,10 +99,7 @@ class Payment < ActiveRecord::Base
 
   private
   def set_price
-    if method == "Boleto"
-      set_billet_info false # clears the links
-      set_billet_info # fill the links
-    elsif method == "PagSeguro"
+    if method == "PagSeguro"
       set_price_pagseguro
       set_billet_info false
     elsif method == "Dinheiro"

@@ -20,7 +20,7 @@ class AfterRegistrationController < ApplicationController
     if @user.save && @user.update_attributes(user_params)
       UsersLotMailer.not_allocated(@user).deliver_now if @user.lot.nil?
 
-      flash[:success] = "Cadastro completo, realize o pagamento para garantir sua vaga."
+      flash[:success] = "Cadastro completo."
       redirect_to authenticated_user_root_path
     else
       flash[:error] = "Não foi possível completar seu cadastro, verifique se seus dados estão corretos e entre em contato com nossa equipe.\n #{@user.errors.full_messages}"

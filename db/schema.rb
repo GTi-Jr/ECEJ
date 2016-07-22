@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714235137) do
+ActiveRecord::Schema.define(version: 20160719131927) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -79,13 +79,10 @@ ActiveRecord::Schema.define(version: 20160714235137) do
     t.integer  "portions",     default: 1
     t.integer  "portion_paid", default: 0
     t.float    "price"
-    t.string   "link_1"
-    t.string   "link_2"
-    t.string   "link_3"
-    t.string   "link_4"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "user_id"
+    t.boolean  "paid",         default: false
   end
 
   create_table "rooms", force: :cascade do |t|
