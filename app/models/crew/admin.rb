@@ -9,15 +9,19 @@ class Crew::Admin < ActiveRecord::Base
     @user = User.new(user_params)
     @user.active = true
 
-    @user.payment = Payment.new
-    @user.payment.paid = true
+    @user.payment = Payment.new(method: 'Dinheiro')
+    @user.payment.change_status(:paid)
 
-    password = @user.cpf.only_numbers # 123.456.789-00 #=> 12345678900
+    @user.confirmation_sent_at = DateTime.now
+    @user.confirmed_at = DateTime.now
+
+    password = @user.cpf.only_numbers # "123.456.789-00" #=> "12345678900"
 
     @user.password = password
     @user.password_confirmation = password
 
     lot = Lot.active_lot
+
     @user.lot = lot if !lot.nil? && !lot.is_full?
 
     @user
