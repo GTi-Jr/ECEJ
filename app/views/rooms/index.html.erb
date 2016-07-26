@@ -1,13 +1,33 @@
-<div class="col s2">
-  <%= link_to hotels_path, class:"btn-floating btn-large waves-effect waves-light blue-grey" do %>
-    <i class="mdi-hardware-keyboard-backspace" data-position="bottom" data-tooltip="Voltar">
+<div class="row">
+  <div class="col s2">
+    <%= link_to hotels_path, class:"btn-floating btn-large waves-effect waves-light blue-grey" do %>
+    <i class="mdi-hardware-keyboard-backspace tooltipped" data-position="bottom" data-tooltip="Voltar">
     </i>
-  <% end %>
+    <% end %>
+  </div>
+
+  <div class="col s12 m10">
+    <h6 class="center">Planta do hotel</h6>
+    <%= image_tag @hotel.blueprint, class: 'col s12' %>
+  </div>
 </div>
-<div class="col s10 center-align">
-      <h3>Quartos em <%= @hotel.name %></h3>
-</div>
+
+
+<br>
 <div class="divider"></div>
+<br>
+
+<div class="row">
+  <div class="center">
+  </div>
+</div>
+
+<div class="col s10 center-align">
+  <h3>Quartos em <%= @hotel.name %></h3>
+</div>
+
+<div class="divider"></div>
+
 <div id="card-widgets">
   <div class="row">
     <% @rooms.each do |room| %>

@@ -6,7 +6,7 @@
           <p class="center login-form-text">Cadastro de hotel</p>
         </div>
       </div>
-      
+
       <div class="row">
         <div class="input-field col s12 center">
           <% if @hotel.errors.any? %>
@@ -14,7 +14,7 @@
               <% @hotel.errors.full_messages.each do |error| %>
                 <li><%= error %></li>
               <% end %>
-            </ul>            
+            </ul>
           <% end %>
         </div>
       </div>
@@ -33,6 +33,11 @@
         <div class="col s12 m6 l4">
           <%= f.label :room_image, "Foto do quarto (Tamanho recomendado: 440x330)", class: "center-align" %>
           <%= f.file_field :room_image, id: 'room_image' %>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <%= f.label :blueprint, "Planta do hotel", class: "center-align" %>
+          <%= f.file_field :blueprint, id: 'blueprint' %>
         </div>
 
         <div class="col s12 ">
