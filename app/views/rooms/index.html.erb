@@ -17,8 +17,8 @@
 <div class="divider"></div>
 <br>
 
+<h4 class="center">Quartos em <%= @hotel.name %></h4>
 <ul class="collapsible" data-collapsible="accordion">
-  <!-- <li class="collection-header center"><h4>Quartos em <%= @hotel.name %></h4></li> -->
   <% @rooms.each do |room| %>
     <li class="row">
       <div class="collapsible-header">
@@ -26,12 +26,12 @@
         <div class="col s11">
           Quarto Nº <%= room.number %>
           <div class="right">
-            <%= show_capacity(room) %> pessoas
+            <%= show_capacity(room) %>
           </div>
         </div>
       </div>
       <div class="collapsible-body">
-        <div class="col s9">
+        <div class="col s8 offset-s1">
           <%= room.extra_info %>
           <br>
           <!-- Pessoas -->
@@ -41,22 +41,10 @@
                 <%= image_tag user.avatar_url %>
                 <%= user.two_names %>
               </div>
-              <div class="chip">
-                <%= image_tag user.avatar_url %>
-                <%= user.two_names %>
-              </div>
-              <div class="chip">
-                <%= image_tag user.avatar_url %>
-                <%= user.two_names %>
-              </div>
-              <div class="chip">
-                <%= image_tag user.avatar_url %>
-                <%= user.two_names %>
-              </div>
             <% end %>
           </div>
         </div>
-        <div class="col s3 <%= 'tooltipped' unless room.extra_info.empty? %>" data-position="bottom" data-tooltip="<%= room.extra_info %>">
+        <div class="col s3" data-position="bottom">
           <% if current_user.room == room %>
             <%= link_to exit_room_path(@hotel.id), class:"right btn waves-effect waves-light red darken-3", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } do %>
               <i class="mdi-av-replay"></i>
