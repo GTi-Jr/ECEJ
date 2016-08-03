@@ -18,19 +18,19 @@
                 <i class="mdi-navigation-arrow-drop-down right"></i>
               </a>
             <% end %>
-            <ul id="profile-dropdown" class="dropdown-content active">
+            <ul id="profile-dropdown" class="dropdown-content almej-color">
               <li>
-                <%= link_to edit_user_registration_path do %>
+                <%= link_to edit_user_registration_path, class: 'light-blue-text text-lighten-3' do %>
                   <i class="mdi-action-face-unlock left"></i> Perfil
                 <% end %>
               </li>
               <li>
-                <%= link_to password_edit_path do %>
+                <%= link_to password_edit_path, class: 'light-blue-text text-lighten-3' do %>
                   <i class="mdi-action-lock-outline left"></i> Alterar senha
                 <% end %>
               </li>
               <li>
-                <%= link_to(destroy_user_session_path, :method => :delete) do %>
+                <%= link_to destroy_user_session_path, method: :delete, class: 'light-blue-text text-lighten-3' do %>
                   <i class="mdi-hardware-keyboard-tab left"></i> Sair
                 <% end %>
               </li>
