@@ -2,25 +2,35 @@
   <% @hotels.each do |hotel| %>
   <div class="row">
     <div class="col s12 m12 l12">
-        <div class="card small">
-          <%= link_to rooms_path(hotel)  do %>
-            <div class="card-image waves-effect waves-block waves-light">
-              <%= image_tag hotel.image_url class:"activator" %>
-            </div>
-          <% end %>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">
-              <%= hotel.name %> 
-              <i class="mdi-action-info-outline right"></i>
-            </span>
-            <p><%= link_to 'Escolher meu quarto', rooms_path(hotel) %></p>
+      <div class="card small">
+        <%= link_to rooms_path(hotel)  do %>
+          <div class="card-image waves-effect waves-block waves-light">
+            <%= image_tag hotel.image_url class:"activator" %>
           </div>
-          <div class="card-reveal" style="display: none; transform: translateY(0px);">
-            <span class="card-title grey-text text-darken-4"><%= hotel.name %> <i class="mdi-navigation-close right"></i></span>
-            <p><%= hotel.extra_info %></p>
-            <p><i class="mdi-maps-hotel"></i> <%= hotel.rooms.count %> quartos disponíveis</p>
-          </div>
+        <% end %>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">
+            <%= hotel.name %>
+            <i class="mdi-action-info-outline right tooltipped red-text" data-tooltip="Mais informações"></i>
+          </span>
+          <p>
+            <%= link_to rooms_path(hotel), class: 'btn blue lighten-1' do %>
+              Escolher meu quarto
+            <% end %>
+          </p>
+
         </div>
+        <div class="card-reveal" style="display: none; transform: translateY(0px);">
+          <span class="card-title grey-text text-darken-4"><%= hotel.name %> <i class="mdi-navigation-close right"></i></span>
+          <p><%= hotel.extra_info %></p>
+          <p><i class="mdi-maps-hotel"></i> <%= hotel.rooms.count %> quartos disponíveis</p>
+          <p>
+            <%= link_to rooms_path(hotel), class: 'btn blue lighten-1' do %>
+              Escolher meu quarto
+            <% end %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="divider"></div>
