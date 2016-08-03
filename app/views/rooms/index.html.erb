@@ -17,37 +17,60 @@
 <div class="divider"></div>
 <br>
 
-<ul class="collection with-header">
-  <li class="collection-header center"><h4>Quartos em <%= @hotel.name %></h4></li>
+<ul class="collapsible" data-collapsible="accordion">
+  <!-- <li class="collection-header center"><h4>Quartos em <%= @hotel.name %></h4></li> -->
   <% @rooms.each do |room| %>
-    <li class="collection-item card row">
-      <!-- Identificação do quarto -->
-      <div class="col s8 m10">
-        Nº <%= room.number %><br>
-        <%= show_capacity(room) %>
-      </div>
-
-      <!-- ações -->
-      <div class="col s4 m2">
-        <div class="activator left">
-          <a><i class="mdi-action-info tooltipped" data-tooltip="Mais informações"></i></a>
+    <li class="row">
+      <div class="collapsible-header">
+        <!-- Identificação do quarto -->
+        <div class="col s11">
+          Quarto Nº <%= room.number %>
+          <div class="right">
+            <%= show_capacity(room) %> pessoas
+          </div>
         </div>
-        <!--  Botão de ação -->
-        <div class="right <%= 'tooltipped' unless room.extra_info.empty? %>" data-position="bottom" data-tooltip="<%= room.extra_info %>">
+      </div>
+      <div class="collapsible-body">
+        <div class="col s9">
+          <%= room.extra_info %>
+          <br>
+          <!-- Pessoas -->
+          <div class="col s12 m10">
+            <% room.users.each do |user| %>
+              <div class="chip">
+                <%= image_tag user.avatar_url %>
+                <%= user.two_names %>
+              </div>
+              <div class="chip">
+                <%= image_tag user.avatar_url %>
+                <%= user.two_names %>
+              </div>
+              <div class="chip">
+                <%= image_tag user.avatar_url %>
+                <%= user.two_names %>
+              </div>
+              <div class="chip">
+                <%= image_tag user.avatar_url %>
+                <%= user.two_names %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col s3 <%= 'tooltipped' unless room.extra_info.empty? %>" data-position="bottom" data-tooltip="<%= room.extra_info %>">
           <% if current_user.room == room %>
-            <%= link_to exit_room_path(@hotel.id), class:"btn waves-effect waves-light red darken-3", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } do %>
+            <%= link_to exit_room_path(@hotel.id), class:"right btn waves-effect waves-light red darken-3", method: :patch, data: { confirm: "Ao sair do quarto, outra pessoa poderá preencher a vaga." } do %>
               <i class="mdi-av-replay"></i>
             <% end %>
           <% else %>
             <% if room.full? %>
-              <a class="btn waves-light red darken-2"> Fechado</a>
+              <a class="right btn waves-light red darken-2"> Fechado</a>
             <% else %>
               <% if current_user.room.nil? %>
-                <%= link_to insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light green darken-3", method: :patch do %>
+                <%= link_to insert_current_user_into_room_path(@hotel.id, room), class:"right btn waves-effect waves-light green darken-3", method: :patch do %>
                   <i class="mdi-action-input"></i>
                 <% end %>
               <% else %>
-                <%= link_to insert_current_user_into_room_path(@hotel.id, room), class:"btn waves-effect waves-light green darken-3", method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } do %>
+                <%= link_to insert_current_user_into_room_path(@hotel.id, room), class:"right btn waves-effect waves-light green darken-3", method: :patch, data: { confirm: "Ao entrar nesse quarto, você perderá sua vaga no qual você já está inserido." } do %>
                   <i class="mdi-action-input"></i>
                 <% end %>
               <% end %>
@@ -55,33 +78,6 @@
           <% end %>
         </div>
       </div>
-
-      <!-- Pessoas -->
-      <div class="col s12 m10">
-        <% room.users.each do |user| %>
-          <div class="chip">
-            <%= image_tag user.avatar_url %>
-            <%= user.two_names %>
-          </div>
-          <div class="chip">
-            <%= image_tag user.avatar_url %>
-            <%= user.two_names %>
-          </div>
-          <div class="chip">
-            <%= image_tag user.avatar_url %>
-            <%= user.two_names %>
-          </div>
-          <div class="chip">
-            <%= image_tag user.avatar_url %>
-            <%= user.two_names %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="card-reveal">
-        <span class="card-title"><a><i class="mdi-navigation-close"></i></a></span>
-      </div>
-
     </li>
   <% end %>
 </ul>
