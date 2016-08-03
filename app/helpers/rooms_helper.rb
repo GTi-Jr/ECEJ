@@ -4,13 +4,15 @@ module RoomsHelper
 
     if people_count < room.capacity
       color = 'green-text darken-3'
+      message = "#{people_count}/#{room.capacity} pessoas"
     else
       color = 'red-text darken-3'
+      message = 'Lotado'
     end
 
     "
       <span class=\"#{color}\">
-        #{people_count}/#{room.capacity}
+        #{message}
       </span>
     ".html_safe
   end
