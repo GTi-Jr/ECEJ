@@ -21,6 +21,8 @@ module Ecej2016
     config.i18n.default_locale = :'pt-BR'
 
     config.assets.precompile =  [ '*.js', '*.scss']
+    config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]

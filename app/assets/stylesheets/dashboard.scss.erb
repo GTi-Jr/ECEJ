@@ -16,25 +16,34 @@
  *= require rooms.scss
  *= require events.scss
  */
- @import "materialize";
- @import "style";
- @import "plugins/perfect-scrollbar/perfect-scrollbar.css";
- @import "plugins/prism/prism.css";
- @import "dropify.min.css";
- @import "plugins/fullcalendar.min.css";
- @import "font-awesome-sprockets";
- @import "font-awesome";
- //@import "plugins/fullcalendar.print.css";
- body {
+@import "materialize";
+@import "style";
+@import "plugins/perfect-scrollbar/perfect-scrollbar.css";
+@import "plugins/prism/prism.css";
+@import "dropify.min.css";
+@import "plugins/fullcalendar.min.css";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+//@import "plugins/fullcalendar.print.css";
+
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans');
+
+html{
+  font-family: "Droid Sans", Roboto;
+}
+body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
-
-  #main {
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Droid Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.1;
+}
+#main {
     flex: 1 0 auto;
-  }
-
+}
 .round-image-50 {
     background-color: white;
     border: 1px solid #d9d9d9;
@@ -45,53 +54,49 @@
     width: 50px;
     overflow: hidden;
     text-align: center;
-    img { width: 100% }
+    img {
+        width: 100%;
+    }
 }
-.input-field div.error{
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color:#FF4081;
-  -webkit-transform: translateY(0%);
-  -ms-transform: translateY(0%);
-  -o-transform: translateY(0%);
-  transform: translateY(0%);
+.input-field div.error {
+    position: relative;
+    top: -1rem;
+    left: 0;
+    font-size: 0.8rem;
+    color: #FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
 }
 ul li#profile-name {
-  text-align: center;
-  min-width: 200px;
+    text-align: center;
+    min-width: 200px;
 }
 ::-webkit-input-placeholder {
-   color: $primary-color;
-   font: 14px;
+    color: $primary-color;
+    font: 14px;
 }
-
 :-moz-placeholder {
-   color: $primary-color;
-   font: 14px;
+    color: $primary-color;
+    font: 14px;
 }
-
 ::-moz-placeholder {
-   color: $primary-color;
-   font: 14px;
+    color: $primary-color;
+    font: 14px;
 }
-
 :-ms-input-placeholder {
-   color: $primary-color;
-   font: 14px;
+    color: $primary-color;
+    font: 14px;
 }
-
 #card-widgets div > div > a > div > img {
-  height: 190px;
-  width: 100%;
+    height: 190px;
+    width: 100%;
 }
-
 div div > div.card-image.waves-effect.waves-block.waves-light > img {
-  height: 190px;
-  width: 100%;
+    height: 190px;
+    width: 100%;
 }
-
 .almej-color {
-  background-color: #324E62 !important;
+    background-color: #324E62 !important;
 }
