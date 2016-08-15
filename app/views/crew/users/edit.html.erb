@@ -119,7 +119,11 @@
             <%= f.text_field :phone, :id =>'phone', placeholder: 'Telefone celular'%>
           </div>
           <div class="input-field col s6">
-            <%= f.text_field :birthday, id: 'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', value: @user.birthday.strftime('%d/%m/%Y') %>
+            <% if @user.birthday.nil? %>
+              <%= f.text_field :birthday, id: 'birthday', placeholder: 'Data de nascimento DD/MM/AAAA' %>
+            <% else %>
+              <%= f.text_field :birthday, id: 'birthday', placeholder: 'Data de nascimento DD/MM/AAAA', value: @user.birthday.strftime('%d/%m/%Y') %>
+            <% end %>
           </div>
 
           <div class="input-field col s6">
