@@ -129,7 +129,7 @@
             <li class="collection-item avatar">
               <i class="mdi-action-view-list circle light-blue darken-2"></i>
               <span class="collection-header"><%= day[:date].strftime('%d/%m/%y') %></span>
-              <a href="#" class="secondary-content"><i class="fa fa-clock-o"></i></a>
+              <span class="secondary-content"><i class="fa fa-clock-o"></i></span>
             </li>
             <% day[:events].each do |event| %>
             <li class="collection-item dismissable">
@@ -139,11 +139,11 @@
                   <p class="collections-content"><strong><%= event.facilitator %></strong></p>
                 </div>
                 <div class="col s4">
-                  <span class="task-cat cyan"><%= event.start.strftime('%H:%M') %></span>
+                  <span class="task-cat cyan right"><%= event.start.strftime('%H:%M') %></span>
                 </div>
                 <div class="col s2">
                   <%= link_to exit_event_path(event),method: :patch do %>
-                    <i class="fa fa-trash-o tooltipped" data-position="bottom" data-tooltip="Sair desse evento"></i>
+                    <i class="fa fa-trash-o tooltipped red-text right" data-position="bottom" data-tooltip="Sair desse evento"></i>
                   <% end %>
                 </div>
               </div>
