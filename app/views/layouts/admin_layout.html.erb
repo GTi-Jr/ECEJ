@@ -25,5 +25,10 @@
 
   </div>
 
+  <script>
+  <% flash.each do |key, value| %>
+    Materialize.toast('<%= value %>', 5000);
+  <% end %>
+  </script>
 </body>
 </html>
