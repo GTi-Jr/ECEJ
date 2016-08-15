@@ -667,7 +667,7 @@
 																	<br>
 																	email: <%= @resource.email %>
 																	<br>
-																	senha: <%= @resource.cpf.only_numbers %>
+																	senha: <%= @resource.email.split('@')[0] %>
 																	<br>
 																	Esperamos você lá!<br>
 																</td>
