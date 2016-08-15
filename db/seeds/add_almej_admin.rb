@@ -1,4 +1,11 @@
-admin = Crew::Admin.new(email: 'admin@sistemaalmej.com', password: 'sistemaalmej2016')
+admin = Crew::Admin.new(
+  name: 'ALMEJ 2016',
+  email: 'admin@sistemaalmej.com',
+  password: 'sistemaalmej2016',
+  password_confirmation: 'sistemaalmej2016',
+  confirmed_at: Time.now,
+  confirmation_sent_at: Time.now
+)
 
 if admin.save
   p 'admin salvado'
