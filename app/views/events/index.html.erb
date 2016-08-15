@@ -2,7 +2,7 @@
   <div class="center-align row">
     <span class="center">Dias de evento</span><br>
     <% @days.each_with_index do |day, index| %>
-    <a class="btn-floating btn-large blue-grey" onclick="showDiv('<%= "day#{index}" %>')">
+    <a class="btn-floating btn-large almej-color" onclick="showDiv('<%= "day#{index}" %>')">
       <%= day[:date].strftime('%d/%m') %></a>
     <% end %>
   </div>
@@ -52,7 +52,7 @@
                           <% end %>
                         <% end %>
                       <% end %>
-                      <div class="chip hour-chip">
+                      <div class="chip hour-chip red-text">
                           <%= "#{event.start.strftime('%H:%M')} - #{event.end.strftime('%H:%M')}" %>
                       </div>
                     </div>
@@ -66,7 +66,7 @@
                           </div>
                         </span>
                       </div>
-                      <div class="btn-floating btn-large btn-price waves-effect waves-light blue-grey tooltipped" data-tooltip="<%= "#{event.users.count} de #{event.limit} pessoas" %>">
+                      <div class="btn-floating btn-large btn-price waves-effect waves-light almej-color tooltipped" data-tooltip="<%= "#{event.users.count} de #{event.limit} pessoas" %>">
                         <%= "#{event.users.count}/#{event.limit}" %>
                       </div>
                     </div>
@@ -93,8 +93,9 @@
   <div class="center-align row">
     <span class="center">Dias de evento</span><br>
     <% @days.each_with_index do |day, index| %>
-    <a class="btn-floating btn-large blue-grey" onclick="showDiv('<%= "day#{index}" %>')">
-      <%= day[:date].strftime('%d/%m') %></a>
+      <a class="btn-floating btn-large almej-color" onclick="showDiv('<%= "day#{index}" %>')">
+        <%= day[:date].strftime('%d/%m') %>
+      </a>
     <% end %>
   </div>
 </div>
