@@ -6,7 +6,7 @@
           <p class="center login-form-text">Edição de quarto</p>
         </div>
       </div>
-      
+
       <div class="row">
         <div class="input-field col s12 center">
           <% if @room.errors.any? %>
@@ -14,7 +14,7 @@
               <% @room.errors.full_messages.each do |error| %>
                 <li><%= error %></li>
               <% end %>
-            </ul>            
+            </ul>
           <% end %>
         </div>
       </div>
@@ -50,4 +50,41 @@
     <p><%= notice %></p>
     <p><%= alert %></p>
   </div>
+</div>
+
+<div>
+  <h4 class="header center">Pessoas no quarto</h4>
+  <div class="row">
+    <% if @users.empty? %>
+      <div class="col s12 center">
+        <span class="red-text">Nenhuma pessoa neste quarto</span>
+      </div>
+    <% else %>
+      <div class="col s12">
+        <div class="center">
+          <table id="users_table" class="highlight">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @users.each do |user, payment| %>
+                <tr class="<%= "left-red-border" if !user.active %>">
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.junior_enterprise %></td>
+                  <td><%= link_to 'Remover do quarto', crew_remove_user_from_room_path(user.id), method: :patch %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

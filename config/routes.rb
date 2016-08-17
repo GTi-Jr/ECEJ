@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     patch 'change_users/:user_id/:user_2_email' => 'admins_methods#change_users', as: :change_users_position
     patch 'disqualify/:id' => 'admins_methods#disqualify_user', as: :disqualify_user
     patch 'move_user_to_lot/:user_id/:lot_id' => 'admins_methods#move_user_to_lot', as: :move_user_to_lot
+    patch 'users/:user_id/remove_from_room' => 'rooms#remove_user', as: :remove_user_from_room
 
     # Admin payment routes
     get 'payments' => 'payments#index'

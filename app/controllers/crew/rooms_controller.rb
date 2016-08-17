@@ -23,6 +23,7 @@ class Crew::RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+    @users = @room.users
   end
 
   # POST /rooms
@@ -30,7 +31,7 @@ class Crew::RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     @room.hotel = Hotel.find_by_name(params[:room][:hotel])
-    
+
     respond_to do |format|
       if @room.save
         format.html { redirect_to crew_rooms_path, notice: 'Quarto foi criado com sucesso.' }
@@ -38,8 +39,8 @@ class Crew::RoomsController < ApplicationController
       else
         format.html do
           set_hotel_names
-          render :new  
-        end 
+          render :new
+        end
 
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
@@ -50,7 +51,7 @@ class Crew::RoomsController < ApplicationController
   # PATCH/PUT /rooms/1.json
   def update
     @room.hotel = Hotel.find_by_name(params[:room][:hotel])
-    
+
     respond_to do |format|
       if @room.update(room_params)
         format.html { redirect_to crew_rooms_path, notice: 'Quarto atualizado com sucesso.' }
@@ -73,7 +74,7 @@ class Crew::RoomsController < ApplicationController
   end
 
   # GET /rooms/new_rooms
-  def new_rooms    
+  def new_rooms
   end
 
   # POST /rooms/create_rooms
@@ -88,6 +89,16 @@ class Crew::RoomsController < ApplicationController
                           extra_info: params[:extra_info]} )
 
     redirect_to crew_rooms_path
+  end
+
+  def remove_user
+    @user = User.find(params[:user_id])
+
+    if @user.exit_room!
+      redirect_to :back, notice: "#{@user.first_name} foi removido do quarto."
+    else
+      redirect_to :back, alert: "Não foi possível remover #{@user.first_name} do quarto. Tente novamente."
+    end
   end
 
   private
