@@ -34,7 +34,7 @@
           <%= f.label :facilitator_image, "Foto do facilitator", class: "center-align" %>
           <%= f.file_field :facilitator_image, id: 'facilitator_image' %>
           <p>
-            Imagem atual: 
+            Imagem atual:
             <% if @event.facilitator_image.present? %>
               <%= image_tag @event.facilitator_image.thumb %>
             <% else %>
@@ -70,7 +70,42 @@
         </div>
       </div>
     <% end %>
-    <p><%= notice %></p>
-    <p><%= alert %></p>
   </div>
+</div>
+
+<div>
+  <h4 class="header center">Pessoas no evento</h4>
+  <div class="row">
+    <% if @users.empty? %>
+      <div class="col s12 center">
+        <span class="red-text">Nenhuma pessoa neste evento</span>
+      </div>
+    <% else %>
+      <div class="col s12">
+        <div class="center">
+          <table id="users_table" class="highlight">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>EJ</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @users.each do |user, payment| %>
+                <tr class="<%= "left-red-border" if !user.active %>">
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.junior_enterprise %></td>
+                  <td><%= link_to 'Remover do evento', crew_remove_event_user_path(@event.id, user.id), method: :delete %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

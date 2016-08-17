@@ -26,6 +26,7 @@ class Crew::EventsController < ApplicationController
   end
 
   def edit
+    @users = @event.users
   end
 
   def update
@@ -61,7 +62,7 @@ class Crew::EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :facilitator, :facilitator_image, 
+    params.require(:event).permit(:name, :facilitator, :facilitator_image,
                                   :description, :limit, :start, :end)
   end
 
