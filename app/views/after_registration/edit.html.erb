@@ -8,7 +8,7 @@
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Dados pessoais</h4>
   <div class="row">
-    <!----------- PERSONAL INFO -------->
+    <!----------- PERSONAL INFO ---------->
     <div class="row">
       <div class="input-field col s12">
         <%= f.text_field :name, :id => 'name', placeholder: 'Nome completo'%>
@@ -62,8 +62,11 @@
     <!-------- MEJ -------->
     <div class="row">
       <div class="input-field col s2">
-          <input class="filled-in" id="filled-in-box" checked="checked" type="checkbox" onchange="valueChanged()">
           <label for="filled-in-box">EJ Federada ?</label>
+          <select id="" name="user[federated]">
+            <option value="1" <%= 'selected' if @user.is_fed? %> >Sim</option>
+            <option value="0" <%= 'selected' if !@user.is_fed? %> >Não</option>
+          </select>
       </div>
       <div id="federation_div" class="input-field col s10">
         <%= f.text_field :federation, :id => 'federation', placeholder: "Federação", class:"", "data-position"=>"bottom" ,"data-delay"=>"50" %>
@@ -87,7 +90,7 @@
 <div class="col s12 z-depth-4 card-panel">
   <h4 class="header2">Endereço</h4>
   <div class="row">
-    <!--------- Adress info ------>
+    <!--------- Adress info -------->
     <div class="row">
       <div class="input-field col s6">
         <%= f.text_field :cep, placeholder: "CEP", id:"cep"%>

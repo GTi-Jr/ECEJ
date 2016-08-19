@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
 
   # Returns true if there's anything in federation.
   def is_fed?
-    !federation.nil? || !federation.empty?
+    federated
   end
 
   # Returns false unless the user has updated all of his information

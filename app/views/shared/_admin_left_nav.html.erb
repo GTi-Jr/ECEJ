@@ -49,12 +49,11 @@
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-account-circle"></i> Usuários</a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to 'Novo admin', crew_new_admin_path %></li>
               <li><%= link_to 'Novo usuário', new_crew_user_path %></li>
               <li><%= link_to 'Usuários', crew_users_path %></li>
-              <li><%= link_to 'Admins', crew_index_path %></li>
               <li><%= link_to 'Qualificados', crew_users_qualified_path %></li>
               <li><%= link_to 'Desqualificados', crew_users_disqualified_path %></li>
+              <li><%= link_to 'Planilha', crew_download_users_excel_path(format: :xls) %></li>
             </ul>
           </div>
         </li>
@@ -93,12 +92,10 @@
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-maps-hotel"></i> Quartos</a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to 'Cadastrar', new_crew_room_path %>
-              </li>
-              <li><%= link_to 'Cadastrar vários', crew_new_rooms_path %>
-              </li>
-              <li><%= link_to 'Lista', crew_rooms_path %>
-              </li>
+              <li><%= link_to 'Cadastrar', new_crew_room_path %></li>
+              <li><%= link_to 'Cadastrar vários', crew_new_rooms_path %></li>
+              <li><%= link_to 'Lista', crew_rooms_path %></li>
+              <li><%= link_to 'Planilha', crew_download_rooms_users_path(format: :xls) %></li>
             </ul>
           </div>
         </li>
