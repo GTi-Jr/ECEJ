@@ -1,3 +1,3 @@
 class UsersLotMailer < ApplicationMailer
-  
+
 end
