@@ -3,6 +3,6 @@ User.all.each do |user|
   user.password = password
   user.password_confirmation = password
   user.save
-  
+
   UserMailer.welcome(user, password).deliver
 end
