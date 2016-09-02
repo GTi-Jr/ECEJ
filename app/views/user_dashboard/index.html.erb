@@ -7,8 +7,7 @@
     <div class="col s12">
       <div class="col s6 m4 l3">
         <figure class="card-profile-image">
-          <%= image_tag(@user.avatar_url(:medium), class:'circle responsive-img valign profile-image', style:'max-width: 100px;') if @user.avatar? %>
-          <%= image_tag('jack-avatar.jpg', class:'circle responsive-img valign profile-image', style:'max-width: 100px;') if !@user.avatar? %>
+          <%= image_tag(@user.avatar_url, class:'circle responsive-img valign profile-image', style:'max-width: 100px;') %>
         </figure>
       </div>
       <div class="col s6 m8 l9">
