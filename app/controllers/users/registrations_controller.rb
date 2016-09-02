@@ -36,7 +36,7 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
     city = params[:city]
     complement = params[:complement]
     street = params[:street]
- 
+
     @user.completed = true
     @user.cpf = Cpf.new(params[:user][:cpf])
 
@@ -126,6 +126,6 @@ before_action :verify_register_conclusion, only: [:edit, :update, :edit_password
   end
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :federated, :federation, :junior_enterprise, :job, :university, :transport_required, :cep, :state, :city, :street)
+    params.require(:user).permit(:name, :general_register, :birthday ,:cpf, :gender, :avatar, :phone, :special_needs, :food_restriction, :food_restriction, :federated, :federation, :junior_enterprise, :job, :university, :transport_required, :cep, :state, :city, :street)
   end
 end
