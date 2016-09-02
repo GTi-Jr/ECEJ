@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160724201633) do
+ActiveRecord::Schema.define(version: 20160902030835) do
 
   create_table "crew_admins", force: :cascade do |t|
     t.string   "name",                   default: "", null: false
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20160724201633) do
     t.string   "street"
     t.string   "cep"
     t.boolean  "federated"
+    t.string   "food_restriction"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
