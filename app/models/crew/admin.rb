@@ -15,8 +15,6 @@ class Crew::Admin < ActiveRecord::Base
     @user.confirmation_sent_at = DateTime.now
     @user.confirmed_at = DateTime.now
 
-    @user.completed = true
-
     password = @user.email.split('@')[0]
 
     @user.password = password
