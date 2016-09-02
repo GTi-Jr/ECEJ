@@ -6,23 +6,6 @@ $('#postal_code').mask('000000-000');
 $('#birthday').mask('00/00/0000');
 $('#user_cep').mask('00000-000')
 
-// $('.datepicker').pickadate({
-//     monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-//     monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-//     weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-//     weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-//     today: 'Hoje',
-//     clear: 'Limpar',
-//     close: 'Fechar',
-//     format: 'dd/mm/yyyy',
-//     min: new Date(1940, 1, 1),
-//     max: new Date(2001, 12, 31),
-//     max: true,
-//     selectMonths: true, // Creates a dropdown to control month
-//     selectYears: 40, // Creates a dropdown of 15 years to control year
-//     yearRange: '1950:2005'
-// });
-
 
 
 $('.progress').hide();
