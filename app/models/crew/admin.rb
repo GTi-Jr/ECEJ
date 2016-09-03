@@ -15,11 +15,6 @@ class Crew::Admin < ActiveRecord::Base
     @user.confirmation_sent_at = DateTime.now
     @user.confirmed_at = DateTime.now
 
-    password = @user.email.split('@')[0]
-
-    @user.password = password
-    @user.password_confirmation = password
-
     lot = Lot.active_lot
 
     @user.lot = lot if !lot.nil? && !lot.is_full?
@@ -29,6 +24,14 @@ class Crew::Admin < ActiveRecord::Base
 
   def create_user(user_params = {})
     @user = new_user(user_params)
-    @user.save
+
+    password = Devise.friendly_token.first(8)
+    @user.password = password
+
+    saved = @user.save
+
+    UserMailer.welcome(@user, password).deliver if saved
+
+    saved
   end
 end
