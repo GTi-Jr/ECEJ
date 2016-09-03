@@ -30,4 +30,8 @@ class ApplicationController < ActionController::Base
       redirect_to authenticated_user_root_path, alert: "Por favor, efetue o pagamento."
     end
   end
+
+  def user_must_be_active
+    redirect_to destroy_user_session_path, notice: 'Você não mais possui acesso ao sistema.' if !current_user.active
+  end
 end
