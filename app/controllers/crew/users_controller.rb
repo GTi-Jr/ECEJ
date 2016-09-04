@@ -20,7 +20,11 @@ class Crew::UsersController < ApplicationController
   def create
     @user = current_crew_admin.new_user(user_params)
 
+    password = Devise.friendly_token.first(8)
+    @user.password = password
+
     if @user.save
+      UserMailer.welcome(@user, password).deliver
       redirect_to edit_crew_user_path(@user), notice: "Usuário criado com sucesso."
     else
       render :new
