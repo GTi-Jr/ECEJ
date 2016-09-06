@@ -32,6 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_must_be_active
-    redirect_to destroy_user_session_path, notice: 'Você não mais possui acesso ao sistema.' if !current_user.active
+    redirect_to authenticated_user_root_path, notice: 'Você não mais possui acesso ao sistema.' if !current_user.active
   end
 end
