@@ -4,7 +4,7 @@ class Crew::RoomsController < ApplicationController
   before_action :authenticate_crew_admin!
   before_action :set_room, only: [:edit, :update, :destroy]
   before_action :set_hotel_names, only: [:new, :edit, :new_rooms]
-  before_action :eita
+
   # GET /rooms
   # GET /rooms.json
   def index
@@ -99,10 +99,6 @@ class Crew::RoomsController < ApplicationController
     else
       redirect_to :back, alert: "Não foi possível remover #{@user.first_name} do quarto. Tente novamente."
     end
-  end
-
-  def eita
-    redirect_to authenticated_user_root_path
   end
 
   private

@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
 	before_action :authenticate_user!, :get_user
 	before_action :get_hotel
 	before_action :user_must_have_paid
-	before_action :eita
+
 	layout "dashboard"
 	# PATCH
 	# Insert current user into the selected room
@@ -35,10 +35,6 @@ class RoomsController < ApplicationController
 		@rooms = Room.includes(:users).where(hotel: @hotel).order(:number)
 
 		@room_image_url = @hotel.room_image_url
-	end
-
-	def eita
-	  redirect_to authenticated_user_root_path
 	end
 
 	private
